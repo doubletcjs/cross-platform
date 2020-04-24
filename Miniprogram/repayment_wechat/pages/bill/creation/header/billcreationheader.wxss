@@ -1,0 +1,27 @@
+.bill-creation-header-amount-swapper {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+
+    left: 0;
+    right: 0;
+
+    background-color: rgba(21, 159, 251, 1);
+}
+
+.bill-creation-header-amount {
+    font-size: 80rpx;
+
+    margin-top: 20rpx;
+    margin-left: 20rpx;
+    margin-right: 20rpx;
+}
+
+.bill-creation-header-amount-tip {
+    font-size: 24rpx;
+    color: white;
+
+    margin-bottom: 20rpx;
+    margin-left: 20rpx;
+    margin-right: 20rpx;
+}

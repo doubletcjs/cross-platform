@@ -1,0 +1,9 @@
+<view class="bill-creation-header-amount-swapper">
+    <view class="bill-creation-header-amount" wx:if="{{amount.length > 0}}" style="color: white;">
+        {{amount}}
+    </view>
+    <view class="bill-creation-header-amount" wx:else style="color: rgba(191, 191, 191, 1);">
+        0.00
+    </view>
+    <view class="bill-creation-header-amount-tip">每期还款金额（元）</view>
+</view>

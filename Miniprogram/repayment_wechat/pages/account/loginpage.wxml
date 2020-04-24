@@ -1,0 +1,7 @@
+<view class="login-page-swapper">
+    <image class="login-page-logo" src="/images/placeholder@3x.png" mode="aspectFill"></image>
+    <button class="login-page-confirm" open-type="getUserInfo" bindgetuserinfo="loginAction">
+        <image class="login-page-login-logo" src="/images/icon_login_wechat.png"></image>
+        <view class="login-page-login">微信登录</view>
+    </button>
+</view>

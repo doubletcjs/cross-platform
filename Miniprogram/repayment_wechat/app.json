@@ -1,0 +1,44 @@
+{
+    "pages": [
+        "pages/home/homepage",
+        "pages/mine/minepage",
+        "pages/bill/emptybill/emptybillpage",
+        "pages/mine/header/mineheader",
+        "pages/account/loginpage",
+        "pages/bill/catalog/billcatalogpage",
+        "pages/mine/feedback/feedbackpage",
+        "pages/mine/setting/settingpage",
+        "pages/bill/billtab/billtabview",
+        "pages/bill/detail/billdetailpage",
+        "pages/bill/creation/billcreationpage",
+        "pages/bill/creation/bank/billbankselection",
+        "pages/bill/summary/billsummarypage"
+    ],
+    "window": {
+        "backgroundTextStyle": "dark",
+        "navigationBarBackgroundColor": "#fff",
+        "navigationBarTitleText": "",
+        "navigationBarTextStyle": "black"
+    },
+    "tabBar": {
+        "color": "#708090",
+        "selectedColor": "#159FFB",
+        "backgroundColor": "white",
+        "position": "bottom",
+        "borderStyle": "white",
+        "list": [{
+                "pagePath": "pages/home/homepage",
+                "text": "首页",
+                "iconPath": "/images/ico_tab_home_normal@3x.png",
+                "selectedIconPath": "/images/ico_tab_home_selected@3x.png"
+            },
+            {
+                "pagePath": "pages/mine/minepage",
+                "text": "我的",
+                "iconPath": "/images/ico_tab_my_normal@3x.png",
+                "selectedIconPath": "/images/ico_tab_my_selected@3x.png"
+            }
+        ]
+    },
+    "sitemapLocation": "sitemap.json"
+}

@@ -1,0 +1,47 @@
+.login-page-swapper {
+    width: 100%;
+    height: 100%;
+
+    display: flex;
+    flex-direction: column;
+
+    position: absolute;
+
+    background-color: white;
+}
+
+.login-page-logo {
+    width: 152rpx;
+    height: 152rpx;
+
+    margin-top: 40rpx;
+
+    align-self: center;
+}
+
+.login-page-confirm {
+    margin-top: 80rpx;
+    height: 76rpx;
+    margin-left: 24rpx;
+    margin-right: 24rpx;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+
+    background-color: rgba(21, 159, 251, 1);
+    border-radius: 8rpx;
+}
+
+.login-page-login {
+    font-size: 32rpx;
+    color: white;
+}
+
+.login-page-login-logo {
+    width: 44rpx;
+    height: 36rpx;
+
+    margin-right: 16rpx;
+}

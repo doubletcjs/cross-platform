@@ -1,0 +1,28 @@
+<view class="container">
+    <chartheader></chartheader>
+    <view class="bill-summary-count-swapper">
+        <view class="bill-summary-function-swapper">
+            <view class="bill-summary-tip">账 单</view>
+            <view class="bill-summary-count">共有4个账单</view>
+        </view>
+        <view class="bill-summary-function-swapper" style="justify-content: flex-end;" bind:tap="unfoldAction">
+            <view class="bill-summary-value">1873.98</view>
+            <image class="bill-summary-unfold" src="{{isUnfold == false ? '/images/icon_list_down.png' : '/images/icon_list_up.png'}}" mode="aspectFit"></image>
+        </view>
+    </view>
+    <view class="bill-summary-section-swapper" wx:if="{{isUnfold == true && dataList.length > 0}}">
+        <view class="bill-summary-cell" wx:for="{{dataList}}" wx:key="index">
+            <view class="bill-summary-cell-content-swapper">
+                <image class="bill-summary-cell-logo" src="/images/placeholder@3x.png"></image>
+                <view class="bill-summary-cell-column">
+                    <view class="bill-summary-cell-name">招商银行</view>
+                    <view class="bill-summary-cell-date">04月27日 第3/10期</view>
+                </view>
+            </view>
+            <view class="bill-summary-cell-value-swapper">
+                <view class="bill-summary-cell-status">本期已还</view>
+                <view class="bill-summary-cell-value">111280.70</view>
+            </view>
+        </view>
+    </view>
+</view>

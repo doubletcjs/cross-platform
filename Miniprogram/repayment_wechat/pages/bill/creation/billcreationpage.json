@@ -1,0 +1,10 @@
+{
+    "usingComponents": {
+        "keyboard": "../keyboard/billkeyboard",
+        "header": "../header/billcreationheader"
+    },
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#159FFB",
+    "navigationBarTitleText": "编辑账单",
+    "navigationBarTextStyle": "white"
+}

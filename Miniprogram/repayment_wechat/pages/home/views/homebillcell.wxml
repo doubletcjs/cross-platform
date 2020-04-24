@@ -1,0 +1,37 @@
+<view class="home-section-swapper">
+    <view class="home-section" bind:tap="unfoldMonth">
+        <view class="home-section-icon-month">
+            <image class="home-section-icon" src="/images/icon_list_down.png" mode="aspectFit" wx:if="{{billItem['list'].length}}"></image>
+            <image class="home-section-icon" src="/images/icon_edit_right.png" mode="aspectFit" wx:else></image>
+            <view class="home-section-month">{{section}}</view>
+        </view>
+        <view class="home-section-value-status" wx:if="{{billItem['repayment'] == true}}">
+            <image class="home-section-status-icon" src="/images/list_done.png" mode="aspectFit"></image>
+            <view class="home-section-repayment">全部还清</view>
+        </view>
+        <view class="home-section-value-status" wx:else>
+            <view class="home-section-value">1035.45</view>
+        </view>
+    </view>
+    <view class="home-bill-cell-swapper" wx:for="{{billItem['list']}}" wx:key="index">
+        <view class="home-bill-cell-remark" style="width: {{remarkBtnWidth}}rpx; background-color: rgba(21, 159, 251, 1);" data-index="{{index}}">
+            设为已还
+        </view>
+        <view class="home-bill-cell" data-index="{{index}}" style="{{styleDataList[index]}}" bind:tap="billDetail" bindtouchstart="touchS" bindtouchmove="touchM" bindtouchend="touchE">
+            <view class="home-bill-cell-content-swapper">
+                <image class="home-bill-cell-logo" src="/images/placeholder@3x.png"></image>
+                <view class="home-bill-cell-column">
+                    <view class="home-bill-cell-name">招商银行</view>
+                    <view class="home-bill-cell-date">04月27日 第3/10期</view>
+                </view>
+            </view>
+            <view class="home-bill-cell-value-swapper">
+                <view class="home-bill-cell-bill-row">
+                    <view class="home-bill-cell-status">本期已还</view>
+                    <image class="home-bill-cell-arrow" src="/images/icon_forward_small.png" mode="aspectFit"></image>
+                </view>
+                <view class="home-bill-cell-value">111280.70</view>
+            </view>
+        </view>
+    </view>
+</view>

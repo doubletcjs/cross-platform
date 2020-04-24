@@ -1,0 +1,325 @@
+{
+	"pages": [ //pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages
+		{
+			"path": "pages/main/homepage",
+			"style": {
+				"navigationStyle": "custom",
+				"enablePullDownRefresh": true
+			}
+		},
+		{
+			"path": "pages/store/storepage",
+			"style": {
+				"navigationBarTitleText": "商城",
+				"enablePullDownRefresh": true
+			}
+		},
+		{
+			"path": "pages/storage/storagepage",
+			"style": {
+				"navigationBarTitleText": "存储器"
+			}
+		},
+		{
+			"path": "pages/galaxy/galaxypage",
+			"style": {
+				"navigationBarTitleText": "Galaxy"
+			}
+		},
+		{
+			"path": "pages/mine/minepage",
+			"style": {
+				"navigationBarTitleText": "我的",
+				"navigationStyle": "custom",
+				"enablePullDownRefresh": true
+			}
+		}, {
+			"path": "pages/store/productdetail",
+			"style": {
+				"navigationBarTitleText": "产品信息"
+			}
+		}, {
+			"path": "pages/mine/setting/settingpage",
+			"style": {
+				"navigationBarTitleText": "设置中心"
+			}
+		}, {
+			"path": "pages/mine/service/servicepage",
+			"style": {
+				"navigationBarTitleText": "联系客服"
+			}
+		}, {
+			"path": "pages/account/personalinfo",
+			"style": {
+				"navigationBarTitleText": "个人信息"
+			}
+		},{
+			"path": "pages/account/modifyname/modifyname",
+			"style": {
+				"navigationBarTitleText": "修改昵称"
+			}
+		},{
+			"path": "pages/account/certification/certificationcenter",
+			"style": {
+				"navigationBarTitleText": "身份管理中心"
+			}
+		}, {
+			"path": "pages/account/certification/certificationinfo",
+			"style": {
+				"navigationBarTitleText": "实名信息",
+				"enablePullDownRefresh": true
+			}
+		}, {
+			"path": "pages/account/certification/main/certificationmain",
+			"style": {}
+		}, {
+			"path": "pages/inviteearnings/maininvite",
+			"style": {
+				"navigationBarTitleText": "邀请好友"
+			}
+		}, {
+			"path": "pages/coin/coinmain",
+			"style": {
+				"navigationBarTitleText": "我的金币",
+				"enablePullDownRefresh": true
+			}
+		}, {
+			"path": "pages/storage/storagemain",
+			"style": {
+				"navigationBarTitleText": "我的存储",
+				"enablePullDownRefresh": true
+			}
+		}, {
+			"path": "pages/inviteearnings/inviteearnings",
+			"style": {
+				"navigationBarTitleText": "邀请收益",
+				"enablePullDownRefresh": true
+			}
+		}, {
+			"path": "pages/hkc/hkc",
+			"style": {
+				"navigationBarTitleText": "我的算力",
+				// "enablePullDownRefresh": true,
+				"app-plus": {
+					"titleNView": {
+						"buttons": [{
+							"text": "HKC规则",
+							"fontSize": "30rpx",
+							"float": "right",
+							"color": "#FFFFFF",
+							"width": "140rpx"
+						}]
+					}
+				}
+			}
+		}, {
+			"path": "pages/message/message",
+			"style": {
+				"navigationBarTitleText": "热销榜",
+				"enablePullDownRefresh": true
+			}
+		}, {
+			"path": "pages/account/loginregister/loginregister",
+			"style": {
+				"navigationBarTitleText": "登录",
+				"navigationStyle": "custom",
+				"app-plus": {
+					"softinputMode": "adjustResize "
+				}
+			}
+		}, {
+			"path": "pages/account/agreement/agreement",
+			"style": {
+				"navigationBarTitleText": "用户协议"
+			}
+		}, {
+			"path": "pages/mine/service/servicesweb",
+			"style": {
+				"navigationBarTitleText": "在线客服"
+			}
+		}, {
+			"path": "pages/mine/contract/contractmain",
+			"style": {
+				"navigationBarTitleText": "合同下载",
+				"enablePullDownRefresh": true
+			}
+		}, {
+			"path": "pages/account/paycodefunction/paycodefunction",
+			"style": {
+				"navigationBarTitleText": "设置支付密码"
+			}
+		}, {
+			"path": "pages/mine/aboutus/aboutus",
+			"style": {
+				"navigationBarTitleText": "关于我们"
+			}
+		}, {
+			"path": "pages/store/order/buycomplete",
+			"style": {
+				"navigationBarTitleText": "购买成功"
+			}
+		}, {
+			"path": "pages/coin/cointransfers/cointransfers",
+			"style": {
+				"navigationBarTitleText": "金币互转"
+			}
+		}, {
+			"path": "pages/coin/cointransfers/cointransfersdetail",
+			"style": {
+				"navigationBarTitleText": "转出"
+			}
+		}, {
+			"path": "pages/coin/recharge/usdtrecharge",
+			"style": {
+				"navigationBarTitleText": "USDT充值"
+			}
+		}, {
+			"path": "pages/coin/recharge/cashrecharge",
+			"style": {
+				"navigationBarTitleText": "现金充值"
+				// "app-plus": {
+				// 	"titleNView": {
+				// 		"buttons": [{
+				// 			"text": "充值明细  ",
+				// 			"fontSize": "30rpx",
+				// 			"color": "#FFFFFF",
+				// 			"float": "right",
+				// 			"width": "auto"
+				// 		}]
+				// 	}
+				// }
+			}
+		}, {
+			"path": "pages/coin/recharge/rechargedetail",
+			"style": {
+				"navigationBarTitleText": "订单明细",
+				"enablePullDownRefresh": true,
+				"app-plus": {
+					"titleNView": {
+						"buttons": [{
+							"text": "客服  ",
+							"fontSize": "15px",
+							"color": "rgba(255, 255, 255, 1)",
+							"float": "right",
+							"width": "auto"
+						}]
+					}
+				}
+			}
+		}, {
+			"path": "pages/coin/withdraw/cashwithdraw",
+			"style": {
+				"navigationBarTitleText": "现金提现"
+			}
+		}, {
+			"path": "pages/coin/withdraw/usdtwithdraw",
+			"style": {
+				"navigationBarTitleText": "USDT提现"
+			}
+		}, {
+			"path": "pages/coin/recharge/rechargecomplete",
+			"style": {
+				"navigationBarTitleText": "申请已提交"
+			}
+		}, {
+			"path": "pages/hkc/hkc_rule/hkc_rule",
+			"style": {
+				"navigationBarTitleText": "HKC规则"
+			}
+		},
+		{
+			"path": "pages/guide/appguide",
+			"style": {
+				"navigationStyle": "custom"
+			}
+		}, {
+			"path": "pages/hkc/hkc_finish/hkc_finish",
+			"style": {
+				"navigationBarTitleText": "兑换成功"
+			}
+		}, {
+			"path": "pages/hkc/hkc_transformation/hkc_transformation",
+			"style": {
+				"navigationBarTitleText": "HKC互转",
+				"titleNView": {
+					"buttons": [{
+						"text": "HKC规则",
+						"fontSize": "30rpx",
+						"float": "right",
+						"color": "#FFFFFF",
+						"width": "140rpx"
+					}]
+				}
+			}
+		}, {
+			"path": "pages/hkc/hkc_history/hkc_history",
+			"style": {
+				"navigationBarTitleText": "历史记录",
+				"titleNView": {
+					"buttons": [{
+						"text": "HKC规则",
+						"fontSize": "30rpx",
+						"float": "right",
+						"color": "#FFFFFF",
+						"width": "140rpx"
+					}]
+				}
+			}
+		}, {
+			"path": "pages/hkc/hkc_transformation_finish/hkc_transformation_finish",
+			"style": {
+				"navigationBarTitleText": "互转成功"
+			}
+		}, {
+			"path": "pages/hkc/hkc_details/hkc_details",
+			"style": {
+				"navigationBarTitleText": "HKC兑转明细",
+				"enablePullDownRefresh": true
+			}
+		}
+	],
+	"globalStyle": {
+		"navigationBarTextStyle": "white",
+		"navigationBarTitleText": "华科闪云",
+		"navigationBarBackgroundColor": "rgba(21, 25, 54, 1)",
+		"backgroundColor": "rgba(21, 25, 54, 1)",
+		"backgroundColorBottom": "rgba(21, 25, 54, 1)",
+		"backgroundColorTop": "rgba(21, 25, 54, 1)"
+	},
+	"tabBar": {
+		"color": "rgba(145, 152, 173, 1)",
+		"selectedColor": "rgba(23, 96, 255, 1)",
+		"backgroundColor": "rgba(28, 35, 63, 1)",
+		"list": [{
+				"pagePath": "pages/main/homepage",
+				"text": "首页",
+				"iconPath": "static/images/ico_tab_home_normal@3x.png",
+				"selectedIconPath": "static/images/ico_tab_home_selected@3x.png"
+			},
+			{
+				"pagePath": "pages/store/storepage",
+				"text": "商城",
+				"iconPath": "static/images/ico_tab_market_normal@3x.png",
+				"selectedIconPath": "static/images/ico_tab_market_selected@3x.png"
+			},
+			// {
+			// 	"pagePath": "pages/storage/storagepage",
+			// 	"text": "存储器",
+			// 	"iconPath": "static/images/ico_tab_storage_normal@3x.png",
+			// 	"selectedIconPath": "static/images/ico_tab_storage_selected@3x.png"
+			// },
+			{
+				"pagePath": "pages/galaxy/galaxypage",
+				"text": "Galaxy",
+				"iconPath": "static/images/ico_tab_galaxy_normal@3x.png",
+				"selectedIconPath": "static/images/ico_tab_galaxy_selected@3x.png"
+			},
+			{
+				"pagePath": "pages/mine/minepage",
+				"text": "我的",
+				"iconPath": "static/images/ico_tab_my_normal@3x.png",
+				"selectedIconPath": "static/images/ico_tab_my_selected@3x.png"
+			}
+		]
+	}
+}

@@ -1,0 +1,123 @@
+.mine-header-wapper {
+	margin-left: 24rpx;
+	margin-right: 24rpx;
+
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+	align-content: center;
+
+	/* background-image: url(../../../static/images/illustrations@3x.png); */
+	background-size: 110% 60%;
+	border-bottom-left-radius: 15rpx;
+	border-bottom-right-radius: 15rpx;
+}
+
+.mine-header-title {
+	font-size: 46rpx;
+	color: rgba(255, 255, 255, 1);
+
+	margin-top: 79rpx;
+	margin-bottom: 40rpx;
+}
+
+.mine-header-info-wapper {
+	width: 100%; 
+
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	align-items: center;
+	align-content: center;
+
+	background-color: rgba(28, 35, 63, 1);
+	border-radius: 15rpx;
+}
+
+.mine-header-info-account-wapper {
+	display: flex;
+	flex-direction: row;
+	align-items: flex-start;
+	align-content: center; 
+}
+
+.mine-header-info-portrait {
+	width: 160rpx;
+	height: 160rpx;
+
+	margin-left: 40rpx;
+	margin-top: 60rpx;
+	margin-bottom: 60rpx;
+	border-radius: 80rpx; 
+}
+
+.mine-header-info-arrow {
+	width: 34rpx;
+
+	margin-right: 30rpx;
+}
+
+.mine-header-info-more-wapper {
+    margin-left: 30rpx;
+
+    display: flex;
+    flex-direction: column;
+    align-self: center;
+}
+
+.mine-header-info-name-level-wapper {
+    max-width: 390rpx;
+	white-space: nowrap; 
+
+    display: flex;
+    flex-direction: row;
+    align-items: center; 
+}
+
+.mine-header-info-name {
+    font-size: 40rpx;
+    color: rgba(255, 255, 255, 1);
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.mine-header-info-level-wapper {
+    height: 45rpx;
+
+    margin-left: 8rpx;
+    margin-top: 8rpx;
+
+    justify-content: center;
+}
+
+.mine-header-info-level {
+    color: rgba(255, 255, 255, 1);
+    font-size: 24rpx;
+
+    padding-left: 8rpx;
+    padding-right: 8rpx;
+
+    position: relative;
+    bottom: 55rpx;
+}
+
+.mine-header-info-level-image {
+    width: 100%;
+    height: 100%;
+    max-height: 45rpx;
+    min-width: 64rpx;
+}
+
+.mine-header-info-safe {
+	width: 24rpx;
+	height: 29rpx;
+}
+
+.mine-header-info-phone {
+	font-size: 26rpx;
+	color: rgba(145, 152, 173, 1);
+	overflow: hidden;
+	text-overflow: ellipsis;
+	
+	margin-left: 12rpx;
+}

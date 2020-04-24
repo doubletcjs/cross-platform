@@ -1,0 +1,9 @@
+{
+    "usingComponents": {
+        "chartheader": "../views/chart/billsummarychart"
+    },
+    "navigationBarTitleText": "账单汇总",
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#159FFB",
+    "navigationBarTextStyle": "white"
+}

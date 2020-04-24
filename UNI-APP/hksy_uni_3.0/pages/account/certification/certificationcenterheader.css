@@ -1,0 +1,82 @@
+.certification-center-header-wapper {
+	margin-top: 20rpx;
+	margin-left: 20rpx;
+	margin-right: 20rpx;
+	
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between; 
+	align-items: center;
+	
+	background-color: rgba(28, 35, 63, 1);
+}
+
+.certification-center-status-wapper {
+	width: 158rpx;
+	height: 90rpx;
+	
+	display: flex;
+	flex-direction: row;
+	justify-content: center; 
+	align-items: center; 
+	
+	margin-top: 30rpx;
+	margin-bottom: 193rpx; 
+	
+	border-top-left-radius: 45rpx;
+	border-bottom-left-radius: 45rpx;
+}
+
+.certification-center-status {
+	font-size: 30rpx;
+	color: rgba(255, 255, 255, 1);
+	
+	padding-left: 41rpx;
+	padding-right: 24rpx; 
+}
+
+.certification-center-content-wapper {
+	margin-left: 29rpx; 
+	
+	display: flex;
+	flex-direction: column; 
+	justify-content: center;  
+}
+
+.certification-center-tip {
+	font-size: 26rpx;
+	color: rgba(145, 152, 173, 1);
+	
+	margin-top: 40rpx; 
+}
+
+.certification-center-info-wapper {
+	display: flex;
+	flex-direction: row;  
+	align-items: center;
+}
+
+.certification-center-portrait {
+	width: 118rpx;
+	height: 118rpx;
+	
+	border-radius: 59rpx;
+}
+
+.certification-center-name {
+	font-size: 40rpx;
+	color: rgba(255, 255, 255, 1);
+	max-width: 380rpx;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	
+	margin-left: 39rpx;
+}
+
+.certification-center-cell-text {
+	font-size: 30rpx;
+	color: rgba(145, 152, 173, 1);
+	
+	margin-right: 20rpx;
+}

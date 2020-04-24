@@ -1,0 +1,18 @@
+<view class="home-header-swapper">
+    <view class="home-header-content-swapper">
+        <view class="home-header-tip">总待还金额</view>
+        <view class="home-header-number">9,218.98</view>
+        <view class="home-header-date-tip">最后还款日期</view>
+        <view class="home-header-number">2020-11-28</view>
+    </view>
+    <view class="home-header-item-swapper">
+        <view class="home-header-item-text-icon" bind:tap="billCreation">
+            <view class="home-header-item-text">添加账单</view>
+            <image class="home-header-item-icon" src="/images/icon_edit_add_white.png" mode="aspectFit"></image>
+        </view>
+        <view class="home-header-item-text-icon" bind:tap="billSummary">
+            <view class="home-header-item-text">账单汇总</view>
+            <image class="home-header-item-icon" src="/images/icon_arrow_right_white.png" mode="aspectFit"></image>
+        </view>
+    </view>
+</view>

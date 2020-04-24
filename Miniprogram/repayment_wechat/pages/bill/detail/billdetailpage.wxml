@@ -1,0 +1,23 @@
+<view class="container" style="background-color: white;">
+    <view class="bill-detail-swapper" wx:if="{{detailList.length > 0}}">
+        <view class="bill-detail-cell-swapper" wx:for="{{detailList}}" wx:key="index">
+            <view class="bill-detail-cell-remark" style="width: {{remarkBtnWidth}}rpx; background-color: rgba(21, 159, 251, 1);" data-index="{{index}}">
+                设为已还
+            </view>
+            <view class="bill-detail-cell" style="{{styleDataList[index]}}" data-index="{{index}}" bindtouchstart="touchS" bindtouchmove="touchM" bindtouchend="touchE">
+                <view class="bill-detail-content" style="margin-left: 28rpx;">
+                    <view class="bill-detail-instalment">5/10期</view>
+                    <view class="bill-detail-date">还款日：2020-06-28</view>
+                </view>
+                <view class="bill-detail-content" style="align-items: flex-end; margin-right: 28rpx;">
+                    <view class="bill-detail-status">本期未还</view>
+                    <view class="bill-detail-value">280.70</view>
+                </view>
+            </view>
+        </view>
+    </view>
+    <view class="bill-detail-swapper" wx:else>
+        <emptyrecord></emptyrecord>
+    </view>
+    <billheader></billheader>
+</view>

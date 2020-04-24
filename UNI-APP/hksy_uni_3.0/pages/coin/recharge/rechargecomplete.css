@@ -1,0 +1,72 @@
+.recharge-complete-wapper {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+
+	margin-left: 20rpx;
+	margin-right: 20rpx;
+
+}
+
+.recharge-complete-logo-image {
+	width: 238rpx;
+	height: 238rpx;
+
+	margin-top: 100rpx;
+}
+
+.recharge-complete-tip {
+	font-size: 36rpx;
+	color: #FFFFFF;
+
+	margin-top: 30rpx;
+}
+
+.recharge-complete-buttons-wapper {
+
+	height: 90rpx;
+
+	margin-top: 103rpx;
+	margin-left: 46rpx;
+	margin-right: 46rpx;
+
+	display: flex;
+	flex-direction: row;
+	justify-content: space-around;
+	align-items: center;
+	align-content: center;
+
+}
+
+.recharge-complete-back-button {
+	
+	/* width: 307rpx; */
+	width: 100%;
+	line-height: 90rpx;
+	text-align: center;
+	margin-right: 22rpx;
+	font-size: 28rpx;
+	color: #9198AD;
+	background-color: #1C233F;
+
+	border-radius: 15rpx;
+	flex-shrink: 1;
+
+}
+
+.recharge-complete-detail-button {
+
+	/* width: 307rpx; */
+	width: 100%;
+	line-height: 90rpx;
+	text-align: center;
+	margin-left: 22rpx;
+	font-size: 28rpx;
+	color: #FFFFFF;
+	background-color: #1760FF;
+
+
+	border-radius: 15rpx;
+	flex-shrink: 1;
+
+}

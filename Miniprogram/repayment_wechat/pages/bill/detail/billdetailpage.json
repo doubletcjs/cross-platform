@@ -1,0 +1,7 @@
+{
+    "usingComponents": {
+        "billheader": "../detail/views/header/detailheader",
+        "emptyrecord": "../emptyrecord/emptyrecord"
+    },
+    "navigationBarTitleText": "账单详情"
+}

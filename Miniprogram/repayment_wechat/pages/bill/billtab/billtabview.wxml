@@ -1,0 +1,14 @@
+<view class="bill-tabview-swapper">
+    <view class="bill-tabview-item" wx:for="{{tabs}}" wx:key="index">
+        <view style="width: 100%;" data-index="{{index}}" bind:tap="tabSelectAction">
+            <view class="bill-tabview-text" wx:if="{{currentIndex == index}}" style="color: rgba(21, 159, 251, 1);">
+                {{item}}
+            </view>
+            <view class="bill-tabview-text" wx:else style="color: rgba(0, 0, 0, 0.45);">
+                {{item}}
+            </view>
+            <view class="bill-tabview-line" wx:if="{{currentIndex == index}}" style="background-color: rgba(21, 159, 251, 1);"></view>
+            <view class="bill-tabview-line" wx:else style="background-color: rgba(0, 0, 0, 0);"></view>
+        </view>
+    </view>
+</view>

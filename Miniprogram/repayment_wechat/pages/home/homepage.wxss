@@ -1,0 +1,22 @@
+.home-creation-button {
+    width: 100rpx;
+    height: 100rpx;
+
+    position: fixed;
+    right: 40rpx;
+    bottom: 40rpx;
+
+    border-radius: 50rpx;
+    border: 0;
+
+    background-color: white;
+}
+
+.home-bill-swapper {
+    margin-top: 410rpx;
+    padding-left: 24rpx;
+    padding-right: 24rpx;
+    padding-bottom: 20rpx;
+
+    background-color: rgba(249, 249, 249, 1);
+}

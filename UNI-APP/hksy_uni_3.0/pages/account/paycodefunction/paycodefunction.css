@@ -1,0 +1,72 @@
+.main-body-sub{
+	
+}
+.paycode-confirm {
+	height: 98rpx;
+	font-size: 30rpx;
+	color: rgba(255, 255, 255, 1);
+
+	margin-left: 24rpx;
+	margin-right: 24rpx; 
+	margin-top: 320rpx; 
+	margin-bottom: 98rpx; 
+
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	align-items: center;
+
+	background-color: rgba(23, 96, 255, 1);
+	border-radius: 15rpx;
+}
+
+.paycode-section-wapper {
+	margin-top: 40rpx;
+	margin-left: 24rpx;
+	margin-right: 24rpx;
+	padding-left: 49rpx;
+	padding-right: 49rpx;
+
+	background-color: rgba(28, 35, 63, 1);
+	border-radius: 15rpx;
+}
+
+.paycode-cell-wapper { 
+	height: 122rpx;
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between; 
+	align-items: center;
+	position: relative;
+}
+
+.paycode-cell-text {
+	font-size: 30rpx;
+	color: rgba(255, 255, 255, 1);
+}
+
+.paycode-cell-verification {
+	font-size: 30rpx;
+	color: rgba(23, 96, 255, 1);
+} 
+
+.paycode-cell-input { 
+	width: 360rpx;
+	font-size: 26rpx;
+	color: rgba(255, 255, 255, 1);  
+}
+
+.paycode-cell-input-placeholder {
+	font-size: 26rpx;
+	color: rgba(145, 152, 173, 1); 
+}
+.password-view{
+	position: absolute;
+	right: 0;
+	top: 16rpx;
+	height: 80rpx;
+	width: 360rpx;
+	background-color: transparent;
+	opacity: 0;
+}
+ 

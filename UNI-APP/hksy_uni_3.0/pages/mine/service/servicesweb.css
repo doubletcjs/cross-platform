@@ -1,0 +1,97 @@
+.services-web-tip {
+	font-size: 26rpx;
+	color: rgba(255, 255, 255, 1);
+	line-height: 1.5em;
+
+	margin-left: 24rpx;
+	margin-right: 24rpx;
+	margin-top: 40rpx;
+	margin-bottom: 40rpx;
+}
+
+.services-web-textarea-wapper {
+	height: 248rpx;
+	margin-left: 24rpx;
+	margin-right: 24rpx;
+
+	padding-left: 22rpx;
+	padding-right: 22rpx;
+	padding-top: 28rpx;
+	padding-bottom: 28rpx;
+
+	border-radius: 15rpx;
+	border: solid 1rpx rgba(145, 152, 173, 0.2);
+}
+
+.services-web-textarea {
+	width: 100%;
+	height: 100%;
+
+	font-size: 26rpx;
+	color: white;
+}
+
+.services-web-textarea-placeholder {
+	font-size: 26rpx;
+	color: rgba(145, 152, 173, 1);
+}
+
+.services-web-contact-tip {
+	font-size: 30rpx;
+	color: white;
+
+	margin-left: 24rpx;
+	margin-right: 24rpx;
+	margin-top: 56rpx;
+}
+
+.services-web-input-placeholder {
+	margin-left: 24rpx;
+	margin-right: 24rpx;
+
+	padding-left: 26rpx;
+	padding-right: 26rpx;
+	padding-top: 18rpx;
+	padding-bottom: 25rpx;
+
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	align-content: center;
+
+	border-radius: 15rpx;
+	border: solid 1rpx rgba(145, 152, 173, 0.2);
+}
+
+.services-web-input-tip {
+	font-size: 26rpx;
+	color: white;
+}
+
+.services-web-input {
+	width: 86%;
+	font-size: 26rpx;
+	color: #FFFFFF;
+
+	margin-left: 6rpx;
+}
+
+.services-web-confirm {
+	height: 98rpx;
+	font-size: 30rpx;
+	color: rgba(255, 255, 255, 1);
+
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	align-items: center;
+	align-content: center;
+
+	margin-left: 24rpx;
+	margin-right: 24rpx;
+	margin-top: 136rpx;
+	margin-bottom: 97rpx;
+
+	background-color: rgba(23, 96, 255, 1);
+	border-radius: 15rpx;
+}

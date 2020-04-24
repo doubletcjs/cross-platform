@@ -1,0 +1,5 @@
+<view class="mine-header-swapper" bind:tap="goLogin">
+    <image class="mine-header-logo" src="/images/user_head_default@3x.png" mode="aspectFit"></image>
+    <view class="mine-header-name" wx:if="{{userInfo == null}}">请登录</view>
+    <view class="mine-header-name" wx:else>{{userInfo.nickName}}</view>
+</view>

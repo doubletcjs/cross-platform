@@ -1,0 +1,68 @@
+.storage-main-content-wapper {
+	margin-left: 24rpx;
+	margin-right: 24rpx;
+	
+	border-radius: 15rpx;
+	background-color: rgba(28, 35, 63, 1);
+}
+
+.storage-main-detail-title {
+	font-size: 36rpx;
+	color: rgba(255, 255, 255, 1);
+	
+	margin-left: 40rpx;
+	margin-right: 40rpx;
+	margin-top: 70rpx;
+	margin-bottom: 10rpx;
+}
+
+.storage-main-cell-wapper {
+	height: 169rpx;
+	
+	margin-left: 40rpx;
+	margin-right: 40rpx; 
+	
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	align-items: center;
+	align-content: center;   
+}
+
+.storage-main-cell-value {
+	font-size: 30rpx;
+	color: rgba(255, 255, 255, 1); 
+}
+
+.storage-main-cell-items-wapper {
+	display: flex;
+	flex-direction: column;   
+}
+
+.storage-main-cell-name {
+	font-size: 30rpx;
+	color: rgba(255, 255, 255, 1);
+	
+	margin-bottom: 6rpx;
+} 
+
+.storage-main-cell-phone {
+	font-size: 26rpx;
+	color: rgba(145, 152, 173, 1); 
+	
+	margin-top: 6rpx;
+}
+.no-msg{
+	color: #9198AD;
+	text-align: center;
+	margin-top: 100rpx;
+	font-size: 30rpx;
+}
+.nodata{
+	background-color: #1C233F;
+	padding-bottom: 200rpx;
+	width: 702rpx;
+	margin: 0 auto;
+	border-radius: 15rpx;
+	letter-spacing: 1rpx;
+}

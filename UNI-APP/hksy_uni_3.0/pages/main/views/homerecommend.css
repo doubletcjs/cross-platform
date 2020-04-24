@@ -1,0 +1,10 @@
+.home-recommend-wapper {  
+	margin-left: 24rpx;
+	margin-right: 24rpx; 
+	
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	
+	margin-bottom: 93rpx;
+} 

@@ -1,0 +1,166 @@
+.home-section-swapper {
+    margin-top: 20rpx;
+
+    display: flex;
+    flex-direction: column;
+}
+
+.home-section {
+    height: 110rpx;
+    padding-left: 34rpx;
+    padding-right: 34rpx;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+
+    background-color: white;
+}
+
+.home-section-icon-month {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.home-section-icon {
+    width: 26rpx;
+    height: 26rpx;
+}
+
+.home-section-month {
+    font-size: 36rpx;
+    color: rgba(123, 123, 123, 1);
+
+    margin-left: 40rpx;
+}
+
+.home-section-value-status {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.home-section-value {
+    font-size: 38rpx;
+    color: rgba(123, 123, 123, 0.8);
+}
+
+.home-section-status-icon {
+    width: 36rpx;
+    height: 36rpx;
+
+    margin-right: 15rpx;
+}
+
+.home-section-repayment {
+    font-size: 36rpx;
+    color: rgba(123, 123, 123, 0.8);
+}
+
+.home-bill-cell-swapper {
+    position: relative;
+    height: 160rpx;
+}
+
+.home-bill-cell {
+    width: 100%;
+    height: 100%;
+
+    position: absolute;
+    top: 0;
+    left: 0;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+
+    background-color: white;
+}
+
+.home-bill-cell-remark {
+    height: 100%;
+    font-size: 30rpx;
+    color: white;
+
+    position: absolute;
+    top: 0;
+    right: 0;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+}
+
+.home-bill-cell-content-swapper {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+
+    margin-left: 34rpx;
+}
+
+.home-bill-cell-logo {
+    width: 68rpx;
+    height: 68rpx;
+
+    border-radius: 34rpx;
+}
+
+.home-bill-cell-column {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+
+    margin-left: 12rpx;
+}
+
+.home-bill-cell-name {
+    font-size: 32rpx;
+    color: black;
+}
+
+.home-bill-cell-date {
+    font-size: 28rpx;
+    color: gray;
+
+    margin-top: 10rpx;
+}
+
+.home-bill-cell-value-swapper {
+    display: flex;
+    flex-direction: column;
+
+    margin-right: 34rpx;
+}
+
+.home-bill-cell-bill-row {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.home-bill-cell-arrow {
+    width: 12rpx;
+    height: 22rpx;
+
+    margin-left: 12rpx;
+}
+
+.home-bill-cell-status {
+    font-size: 24rpx;
+    color: black;
+}
+
+.home-bill-cell-value {
+    font-size: 36rpx;
+    color: black;
+
+    margin-top: 10rpx;
+    margin-right: 22rpx;
+}

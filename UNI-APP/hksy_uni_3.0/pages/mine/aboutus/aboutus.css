@@ -1,0 +1,23 @@
+.about-logo-image {
+	height: 121rpx;
+	
+	margin-top: 96rpx; 
+	align-self: center;  
+} 
+
+.about-app-introduction-wapper { 
+	margin-top: 92rpx;
+	margin-left: 20rpx;
+	margin-right: 20rpx; 
+}
+
+.about-app-introduction {
+	font-size: 26rpx;
+	color: rgba(255, 255, 255, 1);
+	text-indent: 1em;
+	text-align: justify;
+ 
+	margin-left: 12rpx;
+	margin-right: 12rpx;
+	padding-bottom: 50rpx;
+}

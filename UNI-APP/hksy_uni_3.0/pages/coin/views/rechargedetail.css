@@ -1,0 +1,63 @@
+.recharge-detail-cell-section-wapper {
+	margin-top: 40rpx;
+	margin-left: 24rpx;
+	margin-right: 24rpx;
+
+	border-radius: 15rpx;
+	background-color: rgba(28, 35, 63, 1);
+}
+
+.recharge-detail-cell-wapper {
+	margin-left: 40rpx;
+	margin-right: 40rpx;
+
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	align-items: center;
+}
+
+.recharge-detail-cell-value-wapper {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+
+	margin-top: 54rpx;
+	margin-bottom: 43rpx;
+}
+
+.recharge-detail-cell-value {
+	font-size: 30rpx;
+	color: rgba(255, 255, 255, 1);
+}
+
+.recharge-detail-cell-datetime-wapper {
+	display: flex;
+	flex-direction: row;
+
+	margin-top: 14rpx;
+}
+
+.recharge-detail-cell-date {
+	font-size: 22rpx;
+	color: rgba(145, 152, 173, 1);
+}
+
+.recharge-detail-cell-time {
+	font-size: 22rpx;
+	color: rgba(145, 152, 173, 1);
+
+	margin-left: 8rpx;
+}
+
+.recharge-detail-cell-status {
+	font-size: 30rpx;
+	color: rgba(255, 255, 255, 1);
+}
+
+.recharge-detail-cell-failremark {
+	font-size: 22rpx;
+	color: rgba(255, 52, 101, 1);
+	margin-top: 23rpx;
+	margin-bottom: 20rpx;
+} 

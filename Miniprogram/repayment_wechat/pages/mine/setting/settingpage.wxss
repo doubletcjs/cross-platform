@@ -1,0 +1,28 @@
+.setting-page-swapper {
+    padding-left: 36rpx;
+    padding-right: 24rpx;
+    height: 100rpx;
+
+    background-color: white;
+}
+
+.setting-page-cell {
+    height: 98rpx;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+
+    border-bottom: solid 2rpx rgba(249, 249, 249, 1);
+}
+
+.setting-page-cell-arrow {
+    width: 38rpx;
+    height: 38rpx;
+}
+
+.setting-page-cell-text {
+    font-size: 30rpx;
+    color: rgba(51, 51, 51, 1);
+}

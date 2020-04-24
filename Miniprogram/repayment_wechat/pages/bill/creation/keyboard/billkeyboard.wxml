@@ -1,0 +1,17 @@
+<view class="bill-keyboard-swapper">
+    <view class="bill-keyboard-number-swapper">
+        <button plain="true" class="bill-keyboard-number" wx:for="{{numberList}}" wx:key="index" data-index="{{index}}" bind:tap="dataAction">
+            <image style="width: 46rpx; height: 36rpx;" src="/images/keyboard_delete.png" mode="widthFix" wx:if="{{item == '*'}}"></image>
+            <view class="" wx:else>{{item}}</view>
+        </button>
+    </view>
+    <view class="bill-keyboard-function-swapper">
+        <view class="bill-keyboard-function" style="background-color: white;" hover-class="bill-keyboard-hover" bind:tap="saveAndCreationBill">
+            <view class="bill-keyboard-function-text">保存</view>
+            <view class="bill-keyboard-function-text">再记</view>
+        </view>
+        <view class="bill-keyboard-function" style="background-color: orange;" bind:tap="saveBill">
+            <view class="bill-keyboard-function-text">保存</view>
+        </view>
+    </view>
+</view>

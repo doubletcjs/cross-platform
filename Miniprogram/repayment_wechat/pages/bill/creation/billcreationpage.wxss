@@ -1,0 +1,60 @@
+.bill-creation-cell {
+    height: 120rpx;
+
+    padding-left: 24rpx;
+    padding-right: 12rpx;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+
+    background-color: white;
+}
+
+.bill-creation-cell-icon-text {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.bill-creation-cell-text {
+    font-size: 32rpx;
+    color: black;
+}
+
+.bill-creation-cell-icon {
+    width: 44rpx;
+    height: 44rpx;
+    background-color: red;
+
+    margin-right: 12rpx;
+}
+
+.bill-creation-cell-value-arrow {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.bill-creation-cell-arrow {
+    width: 38rpx;
+    height: 38rpx;
+}
+
+.bill-creation-cell-value {
+    font-size: 32rpx;
+
+    margin-right: 12rpx;
+}
+
+.bill-creation-cell-input {
+    width: 90%;
+
+    margin-left: 12rpx;
+}
+
+.bill-creation-picker {
+    font-size: 32rpx;
+    color: black;
+}

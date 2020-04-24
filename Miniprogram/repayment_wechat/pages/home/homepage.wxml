@@ -1,0 +1,12 @@
+<view class="container">
+    <view wx:if="{{dataList.length > 0}}">
+        <view class="home-bill-swapper">
+            <section wx:for="{{dataList}}" wx:key="index" section="{{index}}" billItem="{{item}}"></section>
+        </view>
+        <header></header>
+    </view>
+    <view wx:else>
+        <emptybill></emptybill>
+    </view>
+    <image class="home-creation-button" src="/images/add_bill_put_in.png" mode="aspectFill" bind:tap="billCreation"></image>
+</view>

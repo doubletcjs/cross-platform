@@ -1,0 +1,63 @@
+.message-cell-wapper {
+	margin-left: 24rpx;
+	margin-right: 24rpx;
+	margin-top: 20rpx;
+	
+	padding-left: 40rpx;
+	padding-right: 40rpx;
+	
+	background-color: rgba(28, 35, 63, 1);
+	border-radius: 15rpx;
+}
+
+.message-cell-title-wapper {
+	height: 108rpx;
+	
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	align-content: center;
+	
+	border-bottom: solid 1rpx rgba(255, 255, 255, 0.2);
+}
+
+.message-cell-title {
+	font-size: 30rpx;
+	color: rgba(255, 255, 255, 1);
+	
+	margin-left: 20rpx;
+}
+
+.message-cell-icon {
+	width: 44rpx;
+	height: 44rpx;
+}
+
+.message-cell-content {
+	font-size: 26rpx;
+	color: rgba(255, 255, 255, 1); 
+	line-height: calc(1.7);
+	
+	margin-top: 20rpx;
+}
+
+.message-cell-date-wapper {
+	height: 110rpx;
+	
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	align-content: center;
+} 
+
+.message-cell-date {
+	font-size: 22rpx;
+	color: rgba(145, 152, 173, 1);
+}
+
+.message-cell-time {
+	font-size: 22rpx;
+	color: rgba(145, 152, 173, 1);
+
+	margin-left: 8rpx;
+}

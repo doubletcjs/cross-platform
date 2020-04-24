@@ -1,0 +1,9 @@
+{
+    "usingComponents": {
+        "mineheader": "./header/mineheader"
+    },
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#159FFB",
+    "navigationBarTitleText": "",
+    "navigationBarTextStyle": "white"
+}

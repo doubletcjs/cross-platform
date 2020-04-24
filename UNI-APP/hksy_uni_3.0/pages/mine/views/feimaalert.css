@@ -1,0 +1,68 @@
+.feima-alert-body {
+	width: 622rpx;
+
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	align-content: center;
+
+	border-radius: 24rpx;
+
+	background-color: white;
+}
+
+.feima-alert-title {
+	height: 108rpx;
+	font-size: 36rpx;
+	color: rgba(51, 51, 51, 1);
+	text-align: center;
+
+	margin-left: 28rpx;
+	margin-right: 28rpx;
+
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	align-items: center;
+}
+
+.feima-alert-content {
+	font-size: 30rpx;
+	color: rgba(102, 102, 102, 1);
+	text-align: center;
+
+	margin-left: 28rpx;
+	margin-right: 28rpx;
+
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	align-items: center;
+}
+
+.feima-alert-line {
+	width: 100%;
+	height: 2rpx;
+
+	margin-top: 20rpx;
+
+	background-color: rgba(238, 238, 238, 1);
+} 
+
+.feima-alert-confirm {
+	width: 90%;
+	height: 80rpx;
+	font-size: 30rpx;
+	color: white;
+	text-align: center;
+
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	align-items: center;
+
+	margin-top: 26rpx;
+	margin-bottom: 30rpx; 
+
+	background-color: rgba(69, 129, 250, 1);
+}

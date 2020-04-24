@@ -1,0 +1,122 @@
+.storage-header-wapper { 
+	margin-top: 40rpx;
+	margin-left: 24rpx;
+	margin-right: 24rpx;
+	margin-bottom: 69rpx;
+
+	display: flex;
+	flex-direction: column; 
+	
+	border-radius: 15rpx;
+
+	background-image: url(../../../static/images/my_storage_background@3x.png);
+	background-size: 100% 100%;
+} 
+
+.storage-header-title {
+	font-size: 30rpx;
+	color: rgba(255, 255, 255, 1);
+	
+	margin-left: 40rpx;
+	margin-right: 40rpx;
+	margin-top: 48rpx;
+}
+
+.storage-header-content-wapper {
+	margin-left: 40rpx;
+	margin-right: 35rpx;
+	margin-top: 33rpx;
+	
+	display: flex;
+	flex-direction: row; 
+	justify-content: space-between;
+	align-items: center;
+	align-content: center;
+}
+
+.storage-header-coin-wapper {
+	max-width: 350rpx;
+	
+	display: flex;
+	flex-direction: row; 
+	align-items: center;
+	align-content: center; 
+}
+
+.storage-header-coin { 
+	font-size: 60rpx;
+	color: rgba(255, 255, 255, 1); 
+}
+
+.storage-header-coin-util {
+	font-size: 26rpx;
+	color: rgba(255, 255, 255, 1);
+	
+	margin-left: 29rpx; 
+}
+
+.storage-header-buy-wapper {  
+	height: 64rpx;
+	
+	display: flex;
+	flex-direction: row; 
+	justify-content: center;
+	align-items: center;
+	align-content: center;
+	
+	border-radius: 32rpx;
+	background-color: rgba(59, 121, 255, 1);
+}
+ 
+.storage-header-buy {
+	font-size: 30rpx;
+	color: rgba(255, 255, 255, 1);
+	
+	margin-left: 39rpx;
+}
+
+.storage-header-buy-arrow {
+	width: 32rpx;
+	height: 30rpx;
+	color: white;
+	
+	margin-left: 10rpx;
+	margin-right: 30rpx;
+}
+
+.storage-header-item-wapper {
+	white-space: nowrap;
+	
+	margin-left: 40rpx;
+	margin-right: 40rpx;
+	margin-top: 52rpx;
+	margin-bottom: 36rpx;
+	
+	display: flex;
+	flex-direction: row;  
+	align-items: center;
+	align-content: center;
+	justify-content: space-around;
+}
+
+.storage-header-item-value-wapper {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	
+	margin-right: 54rpx;
+}
+
+.storage-header-item {
+	margin-top: 10rpx;
+	font-size: 26rpx;
+	color: rgba(255, 255, 255, 1);
+}
+
+.storage-header-item-value {
+	font-size: 26rpx;
+	color: rgba(255, 255, 255, 1);
+	
+	margin-left: 15rpx;
+}

@@ -1,0 +1,42 @@
+.main-body-sub{
+	color:rgba(255,255,255,1);
+	font-size: 30rpx;
+	padding: 10rpx 10rpx;
+}
+.no-data{
+	text-align: center;
+	padding: 30rpx 0;
+	margin-top: 40rpx;
+	color: #9198AD;
+}
+.title{
+	display: flex;
+	justify-content: space-around;
+	align-items: center;
+	background-color: #1C233F;
+	height: 114rpx;
+}
+.content-item{
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	height: 120rpx;
+}
+.title .view{
+	width: 33.33%;
+	text-align: center;
+}
+.content-item-date{
+	width: 33.33%;
+}
+.content-item-num{
+	width: 33.33%;
+	text-indent: 14rpx;
+}
+.content-item-status{
+	width: 33.33%;
+}
+.nodata-img{
+	width: 238rpx;
+	height: 238rpx;
+}

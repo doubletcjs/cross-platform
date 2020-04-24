@@ -1,0 +1,95 @@
+.coin-transfers-tip-wapper {
+	margin-left: 24rpx;
+	margin-right: 24rpx;
+	margin-top: 49rpx;
+
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	align-items: center;
+	align-content: center;
+}
+
+.coin-transfers-tip {
+	font-size: 30rpx;
+	color: rgba(145, 152, 173, 1);
+}
+
+.coin-transfers-item-tip {
+	font-size: 36rpx;
+	color: rgba(255, 255, 255, 1);
+
+	margin-left: 40rpx;
+	margin-right: 40rpx;
+	margin-top: 42rpx;
+	margin-bottom: 28rpx;
+}
+
+.coin-transfers-input-wapper {
+	height: 101rpx;
+
+	margin-left: 40rpx;
+	margin-right: 20rpx;
+	margin-bottom: 33rpx;
+
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	align-items: center;
+	align-content: center;
+}
+
+.coin-transfers-input {
+	font-size: 26rpx;
+	color: white;
+}
+
+.coin-transfers-input-placeholder {
+	font-size: 26rpx;
+	color: rgba(145, 152, 173, 1);
+}
+
+.coin-transfers-rollout {
+	font-size: 26rpx;
+	color: rgba(23, 96, 255, 1);
+}
+
+.coin-transfers-content-wapper {
+	margin-left: 40rpx;
+	margin-right: 20rpx;
+	margin-top: 7rpx;
+	margin-bottom: 39rpx;
+
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	align-items: center;
+	align-content: center;
+}
+
+.coin-transfers-content {
+	font-size: 30rpx;
+	color: rgba(255, 255, 255, 1);
+}
+
+.coin-transfers-confirm {
+	font-size: 30rpx;
+	height: 98rpx;
+	color: rgba(255, 255, 255, 1);
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	align-items: center;
+	align-content: center;
+	margin-top: 505rpx;
+	margin-bottom: 95rpx;
+	margin-left: 24rpx;
+	margin-right: 24rpx;
+	border-radius: 15rpx;
+	background-color: rgba(23, 96, 255, 1);
+	position: fixed;
+	width: 702rpx;
+	left:0;
+	right: 0;
+	z-index: 3;
+}

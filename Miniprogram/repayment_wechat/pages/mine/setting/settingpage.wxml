@@ -1,0 +1,8 @@
+<view class="container">
+    <view class="setting-page-swapper" wx:for="{{settingList}}" wx:key="index">
+        <view class="setting-page-cell">
+            <view class="setting-page-cell-text">{{item}}</view>
+            <image class="setting-page-cell-arrow" src="/images/icon_arrow_right.png" mode="aspectFit"></image>
+        </view>
+    </view>
+</view>

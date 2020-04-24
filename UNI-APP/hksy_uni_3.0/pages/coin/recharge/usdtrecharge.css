@@ -1,0 +1,113 @@
+.usdt-recharge-type-wapper {
+	width: 100%;
+	height: 102rpx; 
+	
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	align-items: center;
+	align-content: center;
+
+	background-color: rgba(21, 25, 54, 1);
+}
+
+.usdt-recharge-type-tip {
+	font-size: 30rpx;
+	color: #9198AD;
+
+	margin-left: 60rpx;
+}
+
+.usdt-recharge-type {
+	font-size: 30rpx;
+	color: #9198AD;
+
+	margin-right: 60rpx;
+}
+
+.usdt-recharge-wapper {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	align-content: center;
+
+	margin-top: 4rpx;
+	margin-left: 24rpx;
+	margin-right: 24rpx;
+	border-radius: 15rpx;
+	background-color: #1C233F;
+
+}
+
+.usdt-recharge-qrcode-image {
+	width: 360rpx;
+	height: 360rpx;
+
+	margin-top: 76rpx;
+}
+
+.usdt-recharge-qrcode-save {
+	font-size: 30rpx;
+	color: rgba(57, 110, 255, 1);
+	text-align: center;
+
+	margin-top: 37rpx;
+
+}
+
+.usdt-recharge-linkcopy-wapper {
+
+	width: 100%;
+	margin-top: 62rpx;
+	margin-bottom: 62rpx;
+	height: 84rpx;
+
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	align-items: center;
+	align-content: center;
+
+
+}
+
+.usdt-recharge-link {
+
+	width: 407rpx;
+	font-size: 30rpx;
+	margin-left: 33rpx;
+	color: rgba(145, 152, 173, 1);
+	text-align: center|left;
+	word-wrap: break-word;
+
+}
+
+.usdt-recharge-link-copy {
+
+	font-size: 30rpx;
+	color: white;
+	margin-right: 33rpx;
+
+	padding-top: 16rpx;
+	padding-left: 20rpx;
+	padding-bottom: 16rpx;
+	padding-right: 20rpx;
+
+	border-radius: 15rpx;
+	background-color: rgba(23,96,255,1);
+}
+
+
+.usdt-recharge-tip-wapper {
+	margin-left: 40rpx;
+	margin-right: 40rpx;
+	margin-top: 80rpx;
+	margin-bottom: 100rpx;
+}
+
+.usdt-recharge-tip {
+	font-size: 22rpx;
+	color: #9198AD;
+
+
+}

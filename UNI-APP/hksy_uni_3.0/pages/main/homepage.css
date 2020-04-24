@@ -1,0 +1,9 @@
+.home-item-title {
+	font-size: 46rpx;
+	color: rgba(255, 255, 255, 1);
+	font-weight: bolder;
+	
+	margin-left: 24rpx;
+	margin-top: 70rpx;
+	margin-bottom: 40rpx;
+}

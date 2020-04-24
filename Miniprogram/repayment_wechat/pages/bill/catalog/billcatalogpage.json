@@ -1,0 +1,7 @@
+{
+    "navigationBarTitleText": "账单记录",
+    "usingComponents": {
+        "billtab": "../billtab/billtabview",
+        "emptyrecord": "../emptyrecord/emptyrecord"
+    }
+}

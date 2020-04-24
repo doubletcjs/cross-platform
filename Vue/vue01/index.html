@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8" />
+		<title>vue01</title>
+		<script src="js/vue.js" type="text/javascript" charset="utf-8"></script>
+	</head>
+
+	<body>
+		<div id="app">
+			{{title}}
+		</div>
+
+		<div id="app1">
+			<span v-bind:title="message">鼠标悬停几秒钟查看此处动态绑定的提示信息！ </span>
+		</div>
+
+		<div id="app2" v-if="show">
+			现在你看到我了
+		</div>
+
+		<div id="app3">
+			<ol>
+				<li v-for="todo in todos">
+					{{todo.text}}
+				</li>
+			</ol>
+		</div>
+
+		<div id="app4">
+			<p>{{message}}</p>
+			<button type="button" @click="reverseMessage">逆转消息</button>
+			<todo-item></todo-item>
+		</div>
+
+		<div id="app-7">
+			<ol>
+				<todo-item v-for="(item, index) in groceryList" :todo="item" :key="index"></todo-item>
+			</ol>
+			
+			<span>Multiline message is:</span>
+			<p style="white-space: pre-line;">{{ message }}</p>
+			<br>
+			<textarea v-model="message" placeholder="add multiple lines"></textarea>
+			
+			<br>
+			<input type="checkbox" id="checkbox" v-model="checked">
+			<label for="checkbox">{{ checked }}</label>
+			
+			<br>
+			<select v-model="selected">
+			    <option disabled value="">请选择</option>
+			    <option>A</option>
+			    <option>B</option>
+			    <option>C</option>
+			  </select>
+			  <span>Selected: {{ selected }}</span>
+		</div>
+
+		<script type="text/javascript">
+			let app = new Vue({
+				el: "#app",
+				data: {
+					title: "Vue demo"
+				}
+			})
+
+			let app1 = new Vue({
+				el: "#app1",
+				data: {
+					message: '页面加载于 ' + new Date().toLocaleString()
+				}
+			})
+
+			let app2 = new Vue({
+				el: "#app2",
+				data: {
+					show: false,
+				}
+			})
+
+			let app3 = new Vue({
+				el: "#app3",
+				data: {
+					todos: [{
+							text: '学习 JavaScript',
+						},
+						{
+							text: '学习 Vue'
+						},
+						{
+							text: '整个牛项目'
+						}
+					]
+				}
+			})
+
+			let app4 = new Vue({
+				el: "#app4",
+				data: {
+					message: "Hello Vue.js!",
+				},
+				methods: {
+					reverseMessage: function() {
+						this.message = this.message.split("").reverse().join("")
+					}
+				},
+				components: {
+					"todo-item": {
+						template: '<li>这是个待办项</li>'
+					}
+				}
+			})
+
+			var app7 = new Vue({
+				el: '#app-7',
+				data: {
+					message: "",
+					checked: false,
+					selected: "",
+					groceryList: [{
+							id: 0,
+							text: '蔬菜'
+						},
+						{
+							id: 1,
+							text: '奶酪'
+						},
+						{
+							id: 2,
+							text: '随便其它什么人吃的东西'
+						}
+					]
+				},
+				components: {
+					"todo-item": {
+						props: ["todo"],
+						template: "<li>{{ todo.text }}</li>"
+					}
+				}
+			})
+		</script>
+	</body>
+
+</html>

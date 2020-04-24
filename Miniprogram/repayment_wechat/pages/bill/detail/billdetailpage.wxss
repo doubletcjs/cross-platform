@@ -1,0 +1,76 @@
+.bill-detail-swapper {
+    margin-top: 410rpx;
+
+    background-color: white;
+}
+
+.bill-detail-cell-swapper {
+    height: 150rpx;
+    position: relative;
+}
+
+.bill-detail-cell {
+    width: 100%;
+    height: 100%;
+
+    position: absolute;
+    top: 0;
+    left: 0;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+
+    background-color: white;
+}
+
+.bill-detail-content {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.bill-detail-instalment {
+    font-size: 32rpx;
+    color: black;
+
+    margin-bottom: 6rpx;
+}
+
+.bill-detail-date {
+    font-size: 24rpx;
+    color: rgba(123, 123, 123, 1);
+
+    margin-top: 6rpx;
+}
+
+.bill-detail-status {
+    font-size: 24rpx;
+    color: black;
+
+    margin-bottom: 6rpx;
+}
+
+.bill-detail-value {
+    font-size: 32rpx;
+    color: black;
+
+    margin-top: 6rpx;
+}
+
+.bill-detail-cell-remark {
+    height: 100%;
+    font-size: 30rpx;
+    color: white;
+
+    position: absolute;
+    top: 0;
+    right: 0;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+}

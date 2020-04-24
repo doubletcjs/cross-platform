@@ -1,0 +1,26 @@
+<view class="container">
+    <view class="bill-catalog-list-swapper" wx:if="{{dataList.length > 0}}">
+        <view class="bill-catalog-cell-swapper" wx:for="{{dataList}}" wx:key="index">
+            <view class="bill-catalog-cell-delete" style="width: {{delBtnWidth}}rpx;" data-index="{{index}}" bind:tap="billDelete">
+                删除
+            </view>
+            <view class="bill-catalog-cell" data-index="{{index}}" style="{{styleDataList[index]}}" bind:tap="billDetail" bindtouchstart="touchS" bindtouchmove="touchM" bindtouchend="touchE">
+                <view class="bill-catalog-cell-content" style="margin-left: 28rpx;">
+                    <image class="bill-catalog-cell-logo" src="/images/placeholder@3x.png"></image>
+                    <view class="bill-catalog-cell-column">
+                        <view class="bill-catalog-cell-name">招商银行</view>
+                        <view class="bill-catalog-cell-date">2020-09-10</view>
+                    </view>
+                </view>
+                <view class="bill-catalog-cell-content" style="margin-right: 18rpx;">
+                    <view class="bill-catalog-cell-bill">879.66</view>
+                    <image class="bill-catalog-cell-arrow" src="/images/icon_forward_small.png" mode="aspectFit"></image>
+                </view>
+            </view>
+        </view>
+    </view>
+    <view class="bill-catalog-list-swapper" style="height: 100%;" wx:else>
+        <emptyrecord></emptyrecord>
+    </view>
+    <billtab tabs="{{tabList}}" currentIndex="{{currentIndex}}" bind:tabselectevent="tabEventListener"></billtab>
+</view>

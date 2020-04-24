@@ -1,0 +1,67 @@
+<view class="container">
+    <header amount="{{amount}}" id="billcreationheader"></header>
+    <!-- 银行 -->
+    <view class="bill-creation-cell" style="{{borderBottomMax}}" bind:tap="billBank">
+        <view class="bill-creation-cell-icon-text">
+            <image class="bill-creation-cell-icon" wx:if="{{itemValueList[0].length > 0}}"></image>
+            <view class="bill-creation-cell-text">
+                {{itemValueList[0].length > 0 ? itemValueList[0] : itemList[0]}}
+            </view>
+        </view>
+        <view class="bill-creation-cell-value-arrow">
+            <view class="bill-creation-cell-value" style="{{itemValueList[0].length > 0 ? 'color: black;': 'color: grey;'}}">
+                {{itemValueList[0].length > 0 ? "" : "请选择"}}
+            </view>
+            <image class="bill-creation-cell-arrow" src="/images/icon_arrow_right.png" mode="aspectFit"></image>
+        </view>
+    </view>
+    <!-- 还款日 -->
+    <picker class="bill-creation-picker" mode="date" start="1900-01-01" value="{{itemValueList[1]}}" bindchange="billDateChange">
+        <view class="bill-creation-cell" style="{{borderBottom}}">
+            <view class="bill-creation-cell-icon-text">
+                <view class="bill-creation-cell-text">{{itemList[1]}}</view>
+            </view>
+            <view class="bill-creation-cell-value-arrow">
+                <view class="bill-creation-cell-value" style="{{itemValueList[1].length > 0 ? 'color: black;': 'color: grey;'}}">
+                    {{itemValueList[1].length > 0 ?  itemValueList[1] : "请选择"}}
+                </view>
+                <image class="bill-creation-cell-arrow" src="/images/icon_arrow_right.png" mode="aspectFit"></image>
+            </view>
+        </view>
+    </picker>
+    <!-- 还款期限 -->
+    <picker class="bill-creation-picker" range="{{limitRange}}" value="{{itemValueList[2].length == 0 ? 0 : parseInt(itemValueList[2]) - 1}}" bindchange="billLimitChange">
+        <view class="bill-creation-cell" style="{{borderBottom}}">
+            <view class="bill-creation-cell-icon-text">
+                <view class="bill-creation-cell-text">{{itemList[2]}}</view>
+            </view>
+            <view class="bill-creation-cell-value-arrow">
+                <view class="bill-creation-cell-value" style="{{itemValueList[2].length > 0 ? 'color: black;': 'color: grey;'}}">
+                    {{itemValueList[2].length > 0 ?  itemValueList[2] : "请选择"}}
+                </view>
+                <image class="bill-creation-cell-arrow" src="/images/icon_arrow_right.png" mode="aspectFit"></image>
+            </view>
+        </view>
+    </picker>
+    <!-- 还款周期 -->
+    <picker mode="multiSelector" class="bill-creation-picker" value="{{multiIndex}}" range="{{multiArray}}" bindchange="billCycleChange">
+        <view class="bill-creation-cell" style="{{borderBottomMax}}">
+            <view class="bill-creation-cell-icon-text">
+                <view class="bill-creation-cell-text">{{itemList[3]}}</view>
+            </view>
+            <view class="bill-creation-cell-value-arrow">
+                <view class="bill-creation-cell-value" style="{{itemValueList[3].length > 0 ? 'color: black;': 'color: grey;'}}">
+                    {{itemValueList[3].length > 0 ?  itemValueList[3] : "请选择"}}
+                </view>
+                <image class="bill-creation-cell-arrow" src="/images/icon_arrow_right.png" mode="aspectFit"></image>
+            </view>
+        </view>
+    </picker>
+    <!-- 备忘 -->
+    <view class="bill-creation-cell">
+        <view class="bill-creation-cell-input">
+            <input type="text" placeholder="备忘：不超过20字（选填）" maxlength="20" value="{{itemValueList[4]}}" bindinput="memoInput"></input>
+        </view>
+    </view>
+    <keyboard bind:keyboardevent="keyboardListener" id="billcreationkeyboard"></keyboard>
+</view>

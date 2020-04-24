@@ -1,0 +1,46 @@
+
+.tab-box{
+	position: absolute;
+	top: 0;
+	left: 0;
+	z-index: 5;
+}
+.data-box{
+	font-size: 30rpx;
+	color: white;
+	background-color: #1C233F;
+	border-radius: 15rpx;
+	width: 702rpx;
+	margin: 88rpx auto 0 auto;
+	box-sizing: border-box;
+	padding: 0 40rpx;
+	display: flex;
+	flex-direction: column;
+	padding-bottom: 40rpx;
+}
+.list-item{
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	height: 172rpx;
+}
+.line{
+	height: 2rpx;
+	background:rgba(255,255,255,1);
+	margin-top: 5rpx;
+	margin-bottom: 5rpx;
+}
+.time{
+	font-size: 22rpx;
+	color:rgba(145,152,173,1);
+	margin-top: 15rpx;
+}
+.error{
+	color: #FF3465;
+}
+.msg{
+	width: 460rpx;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}

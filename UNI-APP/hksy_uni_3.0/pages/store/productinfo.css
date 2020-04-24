@@ -1,0 +1,77 @@
+.product-info-thumbnail {
+	margin-top: 69rpx;
+	width: 100%;
+	height: 460rpx;
+}
+
+.product-info-wapper { 
+	width: 100%; 
+	
+	display: flex;
+	flex-direction: column;
+	
+	background-color: rgba(21, 25, 54, 1); 
+}
+
+.product-info-name {
+	font-size: 46rpx;
+	color: rgba(255, 255, 255, 1);
+	
+	margin-left: 24rpx;
+	margin-right: 24rpx;
+	margin-top: 40rpx;
+}
+
+.product-info-price-wapper {
+	margin-left: 24rpx;
+	margin-right: 24rpx;
+	margin-top: 17rpx;
+	
+	display: flex;
+	flex-direction: row;
+	align-items: flex-end;
+}
+
+.product-info-price {
+	font-size: 40rpx;
+	color: rgba(23, 96, 255, 1);
+}
+
+.product-info-original-price {
+	font-size: 26rpx;
+	color: rgba(145, 152, 173, 1);
+	text-decoration: line-through;
+	
+	margin-left: 20rpx;
+}
+
+.product-info-title-wapper {
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	align-content: center;
+	align-items: center;
+	
+	margin-top: 105rpx;
+	margin-bottom: 100rpx; 
+}
+
+.product-info-title {
+	font-size: 46rpx;
+	color: rgba(255, 255, 255, 1); 
+	
+	margin-left: 32rpx;
+	margin-right: 32rpx;
+}
+
+.product-info-line {
+	width: 149rpx;
+	height: 2rpx;
+	
+	background-color: white;
+}
+
+.product-info-image {
+	width: 100%; 
+	margin-bottom: 78rpx;
+}

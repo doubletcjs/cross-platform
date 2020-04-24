@@ -1,0 +1,67 @@
+.mine-page-swapper {
+    width: 100%;
+    height: 100rpx;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+
+    background-color: white;
+}
+
+.mine-cell-icon-swapper {
+    width: 124rpx;
+    height: 50rpx;
+}
+
+.mine-cell-text-swapper {
+    width: 100%;
+    height: 98rpx;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+
+    border-bottom: solid 2rpx rgba(249, 249, 249, 1);
+}
+
+.mine-cell-text {
+    font-size: 30rpx;
+    color: rgba(51, 51, 51, 1);
+}
+
+.mine-cell-arrow-swapper {
+    padding-right: 18rpx;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.mine-cell-arrow {
+    width: 38rpx;
+    height: 38rpx;
+}
+
+.mine-cell-notice-swapper {
+    padding-right: 18rpx;
+
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.mine-cell-notice {
+    padding-right: 40rpx;
+
+    font-size: 30rpx;
+    color: rgba(51, 51, 51, 1);
+}
+
+.mine-cell-notice-switch {
+    width: 65rpx;
+    height: 41rpx;
+}

@@ -1,0 +1,5 @@
+<view class="empty-bill-wapper">
+    <view class="empty-bill-text">您还没待还账单哦</view>
+    <image class="empty-bill-image" src="/images/icon_no_bill.png" mode="widthFix"></image>
+    <view class="empty-bill-text" style="margin-top: 16rpx;">不逾期，快来记一笔吧</view>
+</view>

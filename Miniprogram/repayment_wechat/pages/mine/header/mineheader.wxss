@@ -1,0 +1,35 @@
+.mine-header-swapper {
+    height: 160rpx;
+
+    position: fixed;
+    left: 0;
+    top: 0;
+    right: 0;
+
+    padding-left: 24rpx;
+    padding-right: 24rpx;
+
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+
+    background-color: rgba(21, 159, 251, 1);
+}
+
+.mine-header-logo {
+    width: 88rpx;
+    height: 88rpx;
+}
+
+.mine-header-name {
+    margin-left: 24rpx;
+    max-width: 580rpx;
+
+    font-size: 34rpx;
+    color: white;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+}

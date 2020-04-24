@@ -1,0 +1,105 @@
+.invite-friend-list-content-wapper {
+	margin-left: 24rpx;
+	margin-right: 24rpx;
+	margin-top: 128rpx;
+
+	border-radius: 15rpx;
+	background-color: rgba(28, 35, 63, 1);
+}
+
+.invite-friend-list-title {
+	font-size: 36rpx;
+	color: rgba(255, 255, 255, 1);
+
+	margin-left: 40rpx;
+	margin-right: 40rpx;
+	margin-top: 70rpx;
+	margin-bottom: 10rpx;
+}
+
+.invite-friend-list-cell-wapper {
+	height: 169rpx;
+
+	margin-left: 40rpx;
+	margin-right: 40rpx;
+
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	align-items: center; 
+}
+
+.invite-friend-list-cell-items-wapper {
+	height: 100%;
+	
+	display: flex;
+	flex-direction: column; 
+}
+
+.invite-friend-list-cell-phone {
+	font-size: 30rpx;
+	color: rgba(255, 255, 255, 1);
+
+	margin-top: 40rpx;
+}
+
+.invite-friend-list-cell-date-wapper {
+	display: flex;
+	flex-direction: row;
+
+	margin-top: 18rpx;
+}
+
+.invite-friend-list-cell-date {
+	font-size: 22rpx;
+	color: rgba(145, 152, 173, 1);
+}
+
+.invite-friend-list-cell-time {
+	font-size: 22rpx;
+	color: rgba(145, 152, 173, 1);
+
+	margin-left: 12rpx;
+}
+
+.invite-friend-list-member {
+	font-size: 24rpx;
+	color: rgba(57, 110, 255, 1);
+	
+	padding-left: 16rpx;
+	padding-right: 16rpx;
+	padding-top: 2rpx;
+	padding-bottom: 2rpx;
+	margin-right: 22rpx;
+	
+	border: solid 1.6rpx rgba(57, 110, 255, 1);
+	border-radius: 8rpx; 
+}
+
+.invite-friend-list-notmember {
+	font-size: 24rpx;
+	color: rgba(153, 153, 153, 1);
+	
+	padding-left: 16rpx;
+	padding-right: 16rpx;
+	padding-top: 2rpx;
+	padding-bottom: 2rpx;
+	margin-right: 22rpx;
+	
+	border: solid 1.6rpx rgba(153, 153, 153, 1);
+	border-radius: 8rpx;
+}
+.nodata{
+	width: 702rpx;
+	margin: 0 auto;
+	border-radius: 15rpx;
+	background-color: #1C233F;
+	padding-bottom: 100rpx;
+	margin-top: 130rpx;
+}
+.nodata-text{
+	color: #9198AD;
+	margin-top: 83rpx;
+	text-align: center;
+	font-size: 28rpx;
+}

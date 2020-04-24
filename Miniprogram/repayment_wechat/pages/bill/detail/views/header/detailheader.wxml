@@ -1,0 +1,19 @@
+<view class="detail-header-swapper">
+    <view class="detail-header">
+        <view class="detail-header-content-swapper">
+            <view class="detail-header-content-item-swapper">
+                <view class="detail-header-content-name">招商银行</view>
+                <view class="detail-header-content-amount">586.45</view>
+                <view class="detail-header-content-amount-tip">剩余待还金额（元）</view>
+            </view>
+            <image class="detail-header-content-more" src="/images/icon_bill_details_more.png" mode="aspectFit" bind:tap="moreAction"></image>
+        </view>
+        <view class="detail-header-item-swapper">
+            <view class="detail-header-item" wx:for="{{itemList}}" wx:key="index">
+                <view class="detail-header-item-loop-value" wx:if="{{index == 2}}">每1个月</view>
+                <view class="detail-header-item-value" wx:else>123.50</view>
+                <view class="detail-header-item-text">{{item}}</view>
+            </view>
+        </view>
+    </view>
+</view>

@@ -1,0 +1,7 @@
+{
+    "usingComponents": {
+        "emptybill": "../bill/emptybill/emptybillpage",
+        "header": "../views/header/homeheader",
+        "section": "../views/homebillcell"
+    }
+}

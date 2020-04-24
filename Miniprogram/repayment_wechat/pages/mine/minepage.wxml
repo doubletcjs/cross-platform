@@ -1,0 +1,37 @@
+<view class="container">
+    <mineheader></mineheader>
+    <view style="margin-top: 168rpx;">
+        <view class="mine-page-swapper" wx:for="{{mineBillList}}" wx:key="index" data-index="{{index}}" bind:tap="cellTapAction">
+            <image class="mine-cell-icon-swapper" src="/images/icon_me_news.png" mode="aspectFit" wx:if="{{index == 0}}"></image>
+            <image class="mine-cell-icon-swapper" src="/images/icon_loan_record.png" mode="aspectFit" wx:if="{{index == 1}}"></image>
+            <view class="mine-cell-text-swapper">
+                <view class="mine-cell-text">{{item}}</view>
+                <view wx:if="{{index == 1}}">
+                    <view class="mine-cell-arrow-swapper">
+                        <image class="mine-cell-arrow" src="/images/icon_arrow_right.png" mode="aspectFit"></image>
+                    </view>
+                </view>
+                <view wx:else>
+                    <view class="mine-cell-notice-swapper">
+                        <view class="mine-cell-notice" wx:if="{{userInfo == null}}">登录后开启</view>
+                        <view class="mine-cell-notice" wx:elif="{{noticeAlert == true}}">开启</view>
+                        <view class="mine-cell-notice" wx:else>关闭</view>
+                        <image class="mine-cell-notice-switch" src="{{noticeAlert == false ? '/images/kaiguan-guan@3x.png' : '/images/kaiguan-kai@3x.png'}}" mode="aspectFit" bind:tap="noticeAlertAction"></image>
+                    </view>
+                </view>
+            </view>
+        </view>
+    </view>
+    <view style="margin-top: 24rpx;">
+        <view class="mine-page-swapper" wx:for="{{mineSettingList}}" wx:key="index" data-index="{{index+2}}" bind:tap="cellTapAction">
+            <image class="mine-cell-icon-swapper" src="/images/icon_feedback.png" mode="aspectFit" wx:if="{{index == 0}}"></image>
+            <image class="mine-cell-icon-swapper" src="/images/icon_setting.png" mode="aspectFit" wx:elif="{{index == 1}}"></image>
+            <view class="mine-cell-text-swapper">
+                <view class="mine-cell-text">{{item}}</view>
+                <view class="mine-cell-arrow-swapper">
+                    <image class="mine-cell-arrow" src="/images/icon_arrow_right.png" mode="aspectFit"></image>
+                </view>
+            </view>
+        </view>
+    </view>
+</view>
