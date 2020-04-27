@@ -1,4 +1,4 @@
-# electron-vue-demo
+# electron8-vue-demo
 
 ## Project setup
 ```
