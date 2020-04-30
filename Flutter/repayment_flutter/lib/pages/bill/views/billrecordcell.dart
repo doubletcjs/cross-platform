@@ -3,7 +3,8 @@ import 'package:repayment_flutter/pages/bill/billdetail.dart';
 import 'package:repayment_flutter/public/public.dart';
 
 class BillRecordCell extends StatelessWidget {
-  const BillRecordCell({Key key}) : super(key: key);
+  kObjectFunctionBlock onClose;
+  BillRecordCell({Key key, this.onClose}) : super(key: key);
 
   void _billDetail(BuildContext context) {
     Navigator.of(context).push(
@@ -90,7 +91,14 @@ class BillRecordCell extends StatelessWidget {
       context,
       color: Colors.white,
       onTap: () {
-        this._billDetail(context);
+        if (this.onClose != null) {
+          this._billDetail(context);
+          Future.delayed(Duration(milliseconds: 100), () {
+            this.onClose(context);
+          });
+        } else {
+          this._billDetail(context);
+        }
       },
     );
   }

@@ -1,6 +1,7 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:repayment_flutter/pages/home/views/homebillcell.dart';
 import 'package:repayment_flutter/public/public.dart';
 
@@ -23,7 +24,27 @@ class _HomeBillSectionState extends State<HomeBillSection> {
     List<Widget> _list = [];
     for (var i = 0; i < 3 + Random().nextInt(6); i++) {
       _list.add(
-        HomeBillCell(),
+        functionSlidableCell(
+          HomeBillCell(
+            onClose: (ctx) {
+              Slidable.of(ctx).close();
+            },
+          ),
+          actionExtentRatio: 80 / MediaQuery.of(context).size.width,
+          rightActions: [
+            SlideAction(
+              child: Text(
+                "设为已还",
+                style: TextStyle(
+                  color: Colors.white,
+                ),
+              ),
+              closeOnTap: true,
+              color: kMainColor,
+              onTap: () {},
+            ),
+          ],
+        ),
       );
     }
 

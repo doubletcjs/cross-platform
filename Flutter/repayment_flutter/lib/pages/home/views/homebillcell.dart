@@ -3,7 +3,8 @@ import 'package:repayment_flutter/pages/bill/billdetail.dart';
 import 'package:repayment_flutter/public/public.dart';
 
 class HomeBillCell extends StatefulWidget {
-  HomeBillCell({Key key}) : super(key: key);
+  kObjectFunctionBlock onClose;
+  HomeBillCell({Key key, this.onClose}) : super(key: key);
 
   @override
   _HomeBillCellState createState() => _HomeBillCellState();
@@ -106,7 +107,14 @@ class _HomeBillCellState extends State<HomeBillCell> {
       ),
       context,
       onTap: () {
-        this._billDetail();
+        if (this.widget.onClose != null) {
+          this._billDetail();
+          Future.delayed(Duration(milliseconds: 100), () {
+            this.widget.onClose(context);
+          });
+        } else {
+          this._billDetail();
+        }
       },
       color: Colors.white,
     );

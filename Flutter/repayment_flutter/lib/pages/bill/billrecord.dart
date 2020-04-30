@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:repayment_flutter/pages/bill/billnorecord.dart';
 import 'package:repayment_flutter/pages/bill/views/billrecordcell.dart';
 import 'package:repayment_flutter/public/public.dart';
@@ -104,7 +105,28 @@ class _BillRecordPageState extends State<BillRecordPage>
                 ? BillNoRecordPage()
                 : ListView.builder(
                     itemBuilder: (context, index) {
-                      return BillRecordCell();
+                      return functionSlidableCell(
+                        BillRecordCell(
+                          onClose: (ctx) {
+                            Slidable.of(ctx).close();
+                          },
+                        ),
+                        actionExtentRatio:
+                            80 / MediaQuery.of(context).size.width,
+                        rightActions: [
+                          SlideAction(
+                            child: Text(
+                              "删除",
+                              style: TextStyle(
+                                color: Colors.white,
+                              ),
+                            ),
+                            closeOnTap: true,
+                            color: Colors.red,
+                            onTap: () {},
+                          ),
+                        ],
+                      );
                     },
                     itemCount: _dataList.length,
                   ),

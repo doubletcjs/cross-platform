@@ -1,5 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:repayment_flutter/pages/account/loginpage.dart';
 
 final Color kMainColor = rgba(21, 159, 251, 1);
@@ -95,6 +96,24 @@ Widget buttonWidget(Widget child, BuildContext context,
       borderRadius: radius,
     ),
     borderRadius: radius,
+  );
+}
+
+///滑动删除
+Widget functionSlidableCell(
+  Widget cell, {
+  double actionExtentRatio = 0.25,
+  bool closeOnScroll = false,
+  List<ClosableSlideAction> rightActions,
+  List<ClosableSlideAction> leftActions,
+}) {
+  return Slidable(
+    child: cell,
+    actionPane: SlidableBehindActionPane(),
+    closeOnScroll: closeOnScroll,
+    actionExtentRatio: actionExtentRatio,
+    secondaryActions: rightActions,
+    actions: leftActions,
   );
 }
 
