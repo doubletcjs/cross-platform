@@ -3,7 +3,10 @@ import 'package:repayment_flutter/pages/bill/billeditorial.dart';
 import 'package:repayment_flutter/pages/bill/emptybilpage.dart';
 import 'package:repayment_flutter/pages/home/views/homebillsection.dart';
 import 'package:repayment_flutter/pages/home/views/homeheader.dart';
+import 'package:repayment_flutter/public/billmanager.dart';
 import 'package:repayment_flutter/public/public.dart';
+
+import '../../public/public.dart';
 
 class HomePage extends StatefulWidget {
   HomePage({Key key}) : super(key: key);
@@ -41,6 +44,13 @@ class _HomePageState extends State<HomePage> {
         },
       ),
     );
+  }
+
+  @override
+  void initState() {
+    super.initState();
+
+    BillManager.initDatabase(null);
   }
 
   @override

@@ -53,8 +53,6 @@ class _BillEditorialCellState extends State<BillEditorialCell> {
       }
     }
 
-    kLog("value:" + this.widget.value);
-
     return valueString;
   }
 

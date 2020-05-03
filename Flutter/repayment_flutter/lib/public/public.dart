@@ -2,6 +2,8 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:repayment_flutter/pages/account/loginpage.dart';
+import 'package:toast/toast.dart';
+import 'package:xs_progress_hud/xs_progress_hud.dart';
 
 final Color kMainColor = rgba(21, 159, 251, 1);
 typedef kVoidFunctionBlock = void Function();
@@ -114,6 +116,45 @@ Widget functionSlidableCell(
     actionExtentRatio: actionExtentRatio,
     secondaryActions: rightActions,
     actions: leftActions,
+  );
+}
+
+///hud
+XsProgressHud initHUD(
+  BuildContext context, {
+  String message,
+  Duration delayed = const Duration(milliseconds: 2000),
+  bool autoHide = false,
+}) {
+  XsProgressHud hud = XsProgressHud();
+  hud.message = message;
+  hud.progressColor = Colors.grey;
+  hud.progressBackgroundColor = Colors.white;
+
+  if (autoHide == true) {
+    Future.delayed(delayed).then((val) {
+      hud.navigator.pop();
+      hud = null;
+    });
+  }
+
+  Navigator.push(context, hud);
+  return hud;
+}
+
+void hideHUD(XsProgressHud hud) {
+  hud.navigator.pop();
+  hud = null;
+}
+
+///toast
+void showToast(String message, BuildContext context,
+    {int gravity = 1, int duration = 2}) {
+  Future.delayed(
+    Duration(milliseconds: 300),
+    () {
+      Toast.show(message, context, gravity: gravity, duration: duration);
+    },
   );
 }
 

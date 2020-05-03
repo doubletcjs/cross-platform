@@ -1,14 +1,14 @@
-import 'dart:ffi';
-
 import 'package:flutter/material.dart';
 import 'package:repayment_flutter/pages/bill/views/billeditorialcell.dart';
 import 'package:repayment_flutter/pages/bill/views/billeditorialheader.dart';
 import 'package:repayment_flutter/pages/bill/views/billeditorialkeboard.dart';
+import 'package:repayment_flutter/public/billmanager.dart';
 import 'package:repayment_flutter/public/public.dart';
+import 'package:xs_progress_hud/xs_progress_hud.dart';
 
 class BillEditorialPage extends StatefulWidget {
-  final bool isCreation;
-  BillEditorialPage({Key key, this.isCreation = false}) : super(key: key);
+  final Map currentBill;
+  BillEditorialPage({Key key, this.currentBill}) : super(key: key);
 
   @override
   _BillEditorialPageState createState() => _BillEditorialPageState();
@@ -25,7 +25,66 @@ class _BillEditorialPageState extends State<BillEditorialPage> {
     "备忘：不超过20字（选填）"
   ];
 
-  Map _bill = {};
+  Map<String, dynamic> _bill = {};
+
+  void _recordBill() {
+    if (isStringEmpty("${_bill['name']}") == true) {
+      showToast("请输入账单名称", context);
+      return;
+    }
+
+    if (isStringEmpty("${_bill['amount']}") == true) {
+      showToast("请输入还款金额", context);
+      return;
+    }
+
+    double amount = double.parse(_bill["amount"]);
+    kLog("amount:" + "$amount");
+    if (amount == null || amount < 0.01) {
+      showToast("请输入还款金额", context);
+      return;
+    }
+
+    if (isStringEmpty("${_bill['limit']}") == true) {
+      showToast("请选择还款期限", context);
+      return;
+    }
+
+    if (isStringEmpty("${_bill['date']}") == true) {
+      showToast("请选择首次还款日期", context);
+      return;
+    }
+
+    if (isStringEmpty("${_bill['cycle']}") == true) {
+      showToast("请选择还款周期", context);
+      return;
+    }
+
+    Map<String, dynamic> __bill = {};
+    __bill["eachamount"] = _bill["amount"];
+    __bill["name"] = _bill["name"];
+    __bill["icon"] = _bill["icon"];
+    __bill["firstdate"] = _bill["date"];
+    __bill["adddate"] = "${DateTime.now().millisecondsSinceEpoch}";
+    __bill["repaymentterms"] = int.parse(_bill["limit"]);
+    __bill["repaymentperiod"] = _bill["cycle"];
+    __bill["remark"] = _bill["remark"];
+
+    XsProgressHud hud = initHUD(context);
+    BillManager.recordBill(
+      __bill,
+      (msg) {
+        Future.delayed(Duration(milliseconds: 400), () {
+          hideHUD(hud);
+          if (msg == null) {
+            Navigator.of(context).pop();
+          } else {
+            showToast(msg, context);
+          }
+        });
+      },
+    );
+  }
 
   @override
   void initState() {
@@ -35,24 +94,26 @@ class _BillEditorialPageState extends State<BillEditorialPage> {
       inputHandle: (number) {
         setState(() {
           _header.reloadNumber("$number");
-          _bill["amount"] = double.parse("$number").toStringAsFixed(2);
+          if (isStringEmpty(number) == true) {
+            _bill["amount"] = "";
+          } else {
+            _bill["amount"] = double.parse("$number").toStringAsFixed(2);
+          }
         });
       },
       saveHandle: () {
-        kLog("bill:" + _bill.toString());
-
-        Navigator.of(context).pop();
+        this._recordBill();
       },
       saveAndCreateHandle: () {
-        kLog("bill:" + _bill.toString());
-
-        Navigator.of(context).pop();
+        this._recordBill();
       },
     );
 
     _bill["amount"] = "";
     _bill["name"] = "";
+    _bill["icon"] = "";
     _bill["date"] = "";
+    _bill["adddate"] = "";
     _bill["limit"] = "";
     _bill["cycle"] = "";
     _bill["remark"] = "";

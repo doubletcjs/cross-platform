@@ -11,6 +11,9 @@ class BillSummaryPage extends StatefulWidget {
 }
 
 class _BillSummaryPageState extends State<BillSummaryPage> {
+  List<Map<String, dynamic>> _monthlyBills = [];
+  double _totalAmount = 0.0;
+
   bool _unfold = true;
   void _unfoldStatus() {
     setState(() {
@@ -29,7 +32,14 @@ class _BillSummaryPageState extends State<BillSummaryPage> {
       ),
       body: Column(
         children: <Widget>[
-          BillChartHeader(),
+          BillChartHeader(
+            selectBills: (bills, total) {
+              setState(() {
+                _monthlyBills = List.from(bills);
+                _totalAmount = total;
+              });
+            },
+          ),
           Container(
             padding: EdgeInsets.fromLTRB(8, 10, 8, 10),
             child: Row(
@@ -50,7 +60,7 @@ class _BillSummaryPageState extends State<BillSummaryPage> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: <Widget>[
                       Text(
-                        "共有4个账单",
+                        "共有${_monthlyBills.length}个账单",
                         style: TextStyle(
                           fontSize: 14,
                           color: Colors.grey,
@@ -60,7 +70,7 @@ class _BillSummaryPageState extends State<BillSummaryPage> {
                         Row(
                           children: <Widget>[
                             Text(
-                              "1874.94",
+                              "${_totalAmount.toStringAsFixed(2)}",
                               style: TextStyle(
                                 fontSize: 16,
                                 color: Colors.black,
@@ -93,14 +103,16 @@ class _BillSummaryPageState extends State<BillSummaryPage> {
               ? Expanded(
                   child: ListView.separated(
                     itemBuilder: (context, index) {
-                      return BillSummaryCell();
+                      return BillSummaryCell(
+                        bill: _monthlyBills[index],
+                      );
                     },
                     separatorBuilder: (context, index) {
                       return Container(
                         height: 10,
                       );
                     },
-                    itemCount: 10,
+                    itemCount: _monthlyBills.length,
                   ),
                 )
               : Container(),

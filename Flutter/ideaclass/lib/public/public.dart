@@ -30,10 +30,9 @@ void logoutAcctount() {
   future.then(
     (preferences) {
       preferences.clear();
+      _accountInfo = {};
     },
   );
-
-  _accountInfo = {};
 }
 
 /// 保存用户信息

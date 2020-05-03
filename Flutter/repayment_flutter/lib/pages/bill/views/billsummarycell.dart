@@ -1,10 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:repayment_flutter/public/public.dart';
 
 class BillSummaryCell extends StatelessWidget {
-  const BillSummaryCell({Key key}) : super(key: key);
+  Map<String, dynamic> bill;
+  BillSummaryCell({Key key, this.bill}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    // 1~500期
+    var _limit = int.parse("${bill["repaymentterms"]}") + 1;
+    var _term = int.parse("${bill["currentterm"]}") + 1;
+    var _date = DateTime.parse("${bill["unfolddate"]}");
+    var _amount = double.parse("${bill["eachamount"]}").toStringAsFixed(2);
+    var _residueday = "${bill["residueday"]}";
+
     return Container(
       padding: EdgeInsets.fromLTRB(17, 12, 17, 12),
       color: Colors.white,
@@ -30,7 +39,7 @@ class BillSummaryCell extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
                   Text(
-                    "招商银行",
+                    bill["name"],
                     style: TextStyle(
                       fontSize: 15,
                       color: Colors.black,
@@ -40,7 +49,8 @@ class BillSummaryCell extends StatelessWidget {
                     height: 2,
                   ),
                   Text(
-                    "04月21日 第4/6期",
+                    "${_date.month.toString().padLeft(2, '0')}月${_date.day.toString().padLeft(2, '0')}日 第$_term/$_limit" +
+                        "期",
                     style: TextStyle(
                       fontSize: 10,
                       color: Colors.grey,
@@ -54,17 +64,19 @@ class BillSummaryCell extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.end,
             children: <Widget>[
               Text(
-                "本期已还",
+                _residueday.contains("-")
+                    ? "逾期${-int.parse(_residueday)}天"
+                    : "还剩$_residueday天",
                 style: TextStyle(
                   fontSize: 10,
-                  color: Colors.black,
+                  color: _residueday.contains("-") ? Colors.red : kMainColor,
                 ),
               ),
               SizedBox(
                 height: 2,
               ),
               Text(
-                "532.22",
+                "$_amount",
                 style: TextStyle(
                   fontSize: 15,
                   color: Colors.black,

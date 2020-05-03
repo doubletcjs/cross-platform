@@ -25,6 +25,11 @@ dependencies:
   cupertino_icons: ^0.1.2
   flutter_slidable: any
   fl_chart: any
+  shared_preferences: any
+  shared_preferences_web: any
+  sqflite: any
+  toast: any  
+  xs_progress_hud: any
 
 dev_dependencies:
   flutter_test:
