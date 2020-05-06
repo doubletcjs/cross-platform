@@ -160,7 +160,7 @@ class _BillChartHeaderState extends State<BillChartHeader> {
   void _monthlyChartData() {
     for (var i = 0; i < _monthlyDates.length; i++) {
       var date = _monthlyDates[i];
-      double amounts = 0.0;
+      double amounts = -1;
       for (var bill in _allUnfoldBills) {
         var unfolddate = "${bill["unfolddate"]}";
         DateTime unfoldDate = DateTime.parse(unfolddate);
@@ -170,7 +170,9 @@ class _BillChartHeaderState extends State<BillChartHeader> {
         }
       }
 
-      _monthlyAmounts.add(amounts);
+      if (amounts != -1) {
+        _monthlyAmounts.add(amounts);
+      }
       //获取最大最小值
       if (amounts > _maxAmount) {
         _maxAmount = amounts;
