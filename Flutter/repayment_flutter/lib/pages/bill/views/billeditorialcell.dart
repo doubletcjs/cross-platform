@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:repayment_flutter/pages/bill/bankselection.dart';
 import 'package:repayment_flutter/public/public.dart';
 
 class BillEditorialCell extends StatefulWidget {
@@ -17,6 +18,8 @@ class BillEditorialCell extends StatefulWidget {
 
 class _BillEditorialCellState extends State<BillEditorialCell> {
   TextEditingController _remarkEditingController;
+  String _bankName = "";
+  String _bankIcon = "";
 
   String _selectionString() {
     //   [
@@ -356,19 +359,44 @@ class _BillEditorialCellState extends State<BillEditorialCell> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
-                  Text(
-                    this.widget.item,
-                  ),
+                  (this.widget.item == "账单名称" && _bankName.length > 0)
+                      ? Row(
+                          children: <Widget>[
+                            Image.asset(
+                              _bankIcon,
+                              width: 26,
+                              height: 26,
+                            ),
+                            SizedBox(
+                              width: 12,
+                            ),
+                            Text(
+                              _bankName,
+                            ),
+                          ],
+                        )
+                      : Text(
+                          this.widget.item,
+                        ),
                   Row(
                     children: <Widget>[
-                      Text(
-                        _selectionString(),
-                        style: TextStyle(
-                          color: _selectionString() == "请选择"
-                              ? Colors.grey
-                              : Colors.black,
-                        ),
-                      ),
+                      this.widget.item == "账单名称"
+                          ? Text(
+                              (_bankName != null && _bankName.length > 0)
+                                  ? ""
+                                  : "请选择",
+                              style: TextStyle(
+                                color: Colors.grey,
+                              ),
+                            )
+                          : Text(
+                              _selectionString(),
+                              style: TextStyle(
+                                color: _selectionString() == "请选择"
+                                    ? Colors.grey
+                                    : Colors.black,
+                              ),
+                            ),
                       SizedBox(
                         width: 8,
                       ),
@@ -393,6 +421,21 @@ class _BillEditorialCellState extends State<BillEditorialCell> {
                 this._selectLimit(context);
               } else if (this.widget.item == "还款周期") {
                 this._selectCycle(context);
+              } else if (this.widget.item == "账单名称") {
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (context) {
+                      return BankSelectionPage(
+                        selectionHandle: (bankName, bankIcon) {
+                          setState(() {
+                            _bankName = bankName;
+                            _bankIcon = bankIcon;
+                          });
+                        },
+                      );
+                    },
+                  ),
+                );
               }
             },
             color: Colors.white,
