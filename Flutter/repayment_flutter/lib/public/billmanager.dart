@@ -92,41 +92,53 @@ class BillManager {
   }
 
   // 账单周期内所有还款日期、当前所在期数
+  static billUnfoldBills(
+      Function(List<Map<String, dynamic>>) complete, Map bill) {
+    List<Map<String, dynamic>> unfoldBills = [];
+    var startDate = DateTime.parse(bill["firstdate"]);
+    // 1~500期
+    var limit = int.parse("${bill["repaymentterms"]}") + 1;
+    // 1~100 0 月/ 1天
+    var cycle = "${bill["repaymentperiod"]}";
+    var cycleTime = int.parse(cycle.split("|").first);
+    var cycleType = int.parse(cycle.split("|").last);
+    //int.parse("$limit") > 12 ? 12 :
+    int maxLimit = int.parse("$limit");
+
+    DateTime unfoldDate;
+    for (var i = 0; i < maxLimit; i++) {
+      Map<String, dynamic> unfoldBill = Map.from(bill);
+
+      if (unfoldDate == null) {
+        unfoldDate = startDate;
+      } else {
+        if (cycleType == 0) {
+          unfoldDate = DateTime(unfoldDate.year,
+              unfoldDate.month + (cycleTime + 1), unfoldDate.day);
+        } else if (cycleType == 1) {
+          unfoldDate = DateTime(unfoldDate.year, unfoldDate.month,
+              unfoldDate.day + (cycleTime + 1));
+        }
+      }
+
+      unfoldBill["unfolddate"] = unfoldDate.toString().split(" ").first;
+      unfoldBill["currentterm"] = "$i";
+      unfoldBills.add(unfoldBill);
+    }
+
+    if (complete != null) {
+      complete(unfoldBills.toList());
+    }
+  }
+
   static allUnfoldBills(Function(List<Map<String, dynamic>>) complete,
       kObjectFunctionBlock fail) {
     allBills((bills) {
       List<Map<String, dynamic>> unfoldBills = [];
       for (var bill in bills) {
-        var startDate = DateTime.parse(bill["firstdate"]);
-        // 1~500期
-        var limit = int.parse("${bill["repaymentterms"]}") + 1;
-        // 1~100 0 月/ 1天
-        var cycle = "${bill["repaymentperiod"]}";
-        var cycleTime = int.parse(cycle.split("|").first);
-        var cycleType = int.parse(cycle.split("|").last);
-        //int.parse("$limit") > 12 ? 12 :
-        int maxLimit = int.parse("$limit");
-
-        DateTime unfoldDate;
-        for (var i = 0; i < maxLimit; i++) {
-          Map<String, dynamic> unfoldBill = Map.from(bill);
-
-          if (unfoldDate == null) {
-            unfoldDate = startDate;
-          } else {
-            if (cycleType == 0) {
-              unfoldDate = DateTime(unfoldDate.year,
-                  unfoldDate.month + (cycleTime + 1), unfoldDate.day);
-            } else if (cycleType == 1) {
-              unfoldDate = DateTime(unfoldDate.year, unfoldDate.month,
-                  unfoldDate.day + (cycleTime + 1));
-            }
-          }
-
-          unfoldBill["unfolddate"] = unfoldDate.toString().split(" ").first;
-          unfoldBill["currentterm"] = "$i";
-          unfoldBills.add(unfoldBill);
-        }
+        billUnfoldBills((list) {
+          unfoldBills.addAll(list);
+        }, bill);
       }
 
       if (complete != null) {

@@ -4,7 +4,8 @@ import 'package:repayment_flutter/pages/bill/billeditorial.dart';
 import 'package:repayment_flutter/public/public.dart';
 
 class BillDetailHeader extends StatelessWidget {
-  BillDetailHeader({Key key}) : super(key: key);
+  Map bill;
+  BillDetailHeader({Key key, this.bill}) : super(key: key);
 
   List<String> _itemList = ["账单金额", "还款期限", "还款周期"];
 
@@ -94,7 +95,7 @@ class BillDetailHeader extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
                         Text(
-                          "招商银行",
+                          "${bill["name"]}",
                           style: TextStyle(
                             fontSize: 16,
                             color: Colors.white,
@@ -104,7 +105,7 @@ class BillDetailHeader extends StatelessWidget {
                           height: 8,
                         ),
                         Text(
-                          "586.44",
+                          "${double.parse('${bill["eachamount"]}').toStringAsFixed(2)}",
                           style: TextStyle(
                             fontSize: 24,
                             color: Colors.white,
@@ -151,7 +152,11 @@ class BillDetailHeader extends StatelessWidget {
                   return Column(
                     children: <Widget>[
                       Text(
-                        index == 0 ? "1122320.0" : index == 1 ? "0" : "每1个月",
+                        index == 0
+                            ? "${double.parse('${double.parse('${bill["eachamount"]}') * (int.parse('${bill['repaymentterms']}') + 1)}').toStringAsFixed(2)}"
+                            : index == 1
+                                ? "${int.parse('${bill['repaymentterms']}') + 1}"
+                                : "每${int.parse('${bill['repaymentperiod']}'.split('|').first) + 1}${int.parse('${bill['repaymentperiod']}'.split('|').last) == 0 ? '个月' : '天'}",
                         style: TextStyle(
                           fontSize: 19,
                           color: Colors.white,

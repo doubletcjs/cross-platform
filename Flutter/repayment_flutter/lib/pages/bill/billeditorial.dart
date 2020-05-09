@@ -146,7 +146,9 @@ class _BillEditorialPageState extends State<BillEditorialPage> {
                       value: index == 1 ? _bill["date"] : "",
                       editorialHandle: (value) {
                         if (index == 0) {
-                          _bill["name"] = "$value";
+                          var nameIcon = "$value";
+                          _bill["name"] = "${nameIcon.split("|").first}";
+                          _bill["icon"] = "${nameIcon.split("|").last}";
                         } else if (index == 1) {
                           _bill["date"] = "$value";
                         } else if (index == 2) {

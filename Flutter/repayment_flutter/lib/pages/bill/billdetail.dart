@@ -2,16 +2,37 @@ import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:repayment_flutter/pages/bill/views/billdetailcell.dart';
 import 'package:repayment_flutter/pages/bill/views/billdetailheader.dart';
+import 'package:repayment_flutter/public/billmanager.dart';
 import 'package:repayment_flutter/public/public.dart';
 
 class BillDetailPage extends StatefulWidget {
-  BillDetailPage({Key key}) : super(key: key);
+  Map bill;
+  BillDetailPage({Key key, this.bill}) : super(key: key);
 
   @override
   _BillDetailPageState createState() => _BillDetailPageState();
 }
 
 class _BillDetailPageState extends State<BillDetailPage> {
+  List<Map<String, dynamic>> _dataList = [];
+
+  void _refrshUnfoldBills() {
+    if (this.widget.bill != null) {
+      BillManager.billUnfoldBills((bills) {
+        setState(() {
+          _dataList = bills;
+        });
+      }, this.widget.bill);
+    }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+
+    this._refrshUnfoldBills();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -20,12 +41,16 @@ class _BillDetailPageState extends State<BillDetailPage> {
       ),
       body: Column(
         children: <Widget>[
-          BillDetailHeader(),
+          BillDetailHeader(
+            bill: this.widget.bill,
+          ),
           Expanded(
             child: ListView.builder(
               itemBuilder: (context, index) {
                 return functionSlidableCell(
-                  BillDetailCell(),
+                  BillDetailCell(
+                    bill: _dataList[index],
+                  ),
                   actionExtentRatio: 80 / MediaQuery.of(context).size.width,
                   rightActions: [
                     SlideAction(
@@ -42,7 +67,7 @@ class _BillDetailPageState extends State<BillDetailPage> {
                   ],
                 );
               },
-              itemCount: 20,
+              itemCount: _dataList.length,
             ),
           ),
         ],

@@ -428,8 +428,16 @@ class _BillEditorialCellState extends State<BillEditorialCell> {
                       return BankSelectionPage(
                         selectionHandle: (bankName, bankIcon) {
                           setState(() {
-                            _bankName = bankName;
-                            _bankIcon = bankIcon;
+                            if (isStringEmpty(bankName) == false &&
+                                isStringEmpty(bankIcon) == false) {
+                              _bankName = bankName;
+                              _bankIcon = bankIcon;
+
+                              if (this.widget.editorialHandle != null) {
+                                this.widget.editorialHandle(
+                                    _bankName + "|" + _bankIcon);
+                              }
+                            }
                           });
                         },
                       );

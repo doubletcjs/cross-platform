@@ -3,14 +3,17 @@ import 'package:repayment_flutter/pages/bill/billdetail.dart';
 import 'package:repayment_flutter/public/public.dart';
 
 class BillRecordCell extends StatelessWidget {
+  Map bill;
   kObjectFunctionBlock onClose;
-  BillRecordCell({Key key, this.onClose}) : super(key: key);
+  BillRecordCell({Key key, this.onClose, this.bill}) : super(key: key);
 
   void _billDetail(BuildContext context) {
     Navigator.of(context).push(
       MaterialPageRoute(
         builder: (context) {
-          return BillDetailPage();
+          return BillDetailPage(
+            bill: bill,
+          );
         },
       ),
     );
@@ -30,7 +33,7 @@ class BillRecordCell extends StatelessWidget {
                 children: <Widget>[
                   ClipRRect(
                     child: Image.asset(
-                      "images/icon_loan_customise.png",
+                      "${bill["icon"]}",
                       width: 22,
                       height: 22,
                       fit: BoxFit.fill,
@@ -42,9 +45,10 @@ class BillRecordCell extends StatelessWidget {
                   ),
                   Column(
                     mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
                       Text(
-                        "招商银行",
+                        "${bill["name"]}",
                         style: TextStyle(
                           fontSize: 15,
                           color: Colors.black,
@@ -54,7 +58,7 @@ class BillRecordCell extends StatelessWidget {
                         height: 2,
                       ),
                       Text(
-                        "2020-01-23",
+                        "${bill["firstdate"]}",
                         style: TextStyle(
                           fontSize: 10,
                           color: Colors.grey,
@@ -68,7 +72,7 @@ class BillRecordCell extends StatelessWidget {
             Row(
               children: <Widget>[
                 Text(
-                  "2321.22",
+                  "${double.parse('${bill["eachamount"]}').toStringAsFixed(2)}",
                   style: TextStyle(
                     fontSize: 18,
                     color: Colors.black,

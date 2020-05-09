@@ -161,12 +161,15 @@ class _BillChartHeaderState extends State<BillChartHeader> {
     for (var i = 0; i < _monthlyDates.length; i++) {
       var date = _monthlyDates[i];
       double amounts = -1;
-      for (var bill in _allUnfoldBills) {
-        var unfolddate = "${bill["unfolddate"]}";
-        DateTime unfoldDate = DateTime.parse(unfolddate);
-        if (unfoldDate.month == date.month && unfoldDate.year == date.year) {
-          double eachamount = double.parse("${bill['eachamount']}");
-          amounts += eachamount;
+      if (_allUnfoldBills.length > 0) {
+        amounts = 0.0;
+        for (var bill in _allUnfoldBills) {
+          var unfolddate = "${bill["unfolddate"]}";
+          DateTime unfoldDate = DateTime.parse(unfolddate);
+          if (unfoldDate.month == date.month && unfoldDate.year == date.year) {
+            double eachamount = double.parse("${bill['eachamount']}");
+            amounts += eachamount;
+          }
         }
       }
 

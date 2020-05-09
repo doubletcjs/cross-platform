@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:repayment_flutter/pages/bill/billnorecord.dart';
 import 'package:repayment_flutter/pages/bill/views/billrecordcell.dart';
+import 'package:repayment_flutter/public/billmanager.dart';
 import 'package:repayment_flutter/public/public.dart';
 
 class BillRecordPage extends StatefulWidget {
@@ -17,42 +18,18 @@ class _BillRecordPageState extends State<BillRecordPage>
   TabController _tabController;
   int _currentIndex = 0;
 
-  List _dataList = [
-    "",
-    "",
-    "",
-    "",
-    "",
-    "",
-    "",
-    "",
-    "",
-    "",
-    "",
-    "",
-    "",
-    "",
-    "",
-    "",
-    "",
-    "",
-    "",
-    "",
-    "",
-    ""
-  ];
+  List _dataList = [];
 
   void _refreshData() {
-    _dataList = [];
-    if (_currentIndex == 0) {
-      for (var i = 0; i < 5; i++) {
-        _dataList.add("");
+    BillManager.allBills((list) {
+      setState(() {
+        _dataList = list;
+      });
+    }, (msg) {
+      if (msg != null) {
+        showToast(msg, context);
       }
-    } else if (_currentIndex == 2) {
-      for (var i = 0; i < 15; i++) {
-        _dataList.add("");
-      }
-    }
+    });
   }
 
   @override
@@ -60,6 +37,7 @@ class _BillRecordPageState extends State<BillRecordPage>
     super.initState();
 
     _tabController = TabController(length: 3, vsync: this);
+    this._refreshData();
   }
 
   @override
@@ -107,6 +85,7 @@ class _BillRecordPageState extends State<BillRecordPage>
                     itemBuilder: (context, index) {
                       return functionSlidableCell(
                         BillRecordCell(
+                          bill: _dataList[index],
                           onClose: (ctx) {
                             Slidable.of(ctx).close();
                           },

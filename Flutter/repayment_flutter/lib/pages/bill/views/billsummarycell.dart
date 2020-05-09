@@ -25,7 +25,7 @@ class BillSummaryCell extends StatelessWidget {
             children: <Widget>[
               ClipRRect(
                 child: Image.asset(
-                  "images/icon_loan_customise.png",
+                  bill["icon"],
                   width: 22,
                   height: 22,
                   fit: BoxFit.fill,

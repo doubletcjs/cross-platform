@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 
 class BillDetailCell extends StatelessWidget {
-  const BillDetailCell({Key key}) : super(key: key);
+  Map bill;
+  BillDetailCell({Key key, this.bill}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -17,7 +18,7 @@ class BillDetailCell extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
               Text(
-                "5/6期",
+                "${int.parse('${bill['currentterm']}') + 1}/${int.parse('${bill['repaymentterms']}') + 1}期",
                 style: TextStyle(
                   fontSize: 15,
                   color: Colors.black,
@@ -27,7 +28,7 @@ class BillDetailCell extends StatelessWidget {
                 height: 3,
               ),
               Text(
-                "还款日：2020-06-28",
+                "还款日：${bill['unfolddate']}",
                 style: TextStyle(
                   fontSize: 10,
                   color: Colors.black,
@@ -47,7 +48,7 @@ class BillDetailCell extends StatelessWidget {
                 ),
               ),
               Text(
-                "553.12",
+                "${double.parse('${bill["eachamount"]}').toStringAsFixed(2)}",
                 style: TextStyle(
                   fontSize: 14,
                   color: Colors.black,
