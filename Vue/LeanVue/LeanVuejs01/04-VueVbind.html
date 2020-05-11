@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .active {
+            color: red;
+        }
+
+        .notActive {
+            color: green;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <img :src="imageURL" alt="">
+        <a :href="url" target="_blank">百度一下</a>
+        <h1 :class="{active: isActivie, notActive: isActivie == false}">{{message}}</h1>
+        <button @click="switchStatus">切换状态</button>
+    </div>
+
+    <script src="./js/vue.js"></script>
+    <script>
+        const app = new Vue({
+            el: "#app",
+            data: {
+                imageURL: "https://dss0.baidu.com/6ONWsjip0QIZ8tyhnq/it/u=2098453908,1745158925&fm=85&app=92&f=JPEG?w=121&h=75&s=E97933D578F2EFE9589C706303003070",
+                url: "https://www.baidu.com",
+                message: "状态颜色",
+                isActivie: true
+            },
+            methods: {
+                switchStatus() {
+                    this.isActivie = !this.isActivie;
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>
