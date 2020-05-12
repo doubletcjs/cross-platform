@@ -23,6 +23,7 @@ class BillManager {
     Future<String> _ = getDatabasesPath().then(
       (databasesPath) {
         var path = "$databasesPath" + "/repayment.db";
+        kLog("path:" + path);
         Future<Database> _ = openDatabase(
           path,
           version: 1,
@@ -166,6 +167,25 @@ class BillManager {
         kLog("error:" + error);
         if (fail != null) {
           fail("获取账单失败！");
+        }
+      },
+    );
+  }
+
+  //删除账单
+  static deleteBill(String billID, kObjectFunctionBlock complete) {
+    database.delete("$tableBill", where: '$billId = $billID').then(
+      (value) {
+        kLog("value:" + "$value");
+        if (complete != null) {
+          complete(null);
+        }
+      },
+    ).catchError(
+      (error) {
+        kLog("error:" + error);
+        if (complete != null) {
+          complete("删除账单失败！");
         }
       },
     );

@@ -32,6 +32,56 @@ class _BillRecordPageState extends State<BillRecordPage>
     });
   }
 
+  ///删除账单
+  void _handleDeleteBill(int index) {
+    var model = _dataList[index];
+    BillManager.deleteBill("${model["id"]}", (msg) {
+      if (msg == null) {
+        _dataList.removeAt(index);
+        setState(() {
+          kLog("${_dataList.length}");
+        });
+      } else {
+        showToast(msg, context);
+      }
+    });
+  }
+
+  void _deleteBill(int index) {
+    showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: Text(
+            "提示",
+          ),
+          content: Text("确定要删除该记录吗？"),
+          actions: <Widget>[
+            FlatButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              child: Text(
+                "取消",
+              ),
+            ),
+            FlatButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+                Future.delayed(Duration(milliseconds: 400), () {
+                  this._handleDeleteBill(index);
+                });
+              },
+              child: Text(
+                "确定",
+              ),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
   @override
   void initState() {
     super.initState();
@@ -102,7 +152,9 @@ class _BillRecordPageState extends State<BillRecordPage>
                             ),
                             closeOnTap: true,
                             color: Colors.red,
-                            onTap: () {},
+                            onTap: () {
+                              this._deleteBill(index);
+                            },
                           ),
                         ],
                       );

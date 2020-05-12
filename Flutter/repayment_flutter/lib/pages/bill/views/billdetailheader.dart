@@ -24,6 +24,43 @@ class BillDetailHeader extends StatelessWidget {
     );
   }
 
+  void _handleDeleteBill(BuildContext context) {}
+
+  void _deleteBill(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: Text(
+            "提示",
+          ),
+          content: Text("确定要删除该记录吗？"),
+          actions: <Widget>[
+            FlatButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              child: Text(
+                "取消",
+              ),
+            ),
+            FlatButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+                Future.delayed(Duration(milliseconds: 400), () {
+                  this._handleDeleteBill(context);
+                });
+              },
+              child: Text(
+                "确定",
+              ),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
   void _moreActions(BuildContext context) {
     showCupertinoModalPopup(
       context: context,
@@ -57,6 +94,7 @@ class BillDetailHeader extends StatelessWidget {
             ),
             CupertinoActionSheetAction(
               onPressed: () {
+                this._deleteBill(context);
                 Navigator.of(context).pop();
               },
               child: Text(

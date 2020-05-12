@@ -11,6 +11,34 @@
     <div id="app">
         <input type="text" v-model="message" @input="valueChanged">
         {{message}}
+
+        <input type="radio" id="male" name="sex" value="男" v-model="sex">男</input>
+        <input type="radio" id="female" name="sex" value="女" v-model="sex">女</input>
+
+        <h2>你的性别是：{{sex}}</h2>
+
+        <input type="checkbox" name="agreen" id="agreen" v-model="isAgree">同意协议</input>
+        <h2>你选择的是：{{isAgree}}</h2>
+        <button :disabled="!isAgree">下一步</button>
+
+        <input type="checkbox" value="篮球" v-model="hobbies">篮球</input>
+        <input type="checkbox" value="足球" v-model="hobbies">足球</input>
+        <input type="checkbox" value="乒乓球" v-model="hobbies">乒乓球</input>
+        <input type="checkbox" value="羽毛球" v-model="hobbies">羽毛球</input>
+
+        <h2>你的爱好是：{{hobbies}}</h2>
+
+        <select name="选择" id="" v-model="fruits" multiple>
+            <option value="苹果">苹果</option>
+            <option value="榴莲">榴莲</option>
+            <option value="香蕉">香蕉</option>
+            <option value="葡萄">葡萄</option>
+        </select>
+        <h2>你选择的水果是：{{fruits}}</h2>
+
+        <label v-for="item in originHobbies" :for="item">
+            <input type="checkbox" :value="item" v-model="hobbies">{{item}}</input>
+        </label>
     </div>
 
     <script src="./js/vue.js"></script>
@@ -18,7 +46,13 @@
         const app = new Vue({
             el: "#app",
             data: {
-                message: "asdf aw312"
+                message: "asdf aw312",
+                sex: "",
+                isAgree: false,
+                hobbies: [],
+                fruit: "榴莲",
+                fruits: [],
+                originHobbies: ["篮球", "足球", "乒乓球", "羽毛球", "台球", "高尔夫球"]
             },
             methods: {
                 valueChanged(res) {

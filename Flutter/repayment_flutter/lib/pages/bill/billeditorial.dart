@@ -143,7 +143,15 @@ class _BillEditorialPageState extends State<BillEditorialPage> {
                     var item = _editorialList[index];
                     return BillEditorialCell(
                       item: item,
-                      value: index == 1 ? _bill["date"] : "",
+                      value: index == 0
+                          ? "${_bill["name"]}|${_bill["icon"]}"
+                          : index == 1
+                              ? _bill["date"]
+                              : index == 2
+                                  ? _bill["limit"]
+                                  : index == 3
+                                      ? _bill["cycle"]
+                                      : index == 4 ? _bill["remark"] : "",
                       editorialHandle: (value) {
                         if (index == 0) {
                           var nameIcon = "$value";

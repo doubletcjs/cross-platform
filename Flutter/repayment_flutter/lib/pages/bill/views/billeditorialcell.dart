@@ -138,7 +138,6 @@ class _BillEditorialCellState extends State<BillEditorialCell> {
                       context,
                       onTap: () {
                         Navigator.of(context).pop();
-
                         setState(() {
                           this.widget.value = "$_position";
                         });
@@ -320,6 +319,20 @@ class _BillEditorialCellState extends State<BillEditorialCell> {
   }
 
   @override
+  void initState() {
+    super.initState();
+
+    if (this.widget.value != null && this.widget.value.length > 0) {
+      if (this.widget.item == "账单名称") {
+        setState(() {
+          _bankName = "${this.widget.value.split("|").first}";
+          _bankIcon = "${this.widget.value.split("|").last}";
+        });
+      }
+    }
+  }
+
+  @override
   Widget build(BuildContext context) {
     return this.widget.item.contains("备忘") == true
         ? Container(
@@ -347,7 +360,7 @@ class _BillEditorialCellState extends State<BillEditorialCell> {
                   color: Colors.grey,
                   fontSize: 15,
                 ),
-                hasFloatingPlaceholder: false,
+                floatingLabelBehavior: FloatingLabelBehavior.never,
                 border: InputBorder.none,
               ),
             ),
