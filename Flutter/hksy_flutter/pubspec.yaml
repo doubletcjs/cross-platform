@@ -27,6 +27,7 @@ dependencies:
   shared_preferences_web: any 
   toast: any  
   xs_progress_hud: any
+  dio: any
 
 dev_dependencies:
   flutter_test:

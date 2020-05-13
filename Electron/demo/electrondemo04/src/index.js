@@ -1,4 +1,7 @@
-import { app, BrowserWindow } from 'electron';
+import {
+  app,
+  BrowserWindow
+} from 'electron';
 
 // Handle creating/removing shortcuts on Windows when installing/uninstalling.
 if (require('electron-squirrel-startup')) { // eslint-disable-line global-require
@@ -29,6 +32,7 @@ const createWindow = () => {
     // when you should delete the corresponding element.
     mainWindow = null;
   });
+
 };
 
 // This method will be called when Electron has finished

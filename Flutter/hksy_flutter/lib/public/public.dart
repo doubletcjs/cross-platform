@@ -1,5 +1,8 @@
+import 'dart:convert';
+
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:toast/toast.dart';
 import 'package:xs_progress_hud/xs_progress_hud.dart';
 
@@ -8,44 +11,75 @@ final Color kMainBackgroundColor = rgba(21, 25, 54, 1);
 typedef kVoidFunctionBlock = void Function();
 typedef kObjectFunctionBlock = void Function(Object object);
 
-///自定义AppBar
-AppBar customAppBar({
-  String title,
-  Widget titleView,
-  Color color = Colors.black,
-  double fontSize = 17,
-  Widget leftItem,
-  List<Widget> rightItems,
-  Brightness brightness = Brightness.light,
-  Color backgroundColor = Colors.white,
-  double elevation = 0.0,
-}) {
-  return AppBar(
-    title: title != null
-        ? Text(
-            title,
-            style: TextStyle(fontSize: fontSize, color: color),
-          )
-        : titleView != null ? titleView : Container(),
-    leading: leftItem != null
-        ? Builder(builder: (context) {
-            return leftItem;
-          })
-        : null,
-    actions: rightItems,
-    brightness: brightness,
-    backgroundColor: backgroundColor,
-    elevation: elevation,
-    iconTheme: IconThemeData(color: color),
-  );
+final Future<SharedPreferences> _preferencesFuture =
+    SharedPreferences.getInstance();
+
+Map _accountInfo = {};
+
+///userID
+String userID() {
+  final userInfo = _accountInfo;
+  return "${userInfo["userId"] == null ? "" : userInfo["userId"]}";
 }
 
-Widget transparentAppBar({Brightness brightness = Brightness.dark}) {
-  return customAppBar(
-    backgroundColor: Colors.transparent,
-    brightness: brightness,
-    leftItem: Container(),
-  );
+///token
+String token() {
+  _preferencesFuture.then((preferences) {
+    return preferences.get("token");
+  }).catchError((error) {
+    kLog("error:$error");
+  });
+
+  return "";
+}
+
+void recordToken(token) {
+  _preferencesFuture.then((preferences) {
+    preferences.setString(
+      "token",
+      token,
+    );
+  }).catchError((error) {
+    kLog("error:$error");
+  });
+}
+
+/// 保存用户信息
+void recordUserInfo(Map info) {
+  if (info != null && info.length > 0 && info["userId"] != null) {
+    kLog("更新用户信息");
+    _accountInfo = info;
+    _preferencesFuture.then((preferences) {
+      preferences.setString(
+        "account",
+        jsonEncode(info),
+      );
+    }).catchError((error) {
+      kLog("error:$error");
+    });
+  }
+}
+
+Map fetchUser() {
+  if (_accountInfo == null || _accountInfo.length == 0) {
+    _preferencesFuture.then((preferences) {
+      final mapString = preferences.get("account");
+      if (isStringEmpty(mapString) == false) {
+        Map userInfo = jsonDecode(mapString);
+        _accountInfo = userInfo == null ? {} : userInfo;
+
+        return _accountInfo;
+      } else {
+        return {};
+      }
+    }).catchError((error) {
+      kLog("error:$error");
+    });
+
+    return {};
+  } else {
+    return _accountInfo;
+  }
 }
 
 ///hud
@@ -84,6 +118,46 @@ void showToast(String message, BuildContext context,
     () {
       Toast.show(message, context, gravity: gravity, duration: duration);
     },
+  );
+}
+
+///自定义AppBar
+AppBar customAppBar({
+  String title,
+  Widget titleView,
+  Color color = Colors.black,
+  double fontSize = 17,
+  Widget leftItem,
+  List<Widget> rightItems,
+  Brightness brightness = Brightness.light,
+  Color backgroundColor = Colors.white,
+  double elevation = 0.0,
+}) {
+  return AppBar(
+    title: title != null
+        ? Text(
+            title,
+            style: TextStyle(fontSize: fontSize, color: color),
+          )
+        : titleView != null ? titleView : Container(),
+    leading: leftItem != null
+        ? Builder(builder: (context) {
+            return leftItem;
+          })
+        : null,
+    actions: rightItems,
+    brightness: brightness,
+    backgroundColor: backgroundColor,
+    elevation: elevation,
+    iconTheme: IconThemeData(color: color),
+  );
+}
+
+Widget transparentAppBar({Brightness brightness = Brightness.dark}) {
+  return customAppBar(
+    backgroundColor: Colors.transparent,
+    brightness: brightness,
+    leftItem: Container(),
   );
 }
 
