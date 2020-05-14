@@ -11,21 +11,20 @@ class MinePage extends StatefulWidget {
 class _MinePageState extends State<MinePage> {
   @override
   Widget build(BuildContext context) {
-    return Stack(
-      children: <Widget>[
-        transparentAppBar(
-          brightness: Brightness.dark,
-        ),
-        Container(
-          color: kMainBackgroundColor,
-          child: Container(
-            color: kMainBackgroundColor,
+    return Scaffold(
+      backgroundColor: kMainBackgroundColor,
+      body: Stack(
+        children: <Widget>[
+          transparentAppBar(
+            brightness: Brightness.dark,
+          ),
+          Container(
             child: Center(
               child: Text("我的"),
             ),
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 }

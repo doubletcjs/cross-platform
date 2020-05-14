@@ -11,18 +11,18 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
-    return Stack(
-      children: <Widget>[
-        transparentAppBar(
-          brightness: Brightness.dark,
-        ),
-        Container(
-          color: kMainBackgroundColor,
-          child: Center(
+    return Scaffold(
+      backgroundColor: kMainBackgroundColor,
+      body: Stack(
+        children: <Widget>[
+          transparentAppBar(
+            brightness: Brightness.dark,
+          ),
+          Center(
             child: Text("首页"),
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 }

@@ -1,7 +1,9 @@
 import 'dart:convert';
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:toast/toast.dart';
 import 'package:xs_progress_hud/xs_progress_hud.dart';
@@ -10,6 +12,11 @@ final Color kMainColor = rgba(23, 96, 255, 1);
 final Color kMainBackgroundColor = rgba(21, 25, 54, 1);
 typedef kVoidFunctionBlock = void Function();
 typedef kObjectFunctionBlock = void Function(Object object);
+final String kForceLogoutNotification = "ForceLogoutNotification";
+final String kRefreshAccountNotification = "RefreshAccountNotification";
+
+final RegExp kPhoneRegExp = RegExp(
+    r'^((13[0-9])|(14[0-9])|(15[0-9])|(16[0-9])|(17[0-9])|(18[0-9])|(19[0-9]))\d{8}$');
 
 final Future<SharedPreferences> _preferencesFuture =
     SharedPreferences.getInstance();
@@ -121,6 +128,87 @@ void showToast(String message, BuildContext context,
   );
 }
 
+///下拉刷新上提加载更多
+CustomFooter functionFooter({bool enable = true}) {
+  return CustomFooter(
+    builder: (BuildContext context, LoadStatus mode) {
+      Widget body;
+      if (mode == LoadStatus.idle) {
+        body = Text(
+          "上拉加载",
+          style: TextStyle(
+            fontSize: 15,
+          ),
+        );
+      } else if (mode == LoadStatus.loading) {
+        body = CupertinoActivityIndicator();
+      } else if (mode == LoadStatus.failed) {
+        body = Text(
+          "加载失败！点击重试！",
+          style: TextStyle(
+            fontSize: 15,
+          ),
+        );
+      } else if (mode == LoadStatus.canLoading) {
+        body = Text(
+          "松手,加载更多!",
+          style: TextStyle(
+            fontSize: 15,
+          ),
+        );
+      } else {
+        body = Text(
+          "没有更多数据了!",
+          style: TextStyle(
+            fontSize: 15,
+          ),
+        );
+      }
+      return enable == false
+          ? Container()
+          : Container(
+              height: 44.0,
+              child: Center(child: body),
+            );
+    },
+  );
+}
+
+Widget functionRefresher(
+  RefreshController controller,
+  Widget child, {
+  VoidCallback onRefresh,
+  VoidCallback onLoadMore,
+  bool enableRefresh = true,
+  bool enableLoadMore = false,
+  List<Widget> slivers,
+}) {
+  return slivers == null
+      ? SmartRefresher(
+          controller: controller,
+          enablePullDown: enableRefresh,
+          enablePullUp: enableLoadMore,
+          header: WaterDropMaterialHeader(),
+          footer: functionFooter(enable: enableLoadMore),
+          onRefresh: onRefresh,
+          onLoading: onLoadMore,
+          child: child,
+        )
+      : SmartRefresher.builder(
+          controller: controller,
+          enablePullDown: enableRefresh,
+          enablePullUp: enableLoadMore,
+          onRefresh: onRefresh,
+          onLoading: onLoadMore,
+          builder: (context, physics) {
+            return CustomScrollView(
+              physics: physics,
+              slivers: slivers,
+            );
+          },
+        );
+}
+
 ///自定义AppBar
 AppBar customAppBar({
   String title,
@@ -189,4 +277,13 @@ bool isStringEmpty(text) {
   } else {
     return false;
   }
+}
+
+/// 正则匹配
+bool regularMatch(String text, RegExp regExp) {
+  if (isStringEmpty(text) == true) {
+    return false;
+  }
+
+  return regExp.hasMatch(text);
 }
