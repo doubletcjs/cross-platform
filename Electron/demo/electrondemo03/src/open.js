@@ -8,8 +8,8 @@ button.onclick = () => {
     win = new BrowserWindow({
         width: 320,
         height: 480,
-        frame: false,
-        fullscreen: true
+        // frame: false,
+        // fullscreen: true 
     });
     win.loadURL(`file://${__dirname}/news.html`);
     win.on('closed', () => {
