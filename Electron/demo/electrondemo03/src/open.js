@@ -4,7 +4,7 @@ let win;
 let button = window.document.querySelector('#btn');
 
 button.onclick = () => {
-    alert('点击了');
+    // alert('点击了');
     win = new BrowserWindow({
         width: 320,
         height: 480,

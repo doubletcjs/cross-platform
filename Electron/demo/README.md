@@ -4,5 +4,5 @@ npm start
 
 //git
 cd <name>
-npm install
-npm start
+npm(cnpm) install
+npm(cnpm) start 
