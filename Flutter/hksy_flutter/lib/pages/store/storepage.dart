@@ -46,7 +46,7 @@ class _StorePageState extends State<StorePage> {
   void initState() {
     super.initState();
 
-    this._requestProducts();
+    // this._requestProducts();
   }
 
   @override

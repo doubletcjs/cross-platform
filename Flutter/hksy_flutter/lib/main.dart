@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hksy_flutter/function/account/loginregister.dart';
 import 'package:hksy_flutter/pages/galaxy/galaxypage.dart';
+import 'package:hksy_flutter/pages/guide/appguide.dart';
 import 'package:hksy_flutter/pages/home/homepage.dart';
 import 'package:hksy_flutter/pages/mine/minepage.dart';
 import 'package:hksy_flutter/pages/store/storepage.dart';
@@ -17,11 +18,17 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  int _currentIndex = -1;
+  int _currentIndex = 0;
 
   @override
   void initState() {
     super.initState();
+
+    if (isStringEmpty(userID()) == false) {
+      setState(() {
+        _currentIndex = 0;
+      });
+    }
 
     ///登录成功
     DartNotificationCenter.subscribe(
@@ -50,22 +57,24 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: "华科闪云",
-      home: _currentIndex == -1
-          ? Scaffold(
-              backgroundColor: kMainBackgroundColor,
-              body: LoginRegisterPage(),
-            )
-          : Scaffold(
-              body: IndexedStack(
-                children: <Widget>[
-                  HomePage(),
-                  StorePage(),
-                  GalaxyPage(),
-                  MinePage(),
-                ],
-                index: _currentIndex,
-              ),
-              bottomNavigationBar: BottomNavigationBar(
+      home: Scaffold(
+        backgroundColor: kMainBackgroundColor,
+        body: _currentIndex == -1
+            ? LoginRegisterPage()
+            : _currentIndex == -2
+                ? AppGuidePage()
+                : IndexedStack(
+                    children: <Widget>[
+                      HomePage(),
+                      StorePage(),
+                      GalaxyPage(),
+                      MinePage(),
+                    ],
+                    index: _currentIndex,
+                  ),
+        bottomNavigationBar: (_currentIndex == -1 || _currentIndex == -2)
+            ? null
+            : BottomNavigationBar(
                 items: [
                   BottomNavigationBarItem(
                     icon: Image.asset(
@@ -142,7 +151,7 @@ class _MyAppState extends State<MyApp> {
                   });
                 },
               ),
-            ),
+      ),
     );
   }
 }

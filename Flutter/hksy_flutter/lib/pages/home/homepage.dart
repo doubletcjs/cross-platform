@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:hksy_flutter/pages/home/views/homeassets.dart';
+import 'package:hksy_flutter/pages/home/views/homeheader.dart';
+import 'package:hksy_flutter/pages/home/views/homenotice.dart';
 import 'package:hksy_flutter/public/public.dart';
 
 class HomePage extends StatefulWidget {
@@ -18,8 +21,16 @@ class _HomePageState extends State<HomePage> {
           transparentAppBar(
             brightness: Brightness.dark,
           ),
-          Center(
-            child: Text("首页"),
+          ListView.builder(
+            padding: EdgeInsets.zero,
+            itemBuilder: (context, index) {
+              return index == 0
+                  ? HomeHeader()
+                  : index == 1
+                      ? HomeNotice()
+                      : index == 2 ? HomeAssets() : Container();
+            },
+            itemCount: 3,
           ),
         ],
       ),

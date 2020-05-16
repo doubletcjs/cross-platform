@@ -169,6 +169,11 @@ class Networking {
           // kLog("原始数据:$data");
           String code = "${data["code"]}";
           if (code == kRequestSuccessCode) {
+            if (data["token"] != null &&
+                isStringEmpty(data["token"]) == false) {
+              recordToken(data["token"]);
+            }
+
             if (data["data"] != null) {
               if (finish != null) {
                 finish(data["data"], null);

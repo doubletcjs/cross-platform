@@ -29,7 +29,8 @@ dependencies:
   xs_progress_hud: any
   dio: any
   pull_to_refresh: any
-  dart_notification_center: any
+  dart_notification_center: any  
+  flutter_swiper: any
 
 dev_dependencies:
   flutter_test:
