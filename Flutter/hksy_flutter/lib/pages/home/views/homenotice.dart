@@ -61,6 +61,7 @@ class _HomeNoticeState extends State<HomeNotice> {
                 ],
                 scrollDirection: Axis.vertical,
                 autoplay: true,
+                onTap: (index) {},
               ),
             ),
           ],
