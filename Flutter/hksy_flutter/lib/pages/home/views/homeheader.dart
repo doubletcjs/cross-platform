@@ -36,17 +36,14 @@ class HomeHeader extends StatelessWidget {
                   Image.network(
                     "https://ipfshksy.oss-cn-hongkong.aliyuncs.com/user/sys/20200403/1585905589602.png?Expires=1901265589&OSSAccessKeyId=LTAIYBtrLBpckLPj&Signature=0%2FElTkOQ4uorg3FP3NNpoRPrVQw%3D",
                     fit: BoxFit.fitWidth,
-                    alignment: Alignment.topCenter,
                   ),
                   Image.network(
                     "https://ipfshksy.oss-cn-hongkong.aliyuncs.com/user/sys/20200403/1585905595586.png?Expires=1901265595&OSSAccessKeyId=LTAIYBtrLBpckLPj&Signature=ZebW1cVFj5Nuzmqni7BHUrYXpmU%3D",
                     fit: BoxFit.fitWidth,
-                    alignment: Alignment.topCenter,
                   ),
                   Image.network(
                     "https://ipfshksy.oss-cn-hongkong.aliyuncs.com/user/sys/20200403/1585905589602.png?Expires=1901265589&OSSAccessKeyId=LTAIYBtrLBpckLPj&Signature=0%2FElTkOQ4uorg3FP3NNpoRPrVQw%3D",
                     fit: BoxFit.fitWidth,
-                    alignment: Alignment.topCenter,
                   ),
                 ],
                 autoplay: true,
