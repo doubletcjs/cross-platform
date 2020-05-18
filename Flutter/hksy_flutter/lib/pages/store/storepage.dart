@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hksy_flutter/pages/store/api/storeapi.dart';
+import 'package:hksy_flutter/pages/store/views/productcell.dart';
 import 'package:hksy_flutter/public/public.dart';
 
 class StorePage extends StatefulWidget {
@@ -10,7 +11,20 @@ class StorePage extends StatefulWidget {
 }
 
 class _StorePageState extends State<StorePage> {
-  List _dataList = [];
+  List _dataList = [
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+  ];
   int _page = 1;
   int _limit = 0;
 
@@ -59,8 +73,22 @@ class _StorePageState extends State<StorePage> {
         backgroundColor: kMainBackgroundColor,
         color: Colors.white,
       ),
-      body: Center(
-        child: Text("商城"),
+      body: ListView(
+        padding: EdgeInsets.fromLTRB(12, 20, 12, 20),
+        children: <Widget>[
+          Wrap(
+            spacing: 11,
+            runSpacing: 20,
+            children: _dataList.map(
+              (product) {
+                return ProductCell(
+                  diffSpace: 12 * 2.0,
+                  spacing: 11.0,
+                );
+              },
+            ).toList(),
+          ),
+        ],
       ),
     );
   }

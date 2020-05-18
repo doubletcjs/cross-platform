@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hksy_flutter/pages/store/views/productcell.dart';
 import 'package:hksy_flutter/public/public.dart';
 
 class HomeRecommend extends StatefulWidget {
@@ -35,41 +36,14 @@ class _HomeRecommendState extends State<HomeRecommend> {
           Wrap(
             spacing: 11,
             runSpacing: 11,
-            children: _dataList.map((product) {
-              return Container(
-                width: (MediaQuery.of(context).size.width - 24 - 11) / 2,
-                child: Column(
-                  children: <Widget>[
-                    Container(
-                      height: 210,
-                      decoration: BoxDecoration(
-                        color: rgba(27, 36, 62, 1),
-                        borderRadius: BorderRadius.circular(7.5),
-                      ),
-                    ),
-                    SizedBox(
-                      height: 10,
-                    ),
-                    Text(
-                      "华科闪云存储器2T",
-                      overflow: TextOverflow.ellipsis,
-                      style: TextStyle(
-                        fontSize: 15,
-                        color: rgba(255, 255, 255, 1),
-                      ),
-                    ),
-                    Text(
-                      "4360.0/个",
-                      overflow: TextOverflow.ellipsis,
-                      style: TextStyle(
-                        fontSize: 15,
-                        color: rgba(23, 96, 255, 1),
-                      ),
-                    )
-                  ],
-                ),
-              );
-            }).toList(),
+            children: _dataList.map(
+              (product) {
+                return ProductCell(
+                  diffSpace: 12 * 2.0,
+                  spacing: 11.0,
+                );
+              },
+            ).toList(),
           ),
         ],
       ),

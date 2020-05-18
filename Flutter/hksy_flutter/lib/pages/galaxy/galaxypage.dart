@@ -20,7 +20,9 @@ class _GalaxyPageState extends State<GalaxyPage> {
         color: Colors.white,
       ),
       body: Center(
-        child: Text("Galaxy"),
+        child: Image.asset(
+          "images/galaxy.gif",
+        ),
       ),
     );
   }
