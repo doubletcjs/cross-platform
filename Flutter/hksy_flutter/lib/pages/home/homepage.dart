@@ -4,6 +4,7 @@ import 'package:hksy_flutter/pages/home/views/homeheader.dart';
 import 'package:hksy_flutter/pages/home/views/homeintroduce.dart';
 import 'package:hksy_flutter/pages/home/views/homenotice.dart';
 import 'package:hksy_flutter/pages/home/views/homerecommend.dart';
+import 'package:hksy_flutter/pages/home/views/homeversion.dart';
 import 'package:hksy_flutter/public/public.dart';
 
 class HomePage extends StatefulWidget {
@@ -14,6 +15,18 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  @override
+  void initState() {
+    super.initState();
+
+    Future.delayed(
+        Duration(
+          seconds: 4,
+        ), () {
+      HomeVersion().show(context);
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
