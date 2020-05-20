@@ -10,6 +10,12 @@ class HomeNotice extends StatefulWidget {
 }
 
 class _HomeNoticeState extends State<HomeNotice> {
+  List _dataList = [
+    "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaacccc",
+    "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbccc",
+    "cccccccccccccccccccccccccccccccccccccccc",
+  ];
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -33,32 +39,21 @@ class _HomeNoticeState extends State<HomeNotice> {
             ),
             Expanded(
               child: Swiper.children(
-                children: <Widget>[
-                  Text(
-                    "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaacccc",
-                    overflow: TextOverflow.ellipsis,
-                    style: TextStyle(
-                      fontSize: 13,
-                      color: rgba(255, 255, 255, 1),
-                    ),
-                  ),
-                  Text(
-                    "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbcccc",
-                    overflow: TextOverflow.ellipsis,
-                    style: TextStyle(
-                      fontSize: 13,
-                      color: rgba(255, 255, 255, 1),
-                    ),
-                  ),
-                  Text(
-                    "cccccccccccccccccccccccccccccccccccccccc",
-                    overflow: TextOverflow.ellipsis,
-                    style: TextStyle(
-                      fontSize: 13,
-                      color: rgba(255, 255, 255, 1),
-                    ),
-                  ),
-                ],
+                children: _dataList.map(
+                  (notice) {
+                    return Container(
+                      alignment: Alignment.centerLeft,
+                      child: Text(
+                        notice,
+                        overflow: TextOverflow.ellipsis,
+                        style: TextStyle(
+                          fontSize: 13,
+                          color: rgba(255, 255, 255, 1),
+                        ),
+                      ),
+                    );
+                  },
+                ).toList(),
                 scrollDirection: Axis.vertical,
                 autoplay: true,
                 onTap: (index) {},

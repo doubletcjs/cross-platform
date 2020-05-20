@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hksy_flutter/pages/mine/settingpage.dart';
 import 'package:hksy_flutter/public/public.dart';
 
 class MineSectionView extends StatefulWidget {
@@ -25,61 +26,74 @@ class _MineSectionViewState extends State<MineSectionView> {
             String icon = data["icon"];
             String additional = data["additional"];
             int index = this.widget.dataSources.indexOf(data);
-            return Container(
-              padding: EdgeInsets.fromLTRB(20, 18.5, 20, 0),
-              child: Column(
-                children: <Widget>[
-                  Row(
-                    children: <Widget>[
-                      Image.asset(
-                        icon,
-                        width: 23,
-                        fit: BoxFit.fitWidth,
-                      ),
-                      SizedBox(
-                        width: 13.5,
-                      ),
-                      Text(
-                        name,
-                        style: TextStyle(
-                          color: rgba(255, 255, 255, 1),
-                          fontSize: 15,
+            return InkWell(
+              child: Container(
+                padding: EdgeInsets.fromLTRB(20, 18.5, 20, 0),
+                child: Column(
+                  children: <Widget>[
+                    Row(
+                      children: <Widget>[
+                        Image.asset(
+                          icon,
+                          width: 23,
+                          fit: BoxFit.fitWidth,
                         ),
-                      ),
-                      Expanded(
-                        child: Container(),
-                      ),
-                      Row(
-                        children: <Widget>[
-                          additional == null
-                              ? Container()
-                              : Text(
-                                  additional,
-                                  style: TextStyle(
-                                    color: rgba(145, 152, 173, 1),
-                                    fontSize: 13,
+                        SizedBox(
+                          width: 13.5,
+                        ),
+                        Text(
+                          name,
+                          style: TextStyle(
+                            color: rgba(255, 255, 255, 1),
+                            fontSize: 15,
+                          ),
+                        ),
+                        Expanded(
+                          child: Container(),
+                        ),
+                        Row(
+                          children: <Widget>[
+                            additional == null
+                                ? Container()
+                                : Text(
+                                    additional,
+                                    style: TextStyle(
+                                      color: rgba(145, 152, 173, 1),
+                                      fontSize: 13,
+                                    ),
                                   ),
-                                ),
-                          SizedBox(
-                            width: additional == null ? 0 : 8,
-                          ),
-                          Image.asset(
-                            "images/right_arrow@3x.png",
-                            width: 20,
-                            fit: BoxFit.fitWidth,
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
-                  Container(
-                    margin: EdgeInsets.fromLTRB(0, 18.5, 0, 0),
-                    height:
-                        index < this.widget.dataSources.length - 1 ? 0.8 : 0,
-                    color: rgba(21, 25, 54, 1),
-                  )
-                ],
+                            SizedBox(
+                              width: additional == null ? 0 : 8,
+                            ),
+                            Image.asset(
+                              "images/right_arrow@3x.png",
+                              width: 20,
+                              fit: BoxFit.fitWidth,
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                    Container(
+                      margin: EdgeInsets.fromLTRB(0, 18.5, 0, 0),
+                      height:
+                          index < this.widget.dataSources.length - 1 ? 0.8 : 0,
+                      color: rgba(21, 25, 54, 1),
+                    )
+                  ],
+                ),
               ),
+              onTap: () {
+                if (name == "设置中心") {
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (context) {
+                        return SettingPage();
+                      },
+                    ),
+                  );
+                }
+              },
             );
           },
         ).toList(),

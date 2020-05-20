@@ -22,7 +22,7 @@ class _MinePageState extends State<MinePage> {
         color: Colors.white,
       ),
       body: ListView(
-        padding: EdgeInsets.zero,
+        padding: EdgeInsets.fromLTRB(0, 8, 0, 8),
         children: <Widget>[
           MineUserHeaeder(),
           MineSectionView(
