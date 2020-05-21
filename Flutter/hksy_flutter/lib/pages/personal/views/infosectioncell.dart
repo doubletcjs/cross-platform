@@ -7,6 +7,8 @@ class InfoCell extends StatelessWidget {
   bool showArrow = true;
   bool isPortrait = false;
   bool showLine = true;
+  Widget rightChild;
+  Widget leftChild;
   kVoidFunctionBlock tapHandle;
 
   InfoCell({
@@ -17,6 +19,8 @@ class InfoCell extends StatelessWidget {
     this.isPortrait = false,
     this.showLine = true,
     this.tapHandle,
+    this.rightChild,
+    this.leftChild,
   }) : super(key: key);
 
   @override
@@ -37,51 +41,55 @@ class InfoCell extends StatelessWidget {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: <Widget>[
-            Text(
-              name,
-              style: TextStyle(
-                fontSize: 15,
-                color: rgba(255, 255, 255, 1),
-              ),
-            ),
-            Row(
-              children: <Widget>[
-                isPortrait == true
-                    ? value.length > 0
-                        ? Image.network(
-                            value,
-                            width: 59,
-                            height: 59,
-                          )
-                        : Image.asset(
-                            "images/default_avatar@3x.png",
-                            width: 59,
-                            height: 59,
-                          )
-                    : value.length > 0
-                        ? Text(
-                            value,
-                            style: TextStyle(
-                              color: rgba(145, 152, 173, 1),
-                              fontSize: 15,
-                            ),
-                          )
-                        : Container(),
-                SizedBox(
-                  width: ((value.length > 0 || isPortrait == true) &&
-                          showArrow == true)
-                      ? 12
-                      : 0,
-                ),
-                showArrow == true
-                    ? Image.asset(
-                        "images/right_arrow@3x.png",
-                        width: 16,
-                        height: 25,
-                      )
-                    : Container(),
-              ],
-            ),
+            leftChild != null
+                ? leftChild
+                : Text(
+                    name,
+                    style: TextStyle(
+                      fontSize: 15,
+                      color: rgba(255, 255, 255, 1),
+                    ),
+                  ),
+            rightChild != null
+                ? rightChild
+                : Row(
+                    children: <Widget>[
+                      isPortrait == true
+                          ? value.length > 0
+                              ? Image.network(
+                                  value,
+                                  width: 59,
+                                  height: 59,
+                                )
+                              : Image.asset(
+                                  "images/default_avatar@3x.png",
+                                  width: 59,
+                                  height: 59,
+                                )
+                          : value.length > 0
+                              ? Text(
+                                  value,
+                                  style: TextStyle(
+                                    color: rgba(145, 152, 173, 1),
+                                    fontSize: 15,
+                                  ),
+                                )
+                              : Container(),
+                      SizedBox(
+                        width: ((value.length > 0 || isPortrait == true) &&
+                                showArrow == true)
+                            ? 12
+                            : 0,
+                      ),
+                      showArrow == true
+                          ? Image.asset(
+                              "images/right_arrow@3x.png",
+                              width: 16,
+                              height: 25,
+                            )
+                          : Container(),
+                    ],
+                  ),
           ],
         ),
       ),

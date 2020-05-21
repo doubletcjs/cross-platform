@@ -57,6 +57,7 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: "华科闪云",
+      debugShowCheckedModeBanner: false,
       home: Scaffold(
         backgroundColor: kMainBackgroundColor,
         body: _currentIndex == -1

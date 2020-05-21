@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hksy_flutter/pages/mine/servicepage.dart';
 import 'package:hksy_flutter/pages/mine/settingpage.dart';
 import 'package:hksy_flutter/public/public.dart';
 
@@ -89,6 +90,14 @@ class _MineSectionViewState extends State<MineSectionView> {
                     MaterialPageRoute(
                       builder: (context) {
                         return SettingPage();
+                      },
+                    ),
+                  );
+                } else if (name == "联系客服") {
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (context) {
+                        return ServicePage();
                       },
                     ),
                   );

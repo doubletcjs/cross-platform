@@ -57,8 +57,8 @@ class HomeVersion extends StatelessWidget {
                 decoration: BoxDecoration(
                   color: rgba(255, 255, 255, 1),
                   borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(7.5),
-                    topRight: Radius.circular(7.5),
+                    topLeft: Radius.circular(9),
+                    topRight: Radius.circular(9),
                   ),
                 ),
               ),
@@ -109,7 +109,6 @@ class HomeVersion extends StatelessWidget {
                     ),
                     Container(
                       height: 32,
-                      width: 180,
                       margin: EdgeInsets.fromLTRB(8, 0, 8, 0),
                       alignment: Alignment.center,
                       decoration: BoxDecoration(

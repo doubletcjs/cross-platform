@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:hksy_flutter/function/paycode/paycodepage.dart';
+import 'package:hksy_flutter/pages/mine/aboutuspage.dart';
+import 'package:hksy_flutter/pages/mine/agreetment.dart';
 import 'package:hksy_flutter/pages/personal/views/infosectioncell.dart';
 import 'package:hksy_flutter/public/public.dart';
 
@@ -22,12 +25,28 @@ class SettingPage extends StatelessWidget {
             cells: <Widget>[
               InfoCell(
                 name: "支付密码设置",
-                tapHandle: () {},
+                tapHandle: () {
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (context) {
+                        return PaycodePage();
+                      },
+                    ),
+                  );
+                },
               ),
               InfoCell(
                 name: "注册协议",
                 showLine: false,
-                tapHandle: () {},
+                tapHandle: () {
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (context) {
+                        return AgreenMentPage();
+                      },
+                    ),
+                  );
+                },
               ),
             ],
           ),
@@ -38,7 +57,13 @@ class SettingPage extends StatelessWidget {
                 name: "关于我们",
                 showLine: false,
                 tapHandle: () {
-                  kLog("any");
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (context) {
+                        return AboutusPage();
+                      },
+                    ),
+                  );
                 },
               ),
             ],
@@ -62,7 +87,56 @@ class SettingPage extends StatelessWidget {
                     ],
                   ),
                 ),
-                onTap: () {},
+                onTap: () {
+                  showDialog(
+                    context: context,
+                    barrierDismissible: false,
+                    builder: (context) {
+                      return AlertDialog(
+                        title: Text(
+                          "注销登录",
+                          style: TextStyle(
+                            color: rgba(51, 51, 51, 1),
+                            fontSize: 15,
+                          ),
+                        ),
+                        content: Text(
+                          "你确定注销当前账号？",
+                          style: TextStyle(
+                            color: rgba(51, 51, 51, 1),
+                            fontSize: 15,
+                          ),
+                        ),
+                        actions: <Widget>[
+                          FlatButton(
+                            onPressed: () {
+                              Navigator.of(context).pop();
+                            },
+                            child: Text(
+                              "取消",
+                              style: TextStyle(
+                                color: rgba(145, 152, 173, 1),
+                                fontSize: 15,
+                              ),
+                            ),
+                          ),
+                          FlatButton(
+                            onPressed: () {
+                              Navigator.of(context).pop();
+                            },
+                            child: Text(
+                              "确认",
+                              style: TextStyle(
+                                color: rgba(23, 96, 255, 1),
+                                fontSize: 15,
+                              ),
+                            ),
+                          ),
+                        ],
+                      );
+                    },
+                  );
+                },
               ),
             ],
           ),

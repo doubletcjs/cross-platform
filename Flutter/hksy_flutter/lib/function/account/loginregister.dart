@@ -4,6 +4,7 @@ import 'package:dart_notification_center/dart_notification_center.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:hksy_flutter/function/account/api/accountapi.dart';
+import 'package:hksy_flutter/pages/mine/agreetment.dart';
 import 'package:hksy_flutter/public/public.dart';
 import 'package:xs_progress_hud/xs_progress_hud.dart';
 
@@ -180,6 +181,13 @@ class _LoginRegisterPageState extends State<LoginRegisterPage> {
 
   void _showAgreement() {
     FocusScope.of(context).requestFocus(FocusNode());
+    Navigator.of(context).push(
+      MaterialPageRoute(
+        builder: (context) {
+          return AgreenMentPage();
+        },
+      ),
+    );
   }
 
   void _loginRegisterAction() {

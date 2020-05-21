@@ -31,6 +31,7 @@ dependencies:
   pull_to_refresh: any
   dart_notification_center: any  
   flutter_swiper: any
+  flutter_widget_from_html: any
 
 dev_dependencies:
   flutter_test:
