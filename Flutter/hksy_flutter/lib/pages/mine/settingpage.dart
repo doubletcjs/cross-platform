@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:hksy_flutter/function/paycode/paycodepage.dart';
 import 'package:hksy_flutter/pages/mine/aboutuspage.dart';
 import 'package:hksy_flutter/pages/mine/agreetment.dart';
-import 'package:hksy_flutter/pages/personal/views/infosectioncell.dart';
+import 'package:hksy_flutter/function/infosectioncell.dart';
 import 'package:hksy_flutter/public/public.dart';
 
 class SettingPage extends StatelessWidget {
@@ -50,8 +50,10 @@ class SettingPage extends StatelessWidget {
               ),
             ],
           ),
+          SizedBox(
+            height: 20,
+          ),
           InfoSection(
-            topSpace: 20,
             cells: <Widget>[
               InfoCell(
                 name: "关于我们",
@@ -68,8 +70,10 @@ class SettingPage extends StatelessWidget {
               ),
             ],
           ),
+          SizedBox(
+            height: 35.5,
+          ),
           InfoSection(
-            topSpace: 35.5,
             cells: <Widget>[
               InkWell(
                 child: Container(

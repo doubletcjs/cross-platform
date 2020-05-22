@@ -27,7 +27,7 @@ class HomeVersion extends StatelessWidget {
       color: rgba(0, 0, 0, 0),
       child: Center(
         child: Container(
-          padding: EdgeInsets.fromLTRB(67.5, 0, 67.5, 0),
+          padding: EdgeInsets.fromLTRB(68, 0, 68, 0),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.stretch,

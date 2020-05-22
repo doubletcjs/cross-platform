@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hksy_flutter/pages/mine/contractpage.dart';
 import 'package:hksy_flutter/pages/mine/customerservice.dart';
-import 'package:hksy_flutter/pages/personal/views/infosectioncell.dart';
+import 'package:hksy_flutter/function/infosectioncell.dart';
 import 'package:hksy_flutter/public/public.dart';
 
 class ServicePage extends StatelessWidget {

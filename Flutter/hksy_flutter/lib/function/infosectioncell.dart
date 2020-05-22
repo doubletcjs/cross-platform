@@ -10,6 +10,8 @@ class InfoCell extends StatelessWidget {
   Widget rightChild;
   Widget leftChild;
   kVoidFunctionBlock tapHandle;
+  EdgeInsets padding = EdgeInsets.fromLTRB(0, 20, 0, 20);
+  Widget icon;
 
   InfoCell({
     Key key,
@@ -21,34 +23,50 @@ class InfoCell extends StatelessWidget {
     this.tapHandle,
     this.rightChild,
     this.leftChild,
+    this.padding,
+    this.icon,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    if (padding == null) {
+      padding = EdgeInsets.fromLTRB(0, 20, 0, 20);
+    }
+
     return InkWell(
       child: Container(
-        padding: isPortrait == true
-            ? EdgeInsets.fromLTRB(0, 6, 0, 6)
-            : EdgeInsets.fromLTRB(0, 20, 0, 20),
+        padding: padding,
         decoration: BoxDecoration(
-          border: Border(
-            bottom: BorderSide(
-              color: rgba(21, 25, 54, 1),
-              width: showLine == true ? 1 : 0,
-            ),
-          ),
+          border: showLine == false
+              ? Border()
+              : Border(
+                  bottom: BorderSide(
+                    color: rgba(21, 25, 54, 1), //rgba(21, 25, 54, 1)
+                    width: 1,
+                  ),
+                ),
         ),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          crossAxisAlignment: leftChild != null
+              ? CrossAxisAlignment.start
+              : CrossAxisAlignment.center,
           children: <Widget>[
             leftChild != null
-                ? leftChild
-                : Text(
-                    name,
-                    style: TextStyle(
-                      fontSize: 15,
-                      color: rgba(255, 255, 255, 1),
-                    ),
+                ? Expanded(
+                    child: leftChild,
+                  )
+                : Row(
+                    children: <Widget>[
+                      icon != null ? icon : Container(),
+                      Text(
+                        name,
+                        style: TextStyle(
+                          fontSize: 15,
+                          color: rgba(255, 255, 255, 1),
+                        ),
+                      ),
+                    ],
                   ),
             rightChild != null
                 ? rightChild
@@ -84,8 +102,8 @@ class InfoCell extends StatelessWidget {
                       showArrow == true
                           ? Image.asset(
                               "images/right_arrow@3x.png",
-                              width: 16,
-                              height: 25,
+                              width: 18,
+                              fit: BoxFit.fitWidth,
                             )
                           : Container(),
                     ],
@@ -104,27 +122,28 @@ class InfoCell extends StatelessWidget {
 
 class InfoSection extends StatelessWidget {
   List<Widget> cells = [];
-  double topSpace = 0.0;
-  InfoSection({Key key, this.cells, this.topSpace = 0.0}) : super(key: key);
+  EdgeInsets padding = EdgeInsets.fromLTRB(24.5, 0, 24.5, 0);
+  InfoSection({
+    Key key,
+    this.cells,
+    this.padding,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: <Widget>[
-        Container(
-          height: topSpace,
-        ),
-        Container(
-          padding: EdgeInsets.fromLTRB(24.5, 0, 24.5, 0),
-          decoration: BoxDecoration(
-            color: rgba(28, 35, 63, 1),
-            borderRadius: BorderRadius.circular(7.5),
-          ),
-          child: Column(
-            children: cells,
-          ),
-        ),
-      ],
+    if (padding == null) {
+      padding = padding = EdgeInsets.fromLTRB(24.5, 0, 24.5, 0);
+    }
+
+    return Container(
+      padding: padding,
+      decoration: BoxDecoration(
+        color: rgba(28, 35, 63, 1),
+        borderRadius: BorderRadius.circular(7.5),
+      ),
+      child: Column(
+        children: cells,
+      ),
     );
   }
 }

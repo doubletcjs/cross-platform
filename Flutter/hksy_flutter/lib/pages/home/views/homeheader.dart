@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
+import 'package:hksy_flutter/pages/calculate/calculatemain.dart';
+import 'package:hksy_flutter/pages/coin/mycoin.dart';
 import 'package:hksy_flutter/public/public.dart';
 
 class HomeHeader extends StatelessWidget {
@@ -22,7 +24,25 @@ class HomeHeader extends StatelessWidget {
       "images/ico_home_gold@3x.png",
     ];
 
-    void _itemFunctionAction(BuildContext context, index) {}
+    void _itemFunctionAction(BuildContext context, index) {
+      if (index == 2) {
+        Navigator.of(context).push(
+          MaterialPageRoute(
+            builder: (context) {
+              return CalculateMain();
+            },
+          ),
+        );
+      } else if (index == 3) {
+        Navigator.of(context).push(
+          MaterialPageRoute(
+            builder: (context) {
+              return MyCoinPage();
+            },
+          ),
+        );
+      }
+    }
 
     return Container(
       color: kMainBackgroundColor,

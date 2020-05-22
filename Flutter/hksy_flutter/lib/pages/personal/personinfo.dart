@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:hksy_flutter/pages/personal/views/infosectioncell.dart';
+import 'package:hksy_flutter/function/certification/certificationcenter.dart';
+import 'package:hksy_flutter/function/infosectioncell.dart';
 import 'package:hksy_flutter/public/public.dart';
 
 class PersonInfo extends StatefulWidget {
@@ -26,6 +27,7 @@ class _PersonInfoState extends State<PersonInfo> {
           InfoSection(
             cells: [
               InfoCell(
+                padding: EdgeInsets.fromLTRB(0, 6, 0, 6),
                 name: "头像",
                 isPortrait: true,
               ),
@@ -41,13 +43,24 @@ class _PersonInfoState extends State<PersonInfo> {
               ),
             ],
           ),
+          SizedBox(
+            height: 20,
+          ),
           InfoSection(
-            topSpace: 20,
             cells: [
               InfoCell(
                 name: "实名认证",
                 showLine: false,
                 value: "未认证",
+                tapHandle: () {
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (context) {
+                        return CertificationCenter();
+                      },
+                    ),
+                  );
+                },
               ),
             ],
           ),

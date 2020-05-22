@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:hksy_flutter/pages/personal/views/infosectioncell.dart';
+import 'package:hksy_flutter/function/infosectioncell.dart';
 import 'package:hksy_flutter/public/public.dart';
 
 class PaycodePage extends StatefulWidget {
@@ -12,15 +12,6 @@ class PaycodePage extends StatefulWidget {
 }
 
 class _PaycodePageState extends State<PaycodePage> {
-  @override
-  void initState() {
-    super.initState();
-
-    setState(() {
-      this.widget.isReset = true;
-    });
-  }
-
   Widget _textField(
     String placeholder, {
     int maxLength = 6,
@@ -110,8 +101,10 @@ class _PaycodePageState extends State<PaycodePage> {
                     ],
                   )
                 : Container(),
+            SizedBox(
+              height: this.widget.isReset ? 20 : 0,
+            ),
             InfoSection(
-              topSpace: this.widget.isReset ? 20 : 0,
               cells: <Widget>[
                 InfoCell(
                   name: "设置密码",
