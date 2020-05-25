@@ -23,8 +23,45 @@ class HomeVersion extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Material(
-      color: rgba(0, 0, 0, 0),
+    return Container(
+      color: rgba(0, 0, 0, 0.2),
+      padding: EdgeInsets.fromLTRB(68, 0, 68, 0),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: <Widget>[
+          Container(
+            padding: EdgeInsets.zero,
+            child: Stack(
+              children: <Widget>[
+                Container(
+                  margin: EdgeInsets.fromLTRB(0, 12, 0, 0),
+                  color: Colors.white,
+                  child: Image.asset(
+                    "images/app_update@3x.png",
+                  ),
+                ),
+                Positioned(
+                  top: 7.5,
+                  right: 7.5,
+                  child: Image.asset(
+                    "images/ico_version_close@3x.png",
+                    width: 20,
+                    height: 20,
+                  ),
+                ),
+              ],
+            ),
+          ),
+          Container(
+            color: Colors.white,
+            height: 200,
+          ),
+        ],
+      ),
+    );
+    /*
+    Material(
+      color: rgba(0, 0, 0, 0.2),
       child: Center(
         child: Container(
           padding: EdgeInsets.fromLTRB(68, 0, 68, 0),
@@ -134,5 +171,6 @@ class HomeVersion extends StatelessWidget {
         ),
       ),
     );
+    */
   }
 }

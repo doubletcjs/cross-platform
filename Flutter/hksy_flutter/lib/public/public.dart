@@ -214,7 +214,7 @@ AppBar customAppBar({
   String title,
   Widget titleView,
   Color color = Colors.black,
-  double fontSize = 17,
+  double fontSize = 23,
   Widget leftItem,
   List<Widget> rightItems,
   Brightness brightness = Brightness.light,

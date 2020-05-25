@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hksy_flutter/pages/invitation/views/invitesectioncell.dart';
 import 'package:hksy_flutter/pages/storage/views/storageheader.dart';
 import 'package:hksy_flutter/public/public.dart';
 
@@ -27,10 +28,25 @@ class _MyStoragePageState extends State<MyStoragePage> {
             StorageHeader(),
             Expanded(
               child: ListView.builder(
+                padding: EdgeInsets.fromLTRB(
+                    0, 35, 0, MediaQuery.of(context).padding.bottom),
                 itemBuilder: (context, index) {
-                  return Container();
+                  return InvitationSection(
+                    title: "直排业绩",
+                    emptyPlaceholder: "暂无业绩信息～",
+                    cells: <Widget>[
+                      // InvitationCell(),
+                      // InvitationCell(),
+                      // InvitationCell(),
+                      // InvitationCell(),
+                      // InvitationCell(),
+                      // InvitationCell(
+                      //   showLine: false,
+                      // ),
+                    ],
+                  );
                 },
-                itemCount: 0,
+                itemCount: 1,
               ),
             ),
           ],

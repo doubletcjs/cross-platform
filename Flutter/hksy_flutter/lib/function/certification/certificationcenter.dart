@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hksy_flutter/function/certification/certificationinfo.dart';
 import 'package:hksy_flutter/function/infosectioncell.dart';
 import 'package:hksy_flutter/public/public.dart';
 
@@ -106,6 +107,15 @@ class _CertificationCenterState extends State<CertificationCenter> {
               InfoCell(
                 name: "实名信息",
                 value: "未完善",
+                tapHandle: () {
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (context) {
+                        return CertificationInfo();
+                      },
+                    ),
+                  );
+                },
               ),
               InfoCell(
                 name: "身份验证",
