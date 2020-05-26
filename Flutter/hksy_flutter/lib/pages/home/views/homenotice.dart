@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
+import 'package:hksy_flutter/pages/home/bulletinboard.dart';
 import 'package:hksy_flutter/public/public.dart';
 
 class HomeNotice extends StatefulWidget {
@@ -56,7 +57,15 @@ class _HomeNoticeState extends State<HomeNotice> {
                 ).toList(),
                 scrollDirection: Axis.vertical,
                 autoplay: true,
-                onTap: (index) {},
+                onTap: (index) {
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (context) {
+                        return BulletinBoard();
+                      },
+                    ),
+                  );
+                },
               ),
             ),
           ],
