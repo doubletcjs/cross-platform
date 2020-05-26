@@ -36,11 +36,7 @@ class _MyCoinPageState extends State<MyCoinPage> {
                     emptyPlaceholder: "暂无交易记录～",
                     cells: <Widget>[
                       CoinCell(
-                        icon: "images/ico_mygold_list_cell_cashout@3x.png",
-                        name: "151****4547",
-                        value: "-1880",
-                        content: "2020-10-11",
-                        subcontent: "17：48",
+                        detail: {},
                         showLine: false,
                       ),
                     ],

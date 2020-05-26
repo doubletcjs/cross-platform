@@ -23,154 +23,125 @@ class HomeVersion extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      color: rgba(0, 0, 0, 0.2),
-      padding: EdgeInsets.fromLTRB(68, 0, 68, 0),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
+    return Material(
+      color: rgba(0, 0, 0, 0.1),
+      child: Stack(
         children: <Widget>[
-          Container(
-            padding: EdgeInsets.zero,
-            child: Stack(
+          Center(
+            child: Container(
+              color: Colors.white,
+              height: 100,
+              width: 240,
+            ),
+          ),
+          Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
                 Container(
-                  margin: EdgeInsets.fromLTRB(0, 12, 0, 0),
-                  color: Colors.white,
-                  child: Image.asset(
-                    "images/app_update@3x.png",
+                  width: 240,
+                  child: Stack(
+                    children: <Widget>[
+                      Image.asset(
+                        "images/app_update@3x.png",
+                      ),
+                      Positioned(
+                        top: 7.5,
+                        right: 7.5,
+                        child: InkWell(
+                          child: Image.asset(
+                            "images/ico_version_close@3x.png",
+                            width: 20,
+                            height: 20,
+                          ),
+                          onTap: () {
+                            this._closeAlert(context);
+                          },
+                        ),
+                      ),
+                    ],
+                  ),
+                  decoration: BoxDecoration(
+                    color: rgba(255, 255, 255, 1),
+                    borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(9),
+                      topRight: Radius.circular(9),
+                    ),
                   ),
                 ),
-                Positioned(
-                  top: 7.5,
-                  right: 7.5,
-                  child: Image.asset(
-                    "images/ico_version_close@3x.png",
-                    width: 20,
-                    height: 20,
+                Container(
+                  width: 240,
+                  padding: EdgeInsets.fromLTRB(21.5, 0, 21.5, 0),
+                  decoration: BoxDecoration(
+                    color: rgba(255, 255, 255, 1),
+                    borderRadius: BorderRadius.only(
+                      bottomLeft: Radius.circular(7.5),
+                      bottomRight: Radius.circular(7.5),
+                    ),
+                  ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                      SizedBox(
+                        height: 2,
+                      ),
+                      Container(
+                        alignment: Alignment.center,
+                        child: Text(
+                          "2.0版本系统升级",
+                          style: TextStyle(
+                            fontSize: 15,
+                            color: rgba(21, 25, 54, 1),
+                          ),
+                        ),
+                      ),
+                      SizedBox(
+                        height: 14,
+                      ),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: ["·2.0版本用户体验升级", "·深色UI，全新体验", "·细节优化升级"].map(
+                          (item) {
+                            return Text(
+                              item,
+                              style: TextStyle(
+                                fontSize: 13,
+                                color: rgba(145, 152, 173, 1),
+                              ),
+                            );
+                          },
+                        ).toList(),
+                      ),
+                      SizedBox(
+                        height: 28,
+                      ),
+                      Container(
+                        height: 32,
+                        margin: EdgeInsets.fromLTRB(8, 0, 8, 0),
+                        alignment: Alignment.center,
+                        decoration: BoxDecoration(
+                          color: rgba(23, 96, 255, 1),
+                          borderRadius: BorderRadius.circular(7.5),
+                        ),
+                        child: Text(
+                          "升级新版本",
+                          style: TextStyle(
+                            fontSize: 13,
+                            color: rgba(255, 255, 255, 1),
+                          ),
+                        ),
+                      ),
+                      SizedBox(
+                        height: 14,
+                      ),
+                    ],
                   ),
                 ),
               ],
             ),
           ),
-          Container(
-            color: Colors.white,
-            height: 200,
-          ),
         ],
       ),
     );
-    /*
-    Material(
-      color: rgba(0, 0, 0, 0.2),
-      child: Center(
-        child: Container(
-          padding: EdgeInsets.fromLTRB(68, 0, 68, 0),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: <Widget>[
-              Container(
-                child: Stack(
-                  children: <Widget>[
-                    Image.asset(
-                      "images/ico_version_upgrade@3x.png",
-                    ),
-                    Positioned(
-                      top: 7.5,
-                      right: 7.5,
-                      child: InkWell(
-                        child: Image.asset(
-                          "images/ico_version_close@3x.png",
-                          width: 20,
-                          height: 20,
-                        ),
-                        onTap: () {
-                          this._closeAlert(context);
-                        },
-                      ),
-                    ),
-                  ],
-                ),
-                decoration: BoxDecoration(
-                  color: rgba(255, 255, 255, 1),
-                  borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(9),
-                    topRight: Radius.circular(9),
-                  ),
-                ),
-              ),
-              Container(
-                padding: EdgeInsets.fromLTRB(21.5, 0, 21.5, 0),
-                decoration: BoxDecoration(
-                  color: rgba(255, 255, 255, 1),
-                  borderRadius: BorderRadius.only(
-                    bottomLeft: Radius.circular(7.5),
-                    bottomRight: Radius.circular(7.5),
-                  ),
-                ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[
-                    SizedBox(
-                      height: 2,
-                    ),
-                    Container(
-                      alignment: Alignment.center,
-                      child: Text(
-                        "2.0版本系统升级",
-                        style: TextStyle(
-                          fontSize: 15,
-                          color: rgba(21, 25, 54, 1),
-                        ),
-                      ),
-                    ),
-                    SizedBox(
-                      height: 14,
-                    ),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: ["·2.0版本用户体验升级", "·深色UI，全新体验", "·细节优化升级"].map(
-                        (item) {
-                          return Text(
-                            item,
-                            style: TextStyle(
-                              fontSize: 13,
-                              color: rgba(145, 152, 173, 1),
-                            ),
-                          );
-                        },
-                      ).toList(),
-                    ),
-                    SizedBox(
-                      height: 28,
-                    ),
-                    Container(
-                      height: 32,
-                      margin: EdgeInsets.fromLTRB(8, 0, 8, 0),
-                      alignment: Alignment.center,
-                      decoration: BoxDecoration(
-                        color: rgba(23, 96, 255, 1),
-                        borderRadius: BorderRadius.circular(7.5),
-                      ),
-                      child: Text(
-                        "升级新版本",
-                        style: TextStyle(
-                          fontSize: 13,
-                          color: rgba(255, 255, 255, 1),
-                        ),
-                      ),
-                    ),
-                    SizedBox(
-                      height: 14,
-                    ),
-                  ],
-                ),
-              ),
-            ],
-          ),
-        ),
-      ),
-    );
-    */
   }
 }

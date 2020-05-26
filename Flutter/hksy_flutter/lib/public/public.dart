@@ -14,6 +14,7 @@ typedef kVoidFunctionBlock = void Function();
 typedef kObjectFunctionBlock = void Function(Object object);
 final String kForceLogoutNotification = "ForceLogoutNotification";
 final String kRefreshAccountNotification = "RefreshAccountNotification";
+final String kSwitchTabNotification = "SwitchTabNotification";
 
 final RegExp kPhoneRegExp = RegExp(
     r'^((13[0-9])|(14[0-9])|(15[0-9])|(16[0-9])|(17[0-9])|(18[0-9])|(19[0-9]))\d{8}$');

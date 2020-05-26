@@ -42,10 +42,7 @@ class _VipStoragePageState extends State<VipStoragePage> {
                     emptyPlaceholder: "暂无分红信息～",
                     cells: <Widget>[
                       InvitationCell(
-                        name: "151****4547",
-                        value: "+1880",
-                        content: "2020-10-11",
-                        subcontent: "17：48",
+                        detail: {},
                         showLine: false,
                       ),
                       // InvitationCell(),

@@ -51,6 +51,16 @@ class _MyAppState extends State<MyApp> {
         });
       },
     );
+
+    DartNotificationCenter.subscribe(
+      channel: kSwitchTabNotification,
+      observer: this,
+      onNotification: (options) {
+        setState(() {
+          _currentIndex = options["index"];
+        });
+      },
+    );
   }
 
   @override

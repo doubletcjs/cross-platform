@@ -1,3 +1,4 @@
+import 'package:dart_notification_center/dart_notification_center.dart';
 import 'package:flutter/material.dart';
 import 'package:hksy_flutter/public/public.dart';
 
@@ -91,39 +92,50 @@ class _StorageHeaderState extends State<StorageHeader> {
                       ],
                     ),
                   ),
-                  Container(
-                    padding: EdgeInsets.fromLTRB(19.5, 5.5, 13.5, 5.5),
-                    decoration: BoxDecoration(
-                      color: this.widget.isViper
-                          ? rgba(21, 25, 54, 1)
-                          : rgba(59, 121, 255, 1),
-                      borderRadius: BorderRadius.circular(16),
-                    ),
-                    child: Row(
-                      children: <Widget>[
-                        Text(
-                          this.widget.isViper == true ? "转出" : "继续购买",
-                          style: TextStyle(
-                            fontSize: 15,
+                  InkWell(
+                    onTap: () {
+                      if (this.widget.isViper == true) {
+                      } else {
+                        Navigator.of(context).pop();
+                        DartNotificationCenter.post(
+                            channel: kSwitchTabNotification,
+                            options: {"index": 1});
+                      }
+                    },
+                    child: Container(
+                      padding: EdgeInsets.fromLTRB(19.5, 5.5, 13.5, 5.5),
+                      decoration: BoxDecoration(
+                        color: this.widget.isViper
+                            ? rgba(21, 25, 54, 1)
+                            : rgba(59, 121, 255, 1),
+                        borderRadius: BorderRadius.circular(16),
+                      ),
+                      child: Row(
+                        children: <Widget>[
+                          Text(
+                            this.widget.isViper == true ? "转出" : "继续购买",
+                            style: TextStyle(
+                              fontSize: 15,
+                              color: this.widget.isViper
+                                  ? rgba(243, 205, 116, 1)
+                                  : rgba(255, 255, 255, 1),
+                            ),
+                          ),
+                          SizedBox(
+                            width: 2.5,
+                          ),
+                          Image.asset(
+                            "images/right_arrow@3x.png",
+                            width: 18,
+                            fit: BoxFit.fitWidth,
                             color: this.widget.isViper
                                 ? rgba(243, 205, 116, 1)
                                 : rgba(255, 255, 255, 1),
                           ),
-                        ),
-                        SizedBox(
-                          width: 2.5,
-                        ),
-                        Image.asset(
-                          "images/right_arrow@3x.png",
-                          width: 18,
-                          fit: BoxFit.fitWidth,
-                          color: this.widget.isViper
-                              ? rgba(243, 205, 116, 1)
-                              : rgba(255, 255, 255, 1),
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
-                  )
+                  ),
                 ],
               ),
               SizedBox(

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
 import 'package:hksy_flutter/pages/calculate/calculatemain.dart';
 import 'package:hksy_flutter/pages/coin/mycoin.dart';
+import 'package:hksy_flutter/pages/invitation/invitationpage.dart';
 import 'package:hksy_flutter/public/public.dart';
 
 class HomeHeader extends StatelessWidget {
@@ -38,6 +39,16 @@ class HomeHeader extends StatelessWidget {
           MaterialPageRoute(
             builder: (context) {
               return MyCoinPage();
+            },
+          ),
+        );
+      } else if (index == 0) {
+        Navigator.of(context).push(
+          MaterialPageRoute(
+            builder: (context) {
+              return InvitationPage(
+                isHome: true,
+              );
             },
           ),
         );
