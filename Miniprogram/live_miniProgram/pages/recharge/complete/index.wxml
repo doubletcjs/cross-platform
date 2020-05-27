@@ -1,0 +1,4 @@
+<image class="complete-icon" src="/icons/rechargeComplete@3x.png" mode="aspectFit"></image>
+<view class="complete-successful">充值成功</view>
+<view class="complete-tip">金币到账可能存在一定时延，请耐心等待~</view>
+<view class="complete-button" bind:tap="completeBack">返回直播</view>

@@ -1,0 +1,9 @@
+{
+  "component": true,
+  "usingComponents": {
+    "actionsheet": "/components/popactionsheet/index",
+    "menu": "/components/livegift/countmenu/index",
+    "alertview": "/components/popalertview/index",
+    "redpacket": "/components/livegift/redpacket/index"
+  }
+}

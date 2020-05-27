@@ -1,0 +1,2 @@
+<!--pages/activity/index.wxml-->
+<view style="color: white">活动页面 --- {{id}} --- {{name}}</view>

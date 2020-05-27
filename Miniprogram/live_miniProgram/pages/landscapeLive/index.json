@@ -1,0 +1,10 @@
+{
+  "usingComponents": {
+    "inputContent":"/components/input/index",
+    "alertview": "/components/popalertview/index",
+    "inputComponent":"/components/inputComponent/index",
+    "share":"/components/share/index",
+    "recommend":"../../components/livegift/index"
+  },
+  "pageOrientation": "landscape"
+}

@@ -1,0 +1,41 @@
+/* pages/tabList.wxss */
+.wrap{
+  position: relative;
+  height: 99rpx;
+  background-color: #1C2334;
+  color: #fff;
+}
+
+.tab{
+  display: flex;
+}
+.tab > view{
+  margin: 0 30rpx;
+  line-height: 90rpx;
+}
+
+.tab > view.active{
+  color: #1760FF;
+  border-bottom: 3px solid #1760FF;
+}
+.attention{
+  position: absolute;
+  right: 0;
+  top: 0;
+  height: 100%;
+  line-height: 90rpx;
+  width: 176rpx;
+  background:rgba(145,152,159,0.1);
+  text-align: center;
+}
+.attention.active{
+  background-color: #1760FF;
+  color: #fff;
+}
+.attention>text{
+
+}
+.attention>.cur{
+  color: #565D6D;
+}
+

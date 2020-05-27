@@ -1,0 +1,58 @@
+<view class="wrap">
+	<view class="anchorMsg">
+		<view class="left">
+			<view class="imgbox">
+				<image class="" src="../../icons/person.png" mode="widthFix"></image>
+			</view>
+			<view class="name">
+				<view class="nameText">
+					蒋国宇
+				</view>
+				<view class="position">
+					HK市场总监
+				</view>
+			</view>
+		</view>
+		<view class="btnbox" bind:tap="attentionAnchor">
+			<view class="btn" wx:if="{{attention === false}}"> + 关注</view>
+			<view class=" bthNo" wx:else> + 已关注</view>
+		</view>
+	</view>
+	<view class="introductory">
+		主播大神简介在此， IPFS与Filecoin的技术详情，是专主播大神简介在此，的技术详情，是专主播大神简介在此， IPFS与Filecoin的技术详情，是专主播大神简介在此， IPFS与Filecoin的技术详情，是专主播大神简介在此， IPFS与Filecoin的技术详情，是专主播大神简介在此， IPFS与Filecoin的技术详情，是专
+	</view>
+	<view class="gift">
+		<view class="msg"> 
+			<view class="">
+				<text class="num">1000</text>
+				<text  class="cur">粉丝</text>
+			</view>
+			<view class="">
+				<text class="num">50000金币</text>
+				<text class="cur">收到礼物</text>
+			</view>
+		</view>
+		<view class="giftbtn" bind:tap="sendgift">
+			<view class="">
+				<image class="" src="../../icons/icon-gift@2x.png" mode="widthFix" style="width:48rpx;" lazy-load="false" binderror="" bindload=""></image>
+			</view>
+			<view class="" >
+				赠送礼物
+			</view>
+		</view>
+	</view>
+	<view class="video"  bind:tap="goLookVideo">
+		<view class="videoLeft">
+			<image class="" src="../../icons/icon_camera@2x.png" mode="widthFix" style="width:48rpx" lazy-load="true"></image>
+			<text class="" style="margin-left:20rpx">往期视频</text>
+		</view>
+		<view class="navigate">
+			<image class="" src="../../icons/right2.png" mode="widthFix" style="width:36rpx" lazy-load="true"></image>
+		</view>
+	</view>
+</view>
+
+
+<!-- 送礼物 -->
+<recommend visible="{{giftvisible}}" bindclose="closeClick" bind:sendgiftobj="sendgiftobjSuccess" outClickCanClose="{{true}}"/>
+

@@ -1,0 +1,41 @@
+.liveP_wrapper {
+  display: flex;
+  flex-direction: column;
+}
+.liveP_page {
+  margin-left: var(--border_dist);
+  margin-right: var(--border_dist);
+}
+
+.liveP_edit_input {
+  margin-top: 40rpx;
+  padding-top: 20rpx;
+  padding-left: 40rpx;
+  padding-right: 40rpx;
+  height: 256rpx;
+  color: white;
+  font-size: 28rpx;
+  background-color: #1c2334;
+}
+.liveP_edit_placeholder {
+  margin-top: 40rpx;
+  padding-top: 20rpx;
+  padding-left: 40rpx;
+  padding-right: 40rpx;
+  height: 256rpx;
+  color: #565d6d;
+  font-size: 28rpx;
+  background-color: #1c2334;
+}
+
+.liveP_edit_ok {
+  margin-top: 40rpx;
+  line-height: 94rpx;
+  text-align: center;
+  font-weight: normal;
+  width: 100%;
+  color: #F1F1F1;
+  font-size: 36rpx;
+  background: #1760FF;
+  border-radius: 10rpx;
+}

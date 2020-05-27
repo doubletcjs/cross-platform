@@ -1,0 +1,146 @@
+/* pages/liveRoom/index.wxss */
+page {
+  position: relative;
+  height: 100%;
+}
+.title_box{
+  padding: 15px 15px 0px 15px;
+  height: 90px;
+  line-height:44rpx;
+  font-size: 32rpx;
+  color:rgba(241,241,241,1);
+}
+.num{
+  color:#F1F1F1;
+  font-size: 22rpx;
+}
+.inputBox {
+  position: fixed;
+  bottom: 0px;
+  left: 0;
+  width: 100%;
+}
+.giveBox {
+  position: fixed;
+  right: 30rpx;
+  bottom: 160rpx;
+  width: 90rpx;
+  z-index: 10;
+}
+
+.give {
+  height: 120rpx;
+  width: 90rpx;
+  position: relative;
+  text-align: center;
+}
+.give .giveText {
+  position: absolute;
+  left: 0;
+  bottom: 10rpx;
+  display: inline-block;
+  color:rgba(255,82,123,1);
+  line-height: 30rpx;
+  border-radius: 30rpx;
+  height: 30rpx;
+  font-size: 22rpx;
+  min-width: 100%;
+  background-color: #fff;
+  -webkit-border-radius: 30rpx;
+  -moz-border-radius: 30rpx;
+  -ms-border-radius: 30rpx;
+  -o-border-radius: 30rpx;
+}
+/* 评论区 */
+.box {
+  padding: 40rpx 140rpx 30rpx 30rpx;
+  color: #91989f;
+  font-size: 28rpx;
+  line-height: 36rpx;
+}
+
+.say {
+  padding: 40rpx 0 20rpx 0;
+  display: block;
+  font-size: 28rpx;
+}
+.say_item .saycontent{
+  color:rgba(241,241,241,1);
+}
+.say_item .img{
+  width: 80rpx;
+  margin-right: 10px;
+}
+
+.answer{
+    background-color: #1C2334;
+    border-radius:8rpx;
+    -webkit-border-radius:8rpx;
+    -moz-border-radius:8rpx;
+    -ms-border-radius:8rpx;
+    -o-border-radius:8rpx;
+    color:rgba(241,241,241,1);
+    line-height: 36rpx;
+    padding: 16rpx 34rpx;
+}
+.answer .hui{
+    margin: 0 10rpx;
+}
+.answer .saycontent{
+  line-height: 36rpx;
+}
+.answer .nicname{
+    margin: 0 10rpx 0 0;
+    color: #91989F;
+}
+
+.answer .zhu{
+    color: #91989F;
+}
+
+
+/* 视频 */
+.video-player-box {
+  width: 100%;
+  height: 100%;
+}
+
+/* 送礼物动画 */
+.giveNnumberAnimation{
+  position: fixed;
+  width: 60rpx;
+  height: 60rpx;
+  border-radius: 60rpx;
+  right: 130rpx;
+  bottom: 160rpx;
+  font-size: 32rpx;
+  font-weight: 800;
+  text-align: center;
+  line-height: 55rpx;
+  color: #fff;
+  background-color: red;
+  -webkit-border-radius: 60rpx;
+  -moz-border-radius: 60rpx;
+  -ms-border-radius: 60rpx;
+  -o-border-radius: 60rpx;
+  opacity: 0;
+  transition: all .4s;
+  -webkit-transition: all .4s;
+  -moz-transition: all .4s;
+  -ms-transition: all .4s;
+  -o-transition: all .4s;
+}
+
+.giveNnumberAnimation.animate{
+  animation: give 1.2s;
+  -webkit-animation: give 1.2s;
+}
+
+@keyframes give {
+  0% { bottom: 160rpx;opacity: 0; width:10rpx;height: 10rpx;}
+  25% { bottom: 190rpx; opacity: 0.6;  }
+  65% { bottom: 260rpx; opacity: 1; }
+  85% { bottom: 260rpx;opacity: 0.5; }
+  100% { bottom: 550rpx;opacity: 0; }
+}
+

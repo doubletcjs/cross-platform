@@ -1,0 +1,22 @@
+<view class="wrap">
+	<!-- 欢迎语 -->
+	<view class="welcomeText">
+		{{welcomeText}} 
+	</view>
+	<!-- 评论内容 -->
+	<view class="sayContent">
+		<block wx:for="{{sayList}}" wx:for-index="index" wx:for-item="item" wx:key="index">
+			<view class="c_item">
+				<image class="" wx:if="{{item.type==='S3'}}" src="../../icons/s3@2x.png" mode="widthFix" lazy-load="false" style="width:80rpx"></image>
+				<image class="" wx:if="{{item.type==='S2'}}"  src="../../icons/s2@2x.png" mode="widthFix" lazy-load="false" style="width:80rpx"></image>
+				<image class=""  wx:if="{{item.type==='S1'}}"  src="../../icons/s1@2x.png" mode="widthFix" lazy-load="false" style="width:80rpx"></image>
+				<image class=""  wx:if="{{item.type==='F0'}}"  src="../../icons/f0@2x.png" mode="widthFix" lazy-load="false" style="width:80rpx"></image>
+				<image class=""  wx:if="{{item.type==='F1'}}" src="../../icons/f1@2x.png" mode="widthFix" lazy-load="false" style="width:80rpx"></image>
+				<image class=""  wx:if="{{item.type==='F2'}}" src="../../icons/f2@2x.png" mode="widthFix" lazy-load="false" style="width:80rpx"></image>
+				<image class=""  wx:if="{{item.type==='F3'}}" src="../../icons/f3@2x.png" mode="widthFix" lazy-load="false" style="width:80rpx"></image>
+				<text class="author">{{item.author}}</text>
+				<text class="say">{{item.say}}</text>
+			</view> 
+		</block>
+	</view>
+</view>

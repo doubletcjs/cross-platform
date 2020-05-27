@@ -1,0 +1,8 @@
+var numfilter = function (data,count){
+    return data.toFixed(count)
+}
+
+
+module.exports = {
+    numfilter: numfilter
+}

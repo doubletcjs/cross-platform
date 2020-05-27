@@ -1,0 +1,25 @@
+<view class="wrap" id="audience">
+	<scroll-view scroll-y="true" style="height: {{scrollHeight}}px;" bindscroll="scroll">
+       <view class="" >
+		   <block wx:for="{{anchorLists}}" wx:for-index="index" wx:for-item="item" wx:key="index">
+				<view class="item">
+					<view class="type"> 
+						<image class="" wx:if="{{item.type=='F0'}}" src="../../icons/f0@2x.png" mode="widthFix" lazy-load="true"></image>
+						<image class="" wx:elif="{{item.type=='F1'}}" src="../../icons/f1@2x.png" mode="widthFix" lazy-load="true"></image>
+						<image class="" wx:elif="{{item.type=='F2'}}" src="../../icons/f3@2x.png" mode="widthFix" lazy-load="true"></image>
+						<image class="" wx:elif="{{item.type=='F3'}}" src="../../icons/f3@2x.png" mode="widthFix" lazy-load="true"></image>
+						<image class="" wx:elif="{{item.type=='S1'}}" src="../../icons/s1@2x.png" mode="widthFix" lazy-load="true"></image>
+						<image class="" wx:elif="{{item.type=='S2'}}" src="../../icons/s2@2x.png" mode="widthFix" lazy-load="true"></image>
+						<image class="" wx:elif="{{item.type=='S3'}}" src="../../icons/s3@2x.png" mode="widthFix" lazy-load="true"></image>
+					</view>
+					<view class="img-box">
+						<image class="" src="../../icons/person.png" mode="widthFix" lazy-load="true"></image>
+					</view>
+					<view class="nicname">
+						{{item.nicname}}
+					</view>
+				</view>
+	   		</block>
+	   </view>
+    </scroll-view>
+</view>

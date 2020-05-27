@@ -1,0 +1,39 @@
+<view class="profile-content-super">
+    <view class="profile-content">
+        <view class="profile-info-content">
+            <view class="profile-header-name-content">
+                <image class="profile-header" src=""></image>
+                <view class="profile-name-title-content">
+                    <view class="profile-name">蒋国宇</view>
+                    <view class="profile-title">HK市场总监</view>
+                </view>
+            </view>
+            <view class="profile-attention">关注</view>
+        </view>
+        <view class="profile-introduce">
+            主播大神简介在此， IPFS与Filecoin的技术详情，是专主播大神简介在此， IPFS与Filecoin的技术详情，是专主播大神简介在此， IPFS与Filecoin的技术详情，是专主播大神简介在此， IPFS与Filecoin的技术详情，是专主播大神简介在此， IPFS与Filecoin的技术详情，是专主播大神简介在此， IPFS与Filecoin的技术详情，是专主播大神简介在此， IPFS与Filecoin的技术详情，是专
+        </view>
+        <view class="profile-detail-content">
+            <view class="profile-detail-content">
+                <view class="profile-detail">1000</view>
+                <view class="profile-detail-unit">粉丝</view>
+            </view>
+            <view class="profile-detail-content" style="margin-left: 30rpx;">
+                <view class="profile-detail">5000金币</view>
+                <view class="profile-detail-unit">收到礼物</view>
+            </view>
+        </view>
+    </view>
+    <view class="profile-line"></view>
+</view>
+<!-- 往期视频列表 -->
+<view class="history-content">
+    <view class="history-cell-content" wx:for="{{dataList}}" wx:key="index" data-index="index"  bind:tap="lookPlaye" style="{{index == dataList.length-1 ? 'margin-bottom: 24rpx;' : 'margin-bottom: 0rpx;'}}">
+        <image class="history-cell-image" src=""></image>
+        <view class="history-cell-info">
+            <view class="history-cell-name">Filecoin与生活有何关
+联</view>
+            <view class="history-cell-date">2020年4月26号</view>
+        </view>
+    </view>
+</view>

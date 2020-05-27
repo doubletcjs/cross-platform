@@ -1,0 +1,6 @@
+{
+  "usingComponents": {
+    "alertview": "/components/communitypost/index",
+    "actionsheet": "/components/popactionsheet/index"
+  }
+}

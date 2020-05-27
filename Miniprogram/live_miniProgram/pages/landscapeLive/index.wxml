@@ -1,0 +1,117 @@
+<wxs src="../../common/tools.wxs" module="tools" />
+
+<view class="landscapeLive" >
+    <view class="author {{toggleShow ? 'toggleShow' :''}}">
+        <view class="backIcon">
+            <image class="" src="/icons/Black@2x.png" style="width:10px" mode="widthFix"></image>
+        </view>
+        <view class="authorImg">
+            <image class="" src="/icons/person.png" mode="widthFix"></image>
+        </view>
+         <view class="authorname">
+             蒋国宇
+         </view>
+         <view wx:if="{{attention}}" class="attention" bind:tap="attentionAnchor">
+             关注
+         </view>
+          <view wx:else class="attention attentioned" bind:tap="attentionAnchor">
+             已关注
+         </view>
+    </view>
+
+    <!-- 直播组件 -->
+    <view class="player">
+         <!-- <live-player style="width:100%;height:100%;" id="video-livePlayer" mode="live" orientation="vertical" muted="false" background-mute="false" object-fit="contain" min-cache="1" max-cache="3" src="{{playUrl}}"
+      debug="false" bindstatechange="onPlayEvent" bindfullscreenchange="onFullScreenChange" autoplay="true"></live-player> -->
+    </view>
+    <!-- 彈幕區域 -->
+    <view class="doommview" catch:tap="toggleShow">
+        <block wx:for="{{doommData}}" wx:key="id">
+            <view  class="item aon" wx:if="{{item.display}}" style="animation: first {{item.time}}s linear forwards;top:{{item.top}}%;color:{{item.color}};">
+                <view class="">
+                    <image class="itemImg" style="width:10.66vmin;display:inline-block" src="/icons/f1@2x.png" mode="widthFix" lazy-load="false"></image>
+                </view>
+                <view class="itemNicname">
+                    {{item.nicname}} :
+                </view>
+                <view class="itenContent">
+                     {{item.say}}
+                </view>
+            </view>
+        </block>
+    </view>
+    <!-- 輸入框 -->
+    <view class="inputBox {{toggleShow ? 'toggleShow' :''}}">
+        <view class="stop">
+            <image class=""  src="/icons/icon_pause@2x.png" mode="widthFix"></image>
+        </view>
+         <view class="stopgift" catch:tap="togglesendGiftOff" >
+            <image class="" wx:if="{{sendGiftOff}}" src="/icons/icon_more_nogift@3x.png" mode="widthFix"></image>
+            <image class="" wx:else src="/icons/ico_pblw2@2x.png" mode="widthFix"></image>
+        </view>
+         <view class="stopcontent" catch:tap="toggleStopcontent" >
+            <image class="" wx:if="{{danmuOff}}" src="/icons/icon_more_nocomment@3x.png" mode="widthFix"></image>
+            <image class="" wx:else  src="/icons/icon_LiveVideo_barage2@2x.png" mode="widthFix"></image>
+        </view>
+        <view class="input" style="color:#91989F" catch:tap="openInput">
+            来发个弹幕
+        </view>
+    </view>
+
+    <!-- 右側操作導航 -->
+    <view class="rightNav {{toggleShow ? 'toggleShow':''}}">
+        <view class="shooping" catch:tap="goShooping">
+            <image class="" src="/icons/icon_chat_shopping@3x.png" mode="widthFix"></image>
+        </view>
+        <view class="give"  catch:tap="give">
+            <image class="" src="/icons/icon_chat_zan@2x.png" mode="widthFix"></image>
+            <view class="giveText" >
+                {{grveNum > 10000 ? tools.numfilter(grveNum/10000,1) + 'w' : grveNum }}
+            </view>
+        </view>
+        <view class="giveNnumberAnimation {{grveNumAnimation ? 'animate' : ''}}" anim>+1</view>
+        <view class="sendgift" catch:tap="openSendGift">
+            <image class="" src="/icons/icon_chat_gift@2x.png" mode="widthFix"></image>
+        </view>
+    </view>
+    <!-- 礼物动画区 -->
+    <view class="giftAnimation" >
+        <block wx:for="{{ tools.gettow(sendGifts)}}" wx:key="index">
+            <view class="item {{index==0 && hideAnimation ===true ? 'hideAnimation':''}}">
+                <view class="img">
+                    <image class="" src="/icons/person.png" mode="widthFix" lazy-load="false"></image>
+                </view>
+                <view class="nicname">
+                    <view class="authorname">
+                        {{item.authorname}}
+                    </view>
+                    <view class="giftname">
+                        送出 {{item.selectObj.name}}
+                    </view>
+                </view>
+                <view class="icon" >
+                    <image class="" src="{{item.selectObj.icon}}" mode="widthFix"></image>
+                </view>
+            </view>
+        </block>
+    </view>
+
+</view>  
+
+<!-- 分享 -->
+<view class="share {{toggleShow ? 'toggleShow':''}}" catch:tap="shareOpen">
+    <image class="" src="/icons/icon_chat_share@3x.png" mode="widthFix"></image>
+</view>
+
+<!-- 分享组件 -->
+<share visible="{{sharevisible}}" bindclose="sharecloseClick"></share>
+
+<!-- 送礼物 -->
+<recommend visible="{{giftvisible}}" landscape="{{true}}" bindclose="closeClick" bind:sendgiftobj="sendgiftobjSuccess" />
+
+<!-- alert 提示弹框 -->
+<alertview visible="{{alertvisible}}" onlyToast="{{true}}" contentString="{{contentString}}" cancelString="我知道了" bindclose="alertcloseClick"></alertview>
+
+<!-- 获得焦点时的input 组件 -->
+ <inputComponent visible="{{visible}}"  landscape="{{true}}"  bind:sendMsgSuccess="sendMsgSuccess" bind:close="closeInput" />
+

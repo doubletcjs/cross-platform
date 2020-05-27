@@ -1,0 +1,213 @@
+/* pages/liveRoom/index.wxss */
+page{
+  position: relative;
+  height: 100%;
+}
+.wrap {
+ 
+}
+.box{
+  overflow: scroll;
+  padding-right: 110rpx;
+}
+.wrap .showNav{
+  display: none;
+}
+.inputBox {
+  position: fixed;
+  bottom: 0rpx;
+  width: 100%;
+}
+.giveBox{
+  position: fixed;
+  right: 30rpx;
+  bottom: 160rpx;
+  width: 90rpx;
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  z-index: 10;
+}
+.shooping{
+  margin-bottom: 40rpx;
+  height: 120rpx;
+}
+.give{
+  height: 120rpx;
+  position: relative;
+  display: flex;
+  justify-content: center;
+}
+.giveText{
+  position: absolute;
+  bottom: 0rpx;
+  min-width: 100%;
+  text-align: center;
+  display: inline-block;
+  color: rgb(255, 58, 105);
+  font-size: 26rpx;
+  border-radius: 40rpx;
+  padding: 1rpx 10rpx;
+  background-color: #fff;
+  -webkit-border-radius: 40rpx;
+  -moz-border-radius: 40rpx;
+  -ms-border-radius: 40rpx;
+  -o-border-radius: 40rpx;
+}
+/* 礼物动画 */
+.gift-box{
+  position: fixed;
+  z-index: 30;
+  left: 30rpx;
+  top: 600rpx;
+}
+.giveNnumberAnimation{
+  position: fixed;
+  width: 60rpx;
+  height: 60rpx;
+  border-radius: 60rpx;
+  right: 130rpx;
+  bottom: 160rpx;
+  font-size: 32rpx;
+  font-weight: 800;
+  text-align: center;
+  line-height: 55rpx;
+  color: #fff;
+  background-color: red;
+  -webkit-border-radius: 60rpx;
+  -moz-border-radius: 60rpx;
+  -ms-border-radius: 60rpx;
+  -o-border-radius: 60rpx;
+  opacity: 0;
+  transition: all .4s;
+  -webkit-transition: all .4s;
+  -moz-transition: all .4s;
+  -ms-transition: all .4s;
+  -o-transition: all .4s;
+}
+
+.giveNnumberAnimation.animate{
+  animation: give 1.2s;
+  -webkit-animation: give 1.2s;
+}
+
+@keyframes give {
+  0% { bottom: 160rpx;opacity: 0; width:10rpx;height: 10rpx;}
+  25% { bottom: 190rpx; opacity: 0.6;  }
+  65% { bottom: 260rpx; opacity: 1; }
+  85% { bottom: 260rpx;opacity: 0.5; }
+  100% { bottom: 550rpx;opacity: 0; }
+}
+
+.giftaniamteBox{
+  display: flex;
+  align-items: center;
+  margin-bottom: 52rpx;
+}
+.giftNum{
+  font-size: 36rpx;
+}
+.giftaniamte{
+  height: 120rpx;
+  background:rgba(28,35,52,0.8);
+  display: flex;
+  align-items: center;
+  border-radius:60rpx;
+  -webkit-border-radius:60rpx;
+  -moz-border-radius:60rpx;
+  -ms-border-radius:60rpx;
+  -o-border-radius:60rpx;
+  color:rgba(241,241,241,1);
+  margin-right: 20rpx;
+}
+.authorimg{
+  width: 100rpx;
+  height: 100rpx;
+  overflow: hidden;
+  margin: 0 20rpx;
+  border-radius: 100rpx;
+  -webkit-border-radius: 100rpx;
+  -moz-border-radius: 100rpx;
+  -ms-border-radius: 100rpx;
+  -o-border-radius: 100rpx;
+}
+.giftaniamte .namebox .giftname{
+  font-size: 28rpx;
+  color: #91989F;
+  line-height: 32rpx;
+}
+.giftaniamte .namebox .name{
+  font-size: 32rpx;
+  line-height: 44rpx;
+}
+.gifticon{
+  width: 100rpx;
+  height: 100rpx;
+  overflow: hidden;
+  border-radius: 100rpx;
+  margin: 0 20rpx;
+  -webkit-border-radius: 100rpx;
+  -moz-border-radius: 100rpx;
+  -ms-border-radius: 100rpx;
+  -o-border-radius: 100rpx;
+}
+/* 直播 */
+.video-player{
+  position: relative;
+}
+.video-player-no{
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #000000;
+  z-index: 4;
+  line-height: 40rpx;
+  color:rgba(241,241,241,1);
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+}
+.nav{
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  height: 90rpx;
+  width: 100%;
+  background-color: transparent;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  
+}
+.nav .navText{
+  color:rgba(241,241,241,1);
+  padding-left: 32rpx;
+}
+.nav .navIcon{
+  display: flex;
+  align-items: center;
+}
+.nav .navIcon .iconBox{
+  width: 64rpx;
+  height: 64rpx;
+  margin-right: 30rpx;
+  margin-left: 46rpx;
+}
+/* hideAnimation */
+.hideAnimation{
+  animation: hide 2s;
+  -webkit-animation: hide 2s;
+}
+@keyframes hide{
+  from {opacity:1;}
+  to {opacity:0;}
+}
+@-webkit-keyframes hide{
+  from {opacity:1;}
+  to {opacity:0;}
+}
+

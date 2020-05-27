@@ -1,0 +1,66 @@
+
+.inputWarp{
+    height: 118rpx;
+    display: flex;
+    background-color: #1C2334;
+    align-items: center;
+}
+
+image{
+    height:auto
+}
+/* .inputWarp.focusClass,
+.weui-input.focusClass{
+    background-color: #fff;
+    color: #333333;
+} */
+/* .weui-input.focusClass{
+    width: 570rpx;
+} */
+
+.weui-input{
+    background-color: #151928;
+    width: 330rpx;
+    height: 90rpx;
+    line-height: 90rpx;
+    border-radius: 90rpx;
+    padding-left: 36rpx;
+    box-sizing: border-box;
+    margin-left: 30rpx;
+    -webkit-border-radius: 90rpx;
+    -moz-border-radius: 90rpx;
+    -ms-border-radius: 90rpx;
+    -o-border-radius: 90rpx;
+    color:rgba(86,93,109,1);
+}
+.gift{
+    width: 90rpx;
+    height: 90rpx;
+    margin-left: 30rpx;
+} 
+.money{
+    width: 90rpx;
+    height: 90rpx;
+   margin-left: 30rpx;
+
+}
+.send,.icon{
+    width: 90rpx;
+    height: 90rpx;
+    margin-left: 30rpx;
+    align-self: flex-start;
+}
+.right{
+    display: flex;
+}
+.rightchange{
+    flex: 1;
+    display: flex;
+    justify-content: flex-end;
+    width: 120rpx;
+}
+.send{
+    width: 84rpx;
+    height: 84rpx;
+   margin-right: 30rpx;
+}

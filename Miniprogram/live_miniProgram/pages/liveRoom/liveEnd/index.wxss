@@ -1,0 +1,107 @@
+/* pages/liveRoom/liveEnd/index.wxss */
+.liveE_wrapper {
+  
+}
+.liveE_page {
+  margin-left: var(--border_dist);
+  margin-right: var(--border_dist);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
+}
+
+.liveE_anchor_head {
+  margin-top: 90rpx;
+  width: 140rpx;
+  height: 140rpx;
+  border-radius: 50%;
+}
+
+.liveE_anchor_name {
+  margin-top: 16rpx;
+  color: #91989F;
+  font-size: 22rpx;
+
+}
+
+
+.liveE_end_hint{
+  margin-top: 16rpx;
+  color: #F1F1F1;
+  font-size: 36rpx;
+}
+
+.liveE_time {
+  margin-top: 16rpx;
+  color: #91989F;
+  font-size: 22rpx;
+}
+
+.liveE_end_info_wrapper {
+  display: flex;
+  flex-direction: row;
+  margin-top: 160rpx;
+  width: 100%;
+  height: 160rpx;
+}
+
+.liveE_end_item{
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-content: center;
+  text-align: center;
+}
+
+.liveE_end_info_top {
+  line-height: 56rpx;
+  color: #F1F1F1;
+  font-size: 40rpx;
+  font-weight: bold;
+}
+
+.liveE_end_info_bottom {
+  line-height: 32rpx;
+  color: #91989F;
+  font-size: 22rpx;
+  margin-top: 8rpx;
+}
+
+
+.liveE_end_info_line {
+  border-left: var(--lineColorBlack_10) solid 2rpx;
+  border-right: var(--lineColorBlack_10) solid 2rpx;
+}
+
+.liveE_share_wrapper {
+  margin-top: 168rpx;
+  background: #1760FF;
+  height: 94rpx;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  border-radius: 10rpx;
+}
+
+.liveE_share_icon {
+  width: 42rpx;
+  height: 42rpx;
+}
+
+.liveE_share_text {
+  color: #F1F1F1;
+  font-size: 36rpx;
+  margin-left: 10rpx;
+}
+
+.liveE_back {
+  margin-top: 56rpx;
+  color: #91989F;
+  font-size: 36rpx;
+}
+

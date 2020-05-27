@@ -1,0 +1,32 @@
+<view class="i-modal-mask {{ visible ? 'i-modal-mask-show' : '' }}" bind:tap="outClick">
+    <view class="centerView" style="background-color: {{backgroundColor}};" catch:tap="emptyAction" wx:if="{{onlyToast == false}}">
+        <view class="titleText" style="color: {{titleStringColor}};">{{titleString}}</view>
+        <view class="content">
+            <text space="ensp" style="color:{{contentStringColor}};">{{contentString}}</text>
+        </view>
+        <view class="buttonView">
+            <view class="buttonText" style="border-right: solid calc(1vmin / 7.5) rgba(0, 0, 0, 0.1); color:{{cancelTextColor}};" bind:tap="cancelAction">
+                {{cancelString}}
+            </view>
+            <view class="buttonText" style="color: {{confirmTextColor}};" bind:tap="confirmAction">
+                {{confirmString}}
+            </view>
+        </view>
+    </view>
+    <view class="centerView" style="background-color: {{backgroundColor}};" catch:tap="emptyAction" wx:else>
+        <view class="content" style="margin-top: calc(56vmin / 7.5); margin-bottom: calc(38vmin / 7.5);">
+            <text space="ensp" style="color: {{contentStringColor}};">{{contentString}}</text>
+        </view>
+        <view class="buttonView">
+            <view class="buttonText" style="color:{{cancelTextColor}}; width: 100%;" bind:tap="cancelAction">
+                {{cancelString}}
+            </view>
+        </view>
+    </view>
+</view>
+<!-- 使用方法 -->
+<!-- bindclose:绑定alert取消（关闭）动作回调 bindconfirm:绑定alert确定（右侧）动作回调 -->
+<!-- visible:alert是否显示，相应page里面记录状态，并传到alert里面去 -->
+<!-- <alertview visible="{{visible}}" titleString="标题" contentString="内容" cancelString="分享" bindclose="closeClick" bindconfirm="alertConfirm"></alertview> -->
+<!-- 只显示内容、关闭按钮 -->
+<!-- <alertview visible="{{visible}}" onlyToast="{{true}}" contentString="内容" cancelString="我知道了" bindclose="closeClick"></alertview> -->

@@ -1,0 +1,130 @@
+<wxs src="./tools.wxs" module="tools" />
+
+<view class="wrap">
+  <view class="video-player" style="height:462rpx" id="player">
+    <view wx:if="{{isLive}}" style="height:100%;position:relative;background:#000;" bind:tap="showNavHanle">
+       <!-- <live-player src="http://clips.vorwaerts-gmbh.de/big_buck_bunny.mp4" mode="RTC" autoplay="true" bindstatechange="onPlayEvent" binderror="error" style="width:100%;height:462rpx;"/> -->
+       <live-player style="width:100%;height:462rpx;" id="video-livePlayer" mode="live" orientation="vertical" muted="false" background-mute="false" object-fit="contain" min-cache="1" max-cache="3" src="{{playUrl}}"
+      debug="false" bindstatechange="onPlayEvent" bindfullscreenchange="onFullScreenChange" autoplay="true"></live-player>
+       <view class="nav {{showNav ? 'showNav':''}}">
+         <view class="navText"> 
+           IPFS与Filecoin详解
+         </view>
+         <view class="navIcon">
+         <!-- 暂停播放 -->
+           <view class="iconBox" bindtap="onPlayClick">
+             <image class="" src="/icons/icon_pause@2x.png" mode="widthFix" lazy-load="false"></image>
+           </view>
+           <!-- 全屏播放 -->
+           <view class="iconBox"  bind:tap="gotolandscapeLive">
+             <image class="" src="/icons/icon_enlarge@2x.png" mode="widthFix" lazy-load="false"></image>
+           </view>
+         </view>
+       </view>
+    </view>
+    <!-- 非直播时间显示提示 -->
+    <view class="video-player-no" wx:else>
+        <view class="">
+          现在是非直播时间~ 
+        </view>
+        <view class="">
+          可点击下方关注按钮，随时关注最新直播动态！
+        </view>
+    </view>
+  </view>
+  <!-- tab 组件 -->
+  <view  id="tab">
+    <!-- currentTab 选择的第几项 attention(关注操作) attention(关注的状态) -->
+    <tabList bind:changeTab="changeTabhandle" attention="{{attention}}" bind:attention="attention" currentTab="{{currentTab}}" tablists="{{ tablists }}" />
+  </view>
+  <!-- 显示的评论内容 tabContent -->
+  <view class="box" style="height: {{height}}px;overflow: scroll;padding-right:{{currentTab !=0 ? '0rpx' :'110rpx'}}">
+    <!-- 聊天 -->
+    <block wx:if="{{currentTab==0}}">
+      <view class="">
+        <chat sayList="{{sayList}}" />
+      </view> 
+    </block> 
+    <!-- 主播 -->
+    <block wx:elif="{{currentTab==1}}">
+      <view class=""  attention="{{attention}}">
+        <!-- sendgiftobj(送礼物成功的回调) -->
+        <anchor  bind:attention="attention" attention="{{attention}}" bind:sendgiftobj="sendgiftobjSuccess" />
+      </view>
+    </block>
+    <!-- 排行 -->
+    <block wx:elif="{{currentTab==2}}">
+      <view class="">
+        <ranking scrollHeight="{{height}}"/>
+      </view>
+    </block>
+    <!-- 观众 -->
+    <block wx:elif="{{currentTab==3}}">
+      <view class="">
+        <audience scrollHeight="{{height}}"/>
+      </view>
+    </block>
+  </view>
+  <!-- 商品推荐 和 点赞按钮 -->
+  <view class="giveBox" wx:if="{{currentTab==0}}">
+    <view class="shooping" catch:tap="shooping">
+			<image mode="widthFix" src="../../icons/icon_chat_shopping@3x.png"></image>
+    </view>
+    <view class="give" bind:tap="give">
+      <image mode="widthFix" src="../../icons/icon_chat_zan@2x.png"></image>
+      <text class="giveText"> {{grveNum > 10000 ? tools.numfilter(grveNum/10000,1) + 'w' : grveNum }}</text>
+    </view>
+     <view class="giveNnumberAnimation {{grveNumAnimation ? 'animate' : ''}}" anim>+1</view>
+  </view>
+</view>
+
+
+<!-- 送礼物 -->
+<recommend visible="{{giftvisible}}" bindclose="closeClick" bind:sendgiftobj="sendgiftobjSuccess" outClickCanClose="{{true}}"/>
+
+<!-- 礼物动画的view 只有在聊天界面显示 -->
+<view class="gift-box" wx:if="{{currentTab == 0}}">
+  <block wx:for="{{ tools.gettow(allgiftArr) }}" wx:for-index="index" wx:for-item="item" wx:key="index">
+  <!-- animated bounceInUp -->
+    <view class="giftaniamteBox   {{index==0 && hideAnimation ===true ? 'hideAnimation':''}} ">
+      <view class="giftaniamte">
+        <view class="authorimg">
+          <image class="" src="../../icons/person.png" mode="widthFix" lazy-load="true"></image>
+        </view>
+        <view class="namebox">
+          <view class="name">
+            {{item.authorname}}
+          </view>
+          <view class="giftname" style="color:#91989F">
+           送出 {{item.selectObj.name}}
+          </view>
+        </view>
+        <view class="gifticon">
+          <image class="" src="../..{{item.selectObj.icon}}" mode="widthFix" lazy-load="true"></image>
+        </view>
+      </view>
+      <view class="giftNum" style="color: #fff;">
+        X {{item.num}}
+      </view>
+    </view>
+  </block>
+</view>
+
+
+ <!-- 输入框组件 -->
+  <view class="inputBox"  id="inputBox" wx:if="{{currentTab==0}}">
+    <!-- sendgift(发送礼物) sendMsgSuccess(发送评论) sendmoney(送金币) moreOption(更多操作) -->
+    <inputContent  bind:sendgift="sendgift" bind:openInput="openInput" bind:sendmoney="sendmoney" bind:moreOption="moreOption" bind:sendMsgSuccess="sendMsgSuccess" />
+  </view>
+<!-- 获得焦点时的input 组件 -->
+<inputComponent  visible="{{visible}}" bind:openInput="openInput" bind:sendMsgSuccess="sendMsgSuccess" bind:close="closeInput" />
+<!-- 充值弹框 -->
+<actionsheet visible="{{actionvisible}}" titleString="余额不足，请先充值！" bindclose="actionCloseClick" binditemselect="itemSelect"></actionsheet>
+
+
+<!-- 操作更多 -->
+<livemore visible="{{livemorevisible}}" bindclose="livemorecloseClick" sendGiftOff="{{sendGiftOff}}" sendContentOff="{{sendContentOff}}" binditemselect="livemoreItemSelect"></livemore>
+
+
+<!-- alert 提示弹框 -->
+<alertview visible="{{alertvisible}}" onlyToast="{{true}}" contentString="{{contentString}}" cancelString="我知道了" bindclose="alertcloseClick"></alertview>

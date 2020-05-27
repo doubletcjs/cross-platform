@@ -1,0 +1,33 @@
+<view class="content-mask">
+    <view class="recharge-base-text">充值金额</view>
+    <view class="recharge-list-content">
+        <view class="recharge-list-value-content" wx:for="{{priceList}}" wx:key="index">
+            <view class="recharge-list-value" style="background-color: {{index == priceIndex ? 'rgba(23, 96, 255, 1)' : 'rgba(28, 35, 52, 1)'}}; color: {{index == priceIndex ? 'rgba(241, 241, 241, 1)' : 'rgba(145, 152, 159, 1)'}};" data-index="{{index}}" bind:tap="selectPrice">
+                <view style="font-size: 22rpx;">¥</view>
+                <text space="ensp" style="font-size: 11rpx;">{{' '}}</text>
+                {{item}}
+            </view>
+        </view>
+    </view>
+    <view class="recharge-base-text" style="margin-top: 72rpx;">其它金额</view>
+    <view class="amount-input-content">
+        <view class="amount-input-unit">¥</view>
+        <view class="amount-input-line"></view>
+        <input type="digit" class="amount-input" value="{{inputamount > 0 ? inputamount : ''}}" placeholder-class="amount-input-placeholder" placeholder="请输入金额" bindinput="inputChange"></input>
+    </view>
+    <view class="recharge-base-text" style="margin-top: 72rpx;">支付方式</view>
+    <view class="payway-content" wx:for="{{paywayList}}" wx:key="index" style="{{index == 0 ? 'margin-top: 30rpx;':'margin-top: 16rpx;'}}" data-index="{{index}}" bind:tap="selectPayway">
+        <view class="payway-icon-name">
+            <image class="payway-icon-style" src="{{paywayIconList[index]}}"></image>
+            <view class="payway-name">{{item}}</view>
+        </view>
+        <image class="payway-icon-style" src="{{paywayIndex == index ? '/icons/select1@3x.png' : '/icons/unselect1@3x.png'}}"></image>
+    </view>
+</view>
+<view class="bottom-mask">
+    <view class="bottom-value-colum">
+        <view class="bottom-value-tip">充值金额:</view>
+        <view class="bottom-value">￥{{rechargeamount}}</view>
+    </view>
+    <view class="bottom-recharge" bind:tap="handleRecharge">充值</view>
+</view>

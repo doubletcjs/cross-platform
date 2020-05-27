@@ -1,0 +1,19 @@
+<view class="i-modal-mask {{ visible ? 'i-modal-mask-show' : '' }}" bind:tap="outClick">
+    <view class="centerView" style="background-color: {{backgroundColor}};" catch:tap="emptyAction">
+        <view class="alert-title">{{title}}</view>
+        <view class="alert-content">{{content}}</view>
+        <view class="alert-subcontent">{{subcontent}}</view>
+        <view class="buttonView">
+            <view class="buttonText" style="border-right: solid calc(1vmin / 7.5) rgba(0, 0, 0, 0.1); color:{{cancelTextColor}};" bind:tap="cancelAction">
+                {{cancelString}}
+            </view>
+            <view class="buttonText" style="color: {{confirmTextColor}};" bind:tap="confirmAction">
+                {{confirmString}}
+            </view>
+        </view>
+    </view>
+</view>
+<!-- 使用方法 -->
+<!-- bindclose:绑定alert取消（关闭）动作回调 bindconfirm:绑定alert确定（右侧）动作回调 -->
+<!-- visible:alert是否显示，相应page里面记录状态，并传到alert里面去 -->
+<!-- <alertview visible="{{visible}}" subcontent="账户余额" content="金币数" bindclose="closeClick" bindconfirm="alertConfirm"></alertview> -->

@@ -1,0 +1,33 @@
+
+<view class="wrap">
+	<view id="inputBox" class="inputWarp">
+		<view class="weui-cell weui-input" bind:tap="focusClick">
+			<!-- <input class="weui-input {{focus ? 'focusClass' : ''}}" placeholder-style="color:#565D6D"  bindinput="inputChange" value="{{inputVal}}" adjust-positio="{{adjust}}" auto-focus="{{focus}}" bindfocus="bindfocushandle" bindblur="bindblurhandle" placeholder="说点什么~" cursor-spacing="0" /> -->
+			说点什么~
+		</view>
+		<view class="right" wx:if="{{focus===false}}" >
+			<!-- 送礼物 -->
+			<view class="gift" bind:tap="sendgift" wx:if="{{!videLook}}">
+				<image mode="widthFix" src="../../icons/icon_chat_gift@2x.png"></image>
+			</view>
+			<!-- 送金币 -->
+			<view class="money" bind:tap="sendmoney"  wx:if="{{!videLook}}">
+				<image mode="widthFix" src="../../icons/icon_chat_recharge@2x.png"></image>
+			</view>
+			<!-- 点击显示更多操作弹框 -->
+			<view class="money"  bind:tap="moreOption"  wx:if="{{!videLook}}">
+				<image mode="widthFix" src="../../icons/icon_chat_more@2x.png"></image>
+			</view>
+		</view>
+		<view class="right {{ focus === true ? 'rightchange' : '' }}" style="display:{{focus===true ? 'block' :'none'}}">
+			<!-- 发送评论 -->
+			<view class="send" bind:tap="sendMsg">
+				<image mode="widthFix" src="../../icons/icon-sent@3x.png"></image>
+			</view>
+		</view>
+	</view>
+</view>
+
+
+
+

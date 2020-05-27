@@ -1,0 +1,7 @@
+{
+  "usingComponents": {
+    "alertview": "/components/popalertview/index"
+  },
+  "navigationBarTitleText": "我要开播"
+  
+}

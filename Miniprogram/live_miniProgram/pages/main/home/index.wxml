@@ -1,0 +1,7 @@
+<!-- pages/main/home/index.wxml -->
+<text>pages/home/index.wxml</text>
+<button bind:tap="alertview">alertview</button>
+<!-- <alertview visible="{{visible}}" titleString="订阅成功！" contentString="  系统会在开播前10分钟推送相关消息，让我们把精彩内容分享给其他小伙伴吧~" cancelString="分享" bindclose="closeClick" bindconfirm="alertConfirm"></alertview> -->
+<alertview visible="{{visible}}" contentString="  系统会在开播前10分钟推送相关消息，让我们把精彩内容分享给其他小伙伴吧~" cancelString="否" confirmString="是" bindclose="closeClick"></alertview>
+<button bind:tap="actionsheet">actionsheet</button>
+<actionsheet visible="{{actionvisible}}" bind:tap="actionsheet" titleString="余额不足，请先充值！" bindclose="closeClick" binditemselect="itemSelect"></actionsheet>

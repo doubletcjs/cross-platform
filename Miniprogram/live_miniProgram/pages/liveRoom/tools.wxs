@@ -1,0 +1,13 @@
+var numfilter = function (data,count){
+    return data.toFixed(count)
+}
+
+var gettow = function(arr){ // 截取后面 2 个
+    return arr.splice(arr.length-2,2).reverse()
+}
+
+module.exports = {
+    numfilter: numfilter,
+    gettow:gettow
+}
+

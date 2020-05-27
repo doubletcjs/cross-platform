@@ -1,0 +1,21 @@
+<view class="i-modal-mask {{ visible ? 'i-modal-mask-show' : '' }}" catch:tap="outClick">
+    <view class="redpacket-content" catch:tap="emptyAction">
+        <view class="redpacket-title">金币红包</view>
+        <view class="redpacket-items-content" style="height: {{items.length > 3 ? 'calc(410vmin / 7.5)' : 'auto'}};">
+            <view class="redpacket-cell-content-mask" wx:for="{{items}}" wx:key="index" data-index="{{index}}" bind:tap="listItemAction">
+                <view class="redpacket-cell-content">
+                    <view class="redpacket-cell-total">
+                        <image class="redpacket-icon" src="/icons/icon_gift_redpacket_select@3x.png"></image>
+                        <view class="redpacket-total">x{{item["coin"]}}</view>
+                    </view>
+                    <view class="redpacket-cell-number">
+                        <view class="redpacket-cell-coin">{{item["coin"]}}金币</view>
+                        <view class="redpacket-cell-people">{{item["people"]}}人可领</view>
+                    </view>
+                </view>
+                <view class="redpacket-cell-content-cover" wx:if="{{currentIndex != index}}"></view>
+            </view>
+        </view>
+        <view class="redpacket-send-content" bind:tap="sendAction">发红包</view>
+    </view>
+</view>

@@ -1,0 +1,10 @@
+<view class="i-modal-mask {{ visible ? 'i-modal-mask-show' : '' }}" catch:tap="outClick">
+    <view class="menu-content-mask" style="bottom: calc({{bottomSpace}}vmin / 7.5); right: calc({{rightSpace}}vmin / 7.5);" catch:tap="emptyAction">
+        <view class="menu-content">
+            <view class="menu-cell-content" wx:for="{{items}}" wx:key="index" style="{{index < items.length-1 ? 'border-bottom: solid calc(2vmin / 7.5) rgba(255, 255, 255, 0.05);' : 'border-bottom: 0;'}}" data-index="{{index}}" bind:tap="listItemAction">
+                <view class="menu-value">{{item}}</view>
+                <view class="menu-value">赠送{{item}}个</view>
+            </view>
+        </view>
+    </view>
+</view>

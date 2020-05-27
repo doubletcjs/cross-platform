@@ -1,0 +1,32 @@
+
+.wrap{
+    padding-top: 60rpx;
+    padding-bottom: 10rpx;
+    height: 100%;
+}
+image{
+    height:auto
+}
+.item{
+    display: flex;
+    align-items: center;
+    font-size: 36rpx;
+    color:rgba(241,241,241,1);
+    width: 690rpx;
+    margin: 0 auto;
+    margin-bottom: 44rpx;
+}
+.item .type{
+    width: 80rpx;
+}
+.item .img-box{
+    width: 64rpx;
+    height: 64rpx;
+    margin: 0 50rpx;
+    overflow: hidden;
+    border-radius: 64rpx;
+    -webkit-border-radius: 64rpx;
+    -moz-border-radius: 64rpx;
+    -ms-border-radius: 64rpx;
+    -o-border-radius: 64rpx;
+}

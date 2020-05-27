@@ -1,0 +1,20 @@
+{
+  "usingComponents": {
+    "tabList":"../../components/tabList/tabList", 
+    "chat":"../../components/chat/index",
+    "audience":"../../components/audience/index",
+    "anchor":"../../components/anchor/index", 
+    "ranking":"../../components/ranking/index",
+    "actionsheet": "/components/popactionsheet/index",
+    "livemore": "/components/livemore/index",
+    "inputContent":"../../components/input/index",
+    "alertview": "/components/popalertview/index",
+    "inputComponent":"/components/inputComponent/index",
+    "recommend":"../../components/livegift/index"
+  },
+  "navigationBarTitleText": "直播间",
+  "backgroundColor":"#151928",
+  "navigationBarTextStyle": "white",
+  "backgroundTextStyle": "light",
+  "navigationBarBackgroundColor": "#151928"
+}

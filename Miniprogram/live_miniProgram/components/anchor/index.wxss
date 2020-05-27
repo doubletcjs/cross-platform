@@ -1,0 +1,123 @@
+.wrap{
+   padding: 50rpx 30rpx 10rpx 30rpx;
+   color: #ffffff;
+    font-size: 28rpx;
+}
+image{
+    height:auto
+}
+.anchorMsg{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 140rpx;
+}
+.left{
+    display: flex;
+    align-items: center;
+}
+.imgbox{
+    width: 140rpx;
+    height: 140rpx;
+    overflow: hidden;
+    border-radius: 140rpx;
+    display: flex;
+    justify-content: start;
+    -webkit-border-radius: 140rpx;
+    -moz-border-radius: 140rpx;
+    -ms-border-radius: 140rpx;
+    -o-border-radius: 140rpx;
+}
+.name{
+    margin-left: 30rpx;
+}
+.position{
+    line-height: 40rpx;
+    color: #91989F;
+    font-size: 28rpx;
+}
+.nameText{
+    font-size: 36rpx;
+    line-height: 50rpx;
+}
+.btnbox .btn{
+    background-color: #1760FF;
+    color: #ffffff;
+    line-height: 60rpx;
+    width: 144rpx;
+    text-align: center;
+    border-radius: 8rpx;
+    min-width:144rpx;
+    height:60rpxpx;
+    -webkit-border-radius: 8rpx;
+    -moz-border-radius: 8rpx;
+    -ms-border-radius: 8rpx;
+    -o-border-radius: 8rpx;
+}
+.btnbox .bthNo{
+    color: #565D6D;
+    background:rgba(145,152,159,0.1);
+    line-height: 60rpx;
+    width: 144rpx;
+    text-align: center;
+    border-radius: 8rpx;
+    min-width:144rpx;
+    height:60rpxpx;
+    -webkit-border-radius: 8rpx;
+    -moz-border-radius: 8rpx;
+    -ms-border-radius: 8rpx;
+    -o-border-radius: 8rpx;
+}
+/* 简介 */
+.introductory{
+    max-height: 122rpx;
+    line-height: 40rpx;
+    color: #91989F;
+    overflow:scroll;
+    margin-top: 32rpx;
+}
+
+/* 赠送礼物按钮 */
+.gift{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 90rpx;
+    margin-top: 40rpx;
+}
+.gift .msg{
+    display: flex;
+}
+.cur{
+    color: #91989F;
+    margin: 0 28rpx 0 8rpx;
+}
+.num{
+    font-size: 32rpx;
+}
+.giftbtn{
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    padding: 5rpx;
+    color: #1760FF;
+    border: 1px solid #1760FF;
+    border-radius: 6rpx;
+    -webkit-border-radius: 6rpx;
+    -moz-border-radius: 6rpx;
+    -ms-border-radius: 6rpx;
+    -o-border-radius: 6rpx;
+}
+/* 往期视频 */
+.video{
+    margin-top: 30rpx;
+    border-top: 1rpx solid rgba(255,255,255,0.1);
+    height: 110rpx;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.videoLeft{
+    display: flex;
+}
+

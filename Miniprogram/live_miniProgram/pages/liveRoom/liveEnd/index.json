@@ -1,0 +1,6 @@
+{
+  "usingComponents": {
+    "shareDialog": "/components/share/index"
+  },
+  "navigationBarTitleText": "直播已经结束"
+}

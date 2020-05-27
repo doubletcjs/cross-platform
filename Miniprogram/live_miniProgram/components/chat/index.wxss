@@ -1,0 +1,33 @@
+.wrap{
+    overflow: scroll;
+    font-size: 28rpx;
+}
+image{
+    height:auto
+}
+.welcomeText{
+    padding: 40rpx 0 0 32rpx;
+    width: 568rpx;
+    color: #91989F;
+}
+.sayContent{
+    padding: 0 30rpx;
+    color: #fff;
+    padding-top: 40rpx;
+}
+.c_item{
+    margin-bottom: 40rpx;
+    line-height: 36rpx;
+}
+image,text{
+    vertical-align: middle;
+}
+.author{
+    margin: 0 20rpx 30rpx;
+    color: #91989F;
+}
+.say{
+   
+}
+
+

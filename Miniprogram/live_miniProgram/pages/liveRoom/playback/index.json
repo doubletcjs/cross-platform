@@ -1,0 +1,7 @@
+
+{
+  "usingComponents": {
+    "inputContent":"../../components/input/index"
+  },
+  "navigationBarTitleText": "查看回放"
+}

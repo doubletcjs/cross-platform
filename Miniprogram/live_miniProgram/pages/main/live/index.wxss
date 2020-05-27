@@ -1,0 +1,320 @@
+.home_live_wrapper {
+  display: flex;
+  flex-direction: column;
+}
+
+.home_live_page {
+  width: calc(100% - 60rpx);
+  margin-left: var(--border_dist);
+}
+
+/* 轮播图 */
+.home_live_swiper {
+  height: 400rpx;
+}
+
+.home_live_ing_wrapper {
+  height: 400rpx;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  position: relative;
+}
+
+.home_live_ing_cover {
+  height: 400rpx;
+  border-radius: 10rpx;
+
+  position: absolute;
+  top: 0rpx;
+  left: 0rpx;
+}
+
+.home_live_ing_status_wrapper {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  width: 164rpx;
+  height: 60rpx;
+
+  border-radius: 10rpx;
+  background-color: #FF3465;
+
+  position: absolute;
+  top: 20rpx;
+  left: 40rpx;
+}
+
+.home_live_ing_status_gif {
+  width: 28rpx;
+  height: 28rpx;
+}
+
+.home_live_ing_status_text {
+  margin-left: 10rpx;
+  color: #F1F1F1;
+  font-size: 28rpx;
+
+}
+
+
+.home_live_cover {
+  height: 400rpx;
+  border-radius: 10rpx;
+}
+
+.home_live_ing_title {
+  color: #F1F1F1;
+  font-size: 28rpx;
+  position: absolute;
+  bottom: 40rpx;
+  left: 40rpx;
+}
+
+
+
+
+/* 直播公告wrapper */
+.home_live_notice_wrapper {
+  border-bottom: var(--lineColorBlack_10) solid 2rpx;
+  padding-bottom: 32rpx;
+  margin-top: 72rpx;
+}
+
+/* 直播公告标题wrapper */
+.home_live_notice_title_wrapper {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  
+  height: 56rpx;
+
+}
+
+
+.home_live_notice_title {
+  color: var(--textColorBlack_main);
+  font-size: 40rpx;
+  font-weight: bold;
+  line-height: 56rpx;
+  text-align: center;
+}
+
+/* 订阅 */
+.home_live_notice_focus {
+
+  width: 152rpx;
+  color: var(--themeColor_main);
+  font-size: 28rpx;
+  line-height: 56rpx;
+  text-align: center;
+  border: var(--themeColor_main) solid 1rpx;
+  border-radius: 10rpx;
+
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
+.home_live_notice_focus_image {
+  width: 36rpx;
+  height: 28rpx;
+  margin-right: 10rpx;
+}
+
+/* 已订阅 */
+.home_live_notice_focus_active {
+
+  width: 152rpx;
+  color: #565D6D;
+  font-size: 28rpx;
+  line-height: 56rpx;
+  text-align: center;
+  background: #91989F1A;
+  border-radius: 10rpx;
+}
+
+/* 讲师信息 */
+.home_live_notice_teacher_wrapper {
+
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin-top: 50rpx;
+
+
+}
+
+.home_live_notice_left_wrapper {
+  flex: 1;
+  text-align: center;
+}
+
+.home_live_notice_portrait {
+  width: 140rpx;
+  height: 140rpx;
+  border-radius: 50%;
+}
+
+.home_live_notice_name {
+  color: #00EAB5;
+  font-size: 28rpx;
+  margin-top: 16rpx;
+}
+
+.home_live_notice_intro {
+  color: #565D6D;
+  font-size: 22rpx;
+  margin-top: 8rpx;
+
+  /* 控制段落只显示一定行数，且最后一行结尾处超出部分以省略号显示 */
+  display: -webkit-box;
+  overflow: hidden;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 1;
+
+}
+
+.home_live_notice_right_wrapper {
+  flex: 3;
+}
+
+.home_live_notice_right_title {
+  color: white;
+  font-weight: bold;
+  font-size: 32rpx;
+  text-align: left;
+  line-height: 44rpx;
+
+  /* 控制段落只显示一定行数，且最后一行结尾处超出部分以省略号显示 */
+  display: -webkit-box;
+  overflow: hidden;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+}
+
+.home_live_notive_time {
+  color: #91989F;
+  font-size: 28rpx;
+  text-align: left;
+  margin-top: 16rpx;
+}
+
+.home_live_notive_activity {
+
+  width: 150rpx;
+  height: 60rpx;
+  line-height: 60rpx;
+  font-size: 28rpx;
+  color: white;
+  background: #FF8830;
+  border-radius: 10rpx;
+  margin-top: 16rpx;
+  text-align: center;
+}
+
+/* 往期视频wrapper */
+/* 往期视频标题 */
+.home_live_history_title {
+  margin-top: 60rpx;
+  margin-bottom: 30rpx;
+  color: var(--textColorBlack_main);
+  font-size: 40rpx;
+  font-weight: bold;
+  line-height: 56rpx;
+  text-align: left;
+}
+
+.home_live_history_item_wrapper {
+
+
+  margin-top: 10rpx;
+}
+
+.home_live_history_item {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: flex-start;
+
+  margin-top: 20rpx;
+}
+
+.home_live_history_item_cover {
+
+  /* flex: 1; */
+  display: flex;
+}
+
+.home_live_history_item_cover_image {
+  width: 330rpx;
+  height: 190rpx;
+  border-radius: 10rpx;
+}
+
+.home_live_history_info_wrapper {
+
+  /* flex: 1; */
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  margin-left: 30rpx;
+
+}
+
+
+.home_live_history_title {
+
+  color: #F1F1F1;
+  font-size: 32rpx;
+  /* line-height: 40rpx; */
+
+  /* 控制段落只显示一定行数，且最后一行结尾处超出部分以省略号显示 */
+  display: -webkit-box;
+  overflow: hidden;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+}
+
+.home_live_history_item_title {
+  font-size: 32rpx;
+  color: #F1F1F1;
+
+  /* 控制段落只显示一定行数，且最后一行结尾处超出部分以省略号显示 */
+  display: -webkit-box;
+  overflow: hidden;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+}
+
+.home_live_history_item_name {
+  color: #91989F;
+  font-size: 28rpx;
+  margin-top: 8rpx;
+
+  /* 控制段落只显示一定行数，且最后一行结尾处超出部分以省略号显示 */
+  display: -webkit-box;
+  overflow: hidden;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 1;
+}
+
+.home_live_history_item_time {
+  color: #565D6D;
+  font-size: 22rpx;
+  margin-top: 16rpx;
+}
+
+.home_live_start {
+  height: 178rpx;
+  width: 178rpx;
+  margin: 10rpx;
+  position: fixed;
+  right: 16rpx;
+  bottom: 56rpx;
+  border-radius:50%;
+}

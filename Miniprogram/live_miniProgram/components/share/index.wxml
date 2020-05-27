@@ -1,0 +1,22 @@
+<view class="i-modal-mask {{ visible ? 'i-modal-mask-show' : '' }}" catch:tap="outClick">
+    <view class="share-content" catch:tap="emptyAction">
+        <view class="share-title" style="{{landscape == true ? 'height: calc(82vmin / 7.5);' : 'height: calc(110vmin / 7.5);'}}">
+            分享
+        </view>
+        <swiper class="share-swiper-content" style="{{pages.length > 1 ? 'height: calc(242vmin / 7.5);' : 'height: calc(216vmin / 7.5);'}}" indicator-dots="{{pages.length > 1 ? true : false}}" indicator-active-color="rgba(255, 255, 255, 1)" indicator-color="rgba(250, 250, 250, 1)">
+            <swiper-item class="share-item-content" wx:for="{{pages}}" wx:key="index" style="{{landscape == true ? 'justify-content: center;' : 'justify-content: start;'}}">
+                <view class="share-item-cover" wx:for="{{item}}" wx:for-item="row" wx:for-index="rowindex" wx:key="row" style="{{landscape == true ? 'width: 12.5%;' : 'width: 20%;'}}">
+                    <button class="share-item-icon" style="width: calc(114vmin / 7.5);" plain="{{false}}" open-type="{{rowindex == 0 ? 'share': 'none'}}" data-row="{{row}}" catch:tap="{{rowindex == 0 ? '': 'itemTapAction'}}">
+                        <image class="share-item-icon" style="width: calc(114vmin / 7.5);" src="{{row.icon}}" mode="aspectFit"></image>
+                    </button>
+                    <view class="share-item-name">{{row.name}}</view>
+                </view>
+            </swiper-item>
+        </swiper>
+        <view class="share-cancel" catch:tap="cancelAction">取消</view>
+    </view>
+</view>
+<!-- 使用方法 -->
+<!-- bindclose:绑定关闭动作回调 -->
+<!-- visible:是否显示，相应page里面记录状态，并传到actionsheet里面去 -->
+<!-- <share visible="{{sharevisible}}" bindclose="closeClick"></share> -->

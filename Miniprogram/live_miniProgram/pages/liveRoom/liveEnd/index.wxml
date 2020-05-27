@@ -1,0 +1,30 @@
+<!-- pages/liveRoom/liveEnd/index.wxml -->
+<view class="liveE_wrapper">
+	<view class="liveE_page">
+		<image class="liveE_anchor_head" src="/icons/my-o.png"></image>
+		<view class="liveE_anchor_name">主播名字</view>
+		<view class="liveE_end_hint">直播已结束</view>
+		<view class="liveE_time">直播时间：1:13:10 活动时间：0:30:32</view>
+		<view class="liveE_end_info_wrapper">
+			<view class="liveE_end_item">
+				<view class="liveE_end_info_top">1.1W</view>
+				<view class="liveE_end_info_bottom">打赏金币</view>
+			</view>
+			<view class="liveE_end_item liveE_end_info_line">
+				<view class="liveE_end_info_top">1000</view>
+				<view class="liveE_end_info_bottom">新增关注</view>
+			</view>
+			<view class="liveE_end_item">
+				<view class="liveE_end_info_top">10.1W</view>
+				<view class="liveE_end_info_bottom">点赞个数</view>
+			</view>
+		</view>
+		<view class="liveE_share_wrapper" bindtap="share">
+			<image class="liveE_share_icon" src="/icons/live_share.png" mode="aspectFill"></image>
+			<view class="liveE_share_text">分享</view>
+		</view>
+		<view class="liveE_back">返回</view>
+	</view>
+</view>
+<!--分享对话框-->
+<shareDialog visible="{{shareIsShow}}" bindclose="closeClick"></shareDialog>

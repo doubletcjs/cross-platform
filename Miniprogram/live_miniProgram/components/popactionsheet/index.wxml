@@ -1,0 +1,18 @@
+<view class="i-modal-mask {{ visible ? 'i-modal-mask-show' : '' }}" catch:tap="outClick">
+    <view class="contentView" catch:tap="emptyAction">
+        <view class="contentTitleSuper">
+            <view class="contentTitle" style="color: {{titleColorString}};">{{titleString}}</view>
+        </view>
+        <view class="contentItem" wx:for="{{items}}" wx:key="index" data-index="{{index}}" catch:tap="listItemAction">
+            {{item}}
+        </view>
+        <view class="contentCancel" catch:tap="cancelAction">{{cancelString}}</view>
+    </view>
+</view>
+<!-- 使用方法 -->
+<!-- bindclose:绑定actionsheet关闭动作回调 binditemselect:绑定actionsheet列表内容动作回调 -->
+<!-- visible:actionsheet是否显示，相应page里面记录状态，并传到actionsheet里面去 -->
+<!-- <actionsheet visible="{{actionvisible}}" titleString="余额不足，请先充值！" bindclose="closeClick" binditemselect="itemSelect"></actionsheet> -->
+<!-- itemSelect: function (res) {
+    console.log(res.detail.index)
+  }, -->

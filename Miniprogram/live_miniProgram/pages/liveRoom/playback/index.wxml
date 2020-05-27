@@ -1,0 +1,59 @@
+<wxs src="../tools.wxs" module="tools" />
+<view class="wrap">
+  <view class="title_box">
+    <view class="">
+      IPFS与Filecoin详解
+    </view>
+    <view class="num">
+      播放量:  {{lookNum > 10000 ? tools.numfilter(lookNum/10000,1) + 'w' : lookNum }}
+    </view>
+  </view>
+  <view class="video-player" style="height:462rpx" id="player">
+    <video class="video-player-box" src="" initial-time="0" autoplay="true" loop="false" muted="false" direction="0" bindplay="" bindpause="" bindended="" bindtimeupdate="" bindwaiting="" binderror=""></video>
+  </view>
+  <!-- 显示的评论内容 tabContent -->
+  <view class="box" style="height: {{height}}px;overflow: scroll;">
+    <view class="">欢迎来到直播间！直播间禁止未成年人进行直播或打赏，请大家共同遵守、监督。直播间内严禁出现违法违规、低俗色情、吸烟酗酒等内容，若有违规行为请及时举报。</view>
+    <view class="contents">
+      <block wx:for="{{sayLists}}" wx:for-item="item" wx:for-index="index" wx:key="index">
+        <view class="contents_item">
+          <view class="say"> 
+            <teat class="say_item" wx:if="{{item.type !== 0}}">
+              <image class="img" wx:if="{{item.type=='F0'}}" style="vertical-align:middle" src="../../../icons/f0@2x.png" mode="widthFix" lazy-load="true"></image>
+              <image class="img" wx:elif="{{item.type=='F1'}}" style="vertical-align:middle" src="../../../icons/f1@2x.png" mode="widthFix" lazy-load="true"></image>
+              <image class="img" wx:elif="{{item.type=='F2'}}" style="vertical-align:middle" src="../../../icons/f2@2x.png" mode="widthFix" lazy-load="true"></image>
+              <image class="img" wx:elif="{{item.type=='F3'}}" style="vertical-align:middle" src="../../../icons/f3@2x.png" mode="widthFix" lazy-load="true"></image>
+              <image class="img" wx:elif="{{item.type=='S1'}}" style="vertical-align:middle" src="../../../icons/s1@2x.png" mode="widthFix" lazy-load="true"></image>
+              <image class="img" wx:elif="{{item.type=='S2'}}" style="vertical-align:middle" src="../../../icons/s3@2x.png" mode="widthFix" lazy-load="true"></image>
+              <image class="img" wx:elif="{{item.type=='S3'}}" style="vertical-align:middle" src="../../../icons/s3@2x.png" mode="widthFix" lazy-load="true"></image>
+              <text class="tetx nicname" space="false">{{item.nicname}} :  </text>
+              <text class="tetx saycontent" selectable="false" space="false" decode="false">{{item.sayContent}}</text>
+            </teat>
+          </view>
+          <view class="answer">
+            <text class="zhu"  space="false" decode="false">主播</text>
+            <text class="hui" space="false" decode="false">回复</text>
+            <text class="nicname" space="false"  decode="false">{{item.nicname}}:</text>
+            <text class="saycontent" space="false" decode="false">{{item.answer.content}}</text>
+          </view>
+        </view>
+      </block>
+    </view>
+  </view>
+  <!-- 商品推荐 和 点赞按钮 -->
+  <view class="giveBox">
+    <view class="give" bind:tap="give">
+      <image mode="widthFix" src="../../../icons/icon_chat_zan@2x.png"></image>
+      <view class="giveText">
+        {{grveNum > 10000 ? tools.numfilter(grveNum/10000,1) + 'w' : grveNum }}
+      </view>
+    </view>
+     <view class="giveNnumberAnimation {{grveNumAnimation ? 'animate' : ''}}">+1</view>
+  </view>
+</view>
+
+  <!-- 输入框组件 keyboardHeight -->
+  <view class="inputBox" id="inputBox" style="height:{{inputBoxHeight}}">
+    <!-- sendgift(发送礼物) sendMsgSuccess(发送评论) sendmoney(送金币) moreOption(更多操作) keyboardHeight(输入框获得焦点和失去焦点设置组件高度) -->
+    <inputContent videLook="{{isVideLook}}" bind:sendMsgSuccess="sendMsgSuccess" bind:keyboardHeight="keyboardHeight" />
+  </view>

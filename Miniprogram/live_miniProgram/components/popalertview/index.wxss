@@ -1,0 +1,72 @@
+.i-modal-mask {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    /* background: rgba(0, 0, 0, 0); */
+    z-index: 1000;
+    transition: all 0.2s ease-in-out;
+    opacity: 0;
+    visibility: hidden;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.i-modal-mask-show {
+    opacity: 1;
+    visibility: visible;
+}
+
+.centerView {
+    width: calc(640vmin / 7.5);
+    border-radius: calc(24vmin / 7.5);
+    display: flex;
+    flex-direction: column;
+}
+
+.titleText {
+    margin-top: calc(64vmin / 7.5);
+    margin-right: calc(48vmin / 7.5);
+    margin-left: calc(48vmin / 7.5);
+    font-size: calc(36vmin / 7.5);
+    text-align: center;
+}
+
+.content {
+    margin-top: calc(32vmin / 7.5);
+    margin-left: calc(48vmin / 7.5);
+    margin-right: calc(48vmin / 7.5);
+    margin-bottom: calc(64vmin / 7.5);
+
+    align-content: center;
+
+    font-size: calc(32vmin / 7.5);
+    text-align: center;
+    word-break: break-all;
+    line-height: calc(47.6vmin / 7.5);
+}
+
+.buttonView {
+    display: flex;
+    flex-direction: row;
+
+    border-top: solid calc(1vmin / 7.5) rgba(0, 0, 0, 0.1);
+}
+
+.buttonText {
+    width: 50%;
+    padding-top: calc(32vmin / 7.5);
+    padding-bottom: calc(32vmin / 7.5);
+    font-size: calc(32vmin / 7.5);
+    color: rgba(53, 53, 53, 1);
+    text-align: center;
+}
+
+.buttonText:active {
+    color: rgba(53, 53, 53, 0.5);
+}

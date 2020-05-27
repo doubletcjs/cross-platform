@@ -1,0 +1,33 @@
+<view class="liveP_wrapper">
+	<view class="liveP_page">
+		<view class="liveP_title_1">直播设置</view>
+		<input type="text" class="liveP_title_input" placeholder-class="liveP_title_input_placeholder" placeholder="请输入直播标题" />
+		<view class="liveP_notice">公告</view>
+		<textarea cols="300" rows="5" placeholder-class="liveP_notice_input_placeholder" class="liveP_notice_input" placeholder="请输入公告"></textarea>
+		<label class="liveP_record" bindtap="isRecord">
+			<!-- <radio value="r2" color="#1760FF" checked="{{isChecked}}" /> -->
+			<image src="{{isChecked  ? '/icons/select1@3x.png' : '/icons/unselect1@3x.png'}}"></image>
+			<view class="liveP_record_one">同步录制</view>
+			<view class="liveP_record_two">直播时开启手机录像功能</view>
+		</label>
+		<!-- 主播信息 -->
+		<view class="liveP_title_1" style="margin-top: 74rpx;">主播信息</view>
+		<view class="liveP_anchor_info">
+			<view class="liveP_anchor_info_left_wrapper">
+				<image class="liveP_anchor_loadPortrait" mode="aspectFill" src="{{anchorImg}}" bindtap="handleChooseImg"></image>
+				<view class="liveP_anchor_edit">点击可编辑</view>
+			</view>
+			<view class="liveP_anchor_info_right_wrapper">
+				<view class="liveP_anchor_info_name">主播名字</view>
+				<view class="liveP_anchor_info_rank">主播职位</view>
+			</view>
+		</view>
+		<navigator class="liveP_anchor_info_edit_wrapper" url="/pages/livePrepare/introEdit/index?intro={{ancherIntro}}">
+			<view class="liveP_anchor_info_intro">{{ancherIntro}}</view>
+			<image class="liveP_anchor_info_edit_image" mode="aspectFill" src="/icons/live_prepare_edit.png"></image>
+		</navigator>
+		<view class="liveP_start" bindtap="toLive">开始视频直播</view>
+	</view>
+</view>
+<!--开播前提示-->
+<alertview visible="{{isAuth}}" contentString="开播前请进行实名认证" contentStringColor="#353535" cancelString="返回" cancelTextColor="#1C2334" confirmString="前往认证" confirmTextColor="#1760FF" bindclose="toLive" bindconfirm="toAuth"></alertview>

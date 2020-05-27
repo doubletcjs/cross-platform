@@ -1,0 +1,22 @@
+<view class="i-modal-mask {{ visible ? 'i-modal-mask-show' : '' }}" catch:tap="outClick">
+    <view catch:tap="emptyAction" class="opening-mask">
+        <view class="opening-backgroud">
+            <image src="{{open == true ? '/icons/icon_gift_redpacket_open@3x.png' : '/icons/icon_gift_redpacket_main@3x.png'}}" mode="widthFix" catch:tap="openPacketAction"></image>
+            <view class="opening-content" wx:if="{{open == true && showList == true}}">
+                <view class="opening-redpacket-list-cell" wx:for="{{dataList}}" wx:key="index">
+                    <view class="opening-redpacket-list-name">{{item["name"]}}</view>
+                    <view class="opening-redpacket-list-coin">{{item["amount"]}}</view>
+                </view>
+            </view>
+            <view class="opening-content" wx:elif="{{open == true && showList == false}}">
+                <view class="opening-redpacket-tip">{{amount > 0 ? "恭喜你！获得金币" : "很遗憾！您手慢了！"}}</view>
+                <view class="opening-redpacket-coin" wx:if="{{amount > 0}}">{{amount}}</view>
+                <view class="opening-redpacket-nocoin" wx:else>红包领完了</view>
+                <view class="opening-redpacket-list-button" style="margin-top: calc({{amount > 0 ? '82' : '134'}}vmin / 7.5);" catch:tap="showListAction">
+                    看看大家手气
+                </view>
+            </view>
+        </view>
+        <image class="opening-close" src="/icons/icon_gift_redpacket_close@3x.png" style="{{landscape == true ? 'position: absolute; bottom: 0;' : 'margin-top: calc(66vmin / 7.5);'}}" wx:if="{{open == true}}" catch:tap="cancelAction"></image>
+    </view>
+</view>

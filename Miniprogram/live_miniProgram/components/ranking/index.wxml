@@ -1,0 +1,50 @@
+
+<wxs src="./tools.wxs" module="tools" />
+<view class="wrap">
+	<scroll-view scroll-y="true" style="height: {{scrollHeight}}px;" bindscroll="scroll">
+		<view class="tab">
+			<block wx:for="{{tab}}"  wx:for-index="index" wx:for-item="item" wx:key="index">
+				<view class="tab-item {{tabIndex == index ? 'active' : '' }}" bind:tap="changeTab" data-index="{{index}}">
+					{{item}}
+				</view>
+			</block>
+		</view>
+		<view class="tabcontent">
+			<block wx:for="{{nowData}}"  wx:for-index="index" wx:for-item="item" wx:key="index">
+				<view class="content-item">
+					<view class="ranking">
+						<image class="" wx:if="{{index === 0}}" src="../../icons/No1@2x.png" mode="widthFix" lazy-load="true"></image>
+						<image class=""  wx:elif="{{index === 1}}" src="../../icons/No2@2x.png" mode="widthFix" lazy-load="true"></image>
+						<image class="" wx:elif="{{index === 2}}" src="../../icons/No3@2x.png" mode="widthFix" lazy-load="true"></image>
+						<view wx:else>
+							{{index + 1}}
+						</view>
+					</view>
+					<view class="authorImg">
+						<image class="" src="../../icons/person.png" mode="widthFix" lazy-load="true"></image>
+					</view>
+					<view class="authorMsg">
+						<view class="authorMsg-top">
+							<view class="nicname">
+								{{item.nicname}}
+							</view>
+							<view class="img-box" style="width:80rpx">
+								<image class="img"  wx:if="{{item.type === 'F0'}}" src="../../icons/f0@2x.png" mode="widthFix" lazy-load="true"></image>
+								<image class="img"  wx:elif="{{item.type === 'F1'}}" src="../../icons/f1@2x.png" mode="widthFix" lazy-load="true"></image>
+								<image class="img"  wx:elif="{{item.type === 'F2'}}"  src="../../icons/f2@2x.png" mode="widthFix" lazy-load="true"></image>
+								<image class="img"  wx:elif="{{item.type === 'F3'}}" src="../../icons/f3@2x.png" mode="widthFix" lazy-load="true"></image>
+								<image class="img"  wx:elif="{{item.type === 'S1'}}" src="../../icons/s1@2x.png" mode="widthFix" lazy-load="true"></image>
+								<image class="img"  wx:elif="{{item.type === 'S2'}}" src="../../icons/s2@2x.png" mode="widthFix" lazy-load="true"></image>
+								<image class="img"  wx:elif="{{item.type === 'S3'}}"src="../../icons/s3@2x.png" mode="widthFix" lazy-load="true"></image>
+							</view>
+						</view>
+						<view class="authorMsg-bottom">
+							<text class="">贡献：{{tools.numfilter(item.contribution)}}</text>
+						</view>
+					</view>
+				</view>
+			</block>
+		</view>
+	</scroll-view>
+	
+</view>

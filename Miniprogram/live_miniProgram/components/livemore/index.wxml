@@ -1,0 +1,22 @@
+<view class="i-modal-mask {{ visible ? 'i-modal-mask-show' : '' }}" catch:tap="outClick">
+    <view class="more-content" catch:tap="emptyAction">
+        <view class="more-close-content">
+            <view class="more-close" bind:tap="cancelAction">取消</view>
+        </view>
+        <swiper class="more-swiper-content" indicator-dots="{{pages.length > 1 ? true : false}}" indicator-active-color="rgba(241, 241, 241, 1)" indicator-color="rgba(241, 241, 241, 0.1)">
+            <swiper-item class="more-item-content" wx:for="{{pages}}" wx:key="index">
+                <view class="more-item-cover" wx:for="{{item}}" wx:for-item="row" wx:key="row" data-row="{{row}}" catch:tap="itemTapAction">
+                    <image class="more-item-icon" src="{{row.icon}}"></image>
+                    <view class="more-item-name">{{row.name}}</view>
+                </view>
+            </swiper-item>
+        </swiper>
+    </view>
+</view>
+<!-- 使用方法 -->
+<!-- bindclose:绑定关闭动作回调 binditemselect:绑定列表内容选择动作回调 -->
+<!-- visible:是否显示，相应page里面记录状态，并传到actionsheet里面去 -->
+<!-- <livemore visible="{{livemorevisible}}" bindclose="closeClick" binditemselect="itemSelect"></livemore> -->
+<!-- itemSelect: function (res) {
+    console.log(res.detail.name)
+  }, -->

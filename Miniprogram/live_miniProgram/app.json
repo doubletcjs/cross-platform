@@ -1,0 +1,68 @@
+{
+  "pages": [
+    "pages/main/home/index",
+    "pages/main/mall/index",
+    "pages/main/live/index",
+    "pages/main/community/index",
+    "pages/main/profile/index",
+    "pages/activity/index",
+    "pages/livePrepare/index",
+    "pages/livePrepare/introEdit/index",
+    "pages/recharge/index",
+    "pages/recharge/complete/index",
+    "pages/liveRoom/livehost/index",
+    "pages/liveRoom/index",
+    "pages/liveRoom/playback/index",
+    "pages/IPFSFilecoinDetail/index",
+    "pages/landscapeLive/index",
+    "pages/liveRoom/liveEnd/index",
+    "pages/writeArticle/index"
+  ],
+  "window": {
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#151928",
+    "navigationBarTitleText": "直播",
+    "navigationBarTextStyle": "white"
+  },
+  "tabBar": {
+    "color": "#565D6D",
+    "selectedColor": "#1760FF",
+    "backgroundColor": "#000000",
+    "position": "bottom",
+    "borderStyle": "black",
+    "list": [{
+        "pagePath": "pages/main/home/index",
+        "text": "首页",
+        "iconPath": "icons/icon_bar_home.png",
+        "selectedIconPath": "icons/icon_bar_home_o.png"
+      },
+      {
+        "pagePath": "pages/main/mall/index",
+        "text": "商城",
+        "iconPath": "icons/icon_nav_mall.png",
+        "selectedIconPath": "icons/icon_nav_mall_o.png"
+      },
+      {
+        "pagePath": "pages/main/live/index",
+        "text": "直播",
+        "iconPath": "icons/icon_nav_video.png",
+        "selectedIconPath": "icons/icon_nav_video_o.png"
+      },
+      {
+        "pagePath": "pages/main/community/index",
+        "text": "资讯",
+        "iconPath": "icons/icon_bar_hq.png",
+        "selectedIconPath": "icons/icon_bar_hq_o.png"
+      },
+      {
+        "pagePath": "pages/main/profile/index",
+        "text": "我的",
+        "iconPath": "icons/icon_bar_me.png",
+        "selectedIconPath": "icons/icon_bar_me_o.png"
+      }
+    ]
+  },
+  "style": "v2",
+  "sitemapLocation": "sitemap.json",
+  "debug": true
+}

@@ -1,0 +1,6 @@
+{
+  "usingComponents": {
+    "alertview": "/components/popalertview/index",
+    "shareDialog": "/components/share/index"
+  }
+}

@@ -1,0 +1,13 @@
+<view class="wrap">
+	<view class="tab">
+		<view wx:for="{{tablists}}" bindtap="changeTab" data-index="{{index}}" wx:for-index="index" wx:key="index" wx:for-item="itemName"  class="{{ currentTab == index ? 'active' : '' }}">
+			<text data-index="{{index}}">{{itemName}}</text>
+		</view>
+	</view>
+	<view class="attention  {{ attention===false ? 'active' : '' }}" bind:tap="attentionChange" wx:if="{{attention===false}}">
+		<text> + 关注</text>
+	</view>
+	<view class="attention " bind:tap="attentionChange" wx:if="{{attention===true}}">
+		<text class="cur">已关注</text>
+	</view>
+</view>

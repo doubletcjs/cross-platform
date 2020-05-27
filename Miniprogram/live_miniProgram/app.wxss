@@ -1,0 +1,109 @@
+
+@import './animate.wxss';
+/* 在微信小程序中 不支持 通配符 '*' */
+page,
+view,
+text,
+swiper,
+swiper-item,
+image,
+navigator {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+/*
+ 主题颜色 通过变量来实现 
+ 1 less 中 存在 变量这个知识
+ 2 原生的css和wxss也是支持 变量 
+ */
+page {
+
+  /* 定义主题颜色 */
+  /** 主色 */
+  --themeColor_main: #1760FF;
+  /** 主辅色 */
+  --themeColor_main_2: #8C61FF;
+  /** 辅色 */
+  --themeColor_main_3: #00EAB5;
+  /** 辅色 */
+  --themeColor_main_4: #FF3465;
+  /** 辅色 */
+  --themeColor_main_5: #FF8830;
+  /** 全局底色 */
+  --themeColor_bg: #151928;
+  /** 模块底色 */
+  --themeColor_module: #1C2334;
+  /** 图标色 */
+  --themeColor_icon_color: #565D6D;
+
+
+  /** 定义文本颜色 */
+  /** 黑底主色 */
+  --textColorBlack_main: #F1F1F1;
+  /** 黑底辅助色 */
+  --textColorBlack_sub_1: #91988F;
+  /** 黑底辅助色 */
+  --textColorBlack_sub_2: #565D6D;
+
+  /** 白底主色 */
+  --textColorWhite_main: #353535;
+  /** 白底辅助色 */
+  --textColorWhite_sub_1: #888888;
+  /** 白底辅助色 */
+  --textColorWhite_sub_2: #B2B2B2;
+
+
+  /** 定义分割线颜色 */
+  /** 黑底30%透明度 */
+  --lineColorBlack_30: #FFFFFF4D;
+  /** 黑底10%透明度 */
+  --lineColorBlack_10: #FFFFFF1A;
+  /** 黑底5%透明度 */
+  --lineColorBlack_05: #FFFFFF0D;
+
+  /** 白底30%透明度 */
+  --lineColorWhite_30: #0000004D;
+  /** 白底10%透明度 */
+  --lineColorWhite_10: #0000001A;
+  /** 白底5%透明度 */
+  --lineColorWhite_05: #0000000D;
+
+
+  /** 只能为阿拉伯数字，如金额，时间 */
+  --font_size_nt: 56rpx;
+  /** 页面大标题 */
+  --font_size_pageTitle: 40rpx;
+  /** 页面内大按钮字体、模块标题 */
+  --font_size_title: 36rpx;
+  /** 页面内首要层级信息，如列表标题、消息气泡 */
+  --font_size_list: 32rpx;
+  /** 页面内次要层级信息，如列表摘要 */
+  --font_size_subList: 28rpx;
+  /** 说明文本 */
+  --font_size_desc: 22rpx;
+
+  /** 边框 */
+  --border_dist: 30rpx;
+
+
+
+
+  /*
+    375 x 956  这个设计图
+    定义统一字体大小  假设设计稿 大小是 375px 是所有的，默认的app字体大小
+    1px= 2rpx
+    14px = 28rpx
+     */
+  /* font-size: 28rpx; */
+
+  /** 全局背景色 */
+  background-color: var(--themeColor_bg);
+
+}
+
+image {
+  width: 100%;
+  /** 一般图片是100% 来源分类tabs，17-分类-页面布局2 */
+}

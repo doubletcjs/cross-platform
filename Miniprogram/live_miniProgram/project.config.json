@@ -1,0 +1,146 @@
+{
+	"description": "项目配置文件",
+	"packOptions": {
+		"ignore": []
+	},
+	"setting": {
+		"urlCheck": false,
+		"es6": true,
+		"postcss": true,
+		"preloadBackgroundData": false,
+		"minified": true,
+		"newFeature": true,
+		"coverView": true,
+		"autoAudits": false,
+		"showShadowRootInWxmlPanel": true,
+		"scopeDataCheck": false,
+		"checkInvalidKey": true,
+		"checkSiteMap": true,
+		"uploadWithSourceMap": true,
+		"babelSetting": {
+			"ignore": [],
+			"disablePlugins": [],
+			"outputPath": ""
+		}
+	},
+	"compileType": "miniprogram",
+	"libVersion": "2.11.0",
+	"appid": "wx2c43c47ac4cb45f4",
+	"projectname": "live_miniProgram",
+	"debugOptions": {
+		"hidedInDevtools": []
+	},
+	"isGameTourist": false,
+	"simulatorType": "wechat",
+	"simulatorPluginLibVersion": {},
+	"condition": {
+		"search": {
+			"current": -1,
+			"list": []
+		},
+		"conversation": {
+			"current": -1,
+			"list": []
+		},
+		"plugin": {
+			"current": -1,
+			"list": []
+		},
+		"game": {
+			"currentL": -1,
+			"list": []
+		},
+		"gamePlugin": {
+			"current": -1,
+			"list": []
+		},
+		"miniprogram": {
+			"current": -1,
+			"list": [
+				{
+					"id": -1,
+					"name": "往期视频列表",
+					"pathName": "pages/liveRoom/livehost/index",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "查看视频回放",
+					"pathName": "pages/liveRoom/playback/index",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "直播首页",
+					"pathName": "pages/main/live/index",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": 3,
+					"name": "我要开播",
+					"pathName": "pages/livePrepare/index",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": 4,
+					"name": "直播间",
+					"pathName": "pages/liveRoom/index",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": 5,
+					"name": "首页",
+					"pathName": "pages/main/home/index",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": 6,
+					"name": "充值",
+					"pathName": "pages/recharge/index",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": 7,
+					"name": "主播简介编辑",
+					"pathName": "pages/livePrepare/introEdit/index",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "直播结束",
+					"pathName": "pages/liveRoom/liveEnd/index",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "往期视频",
+					"pathName": "pages/liveRoom/livehost/index",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "橫批直播",
+					"pathName": "pages/landscapeLive/index",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "写文章",
+					"pathName": "pages/writeArticle/index",
+					"scene": null
+				}
+			]
+		}
+	}
+}
