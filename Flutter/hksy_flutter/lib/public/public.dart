@@ -306,10 +306,15 @@ void functionAlertView(
   showDialog(
     context: rootContext,
     builder: (context) {
+      bool _fullAction = false;
+      if (isStringEmpty(cancel) == false && isStringEmpty(confirm) == false) {
+        _fullAction = true;
+      }
+
       Widget _confirmButton() {
         return Container(
+          height: 48.5,
           decoration: BoxDecoration(
-            color: Colors.red,
             border: Border(
               top: BorderSide(
                 width: 0.5,
@@ -335,17 +340,19 @@ void functionAlertView(
 
       Widget _cancelButton() {
         return Container(
+          height: 48.5,
           decoration: BoxDecoration(
-            color: Colors.green,
             border: Border(
               top: BorderSide(
                 width: 0.5,
                 color: rgba(145, 152, 173, 1),
               ),
-              right: BorderSide(
-                width: 0.5,
-                color: rgba(145, 152, 173, 1),
-              ),
+              right: _fullAction == true
+                  ? BorderSide(
+                      width: 0.5,
+                      color: rgba(145, 152, 173, 1),
+                    )
+                  : BorderSide.none,
             ),
           ),
           child: FlatButton(
@@ -356,12 +363,26 @@ void functionAlertView(
                 cancelHandle();
               }
             },
-            child: Expanded(
-              child: Text(
-                cancel,
-                style: cancelTextStyle,
-              ),
+            child: Text(
+              cancel,
+              style: cancelTextStyle,
             ),
+          ),
+        );
+      }
+
+      List<Widget> _items = [];
+      if (isStringEmpty(cancel) == false) {
+        _items.add(
+          Expanded(
+            child: _cancelButton(),
+          ),
+        );
+      }
+      if (isStringEmpty(confirm) == false) {
+        _items.add(
+          Expanded(
+            child: _confirmButton(),
           ),
         );
       }
@@ -384,44 +405,11 @@ void functionAlertView(
           Container(
             width: MediaQuery.of(context).size.width,
             height: 48.5,
-            color: Colors.red,
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                _cancelButton(),
-                // Expanded(
-                //   child: Container(
-                //     color: Colors.yellow,
-                //     // child: _confirmButton(),
-                //   ),
-                // ),
-              ],
+              children: _items,
             ),
-          )
-          // Row(
-          //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          //   children: <Widget>[
-          //     Container(
-          //       width: 105,
-          //       height: 48.5,
-          //       color: Colors.red,
-          //     )
-          //     // Expanded(
-          //     //   child: Container(
-          //     //     width: 105,
-          //     //     height: 48.5,
-          //     //     color: Colors.red,
-          //     //   ),
-          //     // ),
-          //     // Expanded(
-          //     //   child: Container(
-          //     //     width: 105,
-          //     //     height: 48.5,
-          //     //     color: Colors.green,
-          //     //   ),
-          //     // ),
-          //   ],
-          // ),
+          ),
         ],
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(7.5),
