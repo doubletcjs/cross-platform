@@ -194,61 +194,13 @@ class _MinePageState extends State<MinePage> {
                   "images/ico_my_super@3x.png",
                 ),
                 tapHandle: () {
-                  showDialog(
-                    context: context,
-                    builder: (context) {
-                      return AlertDialog(
-                        buttonPadding: EdgeInsets.zero,
-                        titlePadding: EdgeInsets.fromLTRB(21, 16.5, 21, 0),
-                        title: Text(
-                          "超级存储",
-                          textAlign: TextAlign.center,
-                        ),
-                        titleTextStyle: TextStyle(
-                          fontSize: 15,
-                          color: rgba(51, 51, 51, 1),
-                        ),
-                        content: Text(
-                          "      你目前还不是超级存储，想成为超级存储请联系业务人员线下办理，成为我们的超级矿工则显示每日获得更多分红收益。",
-                        ),
-                        contentTextStyle: TextStyle(
-                          fontSize: 13,
-                          color: rgba(51, 51, 51, 1),
-                          height: 1.8,
-                        ),
-                        actions: <Widget>[
-                          Container(
-                            width: MediaQuery.of(context).size.width,
-                            height: 48.5,
-                            decoration: BoxDecoration(
-                              border: Border(
-                                top: BorderSide(
-                                  width: 0.5,
-                                  color: rgba(145, 152, 173, 1),
-                                ),
-                              ),
-                            ),
-                            child: FlatButton(
-                              padding: EdgeInsets.zero,
-                              onPressed: () {
-                                Navigator.of(context).pop();
-                              },
-                              child: Text(
-                                "确认",
-                                style: TextStyle(
-                                  fontSize: 15,
-                                  color: rgba(23, 96, 255, 1),
-                                ),
-                              ),
-                            ),
-                          ),
-                        ],
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(7.5),
-                        ),
-                        contentPadding: EdgeInsets.fromLTRB(21, 10, 21, 14),
-                      );
-                    },
+                  functionAlertView(
+                    context,
+                    title: "超级存储",
+                    content:
+                        "      你目前还不是超级存储，想成为超级存储请联系业务人员线下办理，成为我们的超级矿工则显示每日获得更多分红收益。",
+                    confirm: "确认",
+                    cancel: "取消",
                   );
                   // Navigator.of(context).push(
                   //   MaterialPageRoute(

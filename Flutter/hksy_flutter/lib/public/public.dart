@@ -250,6 +250,187 @@ Widget transparentAppBar({Brightness brightness = Brightness.dark}) {
   );
 }
 
+///默认alertview弹框
+void functionAlertView(
+  BuildContext rootContext, {
+  String title = "标题",
+  String content = "内容",
+  EdgeInsets titlePadding,
+  EdgeInsets contentPadding,
+  TextStyle titleTextStyle,
+  TextStyle contentTextStyle,
+  String cancel,
+  String confirm,
+  TextStyle cancelTextStyle,
+  TextStyle confirmTextStyle,
+  kVoidFunctionBlock cancelHandle,
+  kVoidFunctionBlock confirmHandle,
+}) {
+  if (titlePadding == null) {
+    titlePadding = EdgeInsets.fromLTRB(21, 16.5, 21, 0);
+  }
+
+  if (contentPadding == null) {
+    contentPadding = EdgeInsets.fromLTRB(21, 10, 21, 14);
+  }
+
+  if (titleTextStyle == null) {
+    titleTextStyle = TextStyle(
+      fontSize: 15,
+      color: rgba(51, 51, 51, 1),
+    );
+  }
+
+  if (contentTextStyle == null) {
+    contentTextStyle = TextStyle(
+      fontSize: 13,
+      color: rgba(51, 51, 51, 1),
+      height: 1.8,
+    );
+  }
+
+  if (cancelTextStyle == null) {
+    cancelTextStyle = TextStyle(
+      fontSize: 15,
+      color: rgba(51, 51, 51, 1),
+    );
+  }
+
+  if (confirmTextStyle == null) {
+    confirmTextStyle = TextStyle(
+      fontSize: 15,
+      color: rgba(23, 96, 255, 1),
+    );
+  }
+
+  showDialog(
+    context: rootContext,
+    builder: (context) {
+      Widget _confirmButton() {
+        return Container(
+          decoration: BoxDecoration(
+            color: Colors.red,
+            border: Border(
+              top: BorderSide(
+                width: 0.5,
+                color: rgba(145, 152, 173, 1),
+              ),
+            ),
+          ),
+          child: FlatButton(
+            padding: EdgeInsets.zero,
+            onPressed: () {
+              Navigator.of(context).pop();
+              if (confirmHandle != null) {
+                confirmHandle();
+              }
+            },
+            child: Text(
+              confirm,
+              style: confirmTextStyle,
+            ),
+          ),
+        );
+      }
+
+      Widget _cancelButton() {
+        return Container(
+          decoration: BoxDecoration(
+            color: Colors.green,
+            border: Border(
+              top: BorderSide(
+                width: 0.5,
+                color: rgba(145, 152, 173, 1),
+              ),
+              right: BorderSide(
+                width: 0.5,
+                color: rgba(145, 152, 173, 1),
+              ),
+            ),
+          ),
+          child: FlatButton(
+            padding: EdgeInsets.zero,
+            onPressed: () {
+              Navigator.of(context).pop();
+              if (cancelHandle != null) {
+                cancelHandle();
+              }
+            },
+            child: Expanded(
+              child: Text(
+                cancel,
+                style: cancelTextStyle,
+              ),
+            ),
+          ),
+        );
+      }
+
+      return AlertDialog(
+        buttonPadding: EdgeInsets.zero,
+        actionsPadding: EdgeInsets.zero,
+        titlePadding: titlePadding,
+        contentPadding: contentPadding,
+        title: Text(
+          title,
+          textAlign: TextAlign.center,
+        ),
+        titleTextStyle: titleTextStyle,
+        content: Text(
+          content,
+        ),
+        contentTextStyle: contentTextStyle,
+        actions: <Widget>[
+          Container(
+            width: MediaQuery.of(context).size.width,
+            height: 48.5,
+            color: Colors.red,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                _cancelButton(),
+                // Expanded(
+                //   child: Container(
+                //     color: Colors.yellow,
+                //     // child: _confirmButton(),
+                //   ),
+                // ),
+              ],
+            ),
+          )
+          // Row(
+          //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          //   children: <Widget>[
+          //     Container(
+          //       width: 105,
+          //       height: 48.5,
+          //       color: Colors.red,
+          //     )
+          //     // Expanded(
+          //     //   child: Container(
+          //     //     width: 105,
+          //     //     height: 48.5,
+          //     //     color: Colors.red,
+          //     //   ),
+          //     // ),
+          //     // Expanded(
+          //     //   child: Container(
+          //     //     width: 105,
+          //     //     height: 48.5,
+          //     //     color: Colors.green,
+          //     //   ),
+          //     // ),
+          //   ],
+          // ),
+        ],
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(7.5),
+        ),
+      );
+    },
+  );
+}
+
 ///开发、发布
 bool kDebug() {
   return kReleaseMode == true ? false : true;
