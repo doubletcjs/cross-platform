@@ -92,53 +92,14 @@ class SettingPage extends StatelessWidget {
                   ),
                 ),
                 onTap: () {
-                  showDialog(
-                    context: context,
-                    barrierDismissible: false,
-                    builder: (context) {
-                      return AlertDialog(
-                        title: Text(
-                          "注销登录",
-                          style: TextStyle(
-                            color: rgba(51, 51, 51, 1),
-                            fontSize: 15,
-                          ),
-                        ),
-                        content: Text(
-                          "你确定注销当前账号？",
-                          style: TextStyle(
-                            color: rgba(51, 51, 51, 1),
-                            fontSize: 15,
-                          ),
-                        ),
-                        actions: <Widget>[
-                          FlatButton(
-                            onPressed: () {
-                              Navigator.of(context).pop();
-                            },
-                            child: Text(
-                              "取消",
-                              style: TextStyle(
-                                color: rgba(145, 152, 173, 1),
-                                fontSize: 15,
-                              ),
-                            ),
-                          ),
-                          FlatButton(
-                            onPressed: () {
-                              Navigator.of(context).pop();
-                            },
-                            child: Text(
-                              "确认",
-                              style: TextStyle(
-                                color: rgba(23, 96, 255, 1),
-                                fontSize: 15,
-                              ),
-                            ),
-                          ),
-                        ],
-                      );
-                    },
+                  functionAlertView(
+                    context,
+                    title: "注销登录",
+                    content: "你确定注销当前账号？",
+                    confirm: "确认",
+                    cancel: "取消",
+                    contentPadding: EdgeInsets.fromLTRB(25, 25, 25, 55),
+                    confirmHandle: () {},
                   );
                 },
               ),

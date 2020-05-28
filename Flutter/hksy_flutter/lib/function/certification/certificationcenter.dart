@@ -62,7 +62,7 @@ class _CertificationCenterState extends State<CertificationCenter> {
         "已实名",
         style: TextStyle(
           fontSize: 15,
-          color: rgba(255, 255, 255, 1),
+          color: rgba(255, 255, 255, 1), //rgba(145, 152, 173, 1)
         ),
       ),
       decoration: BoxDecoration(

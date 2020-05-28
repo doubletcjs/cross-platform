@@ -419,6 +419,29 @@ void functionAlertView(
   );
 }
 
+///实名认证弹框
+void certificationAlert(BuildContext context) {
+  functionAlertView(
+    context,
+    title: "提示",
+    content: "您还没有实名认证，请实名认证后进行操作。",
+    confirm: "实名认证",
+    cancel: "取消",
+    cancelTextStyle: TextStyle(
+      color: rgba(145, 152, 173, 1),
+      fontSize: 15,
+      fontWeight: FontWeight.w300,
+    ),
+    confirmTextStyle: TextStyle(
+      color: rgba(23, 96, 255, 1),
+      fontSize: 15,
+      fontWeight: FontWeight.w300,
+    ),
+    contentPadding: EdgeInsets.fromLTRB(20, 25.5, 20, 37),
+    confirmHandle: () {},
+  );
+}
+
 ///开发、发布
 bool kDebug() {
   return kReleaseMode == true ? false : true;

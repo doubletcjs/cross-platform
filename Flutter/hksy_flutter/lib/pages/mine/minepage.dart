@@ -141,6 +141,9 @@ class _MinePageState extends State<MinePage> {
               InfoCell(
                 name: "我的钱包",
                 icon: _cellIcon("images/ico_my_wallet@3x.png"),
+                tapHandle: () {
+                  certificationAlert(context);
+                },
               ),
               InfoCell(
                 name: "我的存储",
@@ -200,7 +203,6 @@ class _MinePageState extends State<MinePage> {
                     content:
                         "      你目前还不是超级存储，想成为超级存储请联系业务人员线下办理，成为我们的超级矿工则显示每日获得更多分红收益。",
                     confirm: "确认",
-                    // cancel: "取消",
                   );
                   // Navigator.of(context).push(
                   //   MaterialPageRoute(
