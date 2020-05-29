@@ -60,47 +60,47 @@ class CoinHeader extends StatelessWidget {
           height: 26,
         ),
         Container(
-          padding: EdgeInsets.fromLTRB(24, 0, 24, 0),
           child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: _functions.map(
               (function) {
                 var index = _functions.indexOf(function);
-                return InkWell(
-                  highlightColor: rgba(0, 0, 0, 0),
-                  splashColor: rgba(0, 0, 0, 0),
-                  onTap: () {
-                    kLog(index);
-                  },
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Widget>[
-                      Image.asset(
-                        _images[index],
-                        width: 23,
-                        fit: BoxFit.fitWidth,
+                return Expanded(
+                  child: GestureDetector(
+                    onTap: () {
+                      functionActionSheet(context);
+                    },
+                    child: Container(
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: <Widget>[
+                          Image.asset(
+                            _images[index],
+                            width: 23,
+                            fit: BoxFit.fitWidth,
+                          ),
+                          SizedBox(
+                            width: 11,
+                          ),
+                          Text(
+                            function,
+                            style: TextStyle(
+                              fontSize: 15,
+                              color: rgba(255, 255, 255, 1),
+                            ),
+                          ),
+                        ],
                       ),
-                      SizedBox(
-                        width: 11,
+                      decoration: BoxDecoration(
+                        border: index < _functions.length - 1
+                            ? Border(
+                                right: BorderSide(
+                                  color: rgba(255, 255, 255, 0.2),
+                                  width: 1,
+                                ),
+                              )
+                            : Border(),
                       ),
-                      Text(
-                        function,
-                        style: TextStyle(
-                          fontSize: 15,
-                          color: rgba(255, 255, 255, 1),
-                        ),
-                      ),
-                      SizedBox(
-                        width: 27.5,
-                      ),
-                      index < _functions.length - 1
-                          ? Container(
-                              height: 23,
-                              width: 1,
-                              color: rgba(255, 255, 255, 0.2),
-                            )
-                          : Container(),
-                    ],
+                    ),
                   ),
                 );
               },

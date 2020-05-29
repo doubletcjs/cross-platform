@@ -52,6 +52,9 @@ class HomeHeader extends StatelessWidget {
             },
           ),
         );
+      } else if (index == 1) {
+        // certificationAlert(context);
+        walletAlert(context);
       }
     }
 

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:hksy_flutter/pages/invitation/views/invitesectioncell.dart';
+import 'package:hksy_flutter/pages/invitation/views/friendsectioncell.dart';
 
 class FriendPage extends StatefulWidget {
   FriendPage({Key key}) : super(key: key);
@@ -19,10 +19,24 @@ class _FriendPageState extends State<FriendPage> {
         MediaQuery.of(context).padding.bottom,
       ),
       itemBuilder: (context, index) {
-        return InvitationSection(
+        return FriendSection(
           title: "邀请好友明细",
           emptyPlaceholder: "暂无好友信息～",
-          cells: <Widget>[],
+          cells: <Widget>[
+            FriendCell(
+              detail: {},
+            ),
+            FriendCell(
+              detail: {},
+            ),
+            FriendCell(
+              detail: {},
+            ),
+            FriendCell(
+              detail: {},
+              showLine: false,
+            ),
+          ],
         );
       },
       itemCount: 1,

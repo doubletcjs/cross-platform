@@ -142,7 +142,12 @@ class _MinePageState extends State<MinePage> {
                 name: "我的钱包",
                 icon: _cellIcon("images/ico_my_wallet@3x.png"),
                 tapHandle: () {
-                  certificationAlert(context);
+                  // certificationAlert(context);
+                  functionActionSheet(
+                    context,
+                    titles: ["大陆身份证", "其他证件"],
+                    cancel: "取消",
+                  );
                 },
               ),
               InfoCell(

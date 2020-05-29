@@ -1,5 +1,4 @@
 import 'dart:convert';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -250,6 +249,94 @@ Widget transparentAppBar({Brightness brightness = Brightness.dark}) {
   );
 }
 
+///默认actionSheet弹框
+void functionActionSheet(BuildContext rootContext,
+    {String cancel = "",
+    List<String> titles,
+    TextStyle cancelStyle,
+    TextStyle baseStyle}) {
+  if (cancelStyle == null) {
+    baseStyle = TextStyle(
+      fontSize: 15,
+      color: rgba(51, 51, 51, 1),
+    );
+  }
+
+  if (baseStyle == null) {
+    baseStyle = TextStyle(
+      fontSize: 15,
+      color: rgba(51, 51, 51, 1),
+    );
+  }
+
+  if (titles == null) {
+    titles = [];
+  }
+
+  Widget _cellWidget(String text, {bool isCancel}) {
+    return Container(
+      margin: EdgeInsets.fromLTRB(12, isCancel == true ? 20 : 0, 12, 0),
+      child: ListTile(
+        title: Text(
+          text,
+          textAlign: TextAlign.center,
+          style: isCancel == true ? baseStyle : cancelStyle,
+        ),
+        onTap: () {
+          kLog("any");
+        },
+      ),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(7.5),
+        color: Colors.white,
+      ),
+    );
+  }
+
+  showModalBottomSheet(
+    context: rootContext,
+    enableDrag: false,
+    backgroundColor: rgba(0, 0, 0, 0),
+    builder: (context) {
+      return Container(
+        margin:
+            EdgeInsets.fromLTRB(0, 0, 0, MediaQuery.of(context).padding.bottom),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.end,
+          mainAxisSize: MainAxisSize.min,
+          children: <Widget>[
+            Expanded(
+              child: ListView.separated(
+                itemBuilder: (context, index) {
+                  return _cellWidget(
+                    titles[index],
+                  );
+                },
+                separatorBuilder: (context, index) {
+                  return Container(
+                    height: 10,
+                  );
+                },
+                itemCount: titles.length,
+                padding: EdgeInsets.zero,
+                shrinkWrap: true,
+                reverse: true,
+                physics: NeverScrollableScrollPhysics(),
+              ),
+            ),
+            isStringEmpty(cancel) == false
+                ? _cellWidget(
+                    cancel,
+                    isCancel: true,
+                  )
+                : Container(),
+          ],
+        ),
+      );
+    },
+  );
+}
+
 ///默认alertview弹框
 void functionAlertView(
   BuildContext rootContext, {
@@ -438,6 +525,28 @@ void certificationAlert(BuildContext context) {
       fontWeight: FontWeight.w300,
     ),
     contentPadding: EdgeInsets.fromLTRB(20, 25.5, 20, 37),
+    confirmHandle: () {},
+  );
+}
+
+///钱包提醒
+void walletAlert(BuildContext context) {
+  functionAlertView(
+    context,
+    title: "温馨提示",
+    content: "由于飞码通支付通道华夏银行进行升级，请使用现金充值和现金提现。",
+    confirm: "知道了",
+    confirmTextStyle: TextStyle(
+      color: rgba(23, 96, 255, 1),
+      fontSize: 15,
+      fontWeight: FontWeight.w300,
+    ),
+    contentPadding: EdgeInsets.fromLTRB(21, 27, 21, 31.5),
+    contentTextStyle: TextStyle(
+      color: rgba(51, 51, 51, 1),
+      fontSize: 13,
+      height: 1.8,
+    ),
     confirmHandle: () {},
   );
 }
