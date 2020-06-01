@@ -24,7 +24,7 @@ class HomeVersion extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Material(
-      color: rgba(0, 0, 0, 0.1),
+      color: rgba(0, 0, 0, 0.2),
       child: Stack(
         children: <Widget>[
           Center(

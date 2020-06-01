@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hksy_flutter/function/actionsheet.dart';
 import 'package:hksy_flutter/public/public.dart';
 
 class CoinHeader extends StatelessWidget {
@@ -67,7 +68,15 @@ class CoinHeader extends StatelessWidget {
                 return Expanded(
                   child: GestureDetector(
                     onTap: () {
-                      functionActionSheet(context);
+                      if (index == 0 || index == 1) {
+                        String action = "提现";
+                        if (index == 1) {
+                          action = "充值";
+                        }
+                        ActionSheet(
+                          titles: ["USDT" + action, "现金" + action],
+                        ).show(context);
+                      }
                     },
                     child: Container(
                       child: Row(

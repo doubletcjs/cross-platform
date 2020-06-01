@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hksy_flutter/function/actionsheet.dart';
 import 'package:hksy_flutter/pages/calculate/calculatemain.dart';
 import 'package:hksy_flutter/pages/coin/mycoin.dart';
 import 'package:hksy_flutter/pages/invitation/invitationmain.dart';
@@ -143,11 +144,16 @@ class _MinePageState extends State<MinePage> {
                 icon: _cellIcon("images/ico_my_wallet@3x.png"),
                 tapHandle: () {
                   // certificationAlert(context);
-                  functionActionSheet(
-                    context,
-                    titles: ["大陆身份证", "其他证件"],
+                  ActionSheet(
                     cancel: "取消",
-                  );
+                    titles: [
+                      "大陆身份证",
+                      "其他证件",
+                    ],
+                    handle: (isCancel, index) {
+                      kLog(index);
+                    },
+                  ).show(context);
                 },
               ),
               InfoCell(
