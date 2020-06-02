@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hksy_flutter/function/generaldialog.dart';
 import 'package:hksy_flutter/public/public.dart';
 
 typedef kActionSheetBlock = void Function(bool isCancel, int index);
@@ -25,14 +26,11 @@ class ActionSheet extends StatefulWidget {
   _ActionSheetState createState() => _ActionSheetState();
 
   show(BuildContext context) {
-    showGeneralDialog(
-      context: context,
-      barrierDismissible: false,
-      transitionDuration: Duration(milliseconds: 200),
-      pageBuilder: (BuildContext context, Animation<double> animation,
-          Animation<double> secondaryAnimation) {
-        return this;
-      },
+    GeneralDialog().show(
+      context,
+      containerContent: this,
+      backgroundAlignment: Alignment.bottomCenter,
+      contentBackgroundColor: rgba(0, 0, 0, 0),
     );
   }
 }
@@ -49,7 +47,8 @@ class _ActionSheetState extends State<ActionSheet> {
       child: FlatButton(
         onPressed: () {
           if (this.widget.handle != null) {
-            this.widget.handle(isCancel, isCancel == true ? -1 : index);
+            this.widget.handle(isCancel,
+                isCancel == true ? -1 : this.widget.titles.length - 1 - index);
           }
 
           Navigator.of(context).pop();
@@ -60,6 +59,9 @@ class _ActionSheetState extends State<ActionSheet> {
           style: isCancel == true
               ? this.widget.baseStyle
               : this.widget.cancelStyle,
+        ),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(7.5),
         ),
       ),
       decoration: BoxDecoration(
@@ -84,65 +86,47 @@ class _ActionSheetState extends State<ActionSheet> {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () {
-        if (this.widget.barrierDismissible == true) {
-          if (this.widget.handle != null) {
-            this.widget.handle(true, -1);
-          }
-
-          Navigator.of(context).pop();
-        }
-      },
-      child: Material(
-        color: rgba(0, 0, 0, 0.2),
-        child: Stack(
-          children: <Widget>[
-            Positioned(
-              left: 0,
-              bottom: MediaQuery.of(context).padding.bottom,
-              right: 0,
-              height: isStringEmpty(this.widget.cancel) == false
-                  ? (49.0 * (_maxRow + 1) + 10 * (_maxRow - 1) + 20)
-                  : (49.0 * _maxRow + 10 * (_maxRow - 1)),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: <Widget>[
-                  Expanded(
-                    child: ListView.separated(
-                      itemBuilder: (context, index) {
-                        return _cellWidget(
-                          context,
-                          this.widget.titles[index],
-                          index: index,
-                        );
-                      },
-                      separatorBuilder: (context, index) {
-                        return Container(
-                          height: 10,
-                        );
-                      },
-                      itemCount: this.widget.titles.length,
-                      reverse: true,
-                      padding: EdgeInsets.zero,
-                      physics: this.widget.titles.length > 4
-                          ? AlwaysScrollableScrollPhysics()
-                          : NeverScrollableScrollPhysics(),
-                    ),
-                  ),
-                  isStringEmpty(this.widget.cancel) == false
-                      ? _cellWidget(
-                          context,
-                          this.widget.cancel,
-                          isCancel: true,
-                        )
-                      : Container(),
-                ],
-              ),
-            ),
-          ],
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.end,
+      mainAxisSize: MainAxisSize.min,
+      children: <Widget>[
+        Container(
+          height: this.widget.titles.length < _maxRow
+              ? (49.0 * this.widget.titles.length +
+                  10 * (this.widget.titles.length - 1))
+              : (49.0 * _maxRow + 10 * (_maxRow - 1)),
+          child: ListView.separated(
+            itemBuilder: (context, index) {
+              return _cellWidget(
+                context,
+                this.widget.titles[index],
+                index: index,
+              );
+            },
+            separatorBuilder: (context, index) {
+              return Container(
+                height: 10,
+              );
+            },
+            itemCount: this.widget.titles.length,
+            reverse: true,
+            padding: EdgeInsets.zero,
+            physics: this.widget.titles.length > 4
+                ? AlwaysScrollableScrollPhysics()
+                : NeverScrollableScrollPhysics(),
+          ),
         ),
-      ),
+        isStringEmpty(this.widget.cancel) == false
+            ? _cellWidget(
+                context,
+                this.widget.cancel,
+                isCancel: true,
+              )
+            : Container(),
+        SizedBox(
+          height: MediaQuery.of(context).padding.bottom,
+        ),
+      ],
     );
   }
 }
