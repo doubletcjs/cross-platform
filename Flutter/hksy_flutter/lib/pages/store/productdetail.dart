@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hksy_flutter/pages/store/orderconfirm.dart';
 import 'package:hksy_flutter/pages/store/productconfig.dart';
 import 'package:hksy_flutter/pages/store/productinfo.dart';
 import 'package:hksy_flutter/pages/store/productservice.dart';
@@ -84,20 +85,25 @@ class _ProductDetailState extends State<ProductDetail>
               ],
             ),
           ),
-          Container(
-            width: MediaQuery.of(context).size.width,
-            alignment: Alignment.center,
-            padding: EdgeInsets.fromLTRB(
-                0, 14, 0, 14 + MediaQuery.of(context).padding.bottom),
-            color: rgba(23, 96, 255, 1),
-            child: Text(
-              "立即购买",
-              style: TextStyle(
-                color: Colors.white,
-                fontSize: 15,
+          InkWell(
+            child: Container(
+              width: MediaQuery.of(context).size.width,
+              alignment: Alignment.center,
+              padding: EdgeInsets.fromLTRB(
+                  0, 14, 0, 14 + MediaQuery.of(context).padding.bottom),
+              color: rgba(23, 96, 255, 1),
+              child: Text(
+                "立即购买",
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 15,
+                ),
               ),
             ),
-          )
+            onTap: () {
+              OrderConfirm().show(context);
+            },
+          ),
         ],
       ),
     );
