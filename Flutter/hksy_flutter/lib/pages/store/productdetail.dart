@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hksy_flutter/function/paycode/paycodeinput.dart';
 import 'package:hksy_flutter/pages/store/orderconfirm.dart';
 import 'package:hksy_flutter/pages/store/productconfig.dart';
 import 'package:hksy_flutter/pages/store/productinfo.dart';
@@ -32,6 +33,7 @@ class _ProductDetailState extends State<ProductDetail>
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: kMainBackgroundColor,
+      resizeToAvoidBottomInset: false,
       appBar: customAppBar(
         title: "产品详情",
         brightness: Brightness.dark,
@@ -101,7 +103,14 @@ class _ProductDetailState extends State<ProductDetail>
               ),
             ),
             onTap: () {
-              OrderConfirm().show(context);
+              OrderConfirm(
+                confirmHandle: (isRecharge) {
+                  if (isRecharge) {
+                  } else {
+                    PaycodeInput().show(context);
+                  }
+                },
+              ).show(context);
             },
           ),
         ],

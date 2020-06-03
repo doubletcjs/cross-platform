@@ -74,6 +74,20 @@ class _ActionSheetState extends State<ActionSheet> {
   @override
   void initState() {
     super.initState();
+    if (this.widget.baseStyle == null) {
+      this.widget.baseStyle = TextStyle(
+        fontSize: 15,
+        color: rgba(51, 51, 51, 1),
+      );
+    }
+
+    if (this.widget.cancelStyle == null) {
+      this.widget.cancelStyle = TextStyle(
+        fontSize: 15,
+        color: rgba(51, 51, 51, 1),
+      );
+    }
+
     setState(() {
       List<String> tempTitles = [];
       for (var title in this.widget.titles) {

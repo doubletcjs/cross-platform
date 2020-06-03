@@ -252,7 +252,7 @@ Widget transparentAppBar({Brightness brightness = Brightness.dark}) {
 ///默认alertview弹框
 void functionAlertView(
   BuildContext rootContext, {
-  String title = "标题",
+  String title = "",
   String content = "内容",
   EdgeInsets titlePadding,
   EdgeInsets contentPadding,
@@ -389,12 +389,14 @@ void functionAlertView(
       return AlertDialog(
         buttonPadding: EdgeInsets.zero,
         actionsPadding: EdgeInsets.zero,
-        titlePadding: titlePadding,
+        titlePadding: isStringEmpty(title) ? EdgeInsets.zero : titlePadding,
         contentPadding: contentPadding,
-        title: Text(
-          title,
-          textAlign: TextAlign.center,
-        ),
+        title: isStringEmpty(title)
+            ? Container()
+            : Text(
+                title,
+                textAlign: TextAlign.center,
+              ),
         titleTextStyle: titleTextStyle,
         content: Text(
           content,

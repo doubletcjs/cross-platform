@@ -3,7 +3,8 @@ import 'package:hksy_flutter/function/generaldialog.dart';
 import 'package:hksy_flutter/public/public.dart';
 
 class OrderConfirm extends StatelessWidget {
-  OrderConfirm({Key key}) : super(key: key);
+  kObjectFunctionBlock confirmHandle;
+  OrderConfirm({Key key, this.confirmHandle}) : super(key: key);
 
   show(BuildContext context) {
     GeneralDialog().show(
@@ -89,8 +90,27 @@ class OrderConfirm extends StatelessWidget {
               ).toList(),
             ),
           ),
+          Container(
+            padding: EdgeInsets.fromLTRB(
+                0,
+                MediaQuery.of(context).orientation == Orientation.landscape
+                    ? 0
+                    : 5,
+                12,
+                0),
+            alignment: Alignment.centerRight,
+            child: Text(
+              "余额不足",
+              style: TextStyle(
+                fontSize: 14,
+                color: rgba(248, 168, 65, 1),
+              ),
+            ),
+          ),
           SizedBox(
-            height: 89,
+            height: MediaQuery.of(context).orientation == Orientation.landscape
+                ? MediaQuery.of(context).padding.top
+                : 89,
           ),
           Container(
             padding: EdgeInsets.fromLTRB(21, 0, 21, 0),
@@ -133,7 +153,17 @@ class OrderConfirm extends StatelessWidget {
                       borderRadius: BorderRadius.circular(7.5),
                     ),
                     child: FlatButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        Navigator.of(context).pop();
+                        Future.delayed(Duration(milliseconds: 600), () {
+                          if (confirmHandle != null) {
+                            confirmHandle(false);
+                          }
+                          // if (confirmHandle != null) {
+                          //   confirmHandle(true);
+                          // }
+                        });
+                      },
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(7.5),
                       ),
