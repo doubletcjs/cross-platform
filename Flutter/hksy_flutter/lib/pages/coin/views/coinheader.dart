@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hksy_flutter/function/actionsheet.dart';
+import 'package:hksy_flutter/pages/coin/cointransfer.dart';
 import 'package:hksy_flutter/public/public.dart';
 
 class CoinHeader extends StatelessWidget {
@@ -76,6 +77,14 @@ class CoinHeader extends StatelessWidget {
                         ActionSheet(
                           titles: ["USDT" + action, "现金" + action],
                         ).show(context);
+                      } else {
+                        Navigator.of(context).push(
+                          MaterialPageRoute(
+                            builder: (context) {
+                              return CoinTransfer();
+                            },
+                          ),
+                        );
                       }
                     },
                     child: Container(

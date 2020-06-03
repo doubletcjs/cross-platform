@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hksy_flutter/function/paycode/paycodeinput.dart';
+import 'package:hksy_flutter/pages/store/ordercomplete.dart';
 import 'package:hksy_flutter/pages/store/orderconfirm.dart';
 import 'package:hksy_flutter/pages/store/productconfig.dart';
 import 'package:hksy_flutter/pages/store/productinfo.dart';
@@ -107,7 +108,17 @@ class _ProductDetailState extends State<ProductDetail>
                 confirmHandle: (isRecharge) {
                   if (isRecharge) {
                   } else {
-                    PaycodeInput().show(context);
+                    PaycodeInput(
+                      inputHandle: (password) {
+                        Navigator.of(context).push(
+                          MaterialPageRoute(
+                            builder: (context) {
+                              return OrderComplete();
+                            },
+                          ),
+                        );
+                      },
+                    ).show(context);
                   }
                 },
               ).show(context);

@@ -3,7 +3,8 @@ import 'package:hksy_flutter/function/generaldialog.dart';
 import 'package:hksy_flutter/public/public.dart';
 
 class PaycodeInput extends StatefulWidget {
-  PaycodeInput({Key key}) : super(key: key);
+  kObjectFunctionBlock inputHandle;
+  PaycodeInput({Key key, this.inputHandle}) : super(key: key);
 
   @override
   _PaycodeInputState createState() => _PaycodeInputState();
@@ -21,10 +22,11 @@ class PaycodeInput extends StatefulWidget {
 class _PaycodeInputState extends State<PaycodeInput> {
   TextEditingController _editingController = TextEditingController();
   int _currentIndex = 0;
+  int _maxLength = 6;
 
   List<Widget> _inputFrame() {
     List<Widget> _list = [];
-    for (var i = 0; i < 6; i++) {
+    for (var i = 0; i < _maxLength; i++) {
       _list.add(
         Container(
           width: 42,
@@ -59,10 +61,13 @@ class _PaycodeInputState extends State<PaycodeInput> {
   Widget build(BuildContext context) {
     return Container(
       width: MediaQuery.of(context).size.width,
-      padding:
-          EdgeInsets.fromLTRB(0, 0, 0, MediaQuery.of(context).padding.bottom),
       margin: EdgeInsets.fromLTRB(
-          0, 0, 0, MediaQuery.of(context).viewInsets.bottom),
+          0,
+          0,
+          0,
+          MediaQuery.of(context).viewInsets.bottom == 0
+              ? 291
+              : MediaQuery.of(context).viewInsets.bottom),
       child: Stack(
         alignment: Alignment.center,
         children: <Widget>[
@@ -94,24 +99,33 @@ class _PaycodeInputState extends State<PaycodeInput> {
                         textAlign: TextAlign.center,
                         maxLength: 6,
                         keyboardType: TextInputType.number,
+                        onChanged: (text) {
+                          this.setState(() {
+                            _currentIndex = text.length;
+                            if (_currentIndex == _maxLength) {
+                              Navigator.of(context).pop();
+                              if (this.widget.inputHandle != null) {
+                                var password = text;
+                                Future.delayed(Duration(milliseconds: 600), () {
+                                  this.widget.inputHandle(password);
+                                  kLog("密码：" + password);
+                                });
+                              }
+                            }
+                          });
+                        },
                       ),
                     ),
-                    Wrap(
-                      spacing: 8.5,
-                      children: _inputFrame(),
+                    Container(
+                      color: Colors.white,
+                      child: Wrap(
+                        spacing: 8.5,
+                        children: _inputFrame(),
+                      ),
                     ),
                   ],
                 ),
               ),
-              // Stack(
-              //   alignment: Alignment.center,
-              //   children: <Widget>[
-              //     TextField(
-              //       autofocus: true,
-              //       controller: _editingController,
-              //     ),
-              //   ],
-              // ),
               SizedBox(
                 height: 61,
               ),
