@@ -103,14 +103,18 @@ class _PaycodeInputState extends State<PaycodeInput> {
                           this.setState(() {
                             _currentIndex = text.length;
                             if (_currentIndex == _maxLength) {
-                              Navigator.of(context).pop();
-                              if (this.widget.inputHandle != null) {
-                                var password = text;
-                                Future.delayed(Duration(milliseconds: 600), () {
-                                  this.widget.inputHandle(password);
-                                  kLog("密码：" + password);
-                                });
-                              }
+                              var password = text;
+
+                              Future.delayed(Duration(milliseconds: 300), () {
+                                Navigator.of(context).pop();
+                                if (this.widget.inputHandle != null) {
+                                  Future.delayed(Duration(milliseconds: 600),
+                                      () {
+                                    this.widget.inputHandle(password);
+                                    kLog("密码：" + password);
+                                  });
+                                }
+                              });
                             }
                           });
                         },

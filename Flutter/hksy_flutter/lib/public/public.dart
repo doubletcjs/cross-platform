@@ -262,6 +262,7 @@ void functionAlertView(
   String confirm,
   TextStyle cancelTextStyle,
   TextStyle confirmTextStyle,
+  TextAlign contentTextAlign = TextAlign.left,
   kVoidFunctionBlock cancelHandle,
   kVoidFunctionBlock confirmHandle,
 }) {
@@ -292,6 +293,7 @@ void functionAlertView(
     cancelTextStyle = TextStyle(
       fontSize: 15,
       color: rgba(51, 51, 51, 1),
+      fontWeight: FontWeight.w300,
     );
   }
 
@@ -299,6 +301,7 @@ void functionAlertView(
     confirmTextStyle = TextStyle(
       fontSize: 15,
       color: rgba(23, 96, 255, 1),
+      fontWeight: FontWeight.w300,
     );
   }
 
@@ -400,17 +403,20 @@ void functionAlertView(
         titleTextStyle: titleTextStyle,
         content: Text(
           content,
+          textAlign: contentTextAlign,
         ),
         contentTextStyle: contentTextStyle,
         actions: <Widget>[
-          Container(
-            width: MediaQuery.of(context).size.width,
-            height: 48.5,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: _items,
-            ),
-          ),
+          _items.length > 0
+              ? Container(
+                  width: MediaQuery.of(context).size.width,
+                  height: 48.5,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: _items,
+                  ),
+                )
+              : Container(),
         ],
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(7.5),

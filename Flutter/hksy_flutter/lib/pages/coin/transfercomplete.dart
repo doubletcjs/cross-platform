@@ -1,16 +1,16 @@
-import 'package:dart_notification_center/dart_notification_center.dart';
 import 'package:flutter/material.dart';
+import 'package:hksy_flutter/pages/coin/orderdetail.dart';
 import 'package:hksy_flutter/public/public.dart';
 
-class OrderComplete extends StatelessWidget {
-  const OrderComplete({Key key}) : super(key: key);
+class TransferComplete extends StatelessWidget {
+  const TransferComplete({Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: kMainBackgroundColor,
       appBar: customAppBar(
-        title: "购买完成",
+        title: "申请已提交",
         brightness: Brightness.dark,
         backgroundColor: kMainBackgroundColor,
         color: Colors.white,
@@ -31,7 +31,7 @@ class OrderComplete extends StatelessWidget {
               height: 30,
             ),
             Text(
-              "购买成功",
+              "申请已提交",
               style: TextStyle(
                 fontSize: 15,
                 color: rgba(255, 255, 255, 1),
@@ -57,16 +57,10 @@ class OrderComplete extends StatelessWidget {
                           borderRadius: BorderRadius.circular(7.5),
                         ),
                         onPressed: () {
-                          Navigator.of(context).popUntil(
-                            ModalRoute.withName("/"),
-                          );
-                          DartNotificationCenter.post(
-                            channel: kSwitchTabNotification,
-                            options: {"index": 0},
-                          );
+                          Navigator.of(context).pop();
                         },
                         child: Text(
-                          "首页",
+                          "返回",
                           style: TextStyle(
                             fontSize: 15,
                             color: rgba(145, 152, 173, 1),
@@ -88,13 +82,19 @@ class OrderComplete extends StatelessWidget {
                       ),
                       child: FlatButton(
                         onPressed: () {
-                          Navigator.of(context).pop();
+                          Navigator.of(context).push(
+                            MaterialPageRoute(
+                              builder: (context) {
+                                return OrderDetail();
+                              },
+                            ),
+                          );
                         },
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(7.5),
                         ),
                         child: Text(
-                          "继续购买",
+                          "查看订单详细",
                           style: TextStyle(
                             fontSize: 15,
                             color: rgba(255, 255, 255, 1),

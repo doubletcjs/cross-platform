@@ -96,7 +96,9 @@ class _StorageHeaderState extends State<StorageHeader> {
                     onTap: () {
                       if (this.widget.isViper == true) {
                       } else {
-                        Navigator.of(context).pop();
+                        Navigator.of(context).popUntil(
+                          ModalRoute.withName("/"),
+                        );
                         DartNotificationCenter.post(
                             channel: kSwitchTabNotification,
                             options: {"index": 1});

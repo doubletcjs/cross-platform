@@ -138,7 +138,7 @@ class _LoginRegisterPageState extends State<LoginRegisterPage> {
                                     true) {
                                   this._getVerifyCode();
                                 } else {
-                                  showToast("请输入正确的新手机号", context);
+                                  showToast("请输入正确的手机号", context);
                                 }
                               });
                             }
