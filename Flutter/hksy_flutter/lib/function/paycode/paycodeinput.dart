@@ -109,7 +109,7 @@ class _PaycodeInputState extends State<PaycodeInput> {
                               Future.delayed(Duration(milliseconds: 300), () {
                                 Navigator.of(context).pop();
                                 if (this.widget.inputHandle != null) {
-                                  Future.delayed(Duration(milliseconds: 600),
+                                  Future.delayed(Duration(milliseconds: 400),
                                       () {
                                     this.widget.inputHandle(password);
                                     kLog("密码：" + password);

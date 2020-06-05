@@ -4,7 +4,8 @@ import 'package:hksy_flutter/pages/mine/customerservice.dart';
 import 'package:hksy_flutter/public/public.dart';
 
 class OrderDetail extends StatefulWidget {
-  OrderDetail({Key key}) : super(key: key);
+  int selectIndex = 0;
+  OrderDetail({Key key, this.selectIndex = 0}) : super(key: key);
 
   @override
   _OrderDetailState createState() => _OrderDetailState();
@@ -16,7 +17,7 @@ class _OrderDetailState extends State<OrderDetail>
     "全部",
     "充值",
     "提现",
-    "收益",
+    "互转",
   ];
   TabController _tabController;
 
@@ -25,6 +26,7 @@ class _OrderDetailState extends State<OrderDetail>
     super.initState();
 
     _tabController = TabController(length: _tabs.length, vsync: this);
+    _tabController.index = this.widget.selectIndex;
   }
 
   @override

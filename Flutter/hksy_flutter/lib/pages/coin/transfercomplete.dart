@@ -3,7 +3,8 @@ import 'package:hksy_flutter/pages/coin/orderdetail.dart';
 import 'package:hksy_flutter/public/public.dart';
 
 class TransferComplete extends StatelessWidget {
-  const TransferComplete({Key key}) : super(key: key);
+  int completeType = 0; // 0 全部 1 充值 2 提现 3 互转
+  TransferComplete({Key key, this.completeType = 0}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -85,7 +86,9 @@ class TransferComplete extends StatelessWidget {
                           Navigator.of(context).push(
                             MaterialPageRoute(
                               builder: (context) {
-                                return OrderDetail();
+                                return OrderDetail(
+                                  selectIndex: completeType,
+                                );
                               },
                             ),
                           );
