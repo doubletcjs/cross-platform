@@ -15,6 +15,7 @@ class PaycodeInput extends StatefulWidget {
       containerContent: this,
       backgroundAlignment: Alignment.bottomCenter,
       borderRadius: BorderRadius.circular(8),
+      barrierDismissible: false,
     );
   }
 }
