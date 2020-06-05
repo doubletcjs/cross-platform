@@ -4,74 +4,50 @@ import 'package:hksy_flutter/function/paycode/paycodeinput.dart';
 import 'package:hksy_flutter/pages/coin/transfercomplete.dart';
 import 'package:hksy_flutter/public/public.dart';
 
-class CoinTransfer extends StatefulWidget {
-  CoinTransfer({Key key}) : super(key: key);
+class CashWithdrawal extends StatefulWidget {
+  CashWithdrawal({Key key}) : super(key: key);
 
   @override
-  _CoinTransferState createState() => _CoinTransferState();
+  _CashWithdrawalState createState() => _CashWithdrawalState();
 }
 
-class _CoinTransferState extends State<CoinTransfer> {
-  TextEditingController _countEditingController = TextEditingController();
-  TextEditingController _phoneEditingController = TextEditingController();
+class _CashWithdrawalState extends State<CashWithdrawal> {
+  TextEditingController _numberEditingController = TextEditingController();
+
   void _rolloutAll() {
     setState(() {
-      _countEditingController.text = "13420";
+      _numberEditingController.text = "13420";
     });
   }
 
   void _confirmRollout() {
-    if (regularMatch(_phoneEditingController.text, kPhoneRegExp) == true) {
-      functionAlertView(
-        context,
-        title: "您确认转账到 1353335488 ？",
-        content: "转账金币：100个",
-        contentTextAlign: TextAlign.center,
-        titleTextStyle: TextStyle(
-          fontSize: 15,
-          color: rgba(51, 51, 51, 1),
-        ),
-        titlePadding: EdgeInsets.fromLTRB(20, 40, 20, 0),
-        contentTextStyle: TextStyle(
-          fontSize: 15,
-          color: rgba(23, 96, 255, 1),
-        ),
-        contentPadding: EdgeInsets.fromLTRB(20, 20.5, 20, 39),
-        cancel: "取消",
-        confirm: "确认",
-        confirmHandle: () {
-          Future.delayed(
-            Duration(milliseconds: 400),
-            () {
-              PaycodeInput(
-                inputHandle: (password) {
-                  Navigator.of(context).push(
-                    MaterialPageRoute(
-                      builder: (context) {
-                        return TransferComplete(
-                          completeType: 3,
-                        );
-                      },
-                    ),
-                  );
-
-                  Future.delayed(Duration(milliseconds: 400), () {
-                    this._emptyInput();
-                  });
-                },
-              ).show(context);
-            },
-          );
-        },
-      );
-    } else {
-      showToast("请输入正确的手机号", context);
+    if (isStringEmpty(_numberEditingController.text) == true ||
+        double.parse(_numberEditingController.text) <= 0.0) {
+      showToast("请输入转出金额", context);
+      return;
     }
+
+    PaycodeInput(
+      inputHandle: (password) {
+        Navigator.of(context).push(
+          MaterialPageRoute(
+            builder: (context) {
+              return TransferComplete(
+                completeType: 2,
+              );
+            },
+          ),
+        );
+
+        Future.delayed(Duration(milliseconds: 400), () {
+          this._emptyInput();
+        });
+      },
+    ).show(context);
   }
 
   void _emptyInput() {
-    _countEditingController.text = "";
-    _phoneEditingController.text = "";
+    _numberEditingController.text = "";
   }
 
   @override
@@ -79,7 +55,7 @@ class _CoinTransferState extends State<CoinTransfer> {
     return Scaffold(
       backgroundColor: kMainBackgroundColor,
       appBar: customAppBar(
-        title: "金币互转",
+        title: "现金提现",
         brightness: Brightness.dark,
         backgroundColor: kMainBackgroundColor,
         color: Colors.white,
@@ -115,10 +91,11 @@ class _CoinTransferState extends State<CoinTransfer> {
             ),
             Expanded(
               child: ListView(
+                padding: EdgeInsets.zero,
                 children: <Widget>[
                   Container(
                     margin: EdgeInsets.fromLTRB(12, 0, 12, 0),
-                    padding: EdgeInsets.fromLTRB(20, 20.5, 20, 0),
+                    padding: EdgeInsets.fromLTRB(20, 20.5, 10.5, 0),
                     decoration: BoxDecoration(
                       color: rgba(28, 35, 63, 1),
                       borderRadius: BorderRadius.circular(7.5),
@@ -128,7 +105,7 @@ class _CoinTransferState extends State<CoinTransfer> {
                         Container(
                           alignment: Alignment.centerLeft,
                           child: Text(
-                            "转出数量",
+                            "提现数量",
                             style: TextStyle(
                               fontSize: 18,
                               color: rgba(255, 255, 255, 1),
@@ -137,39 +114,26 @@ class _CoinTransferState extends State<CoinTransfer> {
                           ),
                         ),
                         SizedBox(
-                          height: 5.5,
+                          height: 20,
                         ),
                         Container(
-                          height: 60.5,
-                          decoration: BoxDecoration(
-                            border: Border(
-                              bottom: BorderSide(
-                                color: rgba(145, 152, 173, 0.2),
-                                width: 0.5,
-                              ),
-                            ),
-                          ),
                           child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: <Widget>[
                               Expanded(
                                 child: TextField(
-                                  controller: _countEditingController,
+                                  controller: _numberEditingController,
                                   style: TextStyle(
                                     fontSize: 13,
                                     color: rgba(255, 255, 255, 1),
                                   ),
                                   decoration: InputDecoration(
-                                    border: InputBorder.none,
-                                    floatingLabelBehavior:
-                                        FloatingLabelBehavior.never,
-                                    labelText: "可转出13420个",
-                                    labelStyle: TextStyle(
+                                    enabledBorder: InputBorder.none,
+                                    focusedBorder: InputBorder.none,
+                                    hintText: "可提现13420个",
+                                    hintStyle: TextStyle(
                                       fontSize: 13,
                                       color: rgba(145, 152, 173, 1),
                                     ),
-                                    contentPadding:
-                                        EdgeInsets.fromLTRB(0, 0, 0, 13),
                                   ),
                                   inputFormatters: [
                                     WhitelistingTextInputFormatter.digitsOnly,
@@ -199,51 +163,32 @@ class _CoinTransferState extends State<CoinTransfer> {
                               ),
                             ],
                           ),
+                          decoration: BoxDecoration(
+                            border: Border(
+                              bottom: BorderSide(
+                                width: 0.5,
+                                color: rgba(145, 152, 173, 0.2),
+                              ),
+                            ),
+                          ),
                         ),
                         Container(
-                          height: 60.5,
+                          padding: EdgeInsets.fromLTRB(0, 20, 0, 20.5),
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: <Widget>[
                               Text(
-                                "对方账户",
+                                "提现到银行卡",
                                 style: TextStyle(
                                   fontSize: 15,
                                   color: rgba(255, 255, 255, 1),
                                 ),
                               ),
-                              SizedBox(
-                                width: 12,
-                              ),
-                              Expanded(
-                                child: Directionality(
-                                  textDirection: TextDirection.rtl,
-                                  child: TextField(
-                                    controller: _phoneEditingController,
-                                    textAlign: TextAlign.right,
-                                    textDirection: TextDirection.rtl,
-                                    style: TextStyle(
-                                      fontSize: 13,
-                                      color: rgba(255, 255, 255, 1),
-                                    ),
-                                    decoration: InputDecoration(
-                                      border: InputBorder.none,
-                                      floatingLabelBehavior:
-                                          FloatingLabelBehavior.never,
-                                      labelText: "请输入对方账户手机号码",
-                                      labelStyle: TextStyle(
-                                        fontSize: 13,
-                                        color: rgba(145, 152, 173, 1),
-                                      ),
-                                      contentPadding:
-                                          EdgeInsets.fromLTRB(0, 0, 0, 13),
-                                    ),
-                                    inputFormatters: [
-                                      WhitelistingTextInputFormatter.digitsOnly,
-                                      LengthLimitingTextInputFormatter(11),
-                                    ],
-                                    keyboardType: TextInputType.number,
-                                  ),
+                              Text(
+                                "招商银行",
+                                style: TextStyle(
+                                  fontSize: 13,
+                                  color: rgba(255, 255, 255, 1),
                                 ),
                               ),
                             ],
@@ -270,7 +215,7 @@ class _CoinTransferState extends State<CoinTransfer> {
                   this._confirmRollout();
                 },
                 child: Text(
-                  "确认转出",
+                  "确认",
                   style: TextStyle(
                     color: rgba(255, 255, 255, 1),
                     fontSize: 15,

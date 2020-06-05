@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:hksy_flutter/function/actionsheet.dart';
+import 'package:hksy_flutter/pages/coin/cashrecharge.dart';
+import 'package:hksy_flutter/pages/coin/cashwithdrawal.dart';
 import 'package:hksy_flutter/pages/coin/cointransfer.dart';
+import 'package:hksy_flutter/pages/coin/usdtrecharge.dart';
+import 'package:hksy_flutter/pages/coin/usdtwithdrawal.dart';
 import 'package:hksy_flutter/public/public.dart';
 
 class CoinHeader extends StatelessWidget {
@@ -76,6 +80,29 @@ class CoinHeader extends StatelessWidget {
                         }
                         ActionSheet(
                           titles: ["USDT" + action, "现金" + action],
+                          handle: (isCancel, aIndex) {
+                            if (aIndex == 0) {
+                              Navigator.of(context).push(
+                                MaterialPageRoute(
+                                  builder: (context) {
+                                    return index == 0
+                                        ? UsdtWithdrawal()
+                                        : UsdtRecharge();
+                                  },
+                                ),
+                              );
+                            } else if (aIndex == 1) {
+                              Navigator.of(context).push(
+                                MaterialPageRoute(
+                                  builder: (context) {
+                                    return index == 0
+                                        ? CashWithdrawal()
+                                        : CashRecharge();
+                                  },
+                                ),
+                              );
+                            }
+                          },
                         ).show(context);
                       } else {
                         Navigator.of(context).push(

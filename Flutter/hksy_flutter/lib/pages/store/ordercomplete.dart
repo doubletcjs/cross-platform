@@ -60,10 +60,6 @@ class OrderComplete extends StatelessWidget {
                           Navigator.of(context).popUntil(
                             ModalRoute.withName("/"),
                           );
-                          DartNotificationCenter.post(
-                            channel: kSwitchTabNotification,
-                            options: {"index": 0},
-                          );
                         },
                         child: Text(
                           "首页",

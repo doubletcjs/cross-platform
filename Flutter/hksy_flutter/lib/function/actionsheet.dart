@@ -46,12 +46,17 @@ class _ActionSheetState extends State<ActionSheet> {
       margin: EdgeInsets.fromLTRB(12, isCancel == true ? 20 : 0, 12, 0),
       child: FlatButton(
         onPressed: () {
-          if (this.widget.handle != null) {
-            this.widget.handle(isCancel,
-                isCancel == true ? -1 : this.widget.titles.length - 1 - index);
-          }
-
           Navigator.of(context).pop();
+
+          Future.delayed(Duration(milliseconds: 400), () {
+            if (this.widget.handle != null) {
+              this.widget.handle(
+                  isCancel,
+                  isCancel == true
+                      ? -1
+                      : this.widget.titles.length - 1 - index);
+            }
+          });
         },
         child: Text(
           text,
