@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:hksy_flutter/function/certification/certificationinfo.dart';
+import 'package:hksy_flutter/function/actionsheet.dart';
+import 'package:hksy_flutter/function/certification/certificationmain.dart';
 import 'package:hksy_flutter/function/infosectioncell.dart';
 import 'package:hksy_flutter/public/public.dart';
 
@@ -108,19 +109,42 @@ class _CertificationCenterState extends State<CertificationCenter> {
                 name: "实名信息",
                 value: "未完善",
                 tapHandle: () {
-                  Navigator.of(context).push(
-                    MaterialPageRoute(
-                      builder: (context) {
-                        return CertificationInfo();
-                      },
-                    ),
-                  );
+                  showToast("未实名", context);
+                  // Navigator.of(context).push(
+                  //   MaterialPageRoute(
+                  //     builder: (context) {
+                  //       return CertificationInfo();
+                  //     },
+                  //   ),
+                  // );
                 },
               ),
               InfoCell(
                 name: "身份验证",
                 value: "未完善",
                 showLine: false,
+                tapHandle: () {
+                  ActionSheet(
+                    cancel: "取消",
+                    titles: [
+                      "大陆身份证",
+                      "其他证件",
+                    ],
+                    handle: (isCancel, index) {
+                      if (isCancel == false) {
+                        Navigator.of(context).push(
+                          MaterialPageRoute(
+                            builder: (context) {
+                              return CertificationMain(
+                                type: index,
+                              );
+                            },
+                          ),
+                        );
+                      }
+                    },
+                  ).show(context);
+                },
               ),
             ],
           )

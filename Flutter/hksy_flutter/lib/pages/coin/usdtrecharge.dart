@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:hksy_flutter/public/public.dart';
-import 'package:xs_progress_hud/xs_progress_hud.dart';
 
 class UsdtRecharge extends StatefulWidget {
   UsdtRecharge({Key key}) : super(key: key);

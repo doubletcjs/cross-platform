@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:hksy_flutter/function/actionsheet.dart';
 import 'package:hksy_flutter/pages/calculate/calculatemain.dart';
 import 'package:hksy_flutter/pages/coin/mycoin.dart';
 import 'package:hksy_flutter/pages/invitation/invitationmain.dart';
@@ -8,7 +7,6 @@ import 'package:hksy_flutter/pages/mine/settingpage.dart';
 import 'package:hksy_flutter/function/infosectioncell.dart';
 import 'package:hksy_flutter/pages/personal/personinfo.dart';
 import 'package:hksy_flutter/pages/storage/mystorage.dart';
-import 'package:hksy_flutter/pages/storage/vipstorage.dart';
 import 'package:hksy_flutter/public/public.dart';
 
 class MinePage extends StatefulWidget {
@@ -143,17 +141,7 @@ class _MinePageState extends State<MinePage> {
                 name: "我的钱包",
                 icon: _cellIcon("images/ico_my_wallet@3x.png"),
                 tapHandle: () {
-                  // certificationAlert(context);
-                  ActionSheet(
-                    cancel: "取消",
-                    titles: [
-                      "大陆身份证",
-                      "其他证件",
-                    ],
-                    handle: (isCancel, index) {
-                      kLog(index);
-                    },
-                  ).show(context);
+                  certificationAlert(context);
                 },
               ),
               InfoCell(

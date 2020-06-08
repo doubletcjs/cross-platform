@@ -32,6 +32,7 @@ dependencies:
   dart_notification_center: any  
   flutter_swiper: any
   flutter_widget_from_html: any
+  image_pickers: any
 
 dev_dependencies:
   flutter_test:

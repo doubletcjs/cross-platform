@@ -1,5 +1,6 @@
 import 'package:dart_notification_center/dart_notification_center.dart';
 import 'package:flutter/material.dart';
+import 'package:hksy_flutter/pages/coin/coinrollout.dart';
 import 'package:hksy_flutter/public/public.dart';
 
 class StorageHeader extends StatefulWidget {
@@ -95,6 +96,11 @@ class _StorageHeaderState extends State<StorageHeader> {
                   InkWell(
                     onTap: () {
                       if (this.widget.isViper == true) {
+                        Navigator.of(context).push(
+                          MaterialPageRoute(builder: (context) {
+                            return CoinRollout();
+                          }),
+                        );
                       } else {
                         Navigator.of(context).popUntil(
                           ModalRoute.withName("/"),

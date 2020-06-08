@@ -2,6 +2,8 @@ import 'dart:convert';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:hksy_flutter/function/actionsheet.dart';
+import 'package:hksy_flutter/function/certification/certificationmain.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:toast/toast.dart';
@@ -328,9 +330,11 @@ void functionAlertView(
             padding: EdgeInsets.zero,
             onPressed: () {
               Navigator.of(context).pop();
-              if (confirmHandle != null) {
-                confirmHandle();
-              }
+              Future.delayed(Duration(milliseconds: 400), () {
+                if (confirmHandle != null) {
+                  confirmHandle();
+                }
+              });
             },
             child: Text(
               confirm,
@@ -445,7 +449,28 @@ void certificationAlert(BuildContext context) {
       fontWeight: FontWeight.w300,
     ),
     contentPadding: EdgeInsets.fromLTRB(20, 25.5, 20, 37),
-    confirmHandle: () {},
+    confirmHandle: () {
+      ActionSheet(
+        cancel: "取消",
+        titles: [
+          "大陆身份证",
+          "其他证件",
+        ],
+        handle: (isCancel, index) {
+          if (isCancel == false) {
+            Navigator.of(context).push(
+              MaterialPageRoute(
+                builder: (context) {
+                  return CertificationMain(
+                    type: index,
+                  );
+                },
+              ),
+            );
+          }
+        },
+      ).show(context);
+    },
   );
 }
 

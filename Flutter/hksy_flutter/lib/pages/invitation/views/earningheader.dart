@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hksy_flutter/pages/coin/coinrollout.dart';
 import 'package:hksy_flutter/public/public.dart';
 
 class EarningHeader extends StatefulWidget {
@@ -58,7 +59,13 @@ class _EarningHeaderState extends State<EarningHeader> {
                     ),
                   ),
                   InkWell(
-                    onTap: () {},
+                    onTap: () {
+                      Navigator.of(context).push(
+                        MaterialPageRoute(builder: (context) {
+                          return CoinRollout();
+                        }),
+                      );
+                    },
                     child: Container(
                       padding: EdgeInsets.fromLTRB(19.5, 5.5, 13.5, 5.5),
                       decoration: BoxDecoration(
