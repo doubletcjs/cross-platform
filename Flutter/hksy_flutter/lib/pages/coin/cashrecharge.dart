@@ -230,7 +230,9 @@ class _CashRechargeState extends State<CashRecharge> {
                     decoration: BoxDecoration(
                       border: Border(
                         bottom: BorderSide(
-                            color: rgba(145, 152, 173, 0.2), width: 0.5),
+                          color: rgba(145, 152, 173, 0.2),
+                          width: 0.5,
+                        ),
                       ),
                     ),
                   ),

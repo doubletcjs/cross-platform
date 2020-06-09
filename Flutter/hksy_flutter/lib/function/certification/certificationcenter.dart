@@ -60,14 +60,14 @@ class _CertificationCenterState extends State<CertificationCenter> {
     return Container(
       padding: EdgeInsets.fromLTRB(20.5, 12, 12, 12),
       child: Text(
-        "已实名",
+        "已实名", //未验证
         style: TextStyle(
           fontSize: 15,
-          color: rgba(255, 255, 255, 1), //rgba(145, 152, 173, 1)
+          color: rgba(255, 255, 255, 1),
         ),
       ),
       decoration: BoxDecoration(
-        color: rgba(23, 96, 255, 1),
+        color: rgba(23, 96, 255, 1), //rgba(145, 152, 173, 1)
         borderRadius: BorderRadius.only(
           topLeft: Radius.circular(22.5),
           bottomLeft: Radius.circular(22.5),

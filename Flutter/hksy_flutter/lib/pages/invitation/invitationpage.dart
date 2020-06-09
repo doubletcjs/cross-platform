@@ -1,5 +1,13 @@
+import 'dart:typed_data';
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
+import 'package:flutter/services.dart';
+import 'package:hksy_flutter/public/networking.dart';
 import 'package:hksy_flutter/public/public.dart';
+import 'package:image_pickers/image_pickers.dart';
+import 'package:qr_flutter/qr_flutter.dart';
 
 class InvitationPage extends StatefulWidget {
   bool isHome = false;
@@ -10,6 +18,38 @@ class InvitationPage extends StatefulWidget {
 }
 
 class _InvitationPageState extends State<InvitationPage> {
+  GlobalKey _repaintKey = GlobalKey();
+
+  void _copyLink() {
+    ClipboardData data = new ClipboardData(text: "要复制的内容");
+    Clipboard.setData(data);
+
+    Future.delayed(Duration(milliseconds: 200), () {
+      showToast("复制成功", context);
+    });
+  }
+
+  void _saveQrcode() async {
+    try {
+      RenderRepaintBoundary boundary =
+          _repaintKey.currentContext.findRenderObject();
+      var image = await boundary.toImage(
+          pixelRatio: MediaQuery.of(context).devicePixelRatio);
+      ByteData byteData = await image.toByteData(format: ImageByteFormat.png);
+      Uint8List pageBytes = byteData.buffer.asUint8List();
+
+      ImagePickers.saveByteDataImageToGallery(pageBytes).then((value) {
+        showToast("保存成功", context);
+      }).catchError((error) {
+        kLog(error.toString());
+        showToast("保存失败", context);
+      });
+    } catch (e) {
+      kLog(e.toString());
+      showToast("保存失败", context);
+    }
+  }
+
   Widget _baseWidget() {
     return Stack(
       children: <Widget>[
@@ -64,19 +104,28 @@ class _InvitationPageState extends State<InvitationPage> {
                           width: 8,
                         ),
                         Container(
-                          padding: EdgeInsets.fromLTRB(10, 5.5, 10, 5.5),
-                          child: Text(
-                            "复制链接",
-                            style: TextStyle(
-                              fontSize: 15,
-                              color: rgba(255, 255, 255, 1),
-                            ),
-                          ),
+                          height: 32,
                           decoration: BoxDecoration(
                             color: rgba(23, 96, 255, 1),
                             borderRadius: BorderRadius.circular(7.5),
                           ),
-                        )
+                          child: FlatButton(
+                            padding: EdgeInsets.fromLTRB(10, 5.1, 10, 5.5),
+                            onPressed: () {
+                              this._copyLink();
+                            },
+                            child: Text(
+                              "复制链接",
+                              style: TextStyle(
+                                fontSize: 15,
+                                color: rgba(255, 255, 255, 1),
+                              ),
+                            ),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(7.5),
+                            ),
+                          ),
+                        ),
                       ],
                     ),
                   ),
@@ -110,16 +159,29 @@ class _InvitationPageState extends State<InvitationPage> {
                 ),
                 child: Column(
                   children: <Widget>[
-                    Image.asset(
-                      "images/d338faf30fad24a78319ccfcf3c4238.png",
-                      width: 180,
-                      fit: BoxFit.cover,
+                    RepaintBoundary(
+                      key: _repaintKey,
+                      child: Container(
+                        width: 180,
+                        height: 180,
+                        child: QrImage(
+                          data: kQrcodeURL +
+                              "/invite/login.html?invitation_code=" +
+                              "ct8g" +
+                              "&a=" +
+                              "${DateTime.now().millisecondsSinceEpoch}",
+                          size: 180,
+                          backgroundColor: Colors.white,
+                        ),
+                      ),
                     ),
                     SizedBox(
                       height: 14,
                     ),
                     InkWell(
-                      onTap: () {},
+                      onTap: () {
+                        this._saveQrcode();
+                      },
                       child: Text(
                         "保存二维码",
                         style: TextStyle(

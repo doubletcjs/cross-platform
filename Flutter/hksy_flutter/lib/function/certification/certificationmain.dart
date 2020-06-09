@@ -1,4 +1,8 @@
+import 'package:common_utils/common_utils.dart';
 import 'package:flutter/material.dart';
+import 'package:hksy_flutter/function/certification/pages/certificationbank.dart';
+import 'package:hksy_flutter/function/certification/pages/certificationbase.dart';
+import 'package:hksy_flutter/function/certification/pages/certificationphone.dart';
 import 'package:hksy_flutter/public/public.dart';
 
 class CertificationMain extends StatefulWidget {
@@ -11,6 +15,7 @@ class CertificationMain extends StatefulWidget {
 
 class _CertificationMainState extends State<CertificationMain> {
   int _currentIndex = 0;
+  Map _uploadPackage = {};
 
   List<String> _certificationItems = [
     "身份认证",
@@ -35,69 +40,32 @@ class _CertificationMainState extends State<CertificationMain> {
             padding: EdgeInsets.fromLTRB(44, 0, 44, 0),
             color: rgba(28, 35, 63, 1),
             height: 72.5,
-            child: Stack(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
-                Positioned(
-                  top: 24,
-                  left: 19.5 + 19.5 / 2 + ((60 + 19.5 / 2) * 2) * 1,
-                  child: Row(
-                    children: <Widget>[
-                      Container(
-                        width: 60,
-                        height: 2,
-                        color: rgba(145, 152, 173, 1),
-                      ),
-                      Container(
-                        width: 60,
-                        height: 2,
-                        color: rgba(145, 152, 173, 1),
-                      ),
-                    ],
+                Container(
+                  padding: EdgeInsets.fromLTRB(11, 0, 18, 0),
+                  child: Image.asset(
+                    "images/xuhao${_currentIndex + 1}@3x.png",
+                    // height: 19.5 * 1.4,
+                    fit: BoxFit.fitHeight,
                   ),
+                ),
+                SizedBox(
+                  height: 7,
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: _certificationItems.map((item) {
-                    var index = _certificationItems.indexOf(item);
-                    return Row(
-                      children: <Widget>[
-                        Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: <Widget>[
-                            Container(
-                              width: 19.5,
-                              height: 19.5,
-                              decoration: BoxDecoration(
-                                color: _currentIndex == index
-                                    ? rgba(23, 96, 255, 1)
-                                    : rgba(145, 152, 173, 1),
-                                borderRadius: BorderRadius.circular(19.5 / 2),
-                              ),
-                              alignment: Alignment.center,
-                              child: Text(
-                                "${index + 1}",
-                                style: TextStyle(
-                                  fontSize: 12.5,
-                                  color: rgba(255, 255, 255, 1),
-                                ),
-                              ),
-                            ),
-                            SizedBox(
-                              height: 7,
-                            ),
-                            Text(
-                              item,
-                              style: TextStyle(
-                                fontSize: 11.5,
-                                color: _currentIndex == index
-                                    ? rgba(255, 255, 255, 1)
-                                    : rgba(145, 152, 173, 1),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ],
+                    int index = _certificationItems.indexOf(item);
+                    return Text(
+                      item,
+                      style: TextStyle(
+                        color: index == _currentIndex
+                            ? rgba(255, 255, 255, 1)
+                            : rgba(145, 152, 173, 1),
+                        fontSize: 11.5,
+                      ),
                     );
                   }).toList(),
                 ),
@@ -105,9 +73,35 @@ class _CertificationMainState extends State<CertificationMain> {
             ),
           ),
           Expanded(
-            child: ListView(
-              padding: EdgeInsets.zero,
-            ),
+            child: _currentIndex == 0
+                ? CertificationBase(
+                    inputHandle: (package) {
+                      setState(() {
+                        _uploadPackage["reverse"] = package["reverse"];
+                        _uploadPackage["front"] = package["front"];
+                        _uploadPackage["name"] = package["name"];
+                        _uploadPackage["idcard"] = package["idcard"];
+                      });
+                    },
+                  )
+                : _currentIndex == 1
+                    ? CertificationPhone(
+                        inputHandle: (package) {
+                          setState(() {
+                            _uploadPackage["phone"] = package["phone"];
+                          });
+                        },
+                      )
+                    : CertificationBank(
+                        inputHandle: (package) {
+                          setState(() {
+                            _uploadPackage["bankcard"] = package["bankcard"];
+                            _uploadPackage["bankname"] = package["bankname"];
+                            _uploadPackage["bankaddress"] =
+                                package["bankaddress"];
+                          });
+                        },
+                      ),
           ),
           Container(
             margin: EdgeInsets.fromLTRB(
@@ -120,9 +114,70 @@ class _CertificationMainState extends State<CertificationMain> {
             ),
             child: FlatButton(
               padding: EdgeInsets.zero,
-              onPressed: () {},
+              onPressed: () {
+                if (_currentIndex == 2) {
+                } else {
+                  if (_currentIndex == 0) {
+                    if (isStringEmpty(_uploadPackage["name"])) {
+                      showToast("请输入姓名", context);
+                      return;
+                    }
+
+                    var idcard = "身份证";
+                    if (this.widget.type == 0) {
+                      //身份证
+                      if (RegexUtil.isIDCard18Exact(_uploadPackage["idcard"]) ==
+                          false) {
+                        showToast("请输入正确的身份证号", context);
+                        return;
+                      }
+                    } else {
+                      idcard = "证件";
+                      //其它证件
+                      if (isStringEmpty(_uploadPackage["idcard"])) {
+                        showToast("请输入证件号码", context);
+                        return;
+                      }
+                    }
+
+                    if (isStringEmpty(_uploadPackage["front"])) {
+                      showToast("请上传$idcard" + "正面图片", context);
+                      return;
+                    }
+
+                    if (isStringEmpty(_uploadPackage["reverse"])) {
+                      showToast("请上传$idcard" + "反面图片", context);
+                      return;
+                    }
+                  } else if (_currentIndex == 1) {
+                    if (RegexUtil.isMobileExact(_uploadPackage["phone"]) ==
+                        false) {
+                      showToast("请输入正确的手机号", context);
+                      return;
+                    }
+                  } else if (_currentIndex == 2) {
+                    if (isStringEmpty(_uploadPackage["bankcard"])) {
+                      showToast("请输入银行卡号", context);
+                      return;
+                    }
+
+                    if (isStringEmpty(_uploadPackage["bankaddress"])) {
+                      showToast("请输入开户行地址", context);
+                      return;
+                    }
+                  }
+
+                  setState(() {
+                    if (_currentIndex == 2) {
+                      kLog(_uploadPackage);
+                    } else {
+                      _currentIndex += 1;
+                    }
+                  });
+                }
+              },
               child: Text(
-                "下一步",
+                _currentIndex == 2 ? "提交信息" : "下一步",
                 style: TextStyle(
                   color: rgba(255, 255, 255, 1),
                   fontSize: 15,
@@ -132,6 +187,7 @@ class _CertificationMainState extends State<CertificationMain> {
           ),
         ],
       ),
+      resizeToAvoidBottomInset: false,
     );
   }
 }

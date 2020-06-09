@@ -10,7 +10,7 @@ final Map<String, Object> _baseHeaders = {
 };
 
 final String kServerURL = "http://39.100.54.18/tbr/";
-final String kQrcodeURL = "http://39.100.54.18/";
+final String kQrcodeURL = "http://39.100.54.18";
 
 final kRequestSuccessCode = "200";
 
