@@ -5,9 +5,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:hksy_flutter/pages/coin/transfercomplete.dart';
 import 'package:hksy_flutter/public/public.dart';
-// import 'package:image_pickers/Media.dart';
-// import 'package:image_pickers/UIConfig.dart';
-// import 'package:image_pickers/image_pickers.dart';
+import 'package:image_pickers/Media.dart';
+import 'package:image_pickers/UIConfig.dart';
+import 'package:image_pickers/image_pickers.dart';
 import 'package:xs_progress_hud/xs_progress_hud.dart';
 
 class CashRecharge extends StatefulWidget {
@@ -275,37 +275,37 @@ class _CashRechargeState extends State<CashRecharge> {
                                   ),
                                   onPressed: () {
                                     if (isAdd) {
-                                      // ImagePickers.pickerPaths(
-                                      //   selectCount: _maxImages -
-                                      //       (_selectFiles.length - 1),
-                                      //   showCamera: true,
-                                      //   uiConfig: UIConfig(
-                                      //       uiThemeColor: Colors.black),
-                                      // ).then((List medias) {
-                                      //   List<File> tempFiles = [];
-                                      //   for (Media item in medias) {
-                                      //     tempFiles.add(
-                                      //       File(item.path),
-                                      //     );
-                                      //   }
+                                      ImagePickers.pickerPaths(
+                                        selectCount: _maxImages -
+                                            (_selectFiles.length - 1),
+                                        showCamera: true,
+                                        uiConfig: UIConfig(
+                                            uiThemeColor: Colors.black),
+                                      ).then((List medias) {
+                                        List<File> tempFiles = [];
+                                        for (Media item in medias) {
+                                          tempFiles.add(
+                                            File(item.path),
+                                          );
+                                        }
 
-                                      //   List<File> _lastList = _selectFiles;
-                                      //   if (_selectFiles.length < _maxImages) {
-                                      //     _lastList
-                                      //         .removeAt(_lastList.length - 1);
-                                      //   }
+                                        List<File> _lastList = _selectFiles;
+                                        if (_selectFiles.length < _maxImages) {
+                                          _lastList
+                                              .removeAt(_lastList.length - 1);
+                                        }
 
-                                      //   _lastList.addAll(tempFiles);
-                                      //   if (_lastList.length < _maxImages) {
-                                      //     _lastList.add(
-                                      //       File("images/addImg@3x.png"),
-                                      //     );
-                                      //   }
+                                        _lastList.addAll(tempFiles);
+                                        if (_lastList.length < _maxImages) {
+                                          _lastList.add(
+                                            File("images/addImg@3x.png"),
+                                          );
+                                        }
 
-                                      //   setState(() {
-                                      //     _selectFiles = _lastList;
-                                      //   });
-                                      // });
+                                        setState(() {
+                                          _selectFiles = _lastList;
+                                        });
+                                      });
                                     }
                                   },
                                   child: ClipRRect(
