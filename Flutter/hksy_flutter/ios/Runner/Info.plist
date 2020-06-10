@@ -50,5 +50,7 @@
 	<string>App需要您的同意,才能访问本地图片库</string>
 	<key>NSPhotoLibraryAddUsageDescription</key>
 	<string>App需要您的同意,才能访问本地图片库</string>
+	<key>NSCameraUsageDescription</key>
+	<string>App需要您的同意,才能访问本地摄像头</string>
 </dict>
 </plist>

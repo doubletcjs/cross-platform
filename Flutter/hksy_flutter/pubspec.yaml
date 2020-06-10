@@ -32,13 +32,13 @@ dependencies:
   flutter_swiper: any
   flutter_widget_from_html: any
   common_utils: any
-  qr_flutter: any
+  qr_flutter: any  
+  christian_picker_image: any
+  image_gallery_saver: any
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
-
-  image_pickers: any
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec

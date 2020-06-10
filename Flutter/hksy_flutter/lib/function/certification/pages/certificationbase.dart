@@ -1,10 +1,9 @@
 import 'dart:io';
 
+import 'package:christian_picker_image/christian_picker_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:hksy_flutter/public/public.dart';
-import 'package:image_pickers/UIConfig.dart';
-import 'package:image_pickers/image_pickers.dart';
 
 typedef kCertificationBlock = void Function(Map object);
 
@@ -35,13 +34,7 @@ class _CertificationBaseState extends State<CertificationBase> {
   }
 
   void _selectImage(bool reverse) {
-    ImagePickers.pickerPaths(
-      selectCount: 1,
-      showCamera: true,
-      uiConfig: UIConfig(
-        uiThemeColor: Colors.black,
-      ),
-    ).then((List medias) {
+    ChristianPickerImage.pickImages(maxImages: 1).then((medias) {
       if (medias.length > 0) {
         var path = medias.first.path;
         setState(() {
