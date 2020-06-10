@@ -6,7 +6,7 @@ import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
 import 'package:hksy_flutter/public/networking.dart';
 import 'package:hksy_flutter/public/public.dart';
-import 'package:image_pickers/image_pickers.dart';
+// import 'package:image_pickers/image_pickers.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 
 class InvitationPage extends StatefulWidget {
@@ -38,12 +38,12 @@ class _InvitationPageState extends State<InvitationPage> {
       ByteData byteData = await image.toByteData(format: ImageByteFormat.png);
       Uint8List pageBytes = byteData.buffer.asUint8List();
 
-      ImagePickers.saveByteDataImageToGallery(pageBytes).then((value) {
-        showToast("保存成功", context);
-      }).catchError((error) {
-        kLog(error.toString());
-        showToast("保存失败", context);
-      });
+      // ImagePickers.saveByteDataImageToGallery(pageBytes).then((value) {
+      //   showToast("保存成功", context);
+      // }).catchError((error) {
+      //   kLog(error.toString());
+      //   showToast("保存失败", context);
+      // });
     } catch (e) {
       kLog(e.toString());
       showToast("保存失败", context);

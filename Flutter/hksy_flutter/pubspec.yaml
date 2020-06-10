@@ -31,7 +31,6 @@ dependencies:
   dart_notification_center: any  
   flutter_swiper: any
   flutter_widget_from_html: any
-  image_pickers: any
   common_utils: any
   qr_flutter: any
 
@@ -39,6 +38,7 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
 
+  image_pickers: any
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
