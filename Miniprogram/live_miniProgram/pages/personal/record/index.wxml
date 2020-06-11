@@ -1,0 +1,9 @@
+<view class="record-list-content">
+    <articleList bind:attentionChange="attentionChange" bind:giveNumChange="giveNumChange" articleLists="{{articleLists}}"></articleList>
+</view>
+<view class="record-tab-content">
+    <view class="record-tab-cover" wx:for="{{itemList}}" wx:key="index" data-index="{{index}}" bind:tap="tabSelect">
+        <view class="record-tab">{{item}}</view>
+        <view class="record-tab-border" style="background-color: {{currentTab == index ? 'rgba(23, 96, 255, 1)' : 'rgba(21, 25, 40, 1)'}};"></view>
+    </view>
+</view>

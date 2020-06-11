@@ -1,0 +1,5 @@
+{
+  "usingComponents": {
+    "bottomInput":"/pages/main/community/longArticleDetails/bottomInput/index"
+  }
+}

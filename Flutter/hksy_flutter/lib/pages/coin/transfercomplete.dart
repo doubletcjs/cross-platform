@@ -3,7 +3,7 @@ import 'package:hksy_flutter/pages/coin/orderdetail.dart';
 import 'package:hksy_flutter/public/public.dart';
 
 class TransferComplete extends StatelessWidget {
-  int completeType = 0; // 0 全部 1 充值 2 提现 3 互转
+  int completeType = 0; // 0 全部 1 充值 2 提现 3 金币互转 4 HKC互转 5 超级存储 6 HKC兑换
   TransferComplete({Key key, this.completeType = 0}) : super(key: key);
 
   @override
@@ -11,7 +11,9 @@ class TransferComplete extends StatelessWidget {
     return Scaffold(
       backgroundColor: kMainBackgroundColor,
       appBar: customAppBar(
-        title: "申请已提交",
+        title: completeType == 4
+            ? "互转成功"
+            : completeType == 5 ? "转出成功" : completeType == 6 ? "兑换成功" : "申请已提交",
         brightness: Brightness.dark,
         backgroundColor: kMainBackgroundColor,
         color: Colors.white,
@@ -32,7 +34,11 @@ class TransferComplete extends StatelessWidget {
               height: 30,
             ),
             Text(
-              "申请已提交",
+              completeType == 4
+                  ? "互转成功"
+                  : completeType == 5
+                      ? "转出成功"
+                      : completeType == 6 ? "兑换成功" : "申请已提交",
               style: TextStyle(
                 fontSize: 15,
                 color: rgba(255, 255, 255, 1),
@@ -49,7 +55,9 @@ class TransferComplete extends StatelessWidget {
                     child: Container(
                       height: 49,
                       decoration: BoxDecoration(
-                        color: rgba(235, 237, 240, 1),
+                        color: (completeType == 4 || completeType == 5)
+                            ? rgba(28, 35, 63, 1)
+                            : rgba(235, 237, 240, 1),
                         borderRadius: BorderRadius.circular(7.5),
                       ),
                       child: FlatButton(
@@ -58,13 +66,26 @@ class TransferComplete extends StatelessWidget {
                           borderRadius: BorderRadius.circular(7.5),
                         ),
                         onPressed: () {
-                          Navigator.of(context).pop();
+                          if (completeType == 4 ||
+                              completeType == 5 ||
+                              completeType == 6) {
+                            Navigator.of(context)
+                                .popUntil(ModalRoute.withName("/"));
+                          } else {
+                            Navigator.of(context).pop();
+                          }
                         },
                         child: Text(
-                          "返回",
+                          (completeType == 4 ||
+                                  completeType == 5 ||
+                                  completeType == 6)
+                              ? "首页"
+                              : "返回",
                           style: TextStyle(
                             fontSize: 15,
-                            color: rgba(145, 152, 173, 1),
+                            color: completeType == 4
+                                ? rgba(145, 152, 173, 1)
+                                : rgba(145, 152, 173, 1),
                             fontWeight: FontWeight.w300,
                           ),
                         ),
@@ -83,21 +104,30 @@ class TransferComplete extends StatelessWidget {
                       ),
                       child: FlatButton(
                         onPressed: () {
-                          Navigator.of(context).push(
-                            MaterialPageRoute(
-                              builder: (context) {
-                                return OrderDetail(
-                                  selectIndex: completeType,
-                                );
-                              },
-                            ),
-                          );
+                          if (completeType == 4 || completeType == 6) {
+                            Navigator.of(context)
+                                .popUntil(ModalRoute.withName("/calculate"));
+                          } else if (completeType == 5) {
+                            Navigator.of(context).pop();
+                          } else {
+                            Navigator.of(context).push(
+                              MaterialPageRoute(
+                                builder: (context) {
+                                  return OrderDetail(
+                                    selectIndex: completeType,
+                                  );
+                                },
+                              ),
+                            );
+                          }
                         },
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(7.5),
                         ),
                         child: Text(
-                          "查看订单详细",
+                          (completeType == 4 || completeType == 6)
+                              ? "返回算力"
+                              : completeType == 5 ? "返回" : "查看订单详细",
                           style: TextStyle(
                             fontSize: 15,
                             color: rgba(255, 255, 255, 1),

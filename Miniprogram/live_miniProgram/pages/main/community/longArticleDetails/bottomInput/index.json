@@ -1,0 +1,7 @@
+{
+  "component": true,
+  "usingComponents": {
+    "focusInput":"./focusInput/index",
+    "share":"/components/communityshare/index"
+  }
+}

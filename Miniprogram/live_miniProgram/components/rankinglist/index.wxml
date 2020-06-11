@@ -1,0 +1,32 @@
+<view class="i-modal-mask {{ visible ? 'i-modal-mask-show' : '' }}" catch:tap="outClick">
+    <view class="rankinglist-mask" catch:tap="emptyAction">
+        <view class="rankinglist-button-mask">
+            <view class="rankinglist-button" wx:for="{{buttonList}}" wx:key="index" data-index="{{index}}" bind:tap="functionAction" style="{{currentIndex == index ? 'background-color: rgba(23, 96, 255, 1); color: rgba(241, 241, 241, 1);' : 'background-color: rgba(21, 25, 40, 0.9); color: rgba(23, 96, 255, 1);'}}">
+                {{item}}
+            </view>
+        </view>
+        <view class="rankinglist-content" wx:if="{{currentIndex == 0}}">
+            <view class="rankinglist-contribution-cell" wx:for="{{contributionList}}" wx:key="index">
+                <view class="rankinglist-contribution-side">
+                    <view class="rankinglist-contribution-index">{{index+1}}</view>
+                    <image class="rankinglist-account-cell-header" src="{{item['header']}}" mode="aspectFill"></image>
+                    <view class="rankinglist-account-cell-name" style="max-width: calc(200vmin / 7.5);">
+                        {{item['name']}}
+                    </view>
+                    <image class="rankinglist-account-cell-level" src="{{item['level']}}" mode="widthFix" style="margin-top: 0; margin-left: calc(40vmin / 7.5)"></image>
+                </view>
+                <view class="rankinglist-contribution-side">
+                    <view class="rankinglist-contribution">贡献：</view>
+                    <view class="rankinglist-contribution-number">{{item['contribution']}}</view>
+                </view>
+            </view>
+        </view>
+        <view class="rankinglist-content" wx:elif="{{currentIndex == 1}}">
+            <view class="rankinglist-account-cell" wx:for="{{dataList}}" wx:key="index">
+                <image class="rankinglist-account-cell-level" src="{{item['level']}}" mode="widthFix"></image>
+                <image class="rankinglist-account-cell-header" src="{{item['header']}}" mode="aspectFill"></image>
+                <view class="rankinglist-account-cell-name">{{item['name']}}</view>
+            </view>
+        </view>
+    </view>
+</view>

@@ -1,0 +1,55 @@
+/* components/forwardList/forwardList.wxss */
+image{
+  border: 0;
+  height: auto;
+}
+.commentListItem{
+  margin-top: 20rpx;
+  background-color: #151928;
+  display: flex;
+  flex-direction: row;
+
+}
+
+.cli_left_wrapper {
+  padding-left: 30rpx;
+}
+
+.cli_left_wrapper .cli_headPic {
+  width: 72rpx;
+  height: 72rpx;
+  border-radius:50%;
+  
+}
+
+.cli_right_wrapper {
+  width: 100%;
+  margin-left: 38rpx;
+  display: flex;
+  flex-direction: column;
+  padding-bottom: 20rpx;
+  border-bottom: #FFFFFF1A solid 2rpx;
+}
+
+.cli_right_wrapper .cli_name {
+  font-size: 28rpx;
+  color: #91989F;
+  padding-right: 30rpx;
+}
+
+
+.cli_right_wrapper .cli_content {
+  margin-top: 4rpx;
+  font-size: 28rpx;
+  color: #F1F1F1;
+  padding-right: 30rpx;
+  
+}
+
+.cli_right_wrapper .cli_date {
+  margin-top: 8rpx;
+  font-size: 22rpx;
+  color: #565D76;
+  width: 150rpx;
+  flex: 2;
+}

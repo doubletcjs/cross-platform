@@ -1,0 +1,9 @@
+{
+  "usingComponents": {
+    "alertview": "/components/popalertview/index",
+    "rankinglist": "/components/rankinglist/index",
+    "share": "/components/share/index"
+  },
+  "pageOrientation": "landscape",
+  "navigationStyle": "custom"
+}

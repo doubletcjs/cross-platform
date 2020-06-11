@@ -1,6 +1,8 @@
 <view class="liveP_wrapper">
 	<view class="liveP_page">
+		<view>
 		<textarea cols="300" rows="5" placeholder-class="liveP_edit_placeholder" class="liveP_edit_input" placeholder="{{hint}}" model:value="{{ancherIntro}}"></textarea>
+		</view>
 		<view class="liveP_edit_ok" bindtap="editOK">确定</view>
 	</view>
 </view>

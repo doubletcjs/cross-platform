@@ -1,0 +1,41 @@
+<view class="personal-info-content">
+    <image class="personal-info-header" src="/icons/person.png" mode="aspectFill" bind:tap="personalInfoAlert"></image>
+    <view class="personal-info-colum">
+        <view class="personal-info-name" bind:tap="personalInfoAlert">用户1234</view>
+        <view class="personal-info-fan-attention">
+            <view class="personal-info-fan-text" bind:tap="showMyAttention">关注</view>
+            <view class="personal-info-fan-number" bind:tap="showMyAttention">4</view>
+            <view class="personal-info-fan-text" style=" margin-left: 24rpx;" bind:tap="showMyFan">
+                粉丝
+            </view>
+            <view class="personal-info-fan-number" bind:tap="showMyFan">3</view>
+        </view>
+    </view>
+    <view class="personal-info-homepage-arrow">
+        <view class="personal-info-homepage" bind:tap="showHomePage">查看主页</view>
+        <image class="personal-info-arrow" src="/icons/ico_profile_arrow@3x.png" mode="aspectFit"></image>
+    </view>
+</view>
+<view class="personal-items-content">
+    <view class="personal-items-title">我的</view>
+    <view class="personal-items-mask">
+        <view class="personal-item-cover" wx:for="{{itemList}}" wx:key="index" data-index="{{index}}" bind:tap="showRecord">
+            <image class="personal-item-icon" src="{{item['icon']}}" mode="aspectFit"></image>
+            <view class="personal-item-name">{{item['name']}}</view>
+        </view>
+    </view>
+</view>
+<view class="personal-cell-mask">
+    <view class="personal-cell-content" wx:for="{{cellList}}" wx:key="index" data-index="{{index}}" bind:tap="cellItemTap">
+        <view class="personal-cell-name">{{item['name']}}</view>
+        <view class="personal-cell-number-arrow">
+            <view class="personal-cell-number">{{item['number'] > 0 ? item['number'] : ''}}</view>
+            <image class="personal-cell-arrow" src="/icons/ico_profile_cell_arrow@3x.png" mode="aspectFit"></image>
+        </view>
+    </view>
+</view>
+
+
+
+
+<alertview visible="{{alertvisible}}" contentString="到个人中心编辑信息" cancelString="取消" contentStringColor="rgba(53, 53, 53, 1)" cancelTextColor="rgba(28, 35, 52, 1)" confirmTextColor="rgba(23, 96, 255, 1)" confirmString="编辑信息" bindclose="closeAlertClick" bindconfirm="alertConfirm"></alertview>

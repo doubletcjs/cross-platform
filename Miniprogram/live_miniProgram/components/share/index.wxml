@@ -3,9 +3,10 @@
         <view class="share-title" style="{{landscape == true ? 'height: calc(82vmin / 7.5);' : 'height: calc(110vmin / 7.5);'}}">
             分享
         </view>
-        <swiper class="share-swiper-content" style="{{pages.length > 1 ? 'height: calc(242vmin / 7.5);' : 'height: calc(216vmin / 7.5);'}}" indicator-dots="{{pages.length > 1 ? true : false}}" indicator-active-color="rgba(255, 255, 255, 1)" indicator-color="rgba(250, 250, 250, 1)">
+        <!-- style="{{pages.length > 1 ? 'height: calc(242vmin / 7.5);' : 'height: calc(216vmin / 7.5);'}}" -->
+        <swiper class="share-swiper-content" indicator-dots="{{pages.length > 1 ? true : false}}" indicator-active-color="rgba(255, 255, 255, 1)" indicator-color="rgba(250, 250, 250, 1)">
             <swiper-item class="share-item-content" wx:for="{{pages}}" wx:key="index" style="{{landscape == true ? 'justify-content: center;' : 'justify-content: start;'}}">
-                <view class="share-item-cover" wx:for="{{item}}" wx:for-item="row" wx:for-index="rowindex" wx:key="row" style="{{landscape == true ? 'width: 12.5%;' : 'width: 20%;'}}">
+                <view class="share-item-cover" wx:for="{{item}}" wx:for-item="row" wx:for-index="rowindex" wx:key="row" style="{{landscape == true ? 'margin-right: calc(62vmin / 7.5);' : 'margin-right: calc(30vmin / 7.5);'}}">
                     <button class="share-item-icon" style="width: calc(114vmin / 7.5);" plain="{{false}}" open-type="{{rowindex == 0 ? 'share': 'none'}}" data-row="{{row}}" catch:tap="{{rowindex == 0 ? '': 'itemTapAction'}}">
                         <image class="share-item-icon" style="width: calc(114vmin / 7.5);" src="{{row.icon}}" mode="aspectFit"></image>
                     </button>

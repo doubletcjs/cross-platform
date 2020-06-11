@@ -1,0 +1,102 @@
+.topic-input-content {
+    padding-left: calc(30vmin / 7.5);
+    padding-right: calc(30vmin / 7.5);
+    padding-top: calc(32vmin / 7.5);
+    background-color: rgba(21, 25, 40, 1);
+
+    height: calc(230vmin / 7.5);
+
+    display: flex;
+    flex-direction: column;
+
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+}
+
+.topic-input-back-content {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    align-content: center;
+
+    border-bottom: solid calc(2vmin / 7.5) rgba(255, 255, 255, 0.1);
+    padding-top: calc(16vmin / 7.5);
+    padding-bottom: calc(16vmin / 7.5);
+}
+
+.topic-input-back-left-content {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    align-content: center;
+
+    width: 80%;
+}
+
+.topic-input-confirm {
+    padding-right: calc(10vmin / 7.5);
+    padding-left: calc(10vmin / 7.5);
+    font-size: calc(36vmin / 7.5);
+    color: rgba(241, 241, 241, 1);
+}
+
+.topic-input-symbol {
+    font-size: calc(36vmin / 7.5);
+    color: rgba(241, 241, 241, 1);
+    padding-right: calc(20vmin / 7.5);
+}
+
+.topic-hot-title {
+    margin-top: calc(32vmin / 7.5);
+    font-size: calc(36vmin / 7.5);
+    color: rgba(241, 241, 241, 1);
+}
+
+.topic-input {
+    width: 90%;
+    color: rgba(255, 255, 255, 1);
+    font-size: calc(32vmin / 7.5);
+}
+
+.topic-input-placeholder {
+    color: rgba(86, 93, 109, 1);
+    font-size: calc(32vmin / 7.5);
+}
+
+.topic-content-mask {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+
+    margin-top: calc(230vmin / 7.5);
+}
+
+.topic-content-cover {
+    max-width: calc(700vmin / 7.5);
+    padding-left: calc(30vmin / 7.5);
+    margin-bottom: calc(30vmin / 7.5);
+
+    border-radius: calc(8vmin / 7.5);
+}
+
+.topic-content-text {
+    max-width: calc(700vmin / 7.5);
+    color: rgba(241, 241, 241, 1);
+    font-size: calc(28vmin / 7.5);
+    background-color: rgba(28, 35, 52, 1);
+
+    padding-left: calc(30vmin / 7.5);
+    padding-right: calc(30vmin / 7.5);
+    padding-top: calc(10vmin / 7.5);
+    padding-bottom: calc(10vmin / 7.5);
+
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+
+    border-radius: calc(8vmin / 7.5);
+}

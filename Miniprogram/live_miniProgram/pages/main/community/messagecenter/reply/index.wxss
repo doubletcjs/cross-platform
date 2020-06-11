@@ -1,0 +1,135 @@
+.reply-cell-content {
+    padding-top: 40rpx;
+    padding-bottom: 40rpx;
+    background-color: rgba(21, 25, 40, 1);
+
+    border-bottom: solid 20rpx rgba(0, 0, 0, 0.5);
+
+    display: flex;
+    flex-direction: column;
+}
+
+.reply-author-content {
+    margin-left: 30rpx;
+    margin-right: 30rpx;
+
+    display: flex;
+    flex-direction: row;
+}
+
+.reply-author-header {
+    width: 90rpx;
+    height: 90rpx;
+    border-radius: 45rpx;
+}
+
+.reply-author-info-content {
+    display: flex;
+    flex-direction: column;
+
+    width: 78%;
+    margin-left: 30rpx;
+}
+
+.reply-author-info-name {
+    font-size: 32rpx;
+    color: rgba(241, 241, 241, 1);
+}
+
+.reply-author-info-date {
+    font-size: 22rpx;
+    color: rgba(145, 152, 159, 1);
+    margin-top: 8rpx;
+}
+
+.reply-unred-dot {
+    background-color: rgba(255, 52, 101, 1);
+    width: 18rpx;
+    height: 18rpx;
+    border-radius: 9rpx;
+
+    position: absolute;
+    right: 30rpx;
+}
+
+.reply-content-mask {
+    margin-left: 30rpx;
+    margin-right: 30rpx;
+    margin-top: 32rpx;
+}
+
+.reply-content {
+    font-size: 32rpx;
+    color: rgba(241, 241, 241, 1);
+}
+
+.reply-author-name {
+    font-size: 32rpx;
+    color: rgba(23, 96, 255, 1);
+}
+
+.reply-sub-author-name {
+    font-size: 28rpx;
+    color: rgba(23, 96, 255, 1);
+}
+
+.reply-comment-content {
+    margin-top: 26rpx;
+    padding-left: 30rpx;
+    padding-right: 30rpx;
+    padding-top: 30rpx;
+    padding-bottom: 20rpx;
+    background-color: rgba(145, 152, 159, 0.1);
+}
+
+.reply-comment {
+    font-size: 28rpx;
+    color: rgba(145, 152, 159, 1);
+}
+
+.reply-article-content {
+    display: flex;
+    flex-direction: row;
+    margin-top: 26rpx;
+    padding-left: 30rpx;
+    padding-right: 30rpx;
+    background-color: rgba(145, 152, 159, 0.1);
+}
+
+.reply-article-cover {
+    width: 210rpx;
+    height: 210rpx;
+}
+
+.reply-article-title-detail-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-left: 30rpx;
+    width: 452rpx;
+}
+
+.reply-article-title {
+    font-size: 28rpx;
+    color: rgba(241, 241, 241, 1);
+
+    display: -webkit-box;
+    word-break: break-all;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.reply-article-text {
+    font-size: 24rpx;
+    color: rgba(145, 152, 159, 1);
+    margin-top: 8rpx;
+
+    display: -webkit-box;
+    word-break: break-all;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}

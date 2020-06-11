@@ -50,10 +50,41 @@ Component({
     confirmTextColor: {
       type: String,
       value: "rgba(23, 96, 255, 1)"
+    },
+    //logo
+    logo: {
+      type: String,
+      value: ""
+    },
+    //标题字体颜色
+    titleTextColor: {
+      type: String,
+      value: "rgba(53, 53, 53, 1)"
+    },
+    //标题字体大小
+    titleFontSize: {
+      type: Number,
+      value: 36
+    },
+    //账户余额字体颜色
+    subcontentTextColor: {
+      type: String,
+      value: "rgba(0, 0, 0, 0.3)"
+    },
+    //账户余额字体大小
+    subcontentFontSize: {
+      type: Number,
+      value: 28
+    },
+    //可输入金额
+    inputValue: {
+      type: Boolean,
+      value: false
     }
   },
   data: {
-
+    inputPlaceholder: "0",
+    inputNumber: ""
   },
   methods: {
     //关闭alert
@@ -73,17 +104,75 @@ Component({
       this.closePopup()
       setTimeout(() => {
         this.triggerEvent("cancel")
+
+        if (this.data.inputValue == true) {
+          this.setData({
+            inputNumber: ""
+          })
+        }
       }, 400)
     },
     //确定（右侧）按钮动作
     confirmAction() {
       this.closePopup();
-      setTimeout(() => {
-        this.triggerEvent("confirm")
-      }, 400)
+      if (this.data.inputValue == true) {
+        setTimeout(() => {
+          this.triggerEvent("confirm", {
+            number: this.data.inputNumber
+          })
+
+          this.setData({
+            inputNumber: ""
+          })
+        }, 400)
+      } else {
+        setTimeout(() => {
+          this.triggerEvent("confirm")
+        }, 400)
+      }
     },
     //居中弹框屏蔽外部遮罩层关闭动作
     emptyAction() {},
+    //输入框获取焦点
+    bindFocus() {
+      this.setData({
+        inputPlaceholder: ""
+      })
+    },
+    //输入框失去焦点
+    bindBlur() {
+      this.setData({
+        inputPlaceholder: "0"
+      })
+    },
+    //输入框内容变化
+    bindInput(res) {
+      this.setData({
+        inputNumber: res.detail.value
+      })
+    },
+    //增加
+    addAction() {
+      var number = parseInt(this.data.inputNumber.length == 0 ? "0" : this.data.inputNumber)
+      if (number < 9999) {
+        number += 1
+      }
+
+      this.setData({
+        inputNumber: number.toString()
+      })
+    },
+    //减少
+    subtractionAction() {
+      var number = parseInt(this.data.inputNumber.length == 0 ? "0" : this.data.inputNumber)
+      if (number > 0) {
+        number -= 1
+      }
+
+      this.setData({
+        inputNumber: number.toString()
+      })
+    }
   },
   created: function () {
 

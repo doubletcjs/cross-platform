@@ -1,0 +1,52 @@
+<view style="border-top: solid 20rpx rgba(0, 0, 0, 0.5);"></view>
+<view class="reply-cell-content" wx:for="{{dataList}}" wx:key="index" style="{{item['readed'] == false ? 'background-color: rgba(145, 152, 159, 0.1);' : ''}}">
+    <view class="reply-author-content">
+        <image class="reply-author-header" src="{{item['authorImage']}}" mode="aspectFill"></image>
+        <view class="reply-author-info-content">
+            <view class="reply-author-info-name">{{item['author']}}</view>
+            <view class="reply-author-info-date">{{item['date']}}</view>
+        </view>
+    </view>
+    <view class="reply-content-mask" wx:if="{{item['comment'] != null}}">
+        <view wx:if="{{replyType == 0}}">
+            <text class="reply-content">回复</text>
+            <text class="reply-author-name">{{item['comment']['author']}}</text>
+            <text class="reply-content">:</text>
+            <text class="reply-content">{{item['content']}}</text>
+        </view>
+        <view wx:if="{{replyType == 1}}">
+            <text class="reply-content">转发：{{item['content']}}//</text>
+            <text class="reply-author-name">{{item['comment']['author']}}</text>
+            <text class="reply-content">:</text>
+            <text class="reply-content">{{item['replycontent']}}</text>
+        </view>
+        <view wx:if="{{replyType == 2}}">
+            <text class="reply-content">赞了这条评论！</text>
+        </view>
+    </view>
+    <view class="reply-content-mask" wx:else>
+        <view class="reply-content" wx:if="{{replyType == 0}}">{{item['content']}}</view>
+        <view class="reply-content" wx:if="{{replyType == 1}}">转发：{{item['content']}}</view>
+        <view class="reply-content" wx:if="{{replyType == 2}}">赞了这篇文章！</view>
+    </view>
+    <view class="reply-comment-content" wx:if="{{item['comment'] != null}}">
+        <text class="reply-sub-author-name">@{{item['comment']['author']}}</text>
+        <text class="reply-comment">:</text>
+        <text class="reply-comment">{{item['comment']['content']}}</text>
+    </view>
+    <view class="reply-article-content" wx:if="{{item['article'] != null}}">
+        <image class="reply-article-cover" src="{{item['article']['cover']}}" mode="aspectFill"></image>
+        <view class="reply-article-title-detail-content">
+            <view>
+                <text class="reply-article-title">
+                    <text class="reply-sub-author-name">@{{item['article']['author']}}</text>
+                    {{item['article']['title']}}
+                </text>
+            </view>
+            <view>
+                <text class="reply-article-text">{{item['article']['content']}}</text>
+            </view>
+        </view>
+    </view>
+    <view class="reply-unred-dot" wx:if="{{item['readed'] == false}}"></view>
+</view>

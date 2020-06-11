@@ -1,0 +1,34 @@
+<view class="i-modal-mask {{ visible ? 'i-modal-mask-show' : '' }}" catch:tap="outClick">
+    <view class="share-content" catch:tap="emptyAction">
+        <view class="share-title">分享</view>
+        <view class="share-item-content">
+            <view class="share-item-cover" wx:for="{{shareItems}}" wx:key="index">
+                <view class="share-item-cover">
+                    <view class="share-item-icon">
+                        <button class="share-item-icon" style="padding: 0;" plain="{{false}}" open-type="{{index == 0 ? 'share': 'none'}}" data-index="{{index}}" catch:tap="{{index == 0 ? '': 'itemTapAction'}}">
+                            <image class="share-item-icon" src="{{item['icon']}}"></image>
+                        </button>
+                    </view>
+                    <view class="share-item-name">{{item["name"]}}</view>
+                </view>
+            </view>
+        </view>
+        <view class="share-cancel" catch:tap="cancelAction">取消</view>
+        <view class="share-qrcode-mask" wx:if="{{qrcodeSharePage == true}}">
+            <image class="share-qrcode-mask-background" src="/icons/community_share_qrcode_bg@3x.png"></image>
+            <view class="share-qrcode-content-mask">
+                <view class="share-qrcode-title">{{qrcodeInfo['title']}}</view>
+                <view class="share-qrcode-date">{{qrcodeInfo['date']}}</view>
+                <view class="share-qrcode-content">{{qrcodeInfo['content']}}</view>
+                <view class="share-qrcode-bottom">
+                    <view class="share-qrcode-bottom-title">关注华科闪云公众号</view>
+                    <view class="share-qrcode-bottom-content">获取更多新鲜资讯</view>
+                    <view class="share-qrcode-bottom-save-content">
+                        <image class="share-qrcode-bottom-save" src="/icons/community_share_qrcode_save@3x.png" mode="widthFix"></image>
+                    </view>
+                    <image class="share-qrcode-bottom-image" src="/icons/community_share_qrcode_image@3x.png"></image>
+                </view>
+            </view>
+        </view>
+    </view>
+</view>

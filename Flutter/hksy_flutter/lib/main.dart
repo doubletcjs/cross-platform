@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hksy_flutter/function/account/loginregister.dart';
+import 'package:hksy_flutter/pages/calculate/calculatemain.dart';
 import 'package:hksy_flutter/pages/galaxy/galaxypage.dart';
 import 'package:hksy_flutter/pages/guide/appguide.dart';
 import 'package:hksy_flutter/pages/home/homepage.dart';
@@ -163,6 +164,11 @@ class _MyAppState extends State<MyApp> {
                 },
               ),
       ),
+      routes: {
+        "/calculate": (context) {
+          return CalculateMain();
+        },
+      },
     );
   }
 }

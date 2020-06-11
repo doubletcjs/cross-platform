@@ -1,0 +1,76 @@
+
+page{
+    background-color: #151928;
+}
+.drafts{
+    font-size: 32rpx;
+    color: #91989F;
+    line-height: 44rpx;
+}
+.select{
+    background-color: #1C2334;
+    height: 120rpx;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+}
+.slectClick{
+    width: 160rpx;
+    padding-right: 32rpx;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    color: #fff;
+}
+
+/* 数据box */
+.box{
+    padding: 30rpx;
+    margin-top: 20rpx;
+    background-color: #151928;
+}
+.item{
+    display: flex;
+    align-items: center;
+}
+.radio{
+   width: 88rpx;
+   height: 88rpx;
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   margin-right: 24rpx;
+}
+
+.itemContent{
+    font-size: 32rpx;
+    color:rgba(241,241,241,1);
+    background:rgba(28,35,52,1);
+    padding: 30rpx;
+    margin-top: 32rpx;
+    flex: 1;
+    border-radius: 12rpx;
+    -webkit-border-radius: 12rpx;
+    -moz-border-radius: 12rpx;
+    -ms-border-radius: 12rpx;
+    -o-border-radius: 12rpx;
+}
+.itemContent .title{
+    color:rgba(145,152,159,1);
+}
+.itemContent .time{
+    color:rgba(86,93,118,1);
+    font-size: 22rpx;
+}
+.itemContent .content{
+    font-size: 28rpx;
+    color:rgba(86,93,118,1);
+}
+
+
+
+
+
+
+

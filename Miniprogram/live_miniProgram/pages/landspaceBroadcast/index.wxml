@@ -1,0 +1,27 @@
+<view class="broadcas-back-account">
+    <view class="broadcas-left-content">
+        <view class="broadcas-back" bind:tap="navigateBack">
+            <image class="" src="/icons/Black@2x.png" style="width:10px" mode="widthFix"></image>
+        </view>
+        <view class="broadcas-account-content">
+            <image class="broadcas-account-icon" src="/icons/icon_Tips_system@3x.png" mode="aspectFill"></image>
+            <view class="broadcas-account-column">
+                <view class="broadcas-account-name">蒋国宇</view>
+                <view class="broadcas-account-fan">100</view>
+            </view>
+        </view>
+        <view class="broadcas-items-content">
+            <image class="broadcas-items-icons" wx:for="{{buttonItems}}" wx:key="index" mode="widthFix" src="{{item}}" data-index="{{index}}" bind:tap="buttonAction"></image>
+        </view>
+    </view>
+    <view class="broadcas-functions-content">
+        <image class="broadcas-functions-icon" wx:for="{{functionItems}}" wx:key="index" mode="widthFix" src="{{item}}" style="{{index == 0 ? 'width: calc(90vmin / 7.5); height: calc(90vmin / 7.5);' : ''}}" data-index="{{index}}" bind:tap="functionAction"></image>
+    </view>
+    <view class="broadcas-rankinglist-content" bind:tap="rankingList">排行榜</view>
+</view>
+<!-- 是否关闭直播组件 -->
+<alertview visible="{{closevisible}}" contentString="是否关闭直播" cancelString="关闭直播" confirmString="继续直播" bindclose="closeClick" contentStringColor="rgba(53, 53, 53, 1)" cancelTextColor="rgba(28, 35, 52, 1)" confirmTextColor="rgba(23, 96, 255, 1)"></alertview>
+<!-- 排行榜组件 -->
+<rankinglist visible="{{rankinglistvisible}}" bindclose="closeClick"></rankinglist>
+<!-- 分享组件 -->
+<share visible="{{sharevisible}}" landscape="{{true}}" bindclose="closeClick"></share>

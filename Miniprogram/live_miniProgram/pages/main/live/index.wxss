@@ -229,6 +229,8 @@
   text-align: left;
 }
 
+
+
 .home_live_history_item_wrapper {
 
 
@@ -266,19 +268,6 @@
 
 }
 
-
-.home_live_history_title {
-
-  color: #F1F1F1;
-  font-size: 32rpx;
-  /* line-height: 40rpx; */
-
-  /* 控制段落只显示一定行数，且最后一行结尾处超出部分以省略号显示 */
-  display: -webkit-box;
-  overflow: hidden;
-  -webkit-box-orient: vertical;
-  -webkit-line-clamp: 2;
-}
 
 .home_live_history_item_title {
   font-size: 32rpx;

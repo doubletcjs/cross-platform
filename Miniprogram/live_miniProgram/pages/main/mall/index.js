@@ -62,5 +62,27 @@ Page({
    */
   onShareAppMessage: function () {
 
-  }
+  },
+  //消息中心
+  showMessageCenter: function () {
+    wx.navigateTo({
+      url: '/pages/main/community/messagecenter/index',
+      success: (result) => {
+
+      },
+      fail: () => {},
+      complete: () => {}
+    });
+  },
+  //搜索中心
+  goSearch: function () {
+    wx.navigateTo({
+      url: '/pages/main/community/searchcenter/index',
+      success: (result) => {
+
+      },
+      fail: () => {},
+      complete: () => {}
+    });
+  },
 })

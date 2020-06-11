@@ -1,0 +1,52 @@
+.system-message-cell {
+    padding-left: calc(30vmin / 7.5);
+    padding-right: calc(30vmin / 7.5);
+    padding-top: calc(40vmin / 7.5);
+    padding-bottom: calc(32vmin / 7.5);
+
+    display: flex;
+    flex-direction: row;
+}
+
+.system-message-image {
+    width: calc(90vmin / 7.5);
+    height: calc(92vmin / 7.5);
+}
+
+.system-message-mask {
+    display: flex;
+    flex-direction: column;
+    margin-left: calc(30vmin / 7.5);
+
+    width: 90%;
+}
+
+.system-message-title {
+    font-size: calc(32vmin / 7.5);
+    color: rgba(241, 241, 241, 1);
+}
+
+.system-message-content {
+    margin-top: calc(16vmin / 7.5);
+    font-size: calc(28vmin / 7.5);
+    color: rgba(145, 152, 159, 1);
+}
+
+.system-message-datetime-row {
+    display: flex;
+    flex-direction: row;
+    margin-top: calc(16vmin / 7.5);
+}
+
+.system-message-datetime {
+    font-size: calc(22vmin / 7.5);
+    color: rgba(145, 152, 159, 1);
+}
+
+.system-message-reddot {
+    width: calc(18vmin / 7.5);
+    height: calc(18vmin / 7.5);
+
+    background-color: rgba(255, 52, 101, 1);
+    border-radius: calc(9vmin / 7.5);
+}

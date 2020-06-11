@@ -1,0 +1,77 @@
+.message-cell-content {
+    padding-top: calc(36vmin / 7.5);
+    padding-bottom: calc(36vmin / 7.5);
+    padding-left: calc(30vmin / 7.5);
+    padding-right: calc(32vmin / 7.5);
+
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    align-content: center;
+}
+
+.message-cell-icon {
+    width: calc(90vmin / 7.5);
+    height: calc(90vmin / 7.5);
+}
+
+.message-cell-text-name {
+    margin-right: calc(30vmin / 7.5);
+    margin-left: calc(30vmin / 7.5);
+
+    display: flex;
+    flex-direction: column;
+}
+
+.message-cell-name {
+    font-size: calc(32vmin / 7.5);
+    color: rgba(241, 241, 241, 1);
+}
+
+.message-cell-text {
+    font-size: calc(22vmin / 7.5);
+    color: rgba(145, 152, 159, 1);
+    max-width: calc(420vmin / 7.5);
+
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    white-space: normal !important;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.message-cell-subtext {
+    margin-left: calc(32vmin / 7.5);
+    font-size: calc(22vmin / 7.5);
+    color: rgba(145, 152, 159, 1);
+}
+
+.message-cell-content-row {
+    margin-top: calc(8vmin / 7.5);
+    display: flex;
+    flex-direction: row;
+}
+
+.message-cell-arrow {
+    width: calc(36vmin / 7.5);
+    height: auto;
+
+    position: absolute;
+    right: calc(32vmin / 7.5);
+}
+
+.message-cell-count {
+    font-size: calc(22vmin / 7.5);
+    border-radius: calc(20vmin / 7.5);
+    background-color: rgba(255, 52, 101, 1);
+    color: rgba(255, 255, 255, 1);
+
+    position: absolute;
+    right: calc(32vmin / 7.5);
+
+    padding-left: calc(14vmin / 7.5);
+    padding-right: calc(14vmin / 7.5);
+    padding-top: calc(4vmin / 7.5);
+    padding-bottom: calc(4vmin / 7.5);
+}

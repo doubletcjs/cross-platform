@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:hksy_flutter/function/paycode/paycodeinput.dart';
+import 'package:hksy_flutter/pages/calculate/hkcrule.dart';
 import 'package:hksy_flutter/pages/coin/transfercomplete.dart';
 import 'package:hksy_flutter/public/public.dart';
 
 class CoinTransfer extends StatefulWidget {
-  CoinTransfer({Key key}) : super(key: key);
+  bool isHKC = false;
+  CoinTransfer({Key key, this.isHKC = false}) : super(key: key);
 
   @override
   _CoinTransferState createState() => _CoinTransferState();
@@ -14,6 +16,7 @@ class CoinTransfer extends StatefulWidget {
 class _CoinTransferState extends State<CoinTransfer> {
   TextEditingController _countEditingController = TextEditingController();
   TextEditingController _phoneEditingController = TextEditingController();
+
   void _rolloutAll() {
     setState(() {
       _countEditingController.text = "13420";
@@ -43,23 +46,39 @@ class _CoinTransferState extends State<CoinTransfer> {
           Future.delayed(
             Duration(milliseconds: 400),
             () {
-              PaycodeInput(
-                inputHandle: (password) {
-                  Navigator.of(context).push(
-                    MaterialPageRoute(
-                      builder: (context) {
-                        return TransferComplete(
-                          completeType: 3,
-                        );
-                      },
-                    ),
-                  );
+              if (this.widget.isHKC) {
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (context) {
+                      return TransferComplete(
+                        completeType: this.widget.isHKC ? 4 : 3,
+                      );
+                    },
+                  ),
+                );
 
-                  Future.delayed(Duration(milliseconds: 400), () {
-                    this._emptyInput();
-                  });
-                },
-              ).show(context);
+                Future.delayed(Duration(milliseconds: 400), () {
+                  this._emptyInput();
+                });
+              } else {
+                PaycodeInput(
+                  inputHandle: (password) {
+                    Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (context) {
+                          return TransferComplete(
+                            completeType: this.widget.isHKC ? 4 : 3,
+                          );
+                        },
+                      ),
+                    );
+
+                    Future.delayed(Duration(milliseconds: 400), () {
+                      this._emptyInput();
+                    });
+                  },
+                ).show(context);
+              }
             },
           );
         },
@@ -79,10 +98,30 @@ class _CoinTransferState extends State<CoinTransfer> {
     return Scaffold(
       backgroundColor: kMainBackgroundColor,
       appBar: customAppBar(
-        title: "金币互转",
+        title: this.widget.isHKC ? "HKC互转" : "金币互转",
         brightness: Brightness.dark,
         backgroundColor: kMainBackgroundColor,
         color: Colors.white,
+        rightItems: this.widget.isHKC
+            ? [
+                FlatButton(
+                  onPressed: () {
+                    Navigator.of(context).push(
+                      MaterialPageRoute(builder: (context) {
+                        return HkcRulePage();
+                      }),
+                    );
+                  },
+                  child: Text(
+                    "HKC规则",
+                    style: TextStyle(
+                      fontSize: 15,
+                      color: rgba(255, 255, 255, 1),
+                    ),
+                  ),
+                ),
+              ]
+            : [],
       ),
       body: GestureDetector(
         onTap: () {
@@ -97,14 +136,14 @@ class _CoinTransferState extends State<CoinTransfer> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
                   Text(
-                    "金币资产",
+                    this.widget.isHKC ? "可用HKC" : "金币资产",
                     style: TextStyle(
                       fontSize: 15,
                       color: rgba(145, 152, 173, 1),
                     ),
                   ),
                   Text(
-                    "13420个",
+                    this.widget.isHKC ? "342580.48HKC" : "13420个",
                     style: TextStyle(
                       fontSize: 15,
                       color: rgba(145, 152, 173, 1),
@@ -128,7 +167,7 @@ class _CoinTransferState extends State<CoinTransfer> {
                         Container(
                           alignment: Alignment.centerLeft,
                           child: Text(
-                            "转出数量",
+                            this.widget.isHKC ? "转出HKC" : "转出数量",
                             style: TextStyle(
                               fontSize: 18,
                               color: rgba(255, 255, 255, 1),
@@ -163,7 +202,9 @@ class _CoinTransferState extends State<CoinTransfer> {
                                     border: InputBorder.none,
                                     floatingLabelBehavior:
                                         FloatingLabelBehavior.never,
-                                    labelText: "可转出13420个",
+                                    labelText: this.widget.isHKC
+                                        ? "可转出342580.48HKC"
+                                        : "可转出13420个",
                                     labelStyle: TextStyle(
                                       fontSize: 13,
                                       color: rgba(145, 152, 173, 1),

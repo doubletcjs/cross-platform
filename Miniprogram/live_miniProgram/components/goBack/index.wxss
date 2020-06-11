@@ -1,0 +1,20 @@
+.goback{
+    display: flex;
+    height: 90rpx;
+    align-items: center;
+}
+.goBack{
+    width: 60rpx;
+    display: flex;
+    justify-content: center;
+}
+.goBack image{
+    vertical-align: middle;
+    margin-left: 20rpx;
+}
+.text{
+    margin-left: 10rpx;
+    font-size: 36rpx;
+}
+
+

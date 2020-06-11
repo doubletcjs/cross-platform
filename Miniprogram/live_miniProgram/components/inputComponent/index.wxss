@@ -6,7 +6,10 @@
     height:100%;
     /* background-color: red; */
     z-index: 10000;
-    display: block;
+    /* display: none; */
+}
+.visible{
+    /* display: block; */
 }
 
 .inputbox{
@@ -21,6 +24,7 @@
     left: 0;
     opacity: 0;
 }
+
 .show{
     opacity: 1;
 }
@@ -28,7 +32,7 @@
     width: 80vmin;
     height: 8.53vmin;
     margin-left: 4.266vmin;
-    color: #000;
+    color: #fff;
 }
 .send{
     width: 8.53vmin;

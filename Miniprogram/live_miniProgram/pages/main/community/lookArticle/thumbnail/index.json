@@ -1,0 +1,10 @@
+{
+  "usingComponents": {
+    "articleThumbContent": "/components/articleThumbContent/atContent",
+    "tabList":"/components/tabList/tabList",
+    "commentList":"/components/commentList/commentList",
+    "forwardList":"/components/forwardList/forwardList",
+    "praiseList":"/components/praiseList/praiseList",
+    "bottomInput":"/pages/main/community/longArticleDetails/bottomInput/index"
+  }
+}

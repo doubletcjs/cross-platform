@@ -52,7 +52,6 @@
 .alert-title {
     margin-left: calc(48vmin / 7.5);
     margin-right: calc(48vmin / 7.5);
-    margin-top: calc(64vmin / 7.5);
     text-align: center;
 
     font-size: calc(36vmin / 7.5);
@@ -72,10 +71,62 @@
 .alert-subcontent {
     margin-left: calc(48vmin / 7.5);
     margin-right: calc(48vmin / 7.5);
-    margin-top: calc(44vmin / 7.5);
+    margin-top: calc(38vmin / 7.5);
     margin-bottom: calc(30vmin / 7.5);
     text-align: center;
 
     font-size: calc(28vmin / 7.5);
     color: rgba(136, 136, 136, 1);
+}
+
+.alert-logo {
+    width: calc(64vmin / 7.5);
+    height: calc(64vmin / 7.5);
+    margin-top: calc(48vmin / 7.5);
+
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+    align-self: center;
+}
+
+.alert-input-content {
+    margin-top: calc(38vmin / 7.5);
+
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    align-content: center;
+    align-self: center;
+}
+
+.alert-input-subtraction {
+    width: calc(44vmin / 7.5);
+    height: calc(44vmin / 7.5);
+
+    margin-right: calc(30vmin / 7.5);
+}
+
+.alert-input {
+    width: calc(160vmin / 7.5);
+    height: calc(80vmin / 7.5);
+    border-bottom: calc(2vmin / 7.5) solid rgba(0, 0, 0, 0.1);
+
+    font-size: calc(48vmin / 7.5);
+    color: rgba(53, 53, 53, 1);
+    text-align: center;
+}
+
+.alert-input-placeholder {
+    font-size: calc(48vmin / 7.5);
+    color: rgba(178, 178, 178, 1);
+    text-align: center;
+}
+
+.alert-input-add {
+    width: calc(44vmin / 7.5);
+    height: calc(44vmin / 7.5);
+    margin-left: calc(30vmin / 7.5);
 }

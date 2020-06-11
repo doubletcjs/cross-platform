@@ -1,0 +1,46 @@
+<!-- components/commentList/commentList.wxml -->
+<view class="" hover-class="none" hover-stop-propagation="false">
+  <block wx:for="{{commentList}}" wx:key="index">
+    <view class="commentListItem" catchtap="toCommentDetail" data-id="{{item.name}}" data-index="{{index}}">
+      <!-- 用户头像 -->
+      <view class="cli_left_wrapper">
+        <image class="cli_headPic" src="{{item.headIcon}}" mode="aspectFill"></image>
+      </view>
+      <view class="cli_right_wrapper">
+        <!-- 用户姓名 -->
+        <view class="cli_name">{{item.name}}</view>
+        <!-- 评论内容 -->
+        <text class="cli_content">{{item.commentContent}}</text>
+        <!-- 回复人的评论 -->
+        <block wx:if="{{item.userReplyUser}}">
+          <view class="cli_reply_wrapper">
+            <view class="cli_reply_user">{{item.userReplyUser}}等人</view>
+            <view class="cli_reply_num">共{{item.userReplyNum}}条回复  ></view>
+          </view>
+        </block>
+        <!-- 底部 -->
+        <view class="cli_buttom_wrapper">
+          <!-- 日期 -->
+          <view class="cli_date">{{item.date}}</view>
+          <!-- 分享 -->
+          <view class="cli_buttom_item_wrapper" data-index="{{index}}" catchtap="transmit">
+            <image class="cli_share_img" src="/icons/icon_chat_share@3x.png" mode="widthFix" lazy-load="false"></image>
+            <view class="cli_buttom_text">{{item.shareNum}}</view>
+          </view>
+          <!-- 评论 -->
+          <view class="cli_buttom_item_wrapper" data-index="{{index}}" catch:tap="comment">
+            <image class="cli_share_img" src="/icons/icon_news_share.png" mode="widthFix" lazy-load="false" ></image>
+            <view class="cli_buttom_text">{{item.commentNum}}</view>
+          </view>
+          <!-- 点赞 -->
+          <view class="cli_buttom_item_wrapper" style="padding-right: 30rpx" data-index="{{index}}" catch:tap="give">
+            <image class="cli_share_img" src="/icons/icon_news_share3@2x.png" mode="widthFix" lazy-load="false"></image>
+            <view class="cli_buttom_text">{{item.praise}}</view>
+          </view>
+        </view>
+      </view>
+    </view>
+  </block>
+</view>
+<!-- 分享对话框 -->
+<share visible="{{visible}}" bind:close="shareClose" />

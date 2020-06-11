@@ -1,0 +1,8 @@
+<view class="wrap" wx:if="{{visible}}" bind:tap="outClick">
+    <view class="input {{top > 0?'show':''}}" id="inputBox" style="top:{{top}}px" catch:tap="empty">
+        <input type="text" value="{{inputVal}}" auto-focus="{{true}}" bindfocus="bindfocus" bindinput="bindinput" placeholder="{{placeholder}}" />
+        <view class="send" catch:tap="sendMsg">
+            <image class="" mode="widthFix" src="/icons/icon-sent@3x.png"></image>
+        </view>
+    </view>
+</view>

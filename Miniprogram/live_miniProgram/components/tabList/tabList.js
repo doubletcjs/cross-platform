@@ -15,6 +15,16 @@ Component({
    attention:{ // 关注
      type:Boolean,
      value:false
+   },
+  //  是否显示关注按钮
+   attentionShow:{
+    type:Boolean,
+    value:true
+   },
+  //  设置背景
+   color:{
+     type:String,
+     value:''
    }
   },
 
@@ -33,9 +43,7 @@ Component({
       // let tabindex = e.taget.dataset.index;
       // 获取点击的index
       let tabIndex = e.target.dataset.index;
-      
       this.triggerEvent('changeTab',tabIndex)
-      
       // console.log(e.target.dataset,tabIndex)
     },
     attentionChange:function(){

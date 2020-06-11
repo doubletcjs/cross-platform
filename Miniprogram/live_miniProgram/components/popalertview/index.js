@@ -82,7 +82,7 @@ Component({
         cancelAction() {
             this.closePopup()
             setTimeout(() => {
-                this.triggerEvent("cancel")
+                this.triggerEvent("cancel") 
             }, 400)
         },
         //确定（右侧）按钮动作

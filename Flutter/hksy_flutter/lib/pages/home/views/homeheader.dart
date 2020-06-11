@@ -27,13 +27,7 @@ class HomeHeader extends StatelessWidget {
 
     void _itemFunctionAction(BuildContext context, index) {
       if (index == 2) {
-        Navigator.of(context).push(
-          MaterialPageRoute(
-            builder: (context) {
-              return CalculateMain();
-            },
-          ),
-        );
+        Navigator.of(context).pushNamed("/calculate");
       } else if (index == 3) {
         Navigator.of(context).push(
           MaterialPageRoute(

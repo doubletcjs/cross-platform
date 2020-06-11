@@ -1,0 +1,14 @@
+<view class="system-message-cell" wx:for="{{dataList}}" wx:key="index" style="{{item['readed'] == false ? 'background-color: rgba(28, 35, 52, 1);' : ''}}" data-index="{{index}}" bind:tap="{{item['readed'] == false ? 'messageCellTap' : '' }}">
+    <image class="system-message-image" src="/icons/icon_Tips_system@3x.png" mode="widthFix"></image>
+    <view class="system-message-mask">
+        <view class="system-message-title">{{item['title']}}</view>
+        <view class="system-message-content">{{item['content']}}</view>
+        <view class="system-message-datetime-row">
+            <view class="system-message-datetime">{{item['date']}}</view>
+            <view class="system-message-datetime" style="margin-left: calc(20vmin / 7.5);">
+                {{item['time']}}
+            </view>
+        </view>
+    </view>
+    <view class="system-message-reddot" wx:if="{{item['readed'] == false}}"></view>
+</view>

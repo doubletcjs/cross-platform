@@ -143,7 +143,10 @@ class _InvitationPageState extends State<InvitationPage> {
             children: <Widget>[
               this.widget.isHome
                   ? SizedBox(
-                      height: 87.5,
+                      height: MediaQuery.of(context).orientation ==
+                              Orientation.portrait
+                          ? 87.5
+                          : 0,
                     )
                   : SizedBox(
                       height: MediaQuery.of(context).orientation ==

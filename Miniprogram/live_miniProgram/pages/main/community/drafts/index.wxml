@@ -1,0 +1,54 @@
+<view class="drafts">
+    <view class="select">
+        <view class="slectClick" wx:if="{{isSelect}}" bind:tap="select">
+            选择
+        </view>
+        <view class="slectClick" wx:else  bind:tap="delect">
+            删除
+        </view>
+    </view>
+    <view  style="background:#000;height:20rpx;"></view>
+    <!-- 数据列表 文章 评论  话题 3种 -->
+    <view class="box">
+        <checkbox-group bindchange="checkboxChange">
+            <block wx:for="{{datalist}}" wx:key="index">
+                    <view class="item">
+                        <view class="radio" wx:if="{{radioshow}}">
+                            <label class="radio">
+                                <!-- <checkbox-group bindchange="checkboxChange">
+                                    <checkbox class="checkbox" value="{{index}}"/>
+                                </checkbox-group> -->
+                                <checkbox class="checkbox" value="{{item.id}}"/>
+                            </label>
+                        </view>
+                        <view class="itemContent">
+                            <view class="titleText">
+                                <view class="" wx:if="{{item.type==1}}">
+                                    发文章
+                                </view>
+                                <view class="" wx:elif="{{item.type==2}}">
+                                    发讨论
+                                </view>
+                                <view class="" wx:elif="{{item.type==3}}">
+                                    发话题
+                                </view>
+                            </view>
+                            <view class="time">
+                                {{item.time}}
+                            </view>
+                            <view class="title"  wx:if="{{item.type==1}}">
+                                {{item.title}}
+                            </view>
+                            <!-- 稳重内容 -->
+                            <view class="content">
+                                {{item.content}}
+                            </view>
+                        </view>
+                    </view> 
+            </block>
+        </checkbox-group>
+    </view>
+</view>
+
+<!-- 提示弹框 -->
+<alertview visible="{{visible}}"  onlyToast="{{onlyToast}}" contentString="{{contentString}}" cancelTextColor="rgba(28,35,52,1)" confirmString="删除" confirmTextColor="rgba(23,96,255,1)" bind:confirm="confirm" bind:cancel="cancel"   bindclose="closeClick"></alertview>

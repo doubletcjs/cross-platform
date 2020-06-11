@@ -1,0 +1,15 @@
+<!-- pages/main/community/commentDetail/index.wxml -->
+<view class="ct_wrapper">
+  <!-- 评论列表 -->
+  <view>
+    <!-- 分享或者转发  评论  点赞 三个回调事件 -->
+    <commentList commentList="{{commentList}}" showType="1" bind:commentListItemHandle="commentListItemHandle" bind:share="share" bind:itemComment="itemComment" bind:itemPraise="itemPraise" />
+  </view>
+</view>
+<!-- input 组件 -->
+<bottomInput visible="{{inputVisible}}" />
+
+<!-- 别人的评论操作弹框  operationType 0 别人的评论操作  1 自己的评论操作 -->
+<commentSheet visible="{{otherVisible}}" items="{{other_items}}" operationType="0" bindclose="actionCloseClick" binditemselect="itemSelect"></commentSheet>
+<!-- 自己的评论操作弹框 -->
+<commentSheet visible="{{myVisible}}" items="{{my_items}}" operationType="1" bindclose="actionCloseClick" binditemselect="itemSelect"></commentSheet>

@@ -7,6 +7,7 @@ Page({
   data: {
     height:0, // 评论区view 高度
     isVideLook:true, // 是否是查看回放
+    visible:false, // 输入框显示
     grveNum:1255, // 点赞数量
     lookNum:10566, // 播放数量
     inputBoxHeight:50, // 输入组件view 的高度
@@ -187,6 +188,18 @@ Page({
     // console.log(data)
     let keyboardHeight = data.detail;
     this.setData({keyboardHeight:keyboardHeight})
-  }
+  },
+  // 打开输入框
+  openInput(){
+    console.log(11)
+    this.setData({visible:true})
+  },
+  closeInput(){
+    this.setData({visible:false})
+  },
+   // 发送评论成功处理
+  sendMsgSuccess(e){
+    console.log('评论成功',e)
+  },
 
 })

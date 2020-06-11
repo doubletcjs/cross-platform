@@ -1,0 +1,8 @@
+<view class="goback">
+    <view class="goBack" hover-class="" bind:tap="goBack">
+        <image class="" src="/icons/Black@2x.png" style="width:25rpx;height:100%" mode="widthFix"></image>
+    </view>
+    <view class="text"  bind:tap="goBack">
+        {{text}}
+    </view>
+</view>

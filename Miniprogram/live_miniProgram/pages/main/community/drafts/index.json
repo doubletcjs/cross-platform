@@ -1,0 +1,5 @@
+{
+  "usingComponents": {
+    "alertview":"/components/popalertview/index"
+  }
+}

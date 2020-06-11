@@ -40,6 +40,8 @@
   color: white;
   font-size: 28rpx;
   background-color: #1c2334;
+  width: 100%;
+  box-sizing: border-box;
 }
 .liveP_wrapper .liveP_page .liveP_notice_input_placeholder {
   margin-top: 16rpx;
@@ -50,6 +52,8 @@
   color: #565d6d;
   font-size: 28rpx;
   background-color: #1c2334;
+  width: 100%;
+  box-sizing: border-box;
 }
 .liveP_wrapper .liveP_page .liveP_record {
   display: flex;

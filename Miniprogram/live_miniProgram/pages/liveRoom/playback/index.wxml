@@ -55,5 +55,9 @@
   <!-- 输入框组件 keyboardHeight -->
   <view class="inputBox" id="inputBox" style="height:{{inputBoxHeight}}">
     <!-- sendgift(发送礼物) sendMsgSuccess(发送评论) sendmoney(送金币) moreOption(更多操作) keyboardHeight(输入框获得焦点和失去焦点设置组件高度) -->
-    <inputContent videLook="{{isVideLook}}" bind:sendMsgSuccess="sendMsgSuccess" bind:keyboardHeight="keyboardHeight" />
+    <inputContent videLook="{{isVideLook}}" bind:openInput="openInput" bind:sendMsgSuccess="sendMsgSuccess" bind:keyboardHeight="keyboardHeight" />
   </view>
+
+<!-- 获得焦点时的input 组件 -->
+<inputComponent  visible="{{visible}}" bind:openInput="openInput" bind:sendMsgSuccess="sendMsgSuccess" bind:close="closeInput" />
+

@@ -1,7 +1,8 @@
 
 {
   "usingComponents": {
-    "inputContent":"../../components/input/index"
+    "inputContent":"/components/input/index",
+    "inputComponent":"/components/inputComponent/index"
   },
   "navigationBarTitleText": "查看回放"
 }

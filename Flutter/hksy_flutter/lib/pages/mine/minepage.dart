@@ -7,6 +7,7 @@ import 'package:hksy_flutter/pages/mine/settingpage.dart';
 import 'package:hksy_flutter/function/infosectioncell.dart';
 import 'package:hksy_flutter/pages/personal/personinfo.dart';
 import 'package:hksy_flutter/pages/storage/mystorage.dart';
+import 'package:hksy_flutter/pages/storage/vipstorage.dart';
 import 'package:hksy_flutter/public/public.dart';
 
 class MinePage extends StatefulWidget {
@@ -196,20 +197,20 @@ class _MinePageState extends State<MinePage> {
                   "images/ico_my_super@3x.png",
                 ),
                 tapHandle: () {
-                  functionAlertView(
-                    context,
-                    title: "超级存储",
-                    content:
-                        "      你目前还不是超级存储，想成为超级存储请联系业务人员线下办理，成为我们的超级矿工则显示每日获得更多分红收益。",
-                    confirm: "确认",
-                  );
-                  // Navigator.of(context).push(
-                  //   MaterialPageRoute(
-                  //     builder: (context) {
-                  //       return VipStoragePage();
-                  //     },
-                  //   ),
+                  // functionAlertView(
+                  //   context,
+                  //   title: "超级存储",
+                  //   content:
+                  //       "      你目前还不是超级存储，想成为超级存储请联系业务人员线下办理，成为我们的超级矿工则显示每日获得更多分红收益。",
+                  //   confirm: "确认",
                   // );
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (context) {
+                        return VipStoragePage();
+                      },
+                    ),
+                  );
                 },
               ),
               InfoCell(

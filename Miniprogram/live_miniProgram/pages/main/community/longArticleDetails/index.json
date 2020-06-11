@@ -1,0 +1,7 @@
+{
+  "usingComponents": {
+    "bottomInput":"./bottomInput/index",
+    "payalert": "/components/livegift/redpacket/payalert/index",
+    "alertview":"/components/reward/index"
+  }
+}

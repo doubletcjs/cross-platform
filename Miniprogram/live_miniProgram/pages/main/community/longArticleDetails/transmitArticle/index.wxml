@@ -1,0 +1,18 @@
+<view class="transmit_page_wrapper" hover-class="none" hover-stop-propagation="false">
+    <view class="transmint_page_button" catchtap="transmintHandle">转发</view>
+    <view class="transmint_line"></view>
+    <view class="transmint_edit_wrapper">
+        <textarea cols="300" rows="5" placeholder-class="t_edit_placeholder" class="t_edit_input" placeholder="{{hint}}" model:value="{{textareaValue}}"></textarea>
+    </view>
+    <view class="t_content_wrapper">
+        <view class="t_content_left_wrapper">
+            <image class="t_content_image" src="/icons/live_prepare_edit.png" mode="aspectFill" lazy-load="false" binderror="" bindload=""></image>
+        </view>
+        <view class="t_content_right_wrapper">
+            <view class="t_content_right_title" hover-class="none" hover-stop-propagation="false">
+                我是标题，不超过两行我是标题，不超过两行我是标题，不超过两行我是标题，不超过两行我是标题，不超过两行我是标题，不超过两行
+            </view>
+            <view class="t_content_right_content">我是缩略内容我是标题，不超过两行我是标题，不超过两行我是标题，不超过两行我是标题，不超过两行</view>
+        </view>
+    </view>
+</view>

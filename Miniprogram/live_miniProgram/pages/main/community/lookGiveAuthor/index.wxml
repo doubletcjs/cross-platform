@@ -1,0 +1,14 @@
+<view class="lookGiveAuthor">
+    <!-- 文章 -->
+    <view class="">
+        <article article="{{article}}" />
+    </view>
+    <!-- 打赏榜 -->
+    <view class="giveLists">
+        <giveLists giveLists="{{giveLists}}" />
+    </view>
+</view>
+
+
+
+

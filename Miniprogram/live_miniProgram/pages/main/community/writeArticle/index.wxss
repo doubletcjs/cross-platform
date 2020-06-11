@@ -1,0 +1,119 @@
+@import "/weui.wxss";
+@import "/iconfont.wxss" .confont {
+  display: inline-block;
+  padding: 8px 8px;
+  width: 24px;
+  height: 24px;
+  cursor: pointer;
+  font-size: 20px;
+}
+.wrap{
+    color:rgba(241,241,241,1);
+    font-size: 32rpx;
+    padding-top: 80rpx;
+}
+.cancel{
+  width:154rpx;
+  height:60rpx;
+  color: #91989F;
+}
+.submit{
+  width:154rpx;
+  height:60rpx;
+  line-height: 60rpx;
+  background:rgba(23,96,255,1);
+  border-radius:8rpx;
+  -webkit-border-radius:8rpx;
+  -moz-border-radius:8rpx;
+  -ms-border-radius:8rpx;
+  -o-border-radius:8rpx;
+  text-align: center;
+  opacity: 0.4;
+}
+.cur{
+  opacity: 1;
+}
+.formBox{
+  display: flex;
+  justify-content: space-between;
+  padding:30rpx;
+  border-bottom: 1rpx solid rgba(255,255,255,0.1);
+}
+.inputTile{
+  width: 690rpx;
+  height: 112rpx;
+  margin: 0 auto;
+  border-bottom: 1rpx solid rgba(255,255,255,0.1);
+}
+.input-placeholder{
+  color: #565D6D;
+  font-size: 40rpx;
+}
+.inputTile input{
+  width: 100%;
+  height: 100%;
+}
+#editor{
+    background-color: #151928;
+    font-size: 32rpx;
+    padding-bottom: 60px;
+}
+.ql-editor.ql-blank::before {
+  color: #565D6D;
+  content: attr(data-placeholder);
+  font-style: italic;
+  pointer-events: none;
+  position: absolute;
+}
+.toolbar {
+  box-sizing: border-box;
+  border-bottom: 0;
+  font-family: "Helvetica Neue", "Helvetica", "Arial", sans-serif;
+  position: fixed;
+  z-index: 2;
+  bottom: 0;
+  width: 100%;
+  height: 100rpx;
+  line-height: 100rpx;
+  background-color: #1C2334;
+  overflow-x: scroll;
+  padding-right: 170rpx;
+  padding-left: 25rpx;
+  white-space: nowrap;
+}
+.resetBox{
+    position: fixed;
+    right: 0;
+    bottom: 0;
+    height: 100rpx;
+    background-color: #1C2334;
+    display: flex;
+    justify-content: center;
+}
+.toolbar i{
+    display: inline-block;
+    width: 80rpx;
+    text-align: center;
+    font-size: 40rpx;
+}
+.toolbar .resetBox i{
+    display: inline-block;
+    width: 80rpx;
+    text-align: center;
+}
+
+.ql-container {
+  box-sizing: border-box;
+  padding: 12px 15px;
+  width: 100%;
+  min-height: 30vh;
+  height: auto;
+  background: #fff;
+  margin-top: 20px;
+  font-size: 16px;
+  line-height: 1.5;
+}
+
+.ql-active {
+  color: #06c;
+}

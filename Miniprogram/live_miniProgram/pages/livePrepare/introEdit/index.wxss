@@ -3,11 +3,13 @@
   flex-direction: column;
 }
 .liveP_page {
-  margin-left: var(--border_dist);
-  margin-right: var(--border_dist);
+
+  margin-left: 30rpx;
+  margin-right: 30rpx;
 }
 
 .liveP_edit_input {
+  width: 100%;
   margin-top: 40rpx;
   padding-top: 20rpx;
   padding-left: 40rpx;
@@ -16,8 +18,10 @@
   color: white;
   font-size: 28rpx;
   background-color: #1c2334;
+  box-sizing: border-box;
 }
 .liveP_edit_placeholder {
+  width: 100%;
   margin-top: 40rpx;
   padding-top: 20rpx;
   padding-left: 40rpx;
@@ -26,6 +30,7 @@
   color: #565d6d;
   font-size: 28rpx;
   background-color: #1c2334;
+  box-sizing: border-box;
 }
 
 .liveP_edit_ok {

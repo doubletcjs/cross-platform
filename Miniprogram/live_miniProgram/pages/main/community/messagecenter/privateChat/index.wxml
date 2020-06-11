@@ -1,0 +1,59 @@
+<view class="privateChat" bind:tap="colseInput">
+    <view class="privateChatBox">
+        <block wx:for="{{says}}" wx:key="index">
+           <view class="item" hover-class="none" hover-stop-propagation="false">
+               <view class="time">
+                   {{item.time}}
+               </view>
+                <view class="sayitem {{item.me ? 'cur':''}}" hover-class="none" hover-stop-propagation="false">
+                    <view class="imgBox">
+                        <image class="" src="{{item.portraitSrc}}" mode="widthFix" lazy-load="false"></image>
+                    </view>
+                    <view wx:if="{{item.contentType=='string'}}" class="content {{item.me ? 'cur':''}}">
+                        {{item.content}}
+                    </view>
+                     <view wx:elif="{{item.contentType=='img'}}"  style="max-width: 260px;min-width:90px;" class="content {{item.me ? 'cur':''}}">
+                        <image class="" src="{{item.content}}" mode="widthFix" lazy-load="true" show-menu-by-longpress="true"  data-src="{{item.content}}"  catchtap="previewImage" ></image>
+                    </view>
+                </view>
+           </view>
+        </block>
+    </view>
+
+    <view class="inputBox" catch:tap="empty">
+        <view class="item" bind:tap="voiceClick">
+            <image class="{{longhandle?'hide':''}}" src="/icons/ico_saying1@2x.png" mode="widthFix" lazy-load="false"></image>
+            <image  src="/icons/ico_saying@2x.png" mode="widthFix" lazy-load="false"></image>
+        </view>
+        <view class="item inputItem" >
+            <view class="" bind:tap="openInput">
+                说点什么~
+            </view>
+            <view class="voice {{ longhandle ? 'longhandle' :'' }}" catch:longpress="bindlongpress" >
+                按住说话
+            </view>
+        </view>
+        <view class="item" bind:tap="sendImg">
+            <image class="" src="/icons/ico_release_photo@3x.png" mode="widthFix" lazy-load="false"></image>
+        </view>
+    </view>
+</view>
+
+
+<!-- 获得焦点时的input 组件 -->
+<view wx:if="{{visible}}" id="inputComponent"  class="inputComponent {{top>0 ? 'show':''}}" style="top:{{top}}px" catch:tap="empty">
+    <view class="img">
+        <image mode="widthFix" src="/icons/ico_saying3@2x.png"></image>
+    </view>
+    <view class="input" >
+        <input class="weui-input"  value="{{inputVal}}" confirm-hold="true" cursor-spacing="{{0}}"  bindinput="inputChange" bindblur="bindblur" bindkeyboardheightchange="bindkeyboardheightchange" bindfocus="bindfocus" auto-focus="true" placeholder="说点什么~"/>
+    </view>
+    <!-- 发送评论 -->
+	<view class="img send" bind:tap="sendMsg">
+		<image mode="widthFix" src="/icons/icon-sent@3x.png"></image>
+	</view>
+</view>
+
+
+
+

@@ -46,6 +46,33 @@ Component({
     cancelAction() {
       this.closePopup()
     },
+    //选择
+    itemSelectAction(res) {
+      var index = res.currentTarget.dataset.index
+      if (index == 0) {
+        wx.navigateTo({
+          url: '/pages/main/community/postcomment/index',
+          success: (result) => {
+
+          },
+          fail: () => {},
+          complete: () => {}
+        });
+      } else if (index == 1) {
+        wx.navigateTo({
+          url: '/pages/main/community/writeArticle/index',
+          success: (result) => {
+
+          },
+          fail: () => {},
+          complete: () => {}
+        });
+      }
+
+      setTimeout(() => {
+        this.closePopup()
+      }, 600);
+    }
   },
   created: function () {
 

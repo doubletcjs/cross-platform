@@ -1,0 +1,117 @@
+
+.wrap{
+    padding: 30rpx;
+    font-size: 28rpx;
+    color: #91989F;
+}
+.time{
+    min-height: 80rpx;
+    position: relative;
+    padding-left: 22rpx;
+    color:rgba(241,241,241,1);
+    font-size: 36rpx;
+}
+.time .line{
+    height: 100%;
+    width: 1rpx;
+    position: absolute;
+    left: 0;
+    top: 15rpx;
+    background-color: #565D76;
+}
+.time .line::before{
+    content: " ";
+    display: block;
+    position: absolute;
+    left: -6rpx;
+    top: 0;
+    width: 14rpx;
+    height: 14rpx;
+    border-radius: 14rpx;
+    -webkit-border-radius: 14rpx;
+    -moz-border-radius: 14rpx;
+    -ms-border-radius: 14rpx;
+    -o-border-radius: 14rpx;
+    background-color: #1760FF;
+}
+
+.list{
+    position: relative;
+    padding-left: 22rpx;
+    min-height: 80rpx;
+    padding-bottom: 30rpx;
+}
+.list .line{
+    height: 100%;
+    width: 1rpx;
+    position: absolute;
+    left: 0;
+    top: 15rpx;
+    background-color: #565D76;
+}
+.list .line::before{
+    content: " ";
+    display: block;
+    position: absolute;
+    left: -6rpx;
+    top: 0;
+    width: 14rpx;
+    height: 14rpx;
+    border-radius: 14rpx;
+    -webkit-border-radius: 14rpx;
+    -moz-border-radius: 14rpx;
+    -ms-border-radius: 14rpx;
+    -o-border-radius: 14rpx;
+    background-color: #1760FF;
+}
+.list .line::after{
+    content: " ";
+    display: block;
+    position: absolute;
+    left: -4rpx;
+    top: 2rpx;
+    margin: auto;
+    width: 10rpx;
+    height: 10rpx;
+    border-radius: 10rpx;
+    -webkit-border-radius: 10rpx;
+    -moz-border-radius: 10rpx;
+    -ms-border-radius: 10rpx;
+    -o-border-radius: 10rpx;
+    background-color: #151928;
+}
+
+image{
+    height: auto;
+}
+.operation{
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    padding-top: 20rpx;
+}
+.operation_item{
+    display: flex;
+    align-items: center;
+}
+.operation_item_img{
+    width: 44rpx;
+    height: 44rpx;
+}
+.list_content{
+    line-height: 40rpx;
+}
+.list_time{
+    color: #1760FF;
+}
+/* cur */
+.cur .list_content{
+    color: #FF3465;
+}
+.cur .list_time{
+    color: #FF3465;
+}
+.cur .line::before{
+    background-color: #FF3465;
+}
+

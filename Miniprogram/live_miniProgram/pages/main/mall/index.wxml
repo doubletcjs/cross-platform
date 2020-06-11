@@ -1,3 +1,13 @@
-<view class="" hover-class="none" hover-stop-propagation="false" style="color:white">
-    商城。。。。
+<view class="search-bar-content" style="{{inputValue.length == 0 ? 'border-bottom: solid 20rpx rgba(0, 0, 0, 0.5);' : ''}}">
+    <view class="inputValue" bind:tap="goSearch">
+        <view class="imgbox">
+            <image class="" src="/icons/icon_search@3x.png" mode="widthFix" lazy-load="false"></image>
+        </view>
+        搜索标题作者
+    </view>
+    <image class="search-bar-image" src="/icons/ico_fl1@3x.png" mode="aspectFit"></image>
+    <image class="search-bar-image" src="/icons/icon-news-massage@2x.png" mode="aspectFit" bind:tap="showMessageCenter"></image>
+</view>
+<view class="mall-content">
+    <items></items>
 </view>

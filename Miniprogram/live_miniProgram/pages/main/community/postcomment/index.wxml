@@ -1,0 +1,23 @@
+<view class="post-content-mask">
+    <view class="post-function-content">
+        <view class="post-function-cancel" bind:tap="draftAction">取消</view>
+        <view class="{{submitDisable == true ? 'post-function-submit-disable' : 'post-function-submit'}}">
+            发布
+        </view>
+    </view>
+    <textarea class="post-textarea-content" placeholder-class="post-textarea-placeholder" placeholder="分享新鲜事~" value="{{inputContent}}" bindinput="contentInputChagne"></textarea>
+    <view class="post-image-content">
+        <view class="post-image-cover" wx:for="{{selectImages}}" wx:key="index">
+            <image class="post-image" src="{{item}}" data-index="{{index}}" mode="aspectFill" bind:tap="selectImageAction"></image>
+        </view>
+    </view>
+</view>
+<view class="post-bottom-content">
+    <image class="post-bottom-item" src="/icons/ico_release_talk@3x.png" mode="aspectFit" style="margin-left: 0;" data-index="{{3}}" bind:tap="functionItemAction"></image>
+    <view class="post-bottom-items-content">
+        <view class="post-bottom-item" wx:for="{{fuctionItems}}" wx:key="index">
+            <image class="post-bottom-item" src="{{item}}" mode="aspectFit" data-index="{{index}}" bind:tap="functionItemAction"></image>
+        </view>
+    </view>
+</view>
+<actionsheet visible="{{actionvisible}}" bind:tap="actionsheet" items="{{draftItems}}" bindclose="closeClick" binditemselect="itemSelect"></actionsheet>

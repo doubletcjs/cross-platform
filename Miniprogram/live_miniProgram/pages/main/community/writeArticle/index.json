@@ -1,0 +1,7 @@
+{
+  "usingComponents": {
+    "actionsheet": "/components/popactionsheet/index",
+    "goback": "/components/goBack/index"
+  },
+  "navigationStyle":"custom"
+}

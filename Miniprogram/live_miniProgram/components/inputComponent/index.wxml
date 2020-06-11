@@ -4,9 +4,10 @@
         <view class="" hover-class="none" hover-stop-propagation="false">
             <input class="weui-input"  value="{{inputVal}}" confirm-hold="true" cursor-spacing="{{0}}"  bindinput="inputChange" bindblur="bindblur" bindkeyboardheightchange="bindkeyboardheightchange" bindfocus="bindfocus" auto-focus="true" placeholder="说点什么~"/>
         </view>
-        	<!-- 发送评论 -->
+        <!-- 发送评论 -->
 		<view class="send" bind:tap="sendMsg">
 			<image mode="widthFix" src="/icons/icon-sent@3x.png"></image>
 		</view>
     </view>
 </view>
+

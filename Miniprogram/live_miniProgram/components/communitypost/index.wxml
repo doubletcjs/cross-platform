@@ -1,7 +1,7 @@
 <view class="i-modal-mask {{ visible ? 'i-modal-mask-show' : '' }}" catch:tap="outClick">
     <view class="post-content" catch:tap="emptyAction">
         <view class="post-item-content">
-            <view class="post-item-cover" wx:for="{{itemList}}" wx:key="index">
+            <view class="post-item-cover" wx:for="{{itemList}}" wx:key="index" data-index="{{index}}" catch:tap="itemSelectAction">
                 <image class="post-item-icon" src="{{item['icon']}}"></image>
                 <view class="post-item-name">{{item["name"]}}</view>
             </view>

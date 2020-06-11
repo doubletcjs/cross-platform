@@ -1,0 +1,23 @@
+<view class="content-mask">
+    <view class="complaints-base-text">内容违规</view>
+    <view class="complaints-items-content">
+        <view class="complaints-item-cover" wx:for="{{violations}}" wx:key="index" data-index="{{index}}" bind:tap="violationTap">
+            <view class="complaints-item" style="{{item['selected'] == true ? 'color: rgba(23, 96, 255, 1);' : 'color: rgba(241, 241, 241, 1);'}}">
+                {{item['name']}}
+            </view>
+        </view>
+    </view>
+    <view class="complaints-base-text" style="margin-top: 48rpx;">侵权利益</view>
+    <view class="complaints-items-content">
+        <view class="complaints-item-cover" wx:for="{{infringements}}" wx:key="index" data-index="{{index}}" bind:tap="infringementTap">
+            <view class="complaints-item" style="{{item['selected'] == true ? 'color: rgba(23, 96, 255, 1);' : 'color: rgba(241, 241, 241, 1);'}}">
+                {{item['name']}}
+            </view>
+        </view>
+    </view>
+</view>
+<view class="bottom-mask">
+    <view class="bottom-commit" bind:tap="submitComplaint" style="{{didComplaint == true ? 'color: rgba(241, 241, 241, 0.4);' : 'color: rgba(241, 241, 241, 1);'}}">
+        {{didComplaint == true ? '已投诉,受理中' : '提交'}}
+    </view>
+</view>

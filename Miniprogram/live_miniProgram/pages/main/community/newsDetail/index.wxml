@@ -1,0 +1,59 @@
+<view class="newsDetail">
+    <view class="new">
+        <view class="time">
+            05-27 14:00
+        </view>
+        <view class="">
+            Filecoin官方：二阶段测试网开始时间：5月11日左右,主网启动时间：7月20日-8月21日
+        </view>
+    </view>
+    <view class="" style="height:20rpx;background:#000;"></view>
+    <view class="newItemCall">
+        <view class="title">
+            最新评论
+        </view>
+        <view class="newsLists">
+            <block wx:for="{{lists}}" wx:key="index">
+                <view class="newItem">
+                    <view class="image">
+                        <image class="" src="{{item.src}}" mode="widthFix"></image>
+                    </view>
+                    <view class="nicname">
+                        <view class="name">
+                            {{item.nicname}}
+                        </view>
+                        <view class="sayConetnt">
+                            {{item.sayConetnt}}
+                        </view>
+                        <view class="other" wx:if="{{item.says.length > 0}}">
+                            <view class="">
+                                {{item.says[0].name}}等人
+                            </view>
+                            <view class="otherCur"  bind:tap="gosay">
+                                共{{ item.says.length }}条回复 <image class="" src="/icons/go.png" mode="widthFix" style="width:15rpx"></image>
+                            </view>
+                        </view>
+                        <view class="nicnametime">
+                            {{item.time}}
+                        </view>
+                        <view class="option">
+                            <view class="item" bind:tap="say">
+                                <image class="" src="/icons/icon_news_share.png" mode="widthFix"></image>
+                            </view>
+                            <view class="item" bind:tap="give">
+                                <image class="" src="/icons/icon_news_share3@2x.png" mode="widthFix"></image>
+                            </view>
+                            <view class="" style="color:#707070;margin-left:6rpx;">
+                                 {{item.giveNum ? item.giveNum  : ''}}
+                            </view>
+                        </view>
+                    </view>
+                </view>
+            </block>
+        </view>
+    </view>
+</view>
+
+
+<!-- 底部输入组件 -->
+<bottomInput  visible="{{visible}}" bind:sendMsgSuccess="sendMsgSuccess" transmitType="2" />

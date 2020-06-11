@@ -1,0 +1,50 @@
+
+/* 底部 */
+.bottomInput{
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: 90rpx;
+    display: flex;
+    align-items: center;
+    padding: 0 30rpx;
+    background:#1C2334;
+}
+.nofocus{
+    display: flex;
+    flex: 1;
+}
+.hide{
+    display: none;
+}
+.bottomInput .input{
+    width:330rpx;
+    height:70rpx;
+    background:#151928;
+    border-radius:50rpx;
+    -webkit-border-radius:50rpx;
+    -moz-border-radius:50rpx;
+    -ms-border-radius:50rpx;
+    -o-border-radius:50rpx;
+    color: #565D6D;
+    display: flex;
+    align-items: center;
+    padding-left: 30rpx;
+    font-size: 28rpx;
+}
+.send{
+    width: 64rpx;
+    height: 64rpx;
+    position: absolute;
+    right: 30rpx;
+    top: 13rpx;
+}
+.bottomInput .input input{
+    color: #ffffff;
+}
+.bottomInput .item{
+    width: 56rpx;
+    height: 56rpx;
+    margin-left: 62rpx;
+}

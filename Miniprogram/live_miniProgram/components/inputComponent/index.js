@@ -40,36 +40,32 @@ Component({
         that.setData({
           winHeight:winHeight
         })
-        console.log('winHeight',winHeight)
-        if(that.data.landscape){ //横屏
-          const query = wx.createSelectorQuery()
-          query.selectAll('#inputBox').boundingClientRect()
-          query.selectViewport().scrollOffset()
-          query.exec(function(result){
-           console.log('result',result)
-           try{
-            if(result[0][0]){
-              let height = result[0][0].height;
-              that.setData({inputHeight:height})
-             }
-           }catch(e){
-              throw new Error(e)
-           }
-           
-            console.log(result)
-            
-          })
-        }else{
-          const query = wx.createSelectorQuery()
-          query.selectAll('#inputBox').boundingClientRect()
-          query.selectViewport().scrollOffset()
-          query.exec(function(result){
-           console.log('result',result)
-            let height = result[0][0].height;
-            console.log(height)
-            that.setData({inputHeight:height})
-          })
-        }
+       setTimeout(()=>{
+        // console.log('winHeight',winHeight)
+        wx.createSelectorQuery().select('#inputBox').boundingClientRect(function (rect) {
+          console.log('rect',rect)//{id:...}
+          let h = rect?rect.height:0;
+          that.setData({inputHeight:h})
+          console.log('inputHeight==',that.data.inputHeight)
+        }).exec()
+       },10)
+        // if(that.data.landscape){ //横屏
+          
+        //   wx.createSelectorQuery().select('#inputBox').boundingClientRect(function (rect) {
+        //     console.log('rect',rect)//{id:...}
+        //     let h = rect?rect.height:0;
+        //     that.setData({inputHeight:h})
+        //     // console.log(that.data.inputHeight)
+        //   }).exec()
+        // }else{
+        //   wx.createSelectorQuery().select('#inputBox').boundingClientRect(function (rect) {
+        //     console.log('rect',rect)//{id:...}
+        //     let h = rect?rect.height:0;
+        //     that.setData({inputHeight:h})
+        //     // console.log(that.data.inputHeight)
+        //   }).exec()
+
+        // }
 
       }
     })
@@ -89,6 +85,7 @@ Component({
      //点击外部的遮罩层关闭动作
     outClick() {
       if (this.data.outClickCanClose == true) {
+        this.setData({inputVal:''})
           this.closePopup()
       }
     },

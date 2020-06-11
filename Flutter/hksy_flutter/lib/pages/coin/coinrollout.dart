@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:hksy_flutter/function/paycode/paycodeinput.dart';
+import 'package:hksy_flutter/pages/coin/transfercomplete.dart';
 import 'package:hksy_flutter/public/public.dart';
 
 class CoinRollout extends StatefulWidget {
-  CoinRollout({Key key}) : super(key: key);
+  bool isViper = false;
+  CoinRollout({Key key, this.isViper = false}) : super(key: key);
 
   @override
   _CoinRolloutState createState() => _CoinRolloutState();
@@ -26,11 +28,31 @@ class _CoinRolloutState extends State<CoinRollout> {
       return;
     }
 
-    PaycodeInput(
-      inputHandle: (password) {
-        Navigator.of(context).pop();
-      },
-    ).show(context);
+    if (this.widget.isViper) {
+      Navigator.of(context).push(
+        MaterialPageRoute(
+          builder: (context) {
+            return TransferComplete(
+              completeType: 5,
+            );
+          },
+        ),
+      );
+
+      Future.delayed(Duration(milliseconds: 400), () {
+        this._emptyInput();
+      });
+    } else {
+      PaycodeInput(
+        inputHandle: (password) {
+          Navigator.of(context).pop();
+        },
+      ).show(context);
+    }
+  }
+
+  void _emptyInput() {
+    _numberEditingController.text = "";
   }
 
   @override

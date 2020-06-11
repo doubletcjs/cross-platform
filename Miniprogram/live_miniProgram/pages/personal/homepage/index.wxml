@@ -1,0 +1,65 @@
+<view class="header-content">
+    <!-- 头像 -->
+    <image class="header-info-image" src="/icons/person.png" mode="aspectFill"></image>
+    <!-- 用户名 -->
+    <view class="header-name">用户1234</view>
+    <!-- 简介 -->
+    <view class="header-introduction-edit-content">
+        <view class="header-introduction">
+            {{introduction.length == 0 ? (currentUser == false ? '暂无简介' : '请输入您的简介信息') : introduction}}
+        </view>
+        <image class="header-introduction-edit" wx:if="{{currentUser == true}}" src="/icons/icon_homepage_edit@3x.png" mode="aspectFit"></image>
+    </view>
+    <!-- 性别 地区 -->
+    <view class="header-info-detail">
+        <!-- 性别 -->
+        <view class="header-info-detail-content" style="padding-left: 16rpx; padding-right: 16rpx;">
+            <!-- icon_man@3x.png -->
+            <image class="header-info-gender-icon" src="/icons/icon_girl@3x.png" mode="aspectFit"></image>
+            <view class="header-info-text" style="margin-left: 4rpx;">女</view>
+        </view>
+        <!-- 地区 -->
+        <view class="header-info-detail-content" style="margin-left: 30rpx; padding-left: 30rpx; padding-right: 30rpx;">
+            <view class="header-info-text">广东省 广州市</view>
+        </view>
+    </view>
+    <!-- 关注、粉丝 -->
+    <view class="header-fan-attention">
+        <view class="header-fan-attention-colum" bind:tap="showMyAttention">
+            <view class="header-fan-attention-number">4</view>
+            <view class="header-fan-attention-text">关注</view>
+        </view>
+        <view class="header-fan-attention-colum" style="margin-left: 72rpx;" bind:tap="showMyFan">
+            <view class="header-fan-attention-number">3</view>
+            <view class="header-fan-attention-text">粉丝</view>
+        </view>
+    </view>
+    <!-- 非登录用户显示关注、取消关注、是否拉黑 userStatus: 0 未关注 1 已关注 2 已拉黑 -->
+    <view class="header-attention-button" wx:if="{{currentUser == false}}" style="color: {{userStatus == 0 ? 'rgba(23, 96, 255, 1)' : 'rgba(86, 93, 109, 1)'}};" bind:tap="attentionAction">
+        {{userStatus == 0 ? '关注' : userStatus == 1 ? '已关注' : userStatus == 2 ? '已拉黑' : ''}}
+    </view>
+    <!-- 非登录用户显示更多 -->
+    <image class="header-more" src="/icons/icon-news-more@3x.png" mode="aspectFit" wx:if="{{currentUser == false}}" bind:tap="shareAction"></image>
+    <!-- 私信 -->
+    <view class="header-private-message" wx:if="{{currentUser == false}}" bind:tap="messageAction">
+        私信
+    </view>
+</view>
+
+<!-- tab切换  -->
+<view class="tab">
+     <tabList bind:changeTab="changeTabhandle" attentionShow="{{false}}"  currentTab="{{currentTab}}" tablists="{{ tablists }}" />
+     <view class="search" bind:tap="search">
+         <image class="" src="/icons/icon_search@2x.png" mode="widthFix" lazy-load="false"></image>
+     </view>
+</view>
+<!-- content 显示内容 -->
+<view class="">
+    <!-- isShowAttention 我的主页显示阅读量按钮 其他人主页不显示 -->
+     <articleList  isAttention="{{false}}" isShowAttention="{{isShowAttention}}" bind:giveNumChange="giveNumChange" articleLists="{{articleLists}}" />
+</view>
+
+
+
+<alertview visible="{{alertvisible}}" contentString="{{alertContent}}" cancelString="取消" confirmString="确定" contentStringColor="rgba(53, 53, 53, 1)" cancelTextColor="rgba(28, 35, 52, 1)" confirmTextColor="rgba(23, 96, 255, 1)" bindclose="alertCloseClick" bindconfirm="alertConfirmClick"></alertview>
+<share visible="{{sharevisible}}" shareItems="{{shareItems}}" bind:close="shareCloseClick" bind:itemselect="shareConfirmClick"></share>

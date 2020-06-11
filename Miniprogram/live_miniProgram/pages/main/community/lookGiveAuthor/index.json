@@ -1,0 +1,6 @@
+{
+  "usingComponents": {
+    "article":"./article/index",
+    "giveLists":"./giveLists/index"
+  }
+}

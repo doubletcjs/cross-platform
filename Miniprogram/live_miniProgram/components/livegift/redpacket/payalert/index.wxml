@@ -1,8 +1,18 @@
 <view class="i-modal-mask {{ visible ? 'i-modal-mask-show' : '' }}" bind:tap="outClick">
     <view class="centerView" style="background-color: {{backgroundColor}};" catch:tap="emptyAction">
-        <view class="alert-title">{{title}}</view>
-        <view class="alert-content">{{content}}</view>
-        <view class="alert-subcontent">{{subcontent}}</view>
+        <image class="alert-logo" wx:if="{{logo.length > 0}}" src="{{logo}}"></image>
+        <view class="alert-title" style="margin-top: calc({{logo.length > 0 ? '16' : '64'}}vmin / 7.5); color: {{titleTextColor}}; font-size: calc({{titleFontSize}}vmin / 7.5);">
+            {{title}}
+        </view>
+        <view class="alert-input-content" wx:if="{{inputValue == true}}">
+            <image class="alert-input-subtraction" src="/icons/icon_minus@3x.png" bind:tap="subtractionAction"></image>
+            <input class="alert-input" value="{{inputNumber}}" placeholder="{{inputPlaceholder}}" maxlength="4" placeholder-class="alert-input-placeholder" type="number" bindinput="bindInput" bindfocus="bindFocus" bindblur="bindBlur"></input>
+            <image class="alert-input-add" src="/icons/icon_add@3x.png" bind:tap="addAction"></image>
+        </view>
+        <view class="alert-content" wx:else>{{content}}</view>
+        <view class="alert-subcontent" style="color: {{subcontentTextColor}}; font-size: calc({{subcontentFontSize}}vmin / 7.5);">
+            {{subcontent}}
+        </view>
         <view class="buttonView">
             <view class="buttonText" style="border-right: solid calc(1vmin / 7.5) rgba(0, 0, 0, 0.1); color:{{cancelTextColor}};" bind:tap="cancelAction">
                 {{cancelString}}
@@ -16,4 +26,7 @@
 <!-- 使用方法 -->
 <!-- bindclose:绑定alert取消（关闭）动作回调 bindconfirm:绑定alert确定（右侧）动作回调 -->
 <!-- visible:alert是否显示，相应page里面记录状态，并传到alert里面去 -->
+<!-- 输入框回调参数 {
+            number: this.data.inputNumber
+          } -->
 <!-- <alertview visible="{{visible}}" subcontent="账户余额" content="金币数" bindclose="closeClick" bindconfirm="alertConfirm"></alertview> -->

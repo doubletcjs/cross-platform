@@ -1,0 +1,8 @@
+{
+  "usingComponents": {
+    "commentList":"/components/commentList/commentList",
+    "bottomInput":"/pages/main/community/longArticleDetails/bottomInput/index",
+    "commentSheet": "/components/commentSheet/commentSheet"
+  },
+  "navigationBarTitleText": "评论详情"
+}

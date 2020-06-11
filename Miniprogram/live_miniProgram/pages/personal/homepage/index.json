@@ -1,0 +1,9 @@
+{
+  "usingComponents": {
+    "alertview": "/components/popalertview/index",
+    "tabList":"/components/tabList/tabList",
+    "articleList":"/components/articleLists/index",
+    "share": "/components/communityshare/index"
+  },
+  "navigationBarTitleText": "个人主页"
+}

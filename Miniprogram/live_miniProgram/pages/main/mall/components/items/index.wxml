@@ -1,0 +1,7 @@
+<view class="items-content">
+    <view class="items-cover" wx:for="{{dataList}}" wx:key="index">
+        <image class="items-icon" src="" mode="aspectFit"></image>
+        <view class="items-name">{{item['name']}}</view>
+        <view class="items-dot" wx:if="{{item['number'] > 0}}">{{item['number']}}</view>
+    </view>
+</view>

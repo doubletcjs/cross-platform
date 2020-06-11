@@ -1,3 +1,10 @@
 {
-  "usingComponents": {}
+  "usingComponents": {
+    "searchInput":"/components/searchInput/index",
+    "tabList":"/components/tabList/tabList",
+    "publish":"/components/communitypost/index",
+    "weekDetail":"/components/weekDetail/index",
+    "articleList":"/components/articleLists/index"
+  },
+  "navigationBarTitleText": "资讯"
 }

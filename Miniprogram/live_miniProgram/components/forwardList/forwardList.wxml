@@ -1,0 +1,19 @@
+<!-- components/commentList/forwardList.wxml -->
+<view class="" hover-class="none" hover-stop-propagation="false">
+  <block wx:for="{{forwardList}}" wx:key="index" >
+    <view class="commentListItem" catch:tap="toForward">
+      <!-- 用户头像 -->
+      <view class="cli_left_wrapper">
+        <image class="cli_headPic" src="{{item.headIcon}}" mode="aspectFill"></image>
+      </view>
+      <view class="cli_right_wrapper">
+        <!-- 用户姓名 -->
+        <view class="cli_name">{{item.name}}</view>
+        <!--转发内容 -->
+        <text class="cli_content">{{item.commentContent}}</text>
+        <!-- 日期 -->
+        <view class="cli_date">{{item.date}}</view>
+      </view>
+    </view>
+  </block>
+</view>

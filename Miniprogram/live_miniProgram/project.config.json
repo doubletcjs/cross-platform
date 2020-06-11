@@ -21,7 +21,9 @@
 			"ignore": [],
 			"disablePlugins": [],
 			"outputPath": ""
-		}
+		},
+		"useCompilerModule": true,
+		"userConfirmedUseCompilerModuleSwitch": false
 	},
 	"compileType": "miniprogram",
 	"libVersion": "2.11.0",
@@ -128,16 +130,87 @@
 					"scene": null
 				},
 				{
-					"id": -1,
+					"id": 10,
 					"name": "橫批直播",
 					"pathName": "pages/landscapeLive/index",
 					"query": "",
 					"scene": null
 				},
 				{
-					"id": -1,
+					"id": 11,
 					"name": "写文章",
-					"pathName": "pages/writeArticle/index",
+					"pathName": "pages/main/community/writeArticle/index",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "资讯首页",
+					"pathName": "pages/main/community/index",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "私聊",
+					"pathName": "pages/main/community/messagecenter/privateChat/index",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": 14,
+					"name": "长文查看",
+					"pathName": "pages/main/community/longArticleDetails/index",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": 15,
+					"name": "长文缩略",
+					"pathName": "pages/main/community/lookArticle/thumbnail/index",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "查看打赏情况",
+					"pathName": "pages/main/community/lookGiveAuthor/index",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "转发页面",
+					"pathName": "pages/main/community/longArticleDetails/transmitArticle/index",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "快讯详情与评论",
+					"pathName": "pages/main/community/newsDetail/index",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": 19,
+					"name": "评论详情",
+					"pathName": "pages/main/community/commentDetail/index",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "草稿箱",
+					"pathName": "pages/main/community/drafts/index",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "个人主页",
+					"pathName": "pages/personal/homepage/index",
+					"query": "",
 					"scene": null
 				}
 			]

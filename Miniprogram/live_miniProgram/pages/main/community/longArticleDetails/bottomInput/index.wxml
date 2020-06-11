@@ -1,0 +1,23 @@
+ <!-- 底部输入框view -->
+    <view class="bottomInput">
+        <view class="input" bind:tap="openInput">
+            说点什么
+        </view>
+       <view class="nofocus">
+            <view class="item" bind:tap="give">
+                <image class="" src="/icons/icon_news_share3@2x.png" mode="widthFix"></image>
+            </view>
+            <view class="item" bind:tap="transmit">
+                <image class="" src="/icons/icon_chat_share.png" mode="widthFix"></image>
+            </view>
+            <view class="item" bind:tap="share">
+                <image class="" src="/icons/icon_chat_more@2x.png" mode="widthFix"></image>
+            </view>
+       </view>
+    </view>
+    
+    <!-- focusInput -->
+    <focusInput visible="{{visible}}" bind:close="closeInput" bind:sendMsgSuccess="sendMsgSuccess" />
+    
+<!-- 分享 -->
+<share visible="{{visibleShare}}" bind:close="closeShare" />

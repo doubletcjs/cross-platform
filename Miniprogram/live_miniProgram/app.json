@@ -16,7 +16,29 @@
     "pages/IPFSFilecoinDetail/index",
     "pages/landscapeLive/index",
     "pages/liveRoom/liveEnd/index",
-    "pages/writeArticle/index"
+    "pages/main/community/writeArticle/index",
+    "pages/main/community/postcomment/index",
+    "pages/main/community/topicmanage/index",
+    "pages/main/community/messagecenter/index",
+    "pages/main/community/messagecenter/privateChat/index",
+    "pages/main/community/messagecenter/system/index",
+    "pages/main/community/searchcenter/index",
+    "pages/main/community/searchcenter/result/index",
+    "pages/main/community/lookArticle/thumbnail/index",
+    "pages/main/community/lookArticle/detail/index",
+    "pages/main/community/longArticleDetails/index",
+    "pages/main/community/messagecenter/reply/index",
+    "pages/main/community/longArticleDetails/transmitArticle/index",
+    "pages/main/community/lookGiveAuthor/index",
+    "pages/main/community/commentDetail/index",
+    "pages/main/community/complaints/index",
+    "pages/main/community/newsDetail/index",
+    "pages/personal/fanattention/index",
+    "pages/personal/index",
+    "pages/personal/record/index",
+    "pages/personal/homepage/index",
+    "pages/main/community/drafts/index",
+    "pages/landspaceBroadcast/index"
   ],
   "window": {
     "backgroundTextStyle": "light",
@@ -30,7 +52,8 @@
     "backgroundColor": "#000000",
     "position": "bottom",
     "borderStyle": "black",
-    "list": [{
+    "list": [
+      {
         "pagePath": "pages/main/home/index",
         "text": "首页",
         "iconPath": "icons/icon_bar_home.png",

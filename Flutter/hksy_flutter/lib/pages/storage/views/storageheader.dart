@@ -98,7 +98,9 @@ class _StorageHeaderState extends State<StorageHeader> {
                       if (this.widget.isViper == true) {
                         Navigator.of(context).push(
                           MaterialPageRoute(builder: (context) {
-                            return CoinRollout();
+                            return CoinRollout(
+                              isViper: this.widget.isViper,
+                            );
                           }),
                         );
                       } else {

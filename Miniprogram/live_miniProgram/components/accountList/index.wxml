@@ -1,0 +1,15 @@
+<view class="account-cell-content" wx:for="{{accountList}}" wx:key="index" style="{{index < accountList.length-1 ? 'border-bottom: solid 2rpx rgba(255, 255, 255, 0.1);' : ''}}">
+    <image class="account-cell-header" src="{{item['authorImage']}}" mode="aspectFill"></image>
+    <view class="account-cell-info-content">
+        <view class="account-cell-name">{{item['author']}}</view>
+        <view class="account-cell-introduction">{{item['introduction']}}</view>
+        <view class="account-cell-fan">粉丝:{{item['fans']}}</view>
+    </view>
+    <view class="account-cell-attention" wx:if="{{item['attention'] == false}}" data-index="{{index}}" bind:tap="attention">
+        <view class="account-cell-attention-add">+</view>
+        <view class="account-cell-attention-text">关注</view>
+    </view>
+    <view class="account-cell-didattention" data-index="{{index}}" bind:tap="attention" wx:else>
+        <view class="account-cell-didattention-text">已关注</view>
+    </view>
+</view>

@@ -1,0 +1,14 @@
+<view class="article">
+    <view class="imgbox">
+        <image class="" src="{{article.src}}"></image>
+    </view>
+    <view class="title_content">
+        <view class="title">
+            {{article.title}}
+        </view>
+        <view class="content">
+            {{article.content}}
+        </view>
+    </view>
+</view>
+

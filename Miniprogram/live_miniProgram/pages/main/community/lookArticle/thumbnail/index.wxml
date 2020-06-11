@@ -1,0 +1,34 @@
+<!-- pages/main/community/lookArticle/thumbnail/index.wxml -->
+<view class="community" hover-class="none" hover-stop-propagation="false">
+
+    <articleThumbContent showType="{{showType}}" articleContent="{{articleContent}}" bind:contentAttention="contentAttention"></articleThumbContent>
+
+
+
+    
+    <!-- tab切换 -->
+    <view class="tabList" hover-class="none" hover-stop-propagation="false">
+        <tabList bind:changeTab="changeTabHandle" currentTab="{{currentTab}}" tablists="{{ tabLists }}" color="{{'#151928'}}" attentionShow="{{false}}" />
+    </view>
+    <block wx:if="{{currentTab==0}}">
+        <!-- 评论列表 -->
+        <view>
+            <!-- 分享或者转发  评论  点赞 三个回调事件 -->
+            <commentList commentList="{{commentList}}" bind:share="share" bind:itemComment="itemComment" bind:itemPraise="itemPraise" />
+        </view>
+    </block>
+    <block wx:elif="{{currentTab==1}}">
+        <!-- 转发列表 -->
+        <view>
+            <forwardList forwardList="{{forwardList}}" />
+        </view>
+    </block>
+    <block wx:elif="{{currentTab==2}}">
+        <!-- 点赞列表 -->
+        <view>
+            <praiseList praiseList="{{praiseList}}" />
+        </view>
+    </block>
+</view>
+<!-- input 组件 -->
+<bottomInput/>

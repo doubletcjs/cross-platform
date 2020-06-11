@@ -277,6 +277,8 @@ class _CashRechargeState extends State<CashRecharge> {
                                         maxImages: _maxImages -
                                             (_selectFiles.length - 1),
                                       ).then((mediaFiles) {
+                                        XsProgressHud hud = initHUD(context);
+
                                         List<File> _lastList = _selectFiles;
                                         _lastList.removeLast();
                                         _lastList.addAll(mediaFiles);
@@ -287,8 +289,12 @@ class _CashRechargeState extends State<CashRecharge> {
                                           );
                                         }
 
-                                        setState(() {
-                                          _selectFiles = _lastList;
+                                        Future.delayed(
+                                            Duration(milliseconds: 400), () {
+                                          setState(() {
+                                            _selectFiles = _lastList;
+                                            hideHUD(hud);
+                                          });
                                         });
                                       });
                                     }

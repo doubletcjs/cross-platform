@@ -1,0 +1,54 @@
+.fanattention-cell-content {
+    margin-left: 30rpx;
+    height: 160rpx;
+
+    border-bottom: solid 2rpx rgba(241, 241, 241, 0.1);
+
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    align-content: center;
+
+}
+
+.fanattention-cell-header {
+    width: 100rpx;
+    height: 100rpx;
+
+    border-radius: 50rpx;
+}
+
+.fanattention-cell-arrow {
+    width: 14.22rpx;
+    height: 26.82rpx;
+
+    margin-right: 30rpx;
+}
+
+.fanattention-cell-colum {
+    display: flex;
+    flex-direction: column;
+
+    width: 70%;
+}
+
+.fanattention-cell-name {
+    color: rgba(241, 241, 241, 1);
+    font-size: 32rpx;
+
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.fanattention-cell-introduction {
+    color: rgba(145, 152, 159, 1);
+    font-size: 28rpx;
+
+    margin-top: 10rpx;
+
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}

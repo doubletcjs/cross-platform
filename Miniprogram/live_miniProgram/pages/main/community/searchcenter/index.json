@@ -1,0 +1,7 @@
+{
+  "usingComponents": {
+    "searchInput": "/components/searchInput/index",
+    "resultpage": "./result/index"
+  },
+  "navigationBarTitleText": "搜索"
+}

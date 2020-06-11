@@ -1,3 +1,4 @@
+import 'package:christian_picker_image/christian_picker_image.dart';
 import 'package:flutter/material.dart';
 import 'package:hksy_flutter/function/certification/certificationcenter.dart';
 import 'package:hksy_flutter/function/infosectioncell.dart';
@@ -30,6 +31,11 @@ class _PersonInfoState extends State<PersonInfo> {
                 padding: EdgeInsets.fromLTRB(0, 6, 0, 6),
                 name: "头像",
                 isPortrait: true,
+                tapHandle: () {
+                  ChristianPickerImage.pickImages(
+                    maxImages: 1,
+                  ).then((value) {});
+                },
               ),
               InfoCell(
                 name: "昵称",

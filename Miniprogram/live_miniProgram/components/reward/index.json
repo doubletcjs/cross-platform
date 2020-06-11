@@ -1,0 +1,7 @@
+{
+  "component": true,
+  "usingComponents": {
+    "actionsheet": "/components/popactionsheet/index",
+    "alertview": "/components/livegift/redpacket/payalert/index"
+  }
+}

@@ -1,0 +1,38 @@
+/* components/praiseList/praiseList.wxss */
+image{
+  border: 0;
+  height: auto;
+}
+.commentListItem{
+  height: 114rpx;
+  background-color: #151928;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
+.cli_left_wrapper {
+  padding-left: 30rpx;
+}
+
+.cli_left_wrapper .cli_headPic {
+  width: 72rpx;
+  height: 72rpx;
+  border-radius:50%;
+  
+}
+
+.cli_right_wrapper {
+  width: 100%;
+  margin-left: 38rpx;
+  padding-bottom: 20rpx;
+  border-bottom: #FFFFFF1A solid 2rpx;
+}
+
+.cli_right_wrapper .cli_name {
+  font-size: 28rpx;
+  color: #91989F;
+  padding-right: 30rpx;
+}
+

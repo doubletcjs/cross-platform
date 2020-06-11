@@ -1,0 +1,15 @@
+<view style="width: 100%; height: calc(6vmin / 7.5);"></view>
+<view class="message-cell-content" wx:for="{{dataList}}" wx:key="index" data-index="{{index}}" bind:tap="messageCellTap">
+    <image class="message-cell-icon" src="{{item['icon']}}" mode="widthFix"></image>
+    <view class="message-cell-text-name">
+        <view class="message-cell-name">{{item['name']}}</view>
+        <view class="message-cell-content-row">
+            <view class="message-cell-text">{{item['content']}}</view>
+            <view class="message-cell-subtext">{{item['subcontent']}}</view>
+        </view>
+    </view>
+    <view class="message-cell-count" wx:if="{{item['unreadcount'] > 0 || item['messagetype'] == 3}}" style="{{item['messagetype'] == 3 ? item['unreadcount'] > 0 ? '' : 'padding-left: 0; padding-right: 0;' : ''}}">
+        {{item['messagetype'] == 3 ? item['unreadcount'] > 0 ? item['unreadcount'] : '' : item['unreadcount']}}
+    </view>
+    <image class="message-cell-arrow" src="/icons/right2.png" mode="widthFix" wx:else></image>
+</view>

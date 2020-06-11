@@ -1,0 +1,6 @@
+{
+  "usingComponents": {
+    "actionsheet": "/components/popactionsheet/index"
+  },
+  "navigationBarTitleText": "发评论"
+}

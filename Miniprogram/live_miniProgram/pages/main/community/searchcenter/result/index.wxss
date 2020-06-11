@@ -1,0 +1,18 @@
+.tabList {
+    position: fixed;
+    top: 132rpx;
+    left: 0;
+    right: 0;
+    border-bottom: solid 20rpx rgba(0, 0, 0, 1);
+}
+
+.articleList {
+    margin-top: 248rpx;
+    background-color: #000000;
+    color: rgba(241, 241, 241, 1);
+    font-size: 28rpx;
+}
+
+.accountList {
+    margin-top: 248rpx;
+}

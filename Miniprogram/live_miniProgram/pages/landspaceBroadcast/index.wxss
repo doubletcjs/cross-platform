@@ -1,0 +1,99 @@
+.broadcas-back-account {
+    width: 100%;
+    position: relative;
+}
+
+.broadcas-left-content {
+    display: flex;
+    flex-direction: row;
+    margin-top: calc(28vmin / 7.5);
+}
+
+.broadcas-back {
+    padding: 0 21px 0 15px;
+
+    display: flex;
+    align-items: center;
+    align-content: center;
+}
+
+.broadcas-account-content {
+    background-color: rgba(0, 0, 0, 0.38);
+
+    border-radius: calc(32vmin / 7.5);
+    padding-right: calc(30vmin / 7.5);
+
+    display: flex;
+    flex-direction: row;
+}
+
+.broadcas-account-icon {
+    width: calc(64vmin / 7.5);
+    height: calc(64vmin / 7.5);
+}
+
+.broadcas-account-column {
+    display: flex;
+    flex-direction: column;
+
+    margin-left: calc(12vmin / 7.5);
+}
+
+.broadcas-account-name {
+    font-size: calc(24vmin / 7.5);
+    color: rgba(241, 241, 241, 1);
+}
+
+.broadcas-account-fan {
+    font-size: calc(24vmin / 7.5);
+    color: rgba(241, 241, 241, 1);
+}
+
+.broadcas-items-content {
+    display: flex;
+    flex-direction: row;
+
+    margin-left: calc(30vmin / 7.5);
+}
+
+.broadcas-items-icons {
+    width: calc(64vmin / 7.5);
+    height: calc(64vmin / 7.5);
+    margin-left: calc(30vmin / 7.5);
+}
+
+.broadcas-functions-content {
+    position: absolute;
+    right: 0;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+}
+
+.broadcas-functions-icon {
+    width: calc(64vmin / 7.5);
+    height: calc(64vmin / 7.5);
+
+    margin-right: calc(30vmin / 7.5);
+}
+
+.broadcas-rankinglist-content {
+    position: fixed;
+    bottom: calc(30vmin / 7.5);
+    right: calc(30vmin / 7.5);
+
+    font-size: calc(28vmin / 7.5);
+    color: rgba(241, 241, 241, 1);
+
+    padding-left: calc(30vmin / 7.5);
+    padding-right: calc(30vmin / 7.5);
+    padding-top: calc(12vmin / 7.5);
+    padding-bottom: calc(12vmin / 7.5);
+
+    background-color: rgba(21, 25, 40, 1);
+    border: solid calc(2vmin / 7.5) rgba(145, 152, 159, 0.3);
+    border-radius: calc(8vmin / 7.5);
+}

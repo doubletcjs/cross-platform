@@ -1,0 +1,11 @@
+<!-- tab切换 -->
+<view class="tabList">
+    <tabList bind:changeTab="changeTabhandle" currentTab="{{currentTab}}" tablists="{{ tablists }}" color="{{'#151928'}}" attentionShow="{{false}}" />
+</view>
+<!-- 文章列表 -->
+<view class="articleList" wx:if="{{currentTab == 0}}">
+    <articleList bind:attentionChange="attentionChange" bind:giveNumChange="giveNumChange" articleLists="{{articleLists}}"></articleList>
+</view>
+<view class="accountList" wx:else>
+    <accountList accountList="{{accountList}}" bind:accountAttentionChange="accountAttentionChange"></accountList>
+</view>

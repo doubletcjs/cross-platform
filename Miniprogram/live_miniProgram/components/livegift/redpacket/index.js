@@ -16,13 +16,16 @@ Component({
     //按钮列表
     items: [{
       "people": "20",
-      "coin": "20"
+      "coin": "20",
+      "icon": "/icons/icon_gift_redpacket_20@3x.png"
     }, {
       "people": "50",
-      "coin": "50"
+      "coin": "50",
+      "icon": "/icons/icon_gift_redpacket_50@3x.png"
     }, {
       "people": "20",
-      "coin": "200"
+      "coin": "200",
+      "icon": "/icons/icon_gift_redpacket_200@3x.png"
     }, ],
     currentIndex: 0
   },

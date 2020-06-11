@@ -1,0 +1,80 @@
+/* @import './editor.wxss'; */
+
+image{
+    height: auto;
+}
+
+.longDetails{
+    padding-bottom: 340rpx;
+}
+/* 打赏 */
+.give{
+    position: fixed;
+    bottom: 122rpx;
+    left: 30rpx;
+    width: 690rpx;
+    border-radius: 16rpx;
+    -webkit-border-radius: 16rpx;
+    -moz-border-radius: 16rpx;
+    -ms-border-radius: 16rpx;
+    -o-border-radius: 16rpx;
+    background-color: #1C2334;
+    min-height: 202rpx;
+    font-size: 28rpx;
+    display: flex;
+    padding: 24rpx 0 0 30rpx;
+}
+.logo{
+    width:72rpx;
+    height: 72rpx;
+}
+.hky{
+    padding-left: 32rpx;
+    position: relative;
+    flex: 1;
+    color: #fff;
+}
+.giveAuthor{
+    width:176rpx;
+    height:60rpx;
+    background:rgba(255,52,101,1);
+    border-radius:8rpx;
+    -webkit-border-radius:8rpx;
+    -moz-border-radius:8rpx;
+    -ms-border-radius:8rpx;
+    -o-border-radius:8rpx;
+    position: absolute;
+    top: 10rpx;
+    right: 30rpx;
+    z-index: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #F1F1F1;
+}
+.hky_top{
+    font-size: 32rpx;
+    line-height: 44rpx;
+}
+.hky_center{
+    font-size: 22rpx;
+    line-height: 32rpx;
+    color: #91989F;
+}
+.hky_bottom{
+    font-size: 32rpx;
+    line-height: 40rpx;
+    display: flex;
+    align-items: center;
+}
+.rightbox{
+    display: flex;
+    align-items: center;
+}
+.hky_bottom .imgbox{
+    width: 16rpx;
+    margin-left: 10rpx;
+}
+text,image{
+    vertical-align: middle;
+}

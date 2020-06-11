@@ -1,0 +1,8 @@
+{
+  "usingComponents": {
+    "tabList": "/components/tabList/tabList",
+    "articleList": "/components/articleLists/index",
+    "accountList": "/components/accountList/index"
+  },
+  "navigationBarTitleText": "搜索"
+}

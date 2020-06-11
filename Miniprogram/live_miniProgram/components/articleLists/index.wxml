@@ -1,0 +1,221 @@
+<view class="itemwrap" hover-class="none" hover-stop-propagation="false">
+    <block wx:for="{{articleLists}}" wx:key="index">
+        <!-- 转发的内容 ( 分评论 话题  文章 ) -->
+        <view wx:if="{{item.isTransmit}}" class="item" hover-class="none" hover-stop-propagation="false" data-id="{{item.author}}">
+            <!-- 点赞动画显示的git 图片 -->
+            <view class="animateGif" wx:if="{{showAnimate[index]}}">
+                <image class="" src="/icons/give.gif" mode="widthFix" lazy-load="true"></image>
+            </view>
+            <!-- 作者信息 -->
+            <view class="author">
+                <view class="authorphoto">
+                    <view class="img">
+                        <image class="" src="/icons/person.png" mode="widthFix"></image>
+                    </view>
+                    <view class="authorname">
+                        <view class="">{{item.author}}</view>
+                        <view class="time">{{item.time}}</view>
+                    </view>
+                </view>
+                <!-- 显示阅阅读量按钮 isShowAttention -->
+                <view class="isShowAttention" wx:if="{{isShowAttention}}">
+                    <view class="number">
+                        12万
+                    </view>
+                    <view class="numbertext">
+                        已阅读
+                    </view>
+                </view>
+                <!-- isAttention -->
+                <view class="" wx:if="{{isAttention}}">
+                    <view  class="attention cur" wx:if="{{item.attention}}" data-index="{{index}}" catch:tap="attention">
+                        已关注
+                    </view>
+                    <view   class="attention" wx:else data-index="{{index}}" catch:tap="attention">
+                        +关注
+                    </view>
+                </view>
+            </view>
+            <view catchtap="toThumbArticle">
+                <!-- 评论的内容-->
+                <view class="comment">{{item.comment}}</view>
+                <!-- 转发的内容 ( 文章 评论 话题 ) -->
+                <view class="isTransmit" hover-class="none" hover-stop-propagation="false">
+                    <!-- 文章item标题 -->
+                    <view class="articleTiltle {{ item.type==1 ? 'cur':'' }}">{{item.articleTiltle}}</view>
+                    <!-- 文章item内容  -->
+                    <view class="articleContents {{item.type == '1' ? 'articleContentsCur':''}}">
+                        <text class="transmitText">{{item.transmit}}: </text> <text class="">{{item.articleContents}}</text>
+                    </view>
+                    <!-- 文章item内容图片 (只有一张图的时候图片显示宽一倍) -->
+                    <view class="imgs {{item.imgs.length < 2 ? 'cur':''}}">
+                        <block wx:for="{{item.imgs}}" wx:key="index">
+                            <view class="imgBox " style="margin-right:{{(index+1)%3==0 ? '0rpx':'30rpx'}}">
+                                <image class="" src="{{item}}" mode="widthFix" lazy-load="true"></image>
+                            </view>
+                        </block>
+                    </view>
+                    <!-- 话题 -->
+                    <view class="topic" style="color:#1760FF">{{item.topic}}</view>
+                </view>
+            </view>
+            <!-- 底部操作界面 -->
+            <view class="operation">
+            <!-- 转发 -->
+                <view class="operation-item" catch:tap="transmit">
+                    <view class="operation-item-img">
+                        <image class="" src="/icons/icon_chat_share@3x.png" style="width:44rpx" mode="widthFix" lazy-load="false"></image>
+                    </view>
+                    <text class="" space="false">{{item.transmitNum}}</text>
+                </view>
+                <view class="operation-item" style="margin-left:72rpx" catch:tap="comment">
+                    <view class="operation-item-img">
+                        <image class="" src="/icons/icon_news_share.png" style="width:44rpx" mode="widthFix" lazy-load="false"></image>
+                    </view>
+                    <text class="">{{item.commentNum}}</text>
+                </view>
+                <!-- 点赞 -->
+                <view class="operation-item" style="margin-left:104rpx" data-index="{{index}}" catch:tap="give">
+                    <view class="operation-item-img imgGif" wx:if="{{showAnimate[index]}}">
+                        <!-- icon_news_share2@2x -->
+                        <image class="one" src="/icons/icon_news_share3@2x.png" style="width:44rpx" mode="widthFix" lazy-load="false"></image>
+                    </view>
+                    <view class="operation-item-img imgGif" wx:else>
+                        <!-- icon_news_share2@2x -->
+                        <image class="two" src="/icons/icon_news_share2@2x.png" style="width:44rpx" mode="widthFix" lazy-load="false"></image>
+                    </view>
+                    <text class="">{{item.giveNum}}</text>
+                </view>
+                <view class="operation-item last" catch:tap="share">
+                    <view class="operation-item-img">
+                        <image class="" src="/icons/icon_news_more@2x.png" style="width:44rpx" mode="widthFix" lazy-load="false"></image>
+                    </view>
+                </view>
+            </view>
+        </view>
+        
+        <!-- 不是转发的 -->
+        <view wx:else class="item" hover-class="none" hover-stop-propagation="false" data-id="{{item.author}}">
+             <!-- 点赞动画显示的git 图片 -->
+            <view class="animateGif" wx:if="{{showAnimate[index]}}">
+                <image class="" src="/icons/give.gif" mode="widthFix" lazy-load="true"></image>
+            </view>
+            <!-- 作者信息 -->
+            <view class="author">
+                <view class="authorphoto">
+                    <view class="img">
+                        <image class="" src="/icons/person.png" mode="widthFix"></image>
+                    </view>
+                    <view class="authorname">
+                        <view class="">{{item.author}}</view>
+                        <view class="time">{{item.time}}</view>
+                    </view>
+                </view>
+                 <!-- 显示阅阅读量按钮 isShowAttention -->
+                <view class="isShowAttention" wx:if="{{isShowAttention}}">
+                    <view  class="number">
+                        12万
+                    </view>
+                    <view  class="numbertext">
+                        已阅读
+                    </view>
+                </view>
+                <!-- isAttention -->
+                <view class="" wx:if="{{isAttention}}">
+                    <view  class="attention cur" wx:if="{{item.attention}}" data-index="{{index}}" catch:tap="attention">
+                        已关注
+                    </view>
+                    <view   class="attention" wx:else data-index="{{index}}" catch:tap="attention">
+                        +关注
+                    </view>
+                </view>
+            </view>
+            <!-- 转发的内容 文章 评论 话题 -->
+            <view catchtap="toThumbArticle">
+                <!-- 文章item界面 -->
+                <view class="comment">{{item.comment}}</view>
+                <!-- 文章item标题 -->
+                <view class="articleTiltle {{ item.type==1 ? 'cur':'' }}">{{item.articleTiltle}}</view>
+                <!-- 文章item内容  -->
+                <view class="articleContents {{item.type == '1' ? 'articleContentsCur':''}}">
+                    {{item.articleContents}}
+                </view>
+                <!-- 转发的内容 ( 分评论 话题  文章 ) -->
+                <view class="transmitContent">
+                    
+                </view>
+                <!-- 文章item内容图片 -->
+                <view class="imgs {{item.imgs.length < 2 ? 'cur':''}}">
+                    <block wx:for="{{item.imgs}}" wx:key="index">
+                        <view class="imgBox " style="margin-right:{{(index+1)%3==0 ? '0rpx':'30rpx'}}">
+                            <image class="" src="{{item}}" mode="widthFix" lazy-load="true"></image>
+                        </view>
+                    </block>
+                </view>
+                <!-- 话题 -->
+                <view class="topic" style="color:#1760FF">{{item.topic}}</view>
+
+            </view>
+            <!-- 底部操作界面 -->
+            <view class="operation">
+                <view class="operation-item" catch:tap="transmit">
+                    <view class="operation-item-img">
+                        <image class="" src="/icons/icon_chat_share@3x.png" style="width:44rpx" mode="widthFix" lazy-load="false"></image>
+                    </view>
+                    <text class="" space="false">{{item.transmitNum}}</text>
+                </view>
+                <view class="operation-item" style="margin-left:72rpx" catch:tap="comment">
+                    <view class="operation-item-img">
+                        <image class="" src="/icons/icon_news_share.png" style="width:44rpx" mode="widthFix" lazy-load="false"></image>
+                    </view>
+                    <text class="">{{item.commentNum}}</text>
+                </view>
+                <view class="operation-item" style="margin-left:104rpx" data-index="{{index}}" catch:tap="give">
+                    <view class="operation-item-img imgGif" wx:if="{{showAnimate[index]}}">
+                        <!-- icon_news_share2@2x -->
+                        <image class="one" src="/icons/icon_news_share3@2x.png" style="width:44rpx" mode="widthFix" lazy-load="false"></image>
+                    </view>
+                    <view class="operation-item-img imgGif" wx:else>
+                        <!-- icon_news_share2@2x -->
+                        <image class="two" src="/icons/icon_news_share2@2x.png" style="width:44rpx" mode="widthFix" lazy-load="false"></image>
+                    </view>
+                    <text class="">{{item.giveNum}}</text>
+                </view>
+                <view class="operation-item last" catch:tap="share">
+                    <view class="operation-item-img">
+                        <image class="" src="/icons/icon_news_more@2x.png" style="width:44rpx" mode="widthFix" lazy-load="false"></image>
+                    </view>
+                </view>
+            </view>
+        </view>
+
+    </block>
+</view>
+<!-- 分享 -->
+<share visible="{{visible}}" bind:close="shareclose" />
+
+
+
+<!-- articleLists 数据类型 有 1、 （长文章 （分转发 与 不转发） ）  2、话题 （转发与不转发）  3、评论 （转发与不转发） -->
+
+
+<!-- 文章不转发 数据字段有 （ 作者头像 作者名称 文章标题 创建时间 文章内容 内容图片 ） -->
+<!-- 转发的文章 数据字段有 （ 转发的作者头像 作者名称 文章标题 转发时间 转发哪个人的（名称） 文章内容 内容图片 ） -->
+<!-- 话题不转发  数据字段  （  作者头像 作者名称 创建时间 话题内容  话题标题 ） -->
+<!-- 转发的话题  数据字段  （  作者头像 作者名称 转发时间  转发哪个人的话题  转发的话题内容 ） -->
+
+<!-- 评论不转发  数据字段  （  作者头像 作者名称  转发时间  评论的内容 评论的内容图片  ） -->
+<!-- 评论不转发  数据字段  （  作者头像 作者名称  评论时间  评论的内容、评论图片   ） -->
+
+
+<!-- 列表页面中关注按钮与阅读量按钮显示情况  无关注的情况 1、 （ 列表页在没有关注的情况下 列表页 和详情页都只会显示关注按钮  ） 关注的情况下 2 、 列表页显示已关注按钮 详情页显示 阅读量按钮    -->
+
+
+
+
+
+
+
+
+
+

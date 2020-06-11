@@ -1,0 +1,100 @@
+.account-content {
+    margin-top: 126rpx;
+}
+
+.account-cell-content {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    align-content: center;
+
+    padding-left: 30rpx;
+    padding-right: 30rpx;
+    padding-top: 40rpx;
+    padding-bottom: 36rpx;
+}
+
+.account-cell-header {
+    width: 90rpx;
+    height: 90rpx;
+    border-radius: 45rpx;
+}
+
+.account-cell-attention {
+    background-color: rgba(23, 96, 255, 1);
+    border-radius: 8rpx;
+
+    padding-left: 24rpx;
+    padding-right: 30rpx;
+    padding-top: 10rpx;
+    padding-bottom: 10rpx;
+
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    align-content: center;
+}
+
+.account-cell-attention-add {
+    font-size: 28rpx;
+    color: rgba(241, 241, 241, 1);
+    margin-right: 12rpx;
+    margin-bottom: 4rpx;
+}
+
+.account-cell-attention-text {
+    font-size: 28rpx;
+    color: rgba(241, 241, 241, 1);
+}
+
+.account-cell-didattention {
+    background-color: rgba(145, 152, 159, 0.1);
+    border-radius: 8rpx;
+
+    padding-left: 24rpx;
+    padding-right: 30rpx;
+    padding-top: 10rpx;
+    padding-bottom: 10rpx;
+
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    align-content: center;
+}
+
+.account-cell-didattention-text {
+    font-size: 28rpx;
+    color: rgba(86, 93, 109, 1);
+}
+
+.account-cell-info-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 60%;
+}
+
+.account-cell-name {
+    font-size: 32rpx;
+    color: rgba(241, 241, 241, 1);
+}
+
+.account-cell-introduction {
+    font-size: 22rpx;
+    color: rgba(145, 152, 159, 1);
+    margin-top: 8rpx;
+
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+    white-space: normal !important;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.account-cell-fan {
+    font-size: 22rpx;
+    color: rgba(145, 152, 159, 1);
+    margin-top: 8rpx;
+}

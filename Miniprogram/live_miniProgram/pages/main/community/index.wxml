@@ -1,0 +1,50 @@
+<view class="community">
+    <view class="search">
+        <!-- <searchInput bind:search="search"  inputValue="{{inputValue}}" /> -->
+        <view class="inputValue" bind:tap="goSearch">
+            <view class="imgbox">
+                <image class="" src="/icons/icon_search@3x.png" mode="widthFix" lazy-load="false"></image>
+            </view>
+            搜索标题作者
+        </view>
+        <view class="add" bind:tap="my">
+            <image class="" src="/icons/icon_bar_me.png" mode="widthFix"></image>
+        </view>
+    </view>
+    <!-- tab切换 -->
+    <view class="tabList" hover-class="none" hover-stop-propagation="false">
+       <tabList bind:changeTab="changeTabhandle"  currentTab="{{currentTab}}" tablists="{{ tablists }}" color="{{'#151928'}}" attentionShow="{{false}}" />
+       <!-- 进入消息列表 -->
+       <view class="lookMsg" bind:tap="lookMsg">
+           <image class="" src="/icons/icon-news-massage@2x.png" mode="widthFix" lazy-load="false"></image>
+           <view class="hot">
+               {{news > 10 ? '...' : news}}
+           </view>
+       </view>
+    </view>
+    <!-- 文章列表 -->
+    <view class="articleList">
+        <view class="" wx:if="{{currentTab == 0 || currentTab==1}}">
+            <articleList bind:attentionChange="attentionChange" bind:giveNumChange="giveNumChange" articleLists="{{articleLists}}" />
+        </view>
+        <view class="" wx:elif="{{currentTab == 2}}">
+            <weekDetail lists="{{lists}}" />
+        </view>
+         <view class="" wx:elif="{{currentTab == 3}}">
+            <articleList bind:attentionChange="attentionChange" bind:giveNumChange="giveNumChange" articleLists="{{articleLists2}}" />
+        </view>
+    </view>
+</view>
+
+<!-- 添加发布 -->
+<view class="addPublish" bindtouchmove="touchMoveChange" bind:tap="add" style="left:{{feed_style.x}};top:{{feed_style.y}};">
+    <view class="line">
+        <view class="line2"></view>
+    </view>
+</view>
+
+
+<!-- 发布组件 -->
+<publish visible="{{publishvisible}}" bind:close="publishclose" />  
+
+

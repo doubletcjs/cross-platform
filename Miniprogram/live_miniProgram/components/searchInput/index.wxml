@@ -1,0 +1,6 @@
+<view class="search" style="width:{{width}}rpx">
+    <view class="icon_search" catch:tap="search">
+        <image class="" src="/icons/icon_search@3x.png" mode="widthFix"></image>
+    </view>
+    <input type="text" class="{{focus ? 'focus':''}}" auto-focus="{{focus}}" value="{{inputValue}}" bindinput="bindinput" bindblur="bindblur" bindfocus="bindfocus" placeholder="{{placeholder}}" bindconfirm="search" placeholder-class="input-placeholder" />
+</view>

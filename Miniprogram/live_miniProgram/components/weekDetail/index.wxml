@@ -1,0 +1,44 @@
+<view class="wrap" style="background:#151928;">
+    <view class="time">
+        2020年07月25日·星期三
+        <view class="line"></view>
+    </view>
+    <block wx:for="{{lists}}" wx:key="index">
+        <view class="list {{ item.cur ? 'cur':''}}">
+            <view class="list_time">
+                {{item.time}}
+            </view>
+            <view class="list_content">
+               {{item.content}}
+            </view>
+            <view class="operation">
+                <view class="operation_item" bind:tap="share">
+                    <view class="operation_item_img">
+                        <image class="" src="/icons/icon_news_share@2x.png" mode="widthFix"></image>
+                    </view>
+                    <view class="" wx:if="{{item.shareNumber > 0}}"  style="margin-left:4rpx">
+                        {{item.shareNumber}}
+                    </view>
+                    <view class="" wx:else style="margin-left:4rpx">
+                        分享
+                    </view>
+                </view>
+                <view class="operation_item" style="margin-left:30rpx;"  bind:tap="remark">
+                    <view class="operation_item_img">
+                        <image class="" src="/icons/icon_chat_more@2x.png" mode="widthFix"></image>
+                    </view>
+                    <view class="" wx:if="{{item.remarkNumber > 0}}"  style="margin-left:4rpx">
+                        {{item.remarkNumber}}
+                    </view>
+                    <view class="" wx:else  style="margin-left:4rpx">
+                        评论
+                    </view>
+                </view>
+            </view>
+            <view class="line"></view>
+        </view>
+    </block>
+</view>
+
+<!-- 分享 -->
+<share visible="{{sharevisible}}" qrcodeSharePage="{{true}}"  bind:close="shaoclose" />

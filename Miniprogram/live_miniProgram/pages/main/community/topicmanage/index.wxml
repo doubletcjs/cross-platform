@@ -1,0 +1,15 @@
+<view class="topic-input-content">
+    <view class="topic-input-back-content">
+        <view class="topic-input-back-left-content">
+            <view class="topic-input-symbol">#</view>
+            <input type="text" class="topic-input" placeholder-class="topic-input-placeholder" placeholder="请输入话题" maxlength="6" value="{{inputContent}}" bindinput="contentInputChagne"></input>
+        </view>
+        <view class="topic-input-confirm" bind:tap="confirmTopic">确认</view>
+    </view>
+    <view class="topic-hot-title">热门话题</view>
+</view>
+<view class="topic-content-mask">
+    <view class="topic-content-cover" wx:for="{{hotTopicList}}" wx:key="index" data-index="{{index}}" bind:tap="hotTopicSelect">
+        <view class="topic-content-text">{{item}}</view>
+    </view>
+</view>

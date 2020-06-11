@@ -1,0 +1,6 @@
+{
+  "usingComponents": {
+    "articleList": "/components/articleLists/index"
+  },
+  "navigationBarTitleText": ""
+}

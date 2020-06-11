@@ -1,0 +1,49 @@
+<view class="longDetails">
+    <view class="article">
+         <rich-text class='content' nodes="{{list}}"></rich-text>
+    </view>
+
+    <!-- 打赏view -->
+    <view class="give">
+    +
+        <view class="logo">
+            <image class="" src="/icons/logo@2x.png" mode="widthFix"></image>
+        </view>
+         <view class="hky">
+            <view class="hky_top">
+                华科闪云
+            </view>
+            <view class="hky_center">
+                为你喜欢的创作者加油
+            </view>
+            <view class="hky_bottom" style="margin-top:10rpx;" bind:tap="lookGiveAuthor">
+                <view class="" style="color:#91989F;margin-right:20rpx">用户蒋国宇等</view>
+                <view class="rightbox">
+                    <view class="">
+                        26人打赏
+                    </view>
+                   <view class="imgbox" hover-class="none" hover-stop-propagation="false">
+                        <image class="" src="/icons/IconsTintColorBlack@2x.png" mode="widthFix" style="margin-top:-2px"></image>
+                   </view>
+                </view>
+                </view>
+            <view class="giveAuthor" bind:tap="giveAuthor">
+                打赏作者
+            </view>
+        </view>
+    </view>
+    
+</view> 
+
+<!-- input 组件 -->
+<bottomInput  visible="{{visible}}"   />
+
+<!-- 打赏金币 -->
+<alertview visible="{{rewardvisible}}" balance="{{totalGold}}" bind:close="closeClick" bind:confirm="alertConfirm"></alertview>
+
+<!-- 显示打赏金币 向华科闪云打赏 -->
+<payalert visible="{{payalertvisible}}" inputValue="{{isInput}}" logo="{{'/icons/logo@2x.png'}}" title="向华科闪云打赏" subcontent="{{ '当前余额剩余：'+totalGold+ '金币' }}" content="{{goldNumber + '金币'}}" bind:close="closeClick" bind:confirm="payalertConfirm"/>
+
+
+
+

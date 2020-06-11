@@ -1,6 +1,6 @@
 <view class="i-modal-mask {{ visible ? 'i-modal-mask-show' : '' }}" catch:tap="outClick">
     <view class="contentView" catch:tap="emptyAction">
-        <view class="contentTitleSuper">
+        <view class="contentTitleSuper" wx:if="{{titleString.length > 0}}">
             <view class="contentTitle" style="color: {{titleColorString}};">{{titleString}}</view>
         </view>
         <view class="contentItem" wx:for="{{items}}" wx:key="index" data-index="{{index}}" catch:tap="listItemAction">

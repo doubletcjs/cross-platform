@@ -1,0 +1,8 @@
+<view class="fanattention-cell-content" wx:for="{{dataList}}" wx:key="index">
+    <image class="fanattention-cell-header" src="/icons/person.png" mode="aspectFill"></image>
+    <view class="fanattention-cell-colum">
+        <view class="fanattention-cell-name">{{item['name']}}</view>
+        <view class="fanattention-cell-introduction">{{item['introduction']}}</view>
+    </view>
+    <image class="fanattention-cell-arrow" src="/icons/ico_profile_cell_arrow@3x.png" mode="aspectFit"></image>
+</view>

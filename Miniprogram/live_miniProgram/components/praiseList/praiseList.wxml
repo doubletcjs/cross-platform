@@ -1,0 +1,15 @@
+<!-- components/praiseList/praiseList.wxml -->
+<view class="" hover-class="none" hover-stop-propagation="false">
+  <block wx:for="{{praiseList}}" wx:key="index">
+    <view class="commentListItem">
+      <!-- 用户头像 -->
+      <view class="cli_left_wrapper">
+        <image class="cli_headPic" src="{{item.headIcon}}" mode="aspectFill"></image>
+      </view>
+      <view class="cli_right_wrapper">
+        <!-- 用户姓名 -->
+        <view class="cli_name">{{item.name}}</view>
+      </view>
+    </view>
+  </block>
+</view>
