@@ -50,7 +50,7 @@ class _PersonInfoState extends State<PersonInfo> {
                 },
               ),
               InfoCell(
-                name: "实名认证",
+                name: "账号",
                 showLine: false,
                 showArrow: false,
                 value: "151*****3552",
