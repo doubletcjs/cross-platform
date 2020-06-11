@@ -196,6 +196,9 @@ class _CoinRolloutState extends State<CoinRollout> {
                     fontSize: 15,
                   ),
                 ),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(7.5),
+                ),
               ),
             ),
           ],

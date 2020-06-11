@@ -221,6 +221,9 @@ class _CashWithdrawalState extends State<CashWithdrawal> {
                     fontSize: 15,
                   ),
                 ),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(7.5),
+                ),
               ),
             ),
           ],

@@ -25,7 +25,8 @@ class _CalculateMainState extends State<CalculateMain> {
         color: Colors.white,
       ),
       body: ListView(
-        padding: EdgeInsets.fromLTRB(12, 0, 12, 0),
+        padding: EdgeInsets.fromLTRB(
+            12, 0, 12, 13.5 + MediaQuery.of(context).padding.bottom),
         children: <Widget>[
           CalculateHeader(),
           CalculateCycle(),

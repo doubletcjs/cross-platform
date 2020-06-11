@@ -2,6 +2,7 @@ import 'package:christian_picker_image/christian_picker_image.dart';
 import 'package:flutter/material.dart';
 import 'package:hksy_flutter/function/certification/certificationcenter.dart';
 import 'package:hksy_flutter/function/infosectioncell.dart';
+import 'package:hksy_flutter/pages/personal/editnickname.dart';
 import 'package:hksy_flutter/public/public.dart';
 
 class PersonInfo extends StatefulWidget {
@@ -40,6 +41,13 @@ class _PersonInfoState extends State<PersonInfo> {
               InfoCell(
                 name: "昵称",
                 value: "ID12347865",
+                tapHandle: () {
+                  Navigator.of(context).push(
+                    MaterialPageRoute(builder: (context) {
+                      return EditNickName();
+                    }),
+                  );
+                },
               ),
               InfoCell(
                 name: "实名认证",

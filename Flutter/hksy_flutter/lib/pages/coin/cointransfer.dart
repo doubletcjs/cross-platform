@@ -317,6 +317,9 @@ class _CoinTransferState extends State<CoinTransfer> {
                     fontSize: 15,
                   ),
                 ),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(7.5),
+                ),
               ),
             ),
           ],
