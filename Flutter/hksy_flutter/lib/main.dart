@@ -9,7 +9,6 @@ import 'package:hksy_flutter/pages/store/storepage.dart';
 import 'package:hksy_flutter/public/public.dart';
 import 'package:dart_notification_center/dart_notification_center.dart';
 import 'package:package_info/package_info.dart';
-import 'package:platform_info/platform_info.dart';
 
 void main() => runApp(MyApp());
 
