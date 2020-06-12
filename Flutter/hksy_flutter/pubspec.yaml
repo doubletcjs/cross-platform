@@ -35,6 +35,7 @@ dependencies:
   qr_flutter: any  
   christian_picker_image: any
   image_gallery_saver: any
+  package_info: any 
 
 dev_dependencies:
   flutter_test:

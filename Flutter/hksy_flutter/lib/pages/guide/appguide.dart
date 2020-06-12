@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
 import 'package:hksy_flutter/function/account/loginregister.dart';
 import 'package:hksy_flutter/public/public.dart';
+import 'package:package_info/package_info.dart';
 
 class AppGuidePage extends StatefulWidget {
   AppGuidePage({Key key}) : super(key: key);
@@ -18,16 +19,27 @@ class _AppGuidePageState extends State<AppGuidePage> {
     "images/appguide_2@3x.png",
   ];
 
+  void _recordVersion() {
+    PackageInfo.fromPlatform().then((info) {
+      //当前版本
+      String currentVersion = info.version;
+      recordAppVersion(currentVersion);
+    });
+  }
+
   void _goLoginRegister() {
     Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(
       builder: (context) {
         return LoginRegisterPage();
       },
     ), (route) => route == null);
+
+    this._recordVersion();
   }
 
   void _goMainPage() {
     DartNotificationCenter.post(channel: kRefreshAccountNotification);
+    this._recordVersion();
   }
 
   @override
@@ -56,11 +68,13 @@ class _AppGuidePageState extends State<AppGuidePage> {
                           child: index == 2
                               ? FlatButton(
                                   onPressed: () {
-                                    if (isStringEmpty(userID())) {
-                                      this._goLoginRegister();
-                                    } else {
-                                      this._goMainPage();
-                                    }
+                                    userID((id) {
+                                      if (isStringEmpty(id)) {
+                                        this._goLoginRegister();
+                                      } else {
+                                        this._goMainPage();
+                                      }
+                                    });
                                   },
                                   child: Container(
                                     width:
@@ -77,52 +91,6 @@ class _AppGuidePageState extends State<AppGuidePage> {
               },
             ).toList(),
           )
-          // BannerView(
-          //   _list.map(
-          //     (guide) {
-          //       int index = _list.indexOf(guide);
-          //       return Center(
-          //         child: Container(
-          //           color: Colors.green,
-          //           child: Stack(
-          //             children: <Widget>[
-          //               Image.asset(
-          //                 guide,
-          //                 fit: BoxFit.fitWidth,
-          //               ),
-          //               Positioned(
-          //                 right: 0,
-          //                 bottom: 20,
-          //                 child: index == 2
-          //                     ? FlatButton(
-          //                         onPressed: () {
-          //                           if (isStringEmpty(userID())) {
-          //                             this._goLoginRegister();
-          //                           } else {
-          //                             this._goMainPage();
-          //                           }
-          //                         },
-          //                         child: Container(
-          //                           width:
-          //                               MediaQuery.of(context).size.width / 3,
-          //                           height: 90,
-          //                         ),
-          //                       )
-          //                     : Container(),
-          //               ),
-          //             ],
-          //           ),
-          //         ),
-          //       );
-          //     },
-          //   ).toList(),
-          //   autoRolling: false,
-          //   cycleRolling: false,
-          //   log: false,
-          //   indicatorBuilder: (context, _) {
-          //     return Container();
-          //   },
-          // ),
         ],
       ),
     );

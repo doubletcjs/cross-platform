@@ -23,23 +23,43 @@ final RegExp kPhoneRegExp = RegExp(
 final Future<SharedPreferences> _preferencesFuture =
     SharedPreferences.getInstance();
 
-Map _accountInfo = {};
-
 ///userID
-String userID() {
-  final userInfo = _accountInfo;
-  return "${userInfo["userId"] == null ? "" : userInfo["userId"]}";
+void userID(kObjectFunctionBlock complete) {
+  _preferencesFuture.then((preferences) {
+    if (complete != null) {
+      complete(preferences.get("userid"));
+    }
+  }).catchError((error) {
+    kLog("error:$error");
+    if (complete != null) {
+      complete(null);
+    }
+  });
 }
 
-///token
-String token() {
+void recordUserID(userID) {
   _preferencesFuture.then((preferences) {
-    return preferences.get("token");
+    preferences.setString(
+      "userid",
+      userID,
+    );
   }).catchError((error) {
     kLog("error:$error");
   });
+}
 
-  return "";
+///token
+void token(kObjectFunctionBlock complete) {
+  _preferencesFuture.then((preferences) {
+    if (complete != null) {
+      complete(preferences.get("token"));
+    }
+  }).catchError((error) {
+    kLog("error:$error");
+    if (complete != null) {
+      complete(null);
+    }
+  });
 }
 
 void recordToken(token) {
@@ -57,7 +77,6 @@ void recordToken(token) {
 void recordUserInfo(Map info) {
   if (info != null && info.length > 0 && info["userId"] != null) {
     kLog("更新用户信息");
-    _accountInfo = info;
     _preferencesFuture.then((preferences) {
       preferences.setString(
         "account",
@@ -69,26 +88,50 @@ void recordUserInfo(Map info) {
   }
 }
 
-Map fetchUser() {
-  if (_accountInfo == null || _accountInfo.length == 0) {
-    _preferencesFuture.then((preferences) {
-      final mapString = preferences.get("account");
-      if (isStringEmpty(mapString) == false) {
-        Map userInfo = jsonDecode(mapString);
-        _accountInfo = userInfo == null ? {} : userInfo;
-
-        return _accountInfo;
-      } else {
-        return {};
+void fetchUser(kObjectFunctionBlock complete) {
+  _preferencesFuture.then((preferences) {
+    final mapString = preferences.get("account");
+    if (isStringEmpty(mapString) == false) {
+      Map userInfo = jsonDecode(mapString);
+      if (complete != null) {
+        complete(userInfo);
       }
-    }).catchError((error) {
-      kLog("error:$error");
-    });
+    } else {
+      if (complete != null) {
+        complete(null);
+      }
+    }
+  }).catchError((error) {
+    kLog("error:$error");
+    if (complete != null) {
+      complete(null);
+    }
+  });
+}
 
-    return {};
-  } else {
-    return _accountInfo;
-  }
+//应用版本
+void appVersion(kObjectFunctionBlock complete) {
+  _preferencesFuture.then((preferences) {
+    if (complete != null) {
+      complete(preferences.get("appversion"));
+    }
+  }).catchError((error) {
+    kLog("error:$error");
+    if (complete != null) {
+      complete(null);
+    }
+  });
+}
+
+void recordAppVersion(appVersion) {
+  _preferencesFuture.then((preferences) {
+    preferences.setString(
+      "appversion",
+      appVersion,
+    );
+  }).catchError((error) {
+    kLog("error:$error");
+  });
 }
 
 ///hud

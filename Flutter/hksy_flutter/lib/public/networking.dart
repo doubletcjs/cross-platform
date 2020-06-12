@@ -69,9 +69,11 @@ class Networking {
       _reqestHeaders.addAll(headers);
     }
 
-    if (isStringEmpty(token()) == false) {
-      _reqestHeaders["token"] = token();
-    }
+    token((obj) {
+      if (isStringEmpty(obj) == false) {
+        _reqestHeaders["token"] = obj;
+      }
+    });
 
     //options
     Options options = Options(method: "POST");
@@ -137,9 +139,11 @@ class Networking {
       _reqestHeaders.addAll(headers);
     }
 
-    if (isStringEmpty(token()) == false) {
-      _reqestHeaders["token"] = token();
-    }
+    token((obj) {
+      if (isStringEmpty(obj) == false) {
+        _reqestHeaders["token"] = obj;
+      }
+    });
 
     var _dio = Dio();
     Response _reqFuture;
