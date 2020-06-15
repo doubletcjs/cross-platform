@@ -4,4 +4,12 @@ class HomeApi {
   static getAppVersion(finish) {
     Networking.requestBase("getAppVersion", finish);
   }
+
+  static getBanners(finish) {
+    Networking.requestBase("getBanners", finish);
+  }
+
+  static getNotice(finish) {
+    Networking.requestBase("getNotice", finish);
+  }
 }

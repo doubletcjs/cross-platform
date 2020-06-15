@@ -139,62 +139,61 @@ class Networking {
       _reqestHeaders.addAll(headers);
     }
 
-    token((obj) {
-      if (isStringEmpty(obj) == false) {
-        _reqestHeaders["token"] = obj;
-      }
-    });
+    void _handlling() async {
+      var _dio = Dio();
+      Response _reqFuture;
+      Options _options = Options(method: method);
+      _options.headers = _reqestHeaders;
 
-    var _dio = Dio();
-    Response _reqFuture;
-    Options _options = Options(method: method);
-    _options.headers = _reqestHeaders;
+      try {
+        kLog("请求url: " + kServerURL + api);
+        kLog("请求method: " + _options.method);
+        kLog("请求头: " + _options.headers.toString());
 
-    try {
-      kLog("请求url: " + kServerURL + api);
-      kLog("请求method: " + _options.method);
-      kLog("请求头: " + _options.headers.toString());
+        if (params != null) {
+          kLog("请求参数: " + params.toString());
+        }
 
-      if (params != null) {
-        kLog("请求参数: " + params.toString());
-      }
+        if (_options.method == "GET") {
+          _reqFuture = await _dio.get(kServerURL + api,
+              queryParameters: params, options: _options);
+        } else {
+          _reqFuture = await _dio.post(kServerURL + api,
+              queryParameters: params, options: _options);
+        }
 
-      if (_options.method == "GET") {
-        _reqFuture = await _dio.get(kServerURL + api,
-            queryParameters: params, options: _options);
-      } else {
-        _reqFuture = await _dio.post(kServerURL + api,
-            queryParameters: params, options: _options);
-      }
-
-      if (_reqFuture.statusCode == 200) {
-        Map data = _reqFuture.data;
-        if (data != null) {
-          // kLog("原始数据:$data");
-          String code = "${data["code"]}";
-          if (code == kRequestSuccessCode) {
-            if (data["token"] != null &&
-                isStringEmpty(data["token"]) == false) {
-              recordToken(data["token"]);
+        if (_reqFuture.statusCode == 200) {
+          Map data = _reqFuture.data;
+          if (data != null) {
+            // kLog("原始数据:$data");
+            String code = "${data["code"]}";
+            if (isStringEmpty(data["state"]) == false) {
+              code = "${data["state"]}";
             }
 
-            if (data["data"] != null) {
-              if (finish != null) {
-                finish(data["data"], null);
+            if (code == kRequestSuccessCode) {
+              if (data["token"] != null &&
+                  isStringEmpty(data["token"]) == false) {
+                recordToken(data["token"]);
               }
-            } else {
-              if (isStringEmpty(data["msg"]) == false) {
+
+              if (data["data"] != null) {
                 if (finish != null) {
-                  finish(data["msg"], null);
+                  finish(data["data"], null);
                 }
               } else {
-                if (finish != null) {
-                  finish(null, "返回数据格式错误");
+                if (isStringEmpty(data["msg"]) == false) {
+                  if (finish != null) {
+                    finish("${data["msg"]}", null);
+                  }
+                } else {
+                  if (finish != null) {
+                    finish(null, "返回数据格式错误");
+                  }
                 }
               }
             }
-          }
-          /*
+            /*
             else if (code == kForceLogoutCode) {
               if (isStringEmpty(data["msg"]) == false) {
                 if (finish != null) {
@@ -215,16 +214,21 @@ class Networking {
               );
             } 
             */
-          else {
-            kLog("原始数据:$data");
-            if (isStringEmpty(data["msg"]) == false) {
-              if (finish != null) {
-                finish(null, data["msg"]);
+            else {
+              kLog("原始数据:$data");
+              if (isStringEmpty(data["msg"]) == false) {
+                if (finish != null) {
+                  finish(null, data["msg"]);
+                }
+              } else {
+                if (finish != null) {
+                  finish(null, "返回数据格式错误");
+                }
               }
-            } else {
-              if (finish != null) {
-                finish(null, "返回数据格式错误");
-              }
+            }
+          } else {
+            if (finish != null) {
+              finish(null, _reqFuture.statusMessage);
             }
           }
         } else {
@@ -232,16 +236,20 @@ class Networking {
             finish(null, _reqFuture.statusMessage);
           }
         }
-      } else {
+      } on DioError catch (error) {
         if (finish != null) {
-          finish(null, _reqFuture.statusMessage);
+          finish(null, error.message + "\n" + api);
+          kLog("error:$error");
         }
       }
-    } on DioError catch (error) {
-      if (finish != null) {
-        finish(null, error.message + "\n" + api);
-        kLog("error:$error");
-      }
     }
+
+    token((obj) {
+      if (isStringEmpty(obj) == false) {
+        _reqestHeaders["token"] = obj;
+      }
+
+      _handlling();
+    });
   }
 }

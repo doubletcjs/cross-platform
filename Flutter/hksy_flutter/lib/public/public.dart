@@ -27,7 +27,7 @@ final Future<SharedPreferences> _preferencesFuture =
 void userID(kObjectFunctionBlock complete) {
   _preferencesFuture.then((preferences) {
     if (complete != null) {
-      complete(preferences.get("userid"));
+      complete("${preferences.get("userid")}");
     }
   }).catchError((error) {
     kLog("error:$error");
@@ -41,7 +41,7 @@ void recordUserID(userID) {
   _preferencesFuture.then((preferences) {
     preferences.setString(
       "userid",
-      userID,
+      "$userID",
     );
   }).catchError((error) {
     kLog("error:$error");
@@ -66,7 +66,7 @@ void recordToken(token) {
   _preferencesFuture.then((preferences) {
     preferences.setString(
       "token",
-      token,
+      "$token",
     );
   }).catchError((error) {
     kLog("error:$error");
@@ -75,7 +75,7 @@ void recordToken(token) {
 
 /// 保存用户信息
 void recordUserInfo(Map info) {
-  if (info != null && info.length > 0 && info["userId"] != null) {
+  if (info != null && info.length > 0 && info["id"] != null) {
     kLog("更新用户信息");
     _preferencesFuture.then((preferences) {
       preferences.setString(
@@ -85,6 +85,7 @@ void recordUserInfo(Map info) {
     }).catchError((error) {
       kLog("error:$error");
     });
+    recordUserID(info["id"]);
   }
 }
 
@@ -558,11 +559,17 @@ Color rgba(int r, int g, int b, double opacity) {
 
 ///字符串空判断
 bool isStringEmpty(text) {
+  text = "$text";
+
   if (text == null) {
     return true;
-  } else if (text == "null" || text == null || text.isEmpty) {
+  }
+
+  if (text == "null" || text == null || text.isEmpty) {
     return true;
-  } else if (text.length == 0 || text == " " || text == "") {
+  }
+
+  if (text.length == 0 || text == " " || text == "") {
     return true;
   } else {
     return false;

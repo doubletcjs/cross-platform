@@ -191,13 +191,15 @@ class _LoginRegisterPageState extends State<LoginRegisterPage> {
   }
 
   void _loginRegisterAction() {
+    kLog(_phoneController.text);
+    kLog(_codeController.text);
     FocusScope.of(context).requestFocus(FocusNode());
     if (regularMatch(_phoneController.text, kPhoneRegExp) == false) {
       showToast("请输入正确的手机号", context);
       return;
     }
 
-    if (isStringEmpty(_codeController.text) == false) {
+    if (isStringEmpty(_codeController.text) || isStringEmpty(_sessionId)) {
       showToast("请输入验证码", context);
       return;
     }
@@ -209,7 +211,7 @@ class _LoginRegisterPageState extends State<LoginRegisterPage> {
     };
 
     if (this.widget.isRegister) {
-      if (isStringEmpty(_inviteCodeController.text) == false) {
+      if (isStringEmpty(_inviteCodeController.text)) {
         showToast("请输入邀请码", context);
         return;
       }
@@ -246,6 +248,7 @@ class _LoginRegisterPageState extends State<LoginRegisterPage> {
           hideHUD(hud);
           if (data != null) {
             showToast("登录成功!", context);
+            recordUserInfo(data);
 
             Future.delayed(Duration(milliseconds: 1000), () {
               DartNotificationCenter.post(channel: kRefreshAccountNotification);
