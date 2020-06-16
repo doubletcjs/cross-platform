@@ -191,8 +191,6 @@ class _LoginRegisterPageState extends State<LoginRegisterPage> {
   }
 
   void _loginRegisterAction() {
-    kLog(_phoneController.text);
-    kLog(_codeController.text);
     FocusScope.of(context).requestFocus(FocusNode());
     if (regularMatch(_phoneController.text, kPhoneRegExp) == false) {
       showToast("请输入正确的手机号", context);

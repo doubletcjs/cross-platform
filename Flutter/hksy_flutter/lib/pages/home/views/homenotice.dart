@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
-import 'package:flutter_widget_from_html/flutter_widget_from_html.dart';
 import 'package:hksy_flutter/pages/home/bulletinboard.dart';
 import 'package:hksy_flutter/public/public.dart';
 import 'package:hksy_flutter/pages/home/api/homeapi.dart';

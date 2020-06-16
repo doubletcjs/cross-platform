@@ -77,6 +77,7 @@ class _MyAppState extends State<MyApp> {
       onNotification: (options) {
         setState(() {
           _currentIndex = 0;
+          kLog("登录成功");
         });
       },
     );
@@ -127,86 +128,85 @@ class _MyAppState extends State<MyApp> {
                         ],
                         index: _currentIndex,
                       ),
-        bottomNavigationBar:
-            (_currentIndex == -1 || _currentIndex == -2 || _currentIndex == -3)
-                ? null
-                : BottomNavigationBar(
-                    items: [
-                      BottomNavigationBarItem(
-                        icon: Image.asset(
-                          "images/ico_tab_home_normal@3x.png",
-                          width: 22,
-                          height: 22,
-                        ),
-                        activeIcon: Image.asset(
-                          "images/ico_tab_home_selected@3x.png",
-                          width: 22,
-                          height: 22,
-                        ),
-                        title: Text(
-                          "首页",
-                        ),
-                      ),
-                      BottomNavigationBarItem(
-                        icon: Image.asset(
-                          "images/ico_tab_market_normal@3x.png",
-                          width: 22,
-                          height: 22,
-                        ),
-                        activeIcon: Image.asset(
-                          "images/ico_tab_market_selected@3x.png",
-                          width: 22,
-                          height: 22,
-                        ),
-                        title: Text(
-                          "商城",
-                        ),
-                      ),
-                      BottomNavigationBarItem(
-                        icon: Image.asset(
-                          "images/ico_tab_galaxy_normal@3x.png",
-                          width: 22,
-                          height: 22,
-                        ),
-                        activeIcon: Image.asset(
-                          "images/ico_tab_galaxy_selected@3x.png",
-                          width: 22,
-                          height: 22,
-                        ),
-                        title: Text(
-                          "Galaxy",
-                        ),
-                      ),
-                      BottomNavigationBarItem(
-                        icon: Image.asset(
-                          "images/ico_tab_my_normal@3x.png",
-                          width: 22,
-                          height: 22,
-                        ),
-                        activeIcon: Image.asset(
-                          "images/ico_tab_my_selected@3x.png",
-                          width: 22,
-                          height: 22,
-                        ),
-                        title: Text(
-                          "我的",
-                        ),
-                      )
-                    ],
-                    type: BottomNavigationBarType.fixed,
-                    currentIndex: _currentIndex,
-                    selectedFontSize: 10,
-                    unselectedFontSize: 10,
-                    selectedItemColor: kMainColor,
-                    unselectedItemColor: rgba(145, 152, 173, 1),
-                    elevation: 0,
-                    backgroundColor: kMainBackgroundColor,
-                    onTap: (index) {
-                      setState(() {
-                        _currentIndex = index;
-                      });
-                    },
+        bottomNavigationBar: _currentIndex == 0
+            ? BottomNavigationBar(
+                items: [
+                  BottomNavigationBarItem(
+                    icon: Image.asset(
+                      "images/ico_tab_home_normal@3x.png",
+                      width: 22,
+                      height: 22,
+                    ),
+                    activeIcon: Image.asset(
+                      "images/ico_tab_home_selected@3x.png",
+                      width: 22,
+                      height: 22,
+                    ),
+                    title: Text(
+                      "首页",
+                    ),
                   ),
+                  BottomNavigationBarItem(
+                    icon: Image.asset(
+                      "images/ico_tab_market_normal@3x.png",
+                      width: 22,
+                      height: 22,
+                    ),
+                    activeIcon: Image.asset(
+                      "images/ico_tab_market_selected@3x.png",
+                      width: 22,
+                      height: 22,
+                    ),
+                    title: Text(
+                      "商城",
+                    ),
+                  ),
+                  BottomNavigationBarItem(
+                    icon: Image.asset(
+                      "images/ico_tab_galaxy_normal@3x.png",
+                      width: 22,
+                      height: 22,
+                    ),
+                    activeIcon: Image.asset(
+                      "images/ico_tab_galaxy_selected@3x.png",
+                      width: 22,
+                      height: 22,
+                    ),
+                    title: Text(
+                      "Galaxy",
+                    ),
+                  ),
+                  BottomNavigationBarItem(
+                    icon: Image.asset(
+                      "images/ico_tab_my_normal@3x.png",
+                      width: 22,
+                      height: 22,
+                    ),
+                    activeIcon: Image.asset(
+                      "images/ico_tab_my_selected@3x.png",
+                      width: 22,
+                      height: 22,
+                    ),
+                    title: Text(
+                      "我的",
+                    ),
+                  )
+                ],
+                type: BottomNavigationBarType.fixed,
+                currentIndex: _currentIndex,
+                selectedFontSize: 10,
+                unselectedFontSize: 10,
+                selectedItemColor: kMainColor,
+                unselectedItemColor: rgba(145, 152, 173, 1),
+                elevation: 0,
+                backgroundColor: kMainBackgroundColor,
+                onTap: (index) {
+                  setState(() {
+                    _currentIndex = index;
+                  });
+                },
+              )
+            : null,
       ),
       routes: {
         "/calculate": (context) {

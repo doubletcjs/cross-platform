@@ -1,7 +1,6 @@
 import 'package:dart_notification_center/dart_notification_center.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
-import 'package:hksy_flutter/function/account/loginregister.dart';
 import 'package:hksy_flutter/public/public.dart';
 import 'package:package_info/package_info.dart';
 
@@ -28,12 +27,8 @@ class _AppGuidePageState extends State<AppGuidePage> {
   }
 
   void _goLoginRegister() {
-    Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(
-      builder: (context) {
-        return LoginRegisterPage();
-      },
-    ), (route) => route == null);
-
+    DartNotificationCenter.post(
+        channel: kSwitchTabNotification, options: {"index": -1});
     this._recordVersion();
   }
 
