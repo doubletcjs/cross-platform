@@ -12,4 +12,10 @@ class HomeApi {
   static getNotice(finish) {
     Networking.requestBase("getNotice", finish);
   }
+
+  static getMyAssetsDetail(userId, finish) {
+    Networking.requestBase("getMyAssetsDetail", finish, params: {
+      "userId": userId,
+    });
+  }
 }

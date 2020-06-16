@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hksy_flutter/pages/home/api/homeapi.dart';
 import 'package:hksy_flutter/public/public.dart';
 
 class HomeAssets extends StatefulWidget {
@@ -9,6 +10,28 @@ class HomeAssets extends StatefulWidget {
 }
 
 class _HomeAssetsState extends State<HomeAssets> {
+  Map _performance = {
+    "expericence": 0.0,
+    "yesterday_performance": 0.0,
+    "storage": 0.0,
+    "hkcstorage": 0.0,
+  };
+
+  @override
+  void initState() {
+    super.initState();
+
+    userID((id) {
+      HomeApi.getMyAssetsDetail(id, (data, msg) {
+        if (data != null) {
+          setState(() {
+            _performance = data["performancedata"];
+          });
+        }
+      });
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -50,7 +73,7 @@ class _HomeAssetsState extends State<HomeAssets> {
                   crossAxisAlignment: CrossAxisAlignment.end,
                   children: <Widget>[
                     Text(
-                      "1345",
+                      "${_performance["expericence"]}",
                       style: TextStyle(
                         color: rgba(255, 255, 255, 1),
                         fontSize: 30,
@@ -87,7 +110,7 @@ class _HomeAssetsState extends State<HomeAssets> {
                           width: 10,
                         ),
                         Text(
-                          "12320T",
+                          "${_performance["yesterday_performance"]}T",
                           style: TextStyle(
                             color: rgba(255, 255, 255, 1),
                             fontSize: 13,
@@ -108,7 +131,7 @@ class _HomeAssetsState extends State<HomeAssets> {
                           width: 10,
                         ),
                         Text(
-                          "123T + 0T",
+                          "${_performance["storage"]}T + ${_performance["hkcstorage"]}T",
                           style: TextStyle(
                             color: rgba(255, 255, 255, 1),
                             fontSize: 13,
