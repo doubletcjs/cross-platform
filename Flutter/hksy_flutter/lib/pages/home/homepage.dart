@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hksy_flutter/pages/home/api/homeapi.dart';
 import 'package:hksy_flutter/pages/home/views/homeassets.dart';
 import 'package:hksy_flutter/pages/home/views/homeheader.dart';
 import 'package:hksy_flutter/pages/home/views/homeintroduce.dart';
@@ -19,11 +20,17 @@ class _HomePageState extends State<HomePage> {
   void initState() {
     super.initState();
 
-    Future.delayed(
-        Duration(
-          seconds: 4,
-        ), () {
-      HomeVersion().show(context);
+    userID((id) {
+      HomeApi.getAppVersion((data, msg) {
+        if (data != null) {
+          if (data.length > 0) {
+            HomeVersion().show(
+              context,
+              data,
+            );
+          }
+        }
+      });
     });
   }
 

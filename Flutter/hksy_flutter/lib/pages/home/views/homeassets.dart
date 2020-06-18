@@ -1,3 +1,4 @@
+import 'package:dart_notification_center/dart_notification_center.dart';
 import 'package:flutter/material.dart';
 import 'package:hksy_flutter/pages/home/api/homeapi.dart';
 import 'package:hksy_flutter/public/public.dart';
@@ -26,6 +27,10 @@ class _HomeAssetsState extends State<HomeAssets> {
         if (data != null) {
           setState(() {
             _performance = data["performancedata"];
+          });
+
+          DartNotificationCenter.post(channel: "kGetMyAssetsCommend", options: {
+            "pList": data["pList"],
           });
         }
       });

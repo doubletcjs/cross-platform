@@ -42,7 +42,9 @@ class _ProductCellState extends State<ProductCell> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
                         Text(
-                          "HK iCloud-2T",
+                          this.widget.product == null
+                              ? ""
+                              : "HK iCloud-${this.widget.product["productType"].toString()}T",
                           overflow: TextOverflow.ellipsis,
                           style: TextStyle(
                             fontSize: 15,
@@ -74,7 +76,9 @@ class _ProductCellState extends State<ProductCell> {
               height: 10,
             ),
             Text(
-              "华科闪云存储器2T",
+              this.widget.product == null
+                  ? ""
+                  : "华科闪云存储器${this.widget.product["productType"].toString()}T",
               overflow: TextOverflow.ellipsis,
               style: TextStyle(
                 fontSize: 15,
@@ -82,7 +86,9 @@ class _ProductCellState extends State<ProductCell> {
               ),
             ),
             Text(
-              "4360.0/个",
+              this.widget.product == null
+                  ? ""
+                  : "${this.widget.product["productPreferentialPrice"]}/个",
               overflow: TextOverflow.ellipsis,
               style: TextStyle(
                 fontSize: 15,

@@ -3,10 +3,13 @@ import 'package:flutter/material.dart';
 import 'package:hksy_flutter/function/generaldialog.dart';
 import 'package:hksy_flutter/public/public.dart';
 
-class HomeVersion extends StatelessWidget {
-  const HomeVersion({Key key}) : super(key: key);
+class HomeVersion extends StatefulWidget {
+  HomeVersion({Key key}) : super(key: key);
 
-  show(BuildContext context) {
+  @override
+  _HomeVersionState createState() => _HomeVersionState();
+
+  show(BuildContext context, Map info) {
     GeneralDialog().show(
       context,
       backgroundPadding: EdgeInsets.fromLTRB(67.5, 0, 67.5, 0),
@@ -16,7 +19,9 @@ class HomeVersion extends StatelessWidget {
       barrierDismissible: false,
     );
   }
+}
 
+class _HomeVersionState extends State<HomeVersion> {
   void _closeAlert(BuildContext context) {
     Navigator.of(context).pop();
   }
@@ -73,7 +78,7 @@ class HomeVersion extends StatelessWidget {
                 children: ["·2.0版本用户体验升级", "·深色UI，全新体验", "·细节优化升级"].map(
                   (item) {
                     return Text(
-                      item,
+                      "·" + item,
                       style: TextStyle(
                         fontSize: 13,
                         color: rgba(145, 152, 173, 1),

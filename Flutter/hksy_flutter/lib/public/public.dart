@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:dart_notification_center/dart_notification_center.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -26,11 +27,16 @@ final Future<SharedPreferences> _preferencesFuture =
 ///userID
 void userID(kObjectFunctionBlock complete) {
   _preferencesFuture.then((preferences) {
-    if (complete != null) {
-      complete("${preferences.get("userid")}");
+    if (isStringEmpty(preferences.get("userid"))) {
+      DartNotificationCenter.post(channel: kForceLogoutNotification);
+    } else {
+      if (complete != null) {
+        complete("${preferences.get("userid")}");
+      }
     }
   }).catchError((error) {
     kLog("error:$error");
+    DartNotificationCenter.post(channel: kForceLogoutNotification);
     if (complete != null) {
       complete(null);
     }
@@ -51,11 +57,16 @@ void recordUserID(userID) {
 ///token
 void token(kObjectFunctionBlock complete) {
   _preferencesFuture.then((preferences) {
-    if (complete != null) {
-      complete(preferences.get("token"));
+    if (isStringEmpty(preferences.get("token"))) {
+      DartNotificationCenter.post(channel: kForceLogoutNotification);
+    } else {
+      if (complete != null) {
+        complete("${preferences.get("token")}");
+      }
     }
   }).catchError((error) {
     kLog("error:$error");
+    DartNotificationCenter.post(channel: kForceLogoutNotification);
     if (complete != null) {
       complete(null);
     }
