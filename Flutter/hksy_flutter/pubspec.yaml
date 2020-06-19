@@ -36,6 +36,7 @@ dependencies:
   christian_picker_image: any
   image_gallery_saver: any
   package_info: any 
+  url_launcher: any
 
 dev_dependencies:
   flutter_test:

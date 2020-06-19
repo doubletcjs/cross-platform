@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hksy_flutter/function/actionsheet.dart';
+import 'package:hksy_flutter/function/certification/certificationinfo.dart';
 import 'package:hksy_flutter/function/certification/certificationmain.dart';
 import 'package:hksy_flutter/function/infosectioncell.dart';
 import 'package:hksy_flutter/public/public.dart';
@@ -12,6 +13,30 @@ class CertificationCenter extends StatefulWidget {
 }
 
 class _CertificationCenterState extends State<CertificationCenter> {
+  Map _account = {};
+
+  void _refreshAccount() {
+    fetchUser((obj) {
+      Map info = Map.from(obj);
+      setState(() {
+        _account = info;
+      });
+    });
+  }
+
+  @override
+  void didUpdateWidget(CertificationCenter oldWidget) {
+    super.didUpdateWidget(oldWidget);
+
+    this._refreshAccount();
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    this._refreshAccount();
+  }
+
   Widget _accountInfo() {
     return Container(
       padding: EdgeInsets.fromLTRB(0, 26.5, 12, 0),
@@ -21,17 +46,25 @@ class _CertificationCenterState extends State<CertificationCenter> {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: <Widget>[
-              Image.asset(
-                "images/default_avatar@3x.png",
-                width: 59,
-                height: 59,
-              ),
+              _account["avater"] != null && "${_account["avater"]}".length > 0
+                  ? Image.network(
+                      "${_account["avater"]}",
+                      width: 59,
+                      height: 59,
+                    )
+                  : Image.asset(
+                      "images/default_avatar@3x.png",
+                      width: 59,
+                      height: 59,
+                    ),
               SizedBox(
                 width: 19.5,
               ),
               Expanded(
                 child: Text(
-                  "ID12347865",
+                  "${_account["nickname"]}".length > 0
+                      ? "${_account["nickname"]}"
+                      : "",
                   overflow: TextOverflow.ellipsis,
                   style: TextStyle(
                     fontSize: 20,
@@ -60,14 +93,16 @@ class _CertificationCenterState extends State<CertificationCenter> {
     return Container(
       padding: EdgeInsets.fromLTRB(20.5, 12, 12, 12),
       child: Text(
-        "已实名", //未验证
+        _account["personalStatus"] == 1 ? "已实名" : "未验证", //未验证
         style: TextStyle(
           fontSize: 15,
           color: rgba(255, 255, 255, 1),
         ),
       ),
       decoration: BoxDecoration(
-        color: rgba(23, 96, 255, 1), //rgba(145, 152, 173, 1)
+        color: _account["personalStatus"] == 1
+            ? rgba(23, 96, 255, 1)
+            : rgba(145, 152, 173, 1), //rgba(145, 152, 173, 1)
         borderRadius: BorderRadius.only(
           topLeft: Radius.circular(22.5),
           bottomLeft: Radius.circular(22.5),
@@ -107,21 +142,24 @@ class _CertificationCenterState extends State<CertificationCenter> {
             cells: <Widget>[
               InfoCell(
                 name: "实名信息",
-                value: "未完善",
+                value: _account["personalStatus"] == 1 ? "已上传" : "未完善",
                 tapHandle: () {
-                  showToast("未实名", context);
-                  // Navigator.of(context).push(
-                  //   MaterialPageRoute(
-                  //     builder: (context) {
-                  //       return CertificationInfo();
-                  //     },
-                  //   ),
-                  // );
+                  if (_account["personalStatus"] == 1) {
+                    Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (context) {
+                          return CertificationInfo();
+                        },
+                      ),
+                    );
+                  } else {
+                    showToast("未实名", context);
+                  }
                 },
               ),
               InfoCell(
                 name: "身份验证",
-                value: "未完善",
+                value: _account["personalStatus"] == 1 ? "已上传" : "未完善",
                 showLine: false,
                 tapHandle: () {
                   ActionSheet(
@@ -132,15 +170,19 @@ class _CertificationCenterState extends State<CertificationCenter> {
                     ],
                     handle: (isCancel, index) {
                       if (isCancel == false) {
-                        Navigator.of(context).push(
-                          MaterialPageRoute(
-                            builder: (context) {
-                              return CertificationMain(
-                                type: index,
-                              );
-                            },
-                          ),
-                        );
+                        if (_account["personalStatus"] == 1) {
+                          showToast("已实名", context);
+                        } else {
+                          Navigator.of(context).push(
+                            MaterialPageRoute(
+                              builder: (context) {
+                                return CertificationMain(
+                                  type: index,
+                                );
+                              },
+                            ),
+                          );
+                        }
                       }
                     },
                   ).show(context);

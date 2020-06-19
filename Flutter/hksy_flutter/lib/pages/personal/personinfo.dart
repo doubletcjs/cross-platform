@@ -1,4 +1,5 @@
 import 'package:christian_picker_image/christian_picker_image.dart';
+import 'package:common_utils/common_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:hksy_flutter/function/certification/certificationcenter.dart';
 import 'package:hksy_flutter/function/infosectioncell.dart';
@@ -13,6 +14,30 @@ class PersonInfo extends StatefulWidget {
 }
 
 class _PersonInfoState extends State<PersonInfo> {
+  Map _account = {};
+
+  void _refreshAccount() {
+    fetchUser((obj) {
+      Map info = Map.from(obj);
+      setState(() {
+        _account = info;
+      });
+    });
+  }
+
+  @override
+  void didUpdateWidget(PersonInfo oldWidget) {
+    super.didUpdateWidget(oldWidget);
+
+    this._refreshAccount();
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    this._refreshAccount();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -40,7 +65,7 @@ class _PersonInfoState extends State<PersonInfo> {
               ),
               InfoCell(
                 name: "昵称",
-                value: "ID12347865",
+                value: "${_account["nickname"]}",
                 tapHandle: () {
                   Navigator.of(context).push(
                     MaterialPageRoute(builder: (context) {
@@ -53,7 +78,9 @@ class _PersonInfoState extends State<PersonInfo> {
                 name: "账号",
                 showLine: false,
                 showArrow: false,
-                value: "151*****3552",
+                value: "${_account["phone"]}".length == 11
+                    ? TextUtil.hideNumber("${_account["phone"]}")
+                    : "",
               ),
             ],
           ),
@@ -65,7 +92,7 @@ class _PersonInfoState extends State<PersonInfo> {
               InfoCell(
                 name: "实名认证",
                 showLine: false,
-                value: "未认证",
+                value: _account["personalStatus"] == 1 ? "已认证" : "未认证",
                 tapHandle: () {
                   Navigator.of(context).push(
                     MaterialPageRoute(

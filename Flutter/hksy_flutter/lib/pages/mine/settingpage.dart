@@ -5,8 +5,38 @@ import 'package:hksy_flutter/pages/mine/agreetment.dart';
 import 'package:hksy_flutter/function/infosectioncell.dart';
 import 'package:hksy_flutter/public/public.dart';
 
-class SettingPage extends StatelessWidget {
-  const SettingPage({Key key}) : super(key: key);
+class SettingPage extends StatefulWidget {
+  SettingPage({Key key}) : super(key: key);
+
+  @override
+  _SettingPageState createState() => _SettingPageState();
+}
+
+class _SettingPageState extends State<SettingPage> {
+  Map _account = {};
+
+  void _refreshAccount() {
+    fetchUser((obj) {
+      Map info = Map.from(obj);
+      setState(() {
+        _account = info;
+      });
+    });
+  }
+
+  @override
+  void didUpdateWidget(SettingPage oldWidget) {
+    super.didUpdateWidget(oldWidget);
+
+    this._refreshAccount();
+  }
+
+  @override
+  void initState() {
+    super.initState();
+
+    this._refreshAccount();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -29,7 +59,11 @@ class SettingPage extends StatelessWidget {
                   Navigator.of(context).push(
                     MaterialPageRoute(
                       builder: (context) {
-                        return PaycodePage();
+                        return PaycodePage(
+                            isReset: (_account["paymentCode"] == null ||
+                                    "${_account["paymentCode"]}".length == 0)
+                                ? false
+                                : true);
                       },
                     ),
                   );

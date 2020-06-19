@@ -26,4 +26,14 @@ class AccountApi {
       params: params,
     );
   }
+
+  static getUserInfo(userId, finish) {
+    Networking.requestBase(
+      "getUserInfo",
+      finish,
+      params: {
+        "userId": userId,
+      },
+    );
+  }
 }

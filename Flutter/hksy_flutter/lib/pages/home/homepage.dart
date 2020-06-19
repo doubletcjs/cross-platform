@@ -1,4 +1,6 @@
+import 'package:dart_notification_center/dart_notification_center.dart';
 import 'package:flutter/material.dart';
+import 'package:hksy_flutter/function/account/api/accountapi.dart';
 import 'package:hksy_flutter/pages/home/api/homeapi.dart';
 import 'package:hksy_flutter/pages/home/views/homeassets.dart';
 import 'package:hksy_flutter/pages/home/views/homeheader.dart';
@@ -16,6 +18,17 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  //获取用户信息
+  void _refreshUserInfo() {
+    userID((id) {
+      AccountApi.getUserInfo(id, (data, msg) {
+        if (data != null) {
+          recordUserInfo(data);
+        }
+      });
+    });
+  }
+
   @override
   void initState() {
     super.initState();
@@ -32,6 +45,16 @@ class _HomePageState extends State<HomePage> {
         }
       });
     });
+
+    DartNotificationCenter.subscribe(
+      channel: kRefreshAccountNotification,
+      observer: this,
+      onNotification: (options) {
+        this._refreshUserInfo();
+      },
+    );
+
+    this._refreshUserInfo();
   }
 
   @override

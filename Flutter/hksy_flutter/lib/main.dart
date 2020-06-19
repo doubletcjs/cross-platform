@@ -20,7 +20,8 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  int _currentIndex = -3; //-1 未登录 -2 版本更新显示版本介绍页 -3 默认空白页
+  int _currentIndex = 0;
+  int _pageStatus = -3; //-1 未登录 -2 版本更新显示版本介绍页 -3 默认空白页
 
   void _compareVersion(version, kObjectFunctionBlock handel) {
     PackageInfo.fromPlatform().then((info) {
@@ -45,23 +46,23 @@ class _MyAppState extends State<MyApp> {
     appVersion((version) {
       if (isStringEmpty(version)) {
         setState(() {
-          _currentIndex = -2;
+          _pageStatus = -2;
         });
       } else {
         this._compareVersion(version, (needUpdate) {
           if (needUpdate) {
             setState(() {
-              _currentIndex = -2;
+              _pageStatus = -2;
             });
           } else {
             userID((id) {
               if (isStringEmpty(id)) {
                 setState(() {
-                  _currentIndex = -1;
+                  _pageStatus = -1;
                 });
               } else {
                 setState(() {
-                  _currentIndex = 0;
+                  _pageStatus = 0;
                 });
               }
             });
@@ -98,7 +99,11 @@ class _MyAppState extends State<MyApp> {
       observer: this,
       onNotification: (options) {
         setState(() {
-          _currentIndex = options["index"];
+          if (options["index"] == -1) {
+            _pageStatus = options["index"];
+          } else {
+            _currentIndex = options["index"];
+          }
         });
       },
     );
@@ -111,11 +116,11 @@ class _MyAppState extends State<MyApp> {
       debugShowCheckedModeBanner: false,
       home: Scaffold(
         backgroundColor: kMainBackgroundColor,
-        body: _currentIndex == -1
+        body: _pageStatus == -1
             ? LoginRegisterPage()
-            : _currentIndex == -2
+            : _pageStatus == -2
                 ? AppGuidePage()
-                : _currentIndex == -3
+                : _pageStatus == -3
                     ? Container(
                         color: kMainBackgroundColor,
                       )
@@ -128,7 +133,7 @@ class _MyAppState extends State<MyApp> {
                         ],
                         index: _currentIndex,
                       ),
-        bottomNavigationBar: _currentIndex == 0
+        bottomNavigationBar: _pageStatus == 0
             ? BottomNavigationBar(
                 items: [
                   BottomNavigationBarItem(

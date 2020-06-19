@@ -1,3 +1,4 @@
+import 'package:common_utils/common_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:hksy_flutter/pages/calculate/calculatemain.dart';
 import 'package:hksy_flutter/pages/coin/mycoin.dart';
@@ -18,6 +19,12 @@ class MinePage extends StatefulWidget {
 }
 
 class _MinePageState extends State<MinePage> {
+  var _coinString;
+  var _inviteCode;
+  var _phone;
+  String _nickname;
+  String _avater;
+
   Widget _cellIcon(String imageName) {
     return Container(
       padding: EdgeInsets.fromLTRB(0, 0, 13.5, 0),
@@ -37,11 +44,17 @@ class _MinePageState extends State<MinePage> {
           Expanded(
             child: Row(
               children: <Widget>[
-                Image.asset(
-                  "images/default_avatar@3x.png",
-                  width: 80,
-                  height: 80,
-                ),
+                _avater != null && _avater.length > 0
+                    ? Image.network(
+                        _avater,
+                        width: 80,
+                        height: 80,
+                      )
+                    : Image.asset(
+                        "images/default_avatar@3x.png",
+                        width: 80,
+                        height: 80,
+                      ),
                 SizedBox(
                   width: 14,
                 ),
@@ -50,7 +63,7 @@ class _MinePageState extends State<MinePage> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
                       Text(
-                        "ID12347865",
+                        _nickname != null ? _nickname : "",
                         overflow: TextOverflow.ellipsis,
                         maxLines: 2,
                         style: TextStyle(
@@ -72,7 +85,7 @@ class _MinePageState extends State<MinePage> {
                             width: 6,
                           ),
                           Text(
-                            "151*****3552",
+                            _phone != null ? TextUtil.hideNumber(_phone) : "",
                             style: TextStyle(
                               color: rgba(145, 152, 173, 1),
                               fontSize: 13,
@@ -97,6 +110,22 @@ class _MinePageState extends State<MinePage> {
         ],
       ),
     );
+  }
+
+  @override
+  void didUpdateWidget(MinePage oldWidget) {
+    super.didUpdateWidget(oldWidget);
+
+    fetchUser((obj) {
+      Map info = Map.from(obj);
+      setState(() {
+        _coinString = info["coin"];
+        _inviteCode = info["invitationCode"];
+        _phone = info["phone"];
+        _nickname = info["nickname"];
+        _avater = info["avater"];
+      });
+    });
   }
 
   @override
@@ -142,7 +171,14 @@ class _MinePageState extends State<MinePage> {
                 name: "我的钱包",
                 icon: _cellIcon("images/ico_my_wallet@3x.png"),
                 tapHandle: () {
-                  certificationAlert(context);
+                  fetchUser((obj) {
+                    Map info = Map.from(obj);
+                    if (info["personalStatus"] == 1) {
+                      walletAlert(context);
+                    } else {
+                      certificationAlert(context);
+                    }
+                  });
                 },
               ),
               InfoCell(
@@ -177,7 +213,7 @@ class _MinePageState extends State<MinePage> {
               ),
               InfoCell(
                 name: "我的金币",
-                value: "12353个",
+                value: _coinString != null ? "12353$_coinString" + "个" : "",
                 icon: _cellIcon(
                   "images/ico_my_gold@3x.png",
                 ),
@@ -197,25 +233,31 @@ class _MinePageState extends State<MinePage> {
                   "images/ico_my_super@3x.png",
                 ),
                 tapHandle: () {
-                  // functionAlertView(
-                  //   context,
-                  //   title: "超级存储",
-                  //   content:
-                  //       "      你目前还不是超级存储，想成为超级存储请联系业务人员线下办理，成为我们的超级矿工则显示每日获得更多分红收益。",
-                  //   confirm: "确认",
-                  // );
-                  Navigator.of(context).push(
-                    MaterialPageRoute(
-                      builder: (context) {
-                        return VipStoragePage();
-                      },
-                    ),
-                  );
+                  fetchUser((obj) {
+                    Map info = Map.from(obj);
+                    if (info["vipminerStatus"] == 1) {
+                      Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (context) {
+                            return VipStoragePage();
+                          },
+                        ),
+                      );
+                    } else {
+                      functionAlertView(
+                        context,
+                        title: "超级存储",
+                        content:
+                            "      你目前还不是超级存储，想成为超级存储请联系业务人员线下办理，成为我们的超级矿工则显示每日获得更多分红收益。",
+                        confirm: "确认",
+                      );
+                    }
+                  });
                 },
               ),
               InfoCell(
                 name: "邀请收益",
-                value: "我的邀请码：ct12f",
+                value: _inviteCode != null ? "我的邀请码：$_inviteCode" : "",
                 showLine: false,
                 icon: _cellIcon(
                   "images/ico_my_gold@3x.png",

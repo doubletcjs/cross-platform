@@ -86,17 +86,23 @@ void recordToken(token) {
 
 /// 保存用户信息
 void recordUserInfo(Map info) {
-  if (info != null && info.length > 0 && info["id"] != null) {
-    kLog("更新用户信息");
+  if (info["userId"] == null) {
+    info["userId"] = info["id"];
+    info["id"] = null;
+  }
+
+  if (info != null && info.length > 0 && info["userId"] != null) {
     _preferencesFuture.then((preferences) {
       preferences.setString(
         "account",
         jsonEncode(info),
       );
+
+      kLog("更新用户信息");
     }).catchError((error) {
       kLog("error:$error");
     });
-    recordUserID(info["id"]);
+    recordUserID(info["userId"]);
   }
 }
 
@@ -110,13 +116,13 @@ void fetchUser(kObjectFunctionBlock complete) {
       }
     } else {
       if (complete != null) {
-        complete(null);
+        complete({});
       }
     }
   }).catchError((error) {
     kLog("error:$error");
     if (complete != null) {
-      complete(null);
+      complete({});
     }
   });
 }
