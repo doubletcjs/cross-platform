@@ -29,6 +29,9 @@ void userID(kObjectFunctionBlock complete) {
   _preferencesFuture.then((preferences) {
     if (isStringEmpty(preferences.get("userid"))) {
       DartNotificationCenter.post(channel: kForceLogoutNotification);
+      if (complete != null) {
+        complete("");
+      }
     } else {
       if (complete != null) {
         complete("${preferences.get("userid")}");
@@ -38,7 +41,7 @@ void userID(kObjectFunctionBlock complete) {
     kLog("error:$error");
     DartNotificationCenter.post(channel: kForceLogoutNotification);
     if (complete != null) {
-      complete(null);
+      complete("");
     }
   });
 }
@@ -59,6 +62,9 @@ void token(kObjectFunctionBlock complete) {
   _preferencesFuture.then((preferences) {
     if (isStringEmpty(preferences.get("token"))) {
       DartNotificationCenter.post(channel: kForceLogoutNotification);
+      if (complete != null) {
+        complete("");
+      }
     } else {
       if (complete != null) {
         complete("${preferences.get("token")}");
@@ -68,7 +74,7 @@ void token(kObjectFunctionBlock complete) {
     kLog("error:$error");
     DartNotificationCenter.post(channel: kForceLogoutNotification);
     if (complete != null) {
-      complete(null);
+      complete("");
     }
   });
 }
@@ -201,6 +207,7 @@ CustomFooter functionFooter({bool enable = true}) {
           "上拉加载",
           style: TextStyle(
             fontSize: 15,
+            color: Colors.white,
           ),
         );
       } else if (mode == LoadStatus.loading) {
@@ -210,6 +217,7 @@ CustomFooter functionFooter({bool enable = true}) {
           "加载失败！点击重试！",
           style: TextStyle(
             fontSize: 15,
+            color: Colors.white,
           ),
         );
       } else if (mode == LoadStatus.canLoading) {
@@ -217,6 +225,7 @@ CustomFooter functionFooter({bool enable = true}) {
           "松手,加载更多!",
           style: TextStyle(
             fontSize: 15,
+            color: Colors.white,
           ),
         );
       } else {
@@ -224,6 +233,7 @@ CustomFooter functionFooter({bool enable = true}) {
           "没有更多数据了!",
           style: TextStyle(
             fontSize: 15,
+            color: Colors.white,
           ),
         );
       }

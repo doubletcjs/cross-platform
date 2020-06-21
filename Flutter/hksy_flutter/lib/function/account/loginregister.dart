@@ -52,6 +52,10 @@ class _LoginRegisterPageState extends State<LoginRegisterPage> {
   }
 
   void _getVerifyCode() {
+    if (_countDownSecond != 0) {
+      return;
+    }
+
     FocusScope.of(context).requestFocus(FocusNode());
 
     XsProgressHud hud = initHUD(context);

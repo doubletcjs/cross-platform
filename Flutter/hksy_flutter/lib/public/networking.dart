@@ -64,7 +64,7 @@ class Networking {
     formData.files.addAll(mFiles);
 
     //处理请求头
-    Map<String, Object> _reqestHeaders = _baseHeaders;
+    Map<String, Object> _reqestHeaders = {};
     if (headers != null) {
       _reqestHeaders.addAll(headers);
     }

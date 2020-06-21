@@ -2,9 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:hksy_flutter/function/generaldialog.dart';
 import 'package:hksy_flutter/public/public.dart';
 
-class OrderConfirm extends StatelessWidget {
+class OrderConfirm extends StatefulWidget {
+  Map product = {};
   kObjectFunctionBlock confirmHandle;
-  OrderConfirm({Key key, this.confirmHandle}) : super(key: key);
+  OrderConfirm({Key key, this.confirmHandle, this.product}) : super(key: key);
+
+  @override
+  _OrderConfirmState createState() => _OrderConfirmState();
 
   show(BuildContext context) {
     GeneralDialog().show(
@@ -17,12 +21,48 @@ class OrderConfirm extends StatelessWidget {
       ),
     );
   }
+}
 
+class _OrderConfirmState extends State<OrderConfirm> {
   List<String> _itemList = [
     "商品",
     "售卖价格",
     "当前余额",
   ];
+
+  String _coin = "";
+  String _price = "";
+  bool _balanceOut = false;
+
+  void _refreshAccount() {
+    fetchUser((obj) {
+      Map info = Map.from(obj);
+      setState(() {
+        _price = "${this.widget.product["productPreferentialPrice"]}";
+        _coin = "${info["coin"]}";
+
+        double _tempPrice = double.parse(_price);
+        double _tempCoin = double.parse(_coin);
+
+        if (_tempPrice - _tempCoin > 0) {
+          _balanceOut = true;
+        }
+      });
+    });
+  }
+
+  @override
+  void didUpdateWidget(OrderConfirm oldWidget) {
+    super.didUpdateWidget(oldWidget);
+
+    this._refreshAccount();
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    this._refreshAccount();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -76,7 +116,14 @@ class OrderConfirm extends StatelessWidget {
                           ),
                         ),
                         Text(
-                          item,
+                          this.widget.product == null ||
+                                  this.widget.product.length == 0
+                              ? ""
+                              : index == 0
+                                  ? "${this.widget.product["productName"]}"
+                                  : index == 1
+                                      ? _price
+                                      : index == 2 ? _coin : "",
                           style: TextStyle(
                             fontSize: 15,
                             color: rgba(51, 51, 51, 1),
@@ -90,28 +137,36 @@ class OrderConfirm extends StatelessWidget {
               ).toList(),
             ),
           ),
-          Container(
-            padding: EdgeInsets.fromLTRB(
-                0,
-                MediaQuery.of(context).orientation == Orientation.landscape
-                    ? 0
-                    : 5,
-                12,
-                0),
-            alignment: Alignment.centerRight,
-            child: Text(
-              "余额不足",
-              style: TextStyle(
-                fontSize: 14,
-                color: rgba(248, 168, 65, 1),
-              ),
-            ),
-          ),
-          SizedBox(
-            height: MediaQuery.of(context).orientation == Orientation.landscape
-                ? MediaQuery.of(context).padding.top
-                : 89,
-          ),
+          _balanceOut == true
+              ? Container(
+                  padding: EdgeInsets.fromLTRB(
+                      0,
+                      MediaQuery.of(context).orientation ==
+                              Orientation.landscape
+                          ? 0
+                          : 5,
+                      12,
+                      0),
+                  alignment: Alignment.centerRight,
+                  child: Text(
+                    "余额不足",
+                    style: TextStyle(
+                      fontSize: 14,
+                      color: rgba(248, 168, 65, 1),
+                    ),
+                  ),
+                )
+              : Container(),
+          _balanceOut == true
+              ? SizedBox(
+                  height: MediaQuery.of(context).orientation ==
+                          Orientation.landscape
+                      ? MediaQuery.of(context).padding.top
+                      : 89,
+                )
+              : SizedBox(
+                  height: 0,
+                ),
           Container(
             padding: EdgeInsets.fromLTRB(21, 0, 21, 0),
             child: Row(
@@ -156,19 +211,16 @@ class OrderConfirm extends StatelessWidget {
                       onPressed: () {
                         Navigator.of(context).pop();
                         Future.delayed(Duration(milliseconds: 600), () {
-                          if (confirmHandle != null) {
-                            confirmHandle(false);
+                          if (this.widget.confirmHandle != null) {
+                            this.widget.confirmHandle(_balanceOut);
                           }
-                          // if (confirmHandle != null) {
-                          //   confirmHandle(true);
-                          // }
                         });
                       },
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(7.5),
                       ),
                       child: Text(
-                        "购买",
+                        _balanceOut ? "去充值" : "购买",
                         style: TextStyle(
                           fontSize: 15,
                           color: rgba(255, 255, 255, 1),

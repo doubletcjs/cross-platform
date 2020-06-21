@@ -36,4 +36,20 @@ class AccountApi {
       },
     );
   }
+
+  static changePaymentCode(params, finish) {
+    Networking.requestBase(
+      "changePaymentCode",
+      finish,
+      params: params,
+    );
+  }
+
+  static setPaymentCode(params, finish) {
+    Networking.requestBase(
+      "setPaymentCode",
+      finish,
+      params: params,
+    );
+  }
 }

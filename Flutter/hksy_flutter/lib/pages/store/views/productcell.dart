@@ -102,7 +102,9 @@ class _ProductCellState extends State<ProductCell> {
         Navigator.of(context).push(
           MaterialPageRoute(
             builder: (context) {
-              return ProductDetail();
+              return ProductDetail(
+                productId: "${this.widget.product["id"]}",
+              );
             },
           ),
         );

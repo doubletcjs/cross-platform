@@ -1,9 +1,11 @@
+import 'package:dart_notification_center/dart_notification_center.dart';
 import 'package:flutter/material.dart';
 import 'package:hksy_flutter/function/paycode/paycodepage.dart';
 import 'package:hksy_flutter/pages/mine/aboutuspage.dart';
 import 'package:hksy_flutter/pages/mine/agreetment.dart';
 import 'package:hksy_flutter/function/infosectioncell.dart';
 import 'package:hksy_flutter/public/public.dart';
+import 'package:xs_progress_hud/xs_progress_hud.dart';
 
 class SettingPage extends StatefulWidget {
   SettingPage({Key key}) : super(key: key);
@@ -133,7 +135,19 @@ class _SettingPageState extends State<SettingPage> {
                     confirm: "确认",
                     cancel: "取消",
                     contentPadding: EdgeInsets.fromLTRB(25, 25, 25, 55),
-                    confirmHandle: () {},
+                    confirmHandle: () {
+                      XsProgressHud hud = initHUD(context);
+                      recordToken("");
+                      recordUserID("");
+
+                      Future.delayed(Duration(milliseconds: 600), () {
+                        hideHUD(hud);
+                        Navigator.of(context)
+                            .popUntil(ModalRoute.withName("/"));
+                        DartNotificationCenter.post(
+                            channel: kForceLogoutNotification);
+                      });
+                    },
                   );
                 },
               ),

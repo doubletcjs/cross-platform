@@ -11,4 +11,14 @@ class StoreApi {
       },
     );
   }
+
+  static getProductDetail(productId, finish) {
+    Networking.requestBase(
+      "getProductDetail",
+      finish,
+      params: {
+        "productId": productId,
+      },
+    );
+  }
 }

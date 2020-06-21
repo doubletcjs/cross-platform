@@ -76,10 +76,12 @@ class _MyAppState extends State<MyApp> {
       channel: kRefreshAccountNotification,
       observer: this,
       onNotification: (options) {
-        setState(() {
-          _currentIndex = 0;
-          kLog("登录成功");
-        });
+        if (_pageStatus != 0) {
+          setState(() {
+            _pageStatus = 0;
+            kLog("登录成功");
+          });
+        }
       },
     );
 
@@ -89,7 +91,8 @@ class _MyAppState extends State<MyApp> {
       observer: this,
       onNotification: (options) {
         setState(() {
-          _currentIndex = -1;
+          _pageStatus = -1;
+          kLog("退出登录");
         });
       },
     );

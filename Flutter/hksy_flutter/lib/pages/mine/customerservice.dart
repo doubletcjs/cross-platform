@@ -138,16 +138,21 @@ class _CustomerServiceState extends State<CustomerService> {
             ),
             Container(
               height: 49,
-              alignment: Alignment.center,
               decoration: BoxDecoration(
                 color: rgba(23, 96, 255, 1),
                 borderRadius: BorderRadius.circular(7.5),
               ),
-              child: Text(
-                "提交留言",
-                style: TextStyle(
-                  color: rgba(255, 255, 255, 1),
-                  fontSize: 15,
+              child: FlatButton(
+                onPressed: () {},
+                child: Text(
+                  "提交留言",
+                  style: TextStyle(
+                    color: rgba(255, 255, 255, 1),
+                    fontSize: 15,
+                  ),
+                ),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(7.5),
                 ),
               ),
             ),
