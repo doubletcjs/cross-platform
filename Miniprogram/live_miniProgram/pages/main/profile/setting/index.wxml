@@ -1,0 +1,23 @@
+<view class="setting-content">
+    <view class="setting-account-content">
+        <view class="setting-base-cell" style="padding-top: 44rpx; padding-bottom: 38rpx;" bind:tap="accountInfo">
+            <view class="setting-account-row">
+                <image class="setting-account-head" src="/icons/person.png" mode="aspectFill"></image>
+                <view class="setting-account-column">
+                    <view class="setting-account-name">这是昵称用户123</view>
+                    <view class="setting-account-introduction">用户名：用户123</view>
+                </view>
+            </view>
+            <image class="setting-base-cell-arrow" src="/icons/ico_profile_cell_arrow@3x.png" mode="aspectFit"></image>
+        </view>
+        <view class="setting-account-line"></view>
+    </view>
+    <view class="setting-base-cell">
+        <view class="setting-base-cell-name">地址管理</view>
+        <image class="setting-base-cell-arrow" src="/icons/ico_profile_cell_arrow@3x.png" mode="aspectFit"></image>
+    </view>
+    <view class="setting-base-cell" style="margin-top: 20rpx;" bind:tap="certification">
+        <view class="setting-base-cell-name">实名认证</view>
+        <image class="setting-base-cell-arrow" src="/icons/ico_profile_cell_arrow@3x.png" mode="aspectFit"></image>
+    </view>
+</view>

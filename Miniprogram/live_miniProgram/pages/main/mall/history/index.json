@@ -1,0 +1,6 @@
+{
+  "usingComponents": {
+    "alertview": "/components/popalertview/index"
+  },
+  "navigationBarTitleText": "浏览记录"
+}

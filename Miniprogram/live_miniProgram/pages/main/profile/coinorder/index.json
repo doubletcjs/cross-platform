@@ -1,0 +1,6 @@
+{
+  "usingComponents": {
+    "daterange": "/components/daterange/index"
+  },
+  "navigationBarTitleText": "金币账单"
+}

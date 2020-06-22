@@ -17,7 +17,8 @@ Page({
     mute: false, //是否静音
     barrage: true, //是否开启弹幕
     rankinglistvisible: false, //排行榜弹框
-    sharevisible: false // 分享框
+    sharevisible: false, // 分享框  
+    filtervisible: false // 滤镜框
   },
   //options(Object)
   onLoad: function (options) {
@@ -56,7 +57,8 @@ Page({
     this.setData({
       closevisible: false,
       sharevisible: false,
-      rankinglistvisible: false
+      rankinglistvisible: false,
+      filtervisible: false
     })
   },
   // 打开分享
@@ -69,6 +71,12 @@ Page({
   rankingList: function () {
     this.setData({
       rankinglistvisible: true
+    })
+  },
+  // 打开滤镜
+  filterOpen() {
+    this.setData({
+      filtervisible: true
     })
   },
   //右侧按钮
@@ -115,6 +123,8 @@ Page({
       })
     } else if (index == 4) {
       this.shareOpen();
+    } else if (index == 1) {
+      this.filterOpen();
     }
   }
 });

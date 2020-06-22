@@ -1,0 +1,14 @@
+<view class="editting-function-top">
+    <view class="editting-function-cancel" bind:tap="cancalBack">取消</view>
+    <view class="editting-function-save" bind:tap="confirmInput">保存</view>
+</view>
+<view class="editting-input-content">
+    <view class="editting-input-title">
+        {{edittingType == 0 ? '用户名' : edittingType == 1 ? '昵称' : '简介'}}
+    </view>
+    <input bindinput="textInputChange" type="text" class="editting-input" maxlength="{{maxInputLength}}" placeholder="{{edittingType == 0 ? '请输入用户名' : edittingType == 1 ? '请输入昵称' : '请输入简介'}}" placeholder-class="editting-input-placeholder" wx:if="{{edittingType == 0 || edittingType == 1}}"></input>
+    <textarea bindinput="textInputChange" auto-height="{{true}}" maxlength="{{maxInputLength}}" class="editting-input" placeholder="{{edittingType == 0 ? '请输入用户名' : edittingType == 1 ? '请输入昵称' : '请输入简介'}}" placeholder-class="editting-input-placeholder" wx:else></textarea>
+    <view class="editting-length" style="{{edittingType == 2 ? 'margin-top: 122rpx;' : 'margin-top: 50rpx;'}}">
+        {{currentInputLength}}/{{maxInputLength}}
+    </view>
+</view>

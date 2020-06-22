@@ -38,7 +38,15 @@
     "pages/personal/record/index",
     "pages/personal/homepage/index",
     "pages/main/community/drafts/index",
-    "pages/landspaceBroadcast/index"
+    "pages/landspaceBroadcast/index",
+    "pages/main/profile/setting/index",
+    "pages/main/profile/info/index",
+    "pages/main/profile/editting/index",
+    "pages/main/profile/subscribe/index",
+    "pages/main/mall/history/index",
+    "pages/main/mall/evaluate/index",
+    "pages/main/profile/coinorder/index",
+    "pages/main/profile/certification/index"
   ],
   "window": {
     "backgroundTextStyle": "light",
@@ -52,8 +60,7 @@
     "backgroundColor": "#000000",
     "position": "bottom",
     "borderStyle": "black",
-    "list": [
-      {
+    "list": [{
         "pagePath": "pages/main/home/index",
         "text": "首页",
         "iconPath": "icons/icon_bar_home.png",

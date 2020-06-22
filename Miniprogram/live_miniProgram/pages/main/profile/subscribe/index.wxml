@@ -1,0 +1,34 @@
+<view class="subscribe">
+    <view class="subscribe-empty-content" wx:if="{{subscribeType == 1}}">
+        <view class="subscribe-empty" bind:tap="emptySubscribeList">清空</view>
+    </view>
+    <view class="subscribe-cell-content" style="{{subscribeType == 1 ? 'margin-top: 100rpx;' : ''}}">
+        <view class="subscribe-anchor-cell" wx:for="{{dataList}}" wx:key="index" wx:if="{{subscribeType == 1}}">
+            <view class="subscribe-anchor-center-column">
+                <image class="subscribe-anchor-head" src="/icons/person.png" mode="aspectFill"></image>
+                <view class="subscribe-anchor-name">{{item['name']}}</view>
+                <view class="subscribe-anchor-label">{{item['label']}}</view>
+            </view>
+            <view class="subscribe-anchor-left-column">
+                <view class="subscribe-anchor-title">{{item['title']}}</view>
+                <view class="subscribe-anchor-date">开播时间：{{item['date']}}</view>
+                <view class="subscribe-anchor-status" data-index="{{index}}" bind:tap="subscribeAction" style="padding-left: {{item['status'] == 0 ? '44' : '30'}}rpx; padding-right: {{item['status'] == 0 ? '44' : '30'}}rpx; background-color: {{item['status'] == 0 ? 'rgba(255, 136, 48, 1)' : 'rgba(241, 241, 241, 0.1)'}}; color: {{item['status'] == 0 ? 'rgba(241, 241, 241, 1)' : 'rgba(86, 93, 109, 1)'}};">
+                    {{item['status'] == 0 ? '订阅' : '已订阅'}}
+                </view>
+            </view>
+        </view>
+        <view class="subscribe-account-cell" wx:for="{{dataList}}" wx:key="index" wx:if="{{subscribeType == 0}}">
+            <view class="subscribe-account-base-row">
+                <image class="subscribe-account-head" src="/icons/person.png" mode="aspectFill"></image>
+            </view>
+            <view class="subscribe-account-base-column">
+                <view class="subscribe-account-name">{{item['name']}}</view>
+                <view class="subscribe-account-introduction">{{item['introduction']}}</view>
+            </view>
+            <view class="subscribe-account-status" data-index="{{index}}" bind:tap="subscribeAction" style="padding-left: {{item['status'] == 0 ? '44' : '30'}}rpx; padding-right: {{item['status'] == 0 ? '44' : '30'}}rpx; background-color: {{item['status'] == 0 ? 'rgba(255, 136, 48, 1)' : 'rgba(241, 241, 241, 0.1)'}}; color: {{item['status'] == 0 ? 'rgba(241, 241, 241, 1)' : 'rgba(86, 93, 109, 1)'}};">
+                {{item['status'] == 0 ? '关注' : '已关注'}}
+            </view>
+        </view>
+    </view>
+</view>
+<alertview visible="{{actionvisible}}" contentString="{{alertcontent}}" cancelString="取消" confirmString="确定" cancelTextColor="rgba(28, 35, 52, 1)" confirmTextColor="rgba(23, 96, 255, 1)" bindclose="closeClick" bind:confirm="alertConfirm"></alertview>

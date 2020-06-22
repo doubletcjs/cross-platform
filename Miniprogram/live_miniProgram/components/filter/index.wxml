@@ -1,0 +1,15 @@
+<view class="i-modal-mask {{ visible ? 'i-modal-mask-show' : '' }}" catch:tap="outClick">
+    <view class="filter-mask" catch:tap="emptyAction">
+        <view class="filter-title-row">
+            <view class="filter-title">开启美颜</view>
+            <switch checked="{{openFilter}}" type="switch" bindchange="switchBindchange" color="rgba(23, 96, 255, 1)"></switch>
+        </view>
+        <view class="filter-item-content">
+            <view class="filter-item-row" wx:for="{{filterItems}}" wx:key="index">
+                <view class="filter-item">{{item['name']}}</view>
+                <slider class="filter-slider" min="0" max="100" step="1" disabled="{{!openFilter}}" value="{{item['value']}}" show-value="{{false}}" backgroundColor="#e9e9e9" block-size="20" block-color="#ffffff" data-index="{{index}}" bindchanging="sliderBindchanging"></slider>
+            </view>
+            <view class="filter-reset" bind:tap="resetFilter">重置</view>
+        </view>
+    </view>
+</view>

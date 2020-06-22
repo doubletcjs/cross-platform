@@ -13,10 +13,11 @@ class StorePage extends StatefulWidget {
 
 class _StorePageState extends State<StorePage> {
   RefreshController _refreshController =
-      RefreshController(initialRefresh: true);
+      RefreshController(initialRefresh: false);
   List _dataList = [];
   int _page = 1;
-  int _limit = 0;
+  int _limit = 20;
+  bool _showLoadMore = false;
 
   void _loadMoreData() {
     setState(() {
@@ -57,6 +58,8 @@ class _StorePageState extends State<StorePage> {
           } else {
             _refreshController.refreshCompleted();
           }
+
+          _showLoadMore = true;
         } else {
           setState(() {
             if (_page > 1) {
@@ -108,7 +111,7 @@ class _StorePageState extends State<StorePage> {
         onLoadMore: () {
           this._loadMoreData();
         },
-        enableLoadMore: true,
+        enableLoadMore: _showLoadMore,
       ),
     );
   }

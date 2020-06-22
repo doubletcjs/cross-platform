@@ -1,0 +1,53 @@
+.editting-function-top {
+    width: 100%;
+    padding-left: 30rpx;
+    padding-right: 30rpx;
+    padding-top: 24rpx;
+    padding-bottom: 34rpx;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.editting-function-cancel {
+    font-size: 32rpx;
+    color: rgba(145, 152, 159, 1);
+}
+
+.editting-function-save {
+    font-size: 32rpx;
+    color: rgba(23, 96, 255, 1);
+}
+
+.editting-input-content {
+    padding-left: 30rpx;
+    padding-right: 30rpx;
+    padding-top: 34rpx;
+
+    display: flex;
+    flex-direction: column;
+}
+
+.editting-input-title {
+    font-size: 30rpx;
+    color: rgba(145, 152, 159, 1);
+}
+
+.editting-input-placeholder {
+    font-size: 32rpx;
+    color: rgba(145, 152, 159, 1);
+}
+
+.editting-input {
+    width: 100%;
+    font-size: 32rpx;
+    color: rgba(241, 241, 241, 1);
+
+    margin-top: 8rpx;
+}
+
+.editting-length {
+    font-size: 22rpx;
+    color: rgba(86, 93, 118, 1);
+}

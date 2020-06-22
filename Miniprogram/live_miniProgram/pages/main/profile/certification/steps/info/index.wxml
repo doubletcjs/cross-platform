@@ -1,0 +1,32 @@
+<view class="info-base-content">
+    <view class="info-base-text">填写身份信息</view>
+    <view class="info-input-content" style="margin-top: 30rpx; border-bottom: solid 2rpx rgba(145, 152, 159, 0.1);">
+        <view class="info-input-name">姓名:</view>
+        <input type="text" id="name" value="{{name}}" class="info-input" placeholder-class="info-input-placeholder" placeholder="请输入真实的姓名" bindinput="inputChange"></input>
+    </view>
+    <view class="info-input-content">
+        <view class="info-input-name">证件号码:</view>
+        <input type="idcard" id="idcard" value="{{idcard}}" class="info-input" placeholder-class="info-input-placeholder" placeholder="请输入身份证件号码" maxlength="18" bindinput="inputChange"></input>
+    </view>
+</view>
+<view class="info-base-content" style="padding-bottom: 0;">
+    <view class="info-base-text">上传证件</view>
+    <view class="info-idcard-content">
+        <image class="info-idcard-image" src="{{frontImage}}" mode="aspectFill" style="margin-top: 38rpx;" bind:tap="selectFrontImage">
+            <view class="info-upload-column" wx:if="{{frontImage.length == 0}}">
+                <image class="info-upload-icon" src="/icons/icon_certification_info_camera@3x.png" mode="aspectFit"></image>
+                <view class="info-upload-text">点击上传</view>
+            </view>
+        </image>
+        <view class="info-idcard-text">证件照正面</view>
+        <view class="info-upload-line"></view>
+        <image class="info-idcard-image" src="{{reverseImage}}" mode="aspectFill" style="margin-top: 60rpx;" bind:tap="selectReverseImage">
+            <view class="info-upload-column" wx:if="{{reverseImage.length == 0}}">
+                <image class="info-upload-icon" src="/icons/icon_certification_info_camera@3x.png" mode="aspectFit"></image>
+                <view class="info-upload-text">点击上传</view>
+            </view>
+        </image>
+        <view class="info-idcard-text">证件照反面</view>
+    </view>
+</view>
+<view class="info-bottom-button" bind:tap="nextAction">下一步</view>

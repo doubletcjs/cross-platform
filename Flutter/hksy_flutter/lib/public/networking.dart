@@ -165,26 +165,25 @@ class Networking {
         if (_reqFuture.statusCode == 200) {
           Map data = _reqFuture.data;
           if (data != null) {
-            // kLog("原始数据:$data");
+            kLog("原始数据:$data");
             String code = "${data["code"]}";
             if (isStringEmpty(data["state"]) == false) {
               code = "${data["state"]}";
             }
-
             if (code == kRequestSuccessCode) {
               if (data["token"] != null &&
-                  isStringEmpty(data["token"]) == false) {
+                  isStringEmpty("${data["token"]}") == false) {
                 recordToken(data["token"]);
               }
 
-              if (data["data"] != null) {
+              if (isStringEmpty("${data["data"]}") == false) {
                 if (finish != null) {
                   finish(data["data"], null);
                 }
               } else {
-                if (isStringEmpty(data["msg"]) == false) {
+                if (isStringEmpty("${data["msg"]}") == false) {
                   if (finish != null) {
-                    finish("${data["msg"]}", null);
+                    finish(null, "${data["msg"]}");
                   }
                 } else {
                   if (finish != null) {
@@ -192,30 +191,7 @@ class Networking {
                   }
                 }
               }
-            }
-            /*
-            else if (code == kForceLogoutCode) {
-              if (isStringEmpty(data["msg"]) == false) {
-                if (finish != null) {
-                  finish(null, data["msg"]);
-                }
-              } else {
-                if (finish != null) {
-                  finish(null, "登录异常，请重新登录！");
-                }
-              }
-              kLog("原始数据:$data");
-              Future.delayed(
-                Duration(milliseconds: 800),
-                () {
-                  DartNotificationCenter.post(
-                      channel: kForceLogoutNotification, options: null);
-                },
-              );
-            } 
-            */
-            else {
-              kLog("原始数据:$data");
+            } else {
               if (isStringEmpty(data["msg"]) == false) {
                 if (finish != null) {
                   finish(null, data["msg"]);

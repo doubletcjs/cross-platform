@@ -1,0 +1,59 @@
+<view class="evaluate-cell-content">
+    <view class="evaluate-cell" wx:if="{{currentIndex == 0}}" wx:for="{{evaluateDataList}}" wx:key="index">
+        <view class="evaluate-cell-content-row">
+            <view class="evaluate-cell-base-row">
+                <image class="evaluate-cell-cover" src="/icons/product_placeholder@3x.png" mode="aspectFill"></image>
+                <view class="evaluate-cell-base-column" style="align-items: flex-start; align-content: flex-start;">
+                    <view class="evaluate-cell-title">{{item['name']}}</view>
+                    <view class="evaluate-cell-specification">{{item['specification']}}</view>
+                </view>
+            </view>
+        </view>
+        <view class="evaluate-cell-base-row" style="justify-content: flex-end;">
+            <view class="evaluate-cell-comment">去评价</view>
+        </view>
+        <view class="evaluate-cell-base-column" style="position: absolute; top: 34rpx; right: 22rpx; align-items: flex-end; align-content: flex-end;">
+            <view class="evaluate-cell-base-row" style="align-items: flex-end; align-content: flex-end;">
+                <view class="evaluate-cell-unit">¥</view>
+                <view class="evaluate-cell-price">{{item['price']}}</view>
+            </view>
+            <view class="evaluate-cell-count">X{{item['count']}}</view>
+        </view>
+    </view>
+    <view class="evaluate-cell-done" wx:if="{{currentIndex == 1}}" wx:for="{{evaluateDataList}}" wx:key="index">
+        <view class="evaluate-cell-base-row">
+            <image class="evaluate-cell-done-head" src="/icons/person.png" mode="aspectFill"></image>
+            <view class="evaluate-cell-base-column" style="margin-left: 38rpx; width: 82%;">
+                <view class="evaluate-cell-done-username">{{item['author']['name']}}</view>
+                <view class="evaluate-cell-base-row">
+                    <view class="evaluate-cell-done-date-specification">{{item['date']}}</view>
+                    <view class="evaluate-cell-done-date-specification" style="margin-left: 20rpx;">
+                        {{'规格：'}}{{item['specification']}}
+                    </view>
+                </view>
+            </view>
+        </view>
+        <view class="evaluate-cell-done-comment">{{item['comment']}}</view>
+        <view class="evaluate-cell-base-row" style="align-items: center; align-content: center; margin-top: 8rpx;">
+            <view class="evaluate-cell-done-comment" style="margin-top: 0;">评分：</view>
+            <view class="evaluate-cell-base-row">
+                <image class="evaluate-cell-done-score-icon" src="/icons/icon-score-start@3x.png" mode="aspectFit" wx:for="{{scoreList}}" wx:for-item="score" wx:for-index="scoreindex" wx:if="{{scoreindex <= item['score']-1}}"></image>
+            </view>
+        </view>
+        <view class="evaluate-cell-done-product">
+            <image class="evaluate-cell-done-product-cover" src="/icons/product_placeholder@3x.png" mode="aspectFill"></image>
+            <view class="evaluate-cell-base-column" style="justify-content: space-between; margin-left: 20rpx; width: 67%;">
+                <view class="evaluate-cell-done-product-name">{{item['name']}}</view>
+                <view class="evaluate-cell-done-product-price">¥{{item['price']}}</view>
+            </view>
+        </view>
+    </view>
+</view>
+<view class="evaluate-item-content">
+    <view class="evaluate-item-cover" wx:for="{{evaluateItems}}" wx:key="index" data-index="{{index}}" bind:tap="evaluateItemTap">
+        <view class="evaluate-item-text" style="color: {{currentIndex == index ? 'rgba(241, 241, 241, 1)' : 'rgba(145, 152, 159, 1)'}};">
+            {{item}}
+        </view>
+        <view class="evaluate-item-line" style="{{currentIndex == index ? 'background-color: rgba(23, 96, 255, 1);' : 'background-color: rgba(23, 96, 255, 0);'}}"></view>
+    </view>
+</view>

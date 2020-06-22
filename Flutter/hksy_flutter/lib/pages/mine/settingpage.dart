@@ -18,11 +18,8 @@ class _SettingPageState extends State<SettingPage> {
   Map _account = {};
 
   void _refreshAccount() {
-    fetchUser((obj) {
-      Map info = Map.from(obj);
-      setState(() {
-        _account = info;
-      });
+    setState(() {
+      _account = currentAcctount;
     });
   }
 

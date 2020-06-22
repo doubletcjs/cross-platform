@@ -1,0 +1,6 @@
+<view class="authentication-content">
+    <image class="authentication-image" src="/icons/icon_certification_empty_placeholder@3x.png" mode="aspectFill"></image>
+    <view class="authentication-text">人脸识别时，屏幕会出现闪烁</view>
+    <view class="authentication-tip">即将使用屏幕闪光的方式来验证你的身份</view>
+</view>
+<view class="authentication-bottom-button" bind:tap="nextAction">继续</view>

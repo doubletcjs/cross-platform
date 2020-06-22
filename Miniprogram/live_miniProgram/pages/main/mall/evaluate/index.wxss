@@ -1,0 +1,249 @@
+.evaluate-item-content {
+    width: 100%;
+    height: 90rpx;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    align-content: center;
+
+    padding-left: 30rpx;
+    padding-right: 30rpx;
+
+    background-color: rgba(21, 25, 40, 1);
+    position: fixed;
+    top: 0;
+}
+
+.evaluate-item-cover {
+    height: 100%;
+
+    position: relative;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+
+    padding-right: 64rpx;
+}
+
+.evaluate-item-text {
+    font-size: 32rpx;
+}
+
+.evaluate-item-line {
+    width: 64rpx;
+    height: 6rpx;
+
+    position: absolute;
+    bottom: 0;
+}
+
+.evaluate-cell-content {
+    position: absolute;
+    top: 90rpx;
+    bottom: 0;
+    left: 0;
+    right: 0;
+
+    display: flex;
+    flex-direction: column;
+
+    padding-top: 40rpx;
+}
+
+.evaluate-cell-base-row {
+    display: flex;
+    flex-direction: row;
+}
+
+.evaluate-cell-base-column {
+    display: flex;
+    flex-direction: column;
+
+    margin-left: 20rpx;
+}
+
+.evaluate-cell {
+    background-color: rgba(28, 35, 52, 1);
+    border-radius: 12rpx;
+
+    padding-left: 20rpx;
+    padding-right: 22rpx;
+    padding-top: 26rpx;
+    padding-bottom: 32rpx;
+    margin-left: 30rpx;
+    margin-right: 30rpx;
+
+    margin-bottom: 40rpx;
+
+    display: flex;
+    flex-direction: column;
+    position: relative;
+}
+
+.evaluate-cell-content-row {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.evaluate-cell-cover {
+    width: 160rpx;
+    height: 146rpx;
+    border-radius: 12rpx;
+}
+
+.evaluate-cell-title {
+    width: 80%;
+
+    font-size: 28rpx;
+    color: rgba(255, 255, 255, 1);
+
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    white-space: normal !important;
+    overflow: hidden;
+    text-overflow: ellipsis;
+
+    margin-top: 4rpx;
+}
+
+.evaluate-cell-specification {
+    width: 80%;
+
+    font-size: 22rpx;
+    color: rgba(145, 152, 159, 1);
+
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+    white-space: normal !important;
+    overflow: hidden;
+    text-overflow: ellipsis;
+
+    margin-top: 8rpx;
+}
+
+.evaluate-cell-comment {
+    font-size: 28rpx;
+    color: rgba(23, 96, 255, 1);
+
+    padding-left: 18rpx;
+    padding-right: 18rpx;
+    padding-top: 10rpx;
+    padding-bottom: 10rpx;
+
+    border-radius: 8rpx;
+    border: solid 2rpx rgba(23, 96, 255, 1);
+}
+
+.evaluate-cell-unit {
+    color: rgba(145, 152, 159, 1);
+    font-size: 18rpx;
+
+    margin-bottom: 4rpx;
+}
+
+.evaluate-cell-price {
+    color: rgba(241, 241, 241, 1);
+    font-size: 28rpx;
+    font-weight: bold;
+
+    margin-left: 4rpx;
+}
+
+.evaluate-cell-count {
+    color: rgba(145, 152, 159, 1);
+    font-size: 22rpx;
+    margin-top: 38rpx;
+}
+
+.evaluate-cell-done {
+    background-color: rgba(28, 35, 52, 1);
+
+    padding-left: 30rpx;
+    padding-right: 30rpx;
+    padding-top: 32rpx;
+    padding-bottom: 32rpx;
+
+    margin-bottom: 20rpx;
+
+    display: flex;
+    flex-direction: column;
+    position: relative;
+}
+
+.evaluate-cell-done-head {
+    width: 72rpx;
+    height: 72rpx;
+    border-radius: 36rpx;
+}
+
+.evaluate-cell-done-username {
+    color: rgba(145, 152, 159, 1);
+    font-size: 32rpx;
+
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+    white-space: normal !important;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.evaluate-cell-done-date-specification {
+    color: rgba(86, 93, 109, 1);
+    font-size: 22rpx;
+}
+
+.evaluate-cell-done-comment {
+    margin-top: 16rpx;
+    color: rgba(241, 241, 241, 1);
+    font-size: 28rpx;
+}
+
+.evaluate-cell-done-score-icon {
+    width: 24.2rpx;
+    height: 24rpx;
+
+    margin-right: 4rpx;
+}
+
+.evaluate-cell-done-product {
+    margin-top: 20rpx;
+    background-color: rgba(255, 255, 255, 0.05);
+
+    display: flex;
+    flex-direction: row;
+}
+
+.evaluate-cell-done-product-cover {
+    width: 160rpx;
+    height: 146rpx;
+}
+
+.evaluate-cell-done-product-name {
+    color: rgba(241, 241, 241, 1);
+    font-size: 28rpx;
+
+    margin-top: 10rpx;
+
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    white-space: normal !important;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.evaluate-cell-done-product-price {
+    color: rgba(145, 152, 159, 1);
+    font-size: 28rpx;
+
+    margin-bottom: 10rpx;
+}

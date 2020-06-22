@@ -1,0 +1,71 @@
+<view class="profile-header-info-content">
+    <view class="profile-header-base-row" style="align-items: center; align-content: center; justify-content: center;">
+        <image class="profile-header-info-head" src="/icons/person.png" mode="aspectFill"></image>
+        <view class="profile-header-info-name">用户123</view>
+        <view class="profile-header-info-message-count">5</view>
+    </view>
+    <view class="profile-header-base-row">
+        <image class="profile-header-info-icon" src="/icons/icon-profile-setting@3x.png" mode="aspectFit" bind:tap="accountSetting"></image>
+        <image class="profile-header-info-icon" src="/icons/icon-news-massage@3x.png" style="margin-left: 30rpx;" mode="aspectFit" bind:tap="showMessageCenter"></image>
+    </view>
+</view>
+<view class="profile-header-item-content">
+    <view class="profile-header-item-column" wx:for="{{itemList}}" wx:key="index" data-index="{{index}}" bind:tap="itemListTap">
+        <view class="profile-header-item-number">{{item['number']}}</view>
+        <view class="profile-header-item-name">{{item['name']}}</view>
+    </view>
+</view>
+<view class="profile-header-coin-mask">
+    <image class="profile-header-coin-background" src="/icons/icon-profile-coin-back@3x.png"></image>
+    <view class="profile-header-coin-content">
+        <view class="profile-header-coin-base-column">
+            <view class="profile-header-coin">我的金币</view>
+            <view class="profile-header-base-row" style="align-items: flex-end; align-content: flex-end;">
+                <view class="profile-header-coin-number">568</view>
+                <view class="profile-header-coin-unit">金币</view>
+            </view>
+        </view>
+        <view class="profile-header-coin-base-column" style="align-items: flex-end;">
+            <view class="profile-header-base-row" style="align-items: center; align-content: center; justify-content: center;" bind:tap="coinOrderList">
+                <view class="profile-header-coin-order">查看金币订单</view>
+                <image class="profile-header-coin-arrow" src="/icons/ico_profile_cell_arrow@3x.png" mode="aspectFit"></image>
+            </view>
+            <view class="profile-header-coin-recharge">充值</view>
+        </view>
+    </view>
+</view>
+<view class="profile-order-content">
+    <view class="profile-header-base-row" style="align-items: center; align-content: center; justify-content: space-between; padding-top: 26rpx; padding-bottom: 24rpx; border-bottom: solid 2rpx rgba(241, 241, 241, 0.05);">
+        <view class="profile-header-coin">我的订单</view>
+        <view class="profile-header-base-row" style="align-items: center; align-content: center; justify-content: center;">
+            <view class="profile-header-coin-order" style="color: rgba(23, 96, 255, 1);">
+                查看全部订单
+            </view>
+            <image class="profile-header-coin-arrow" src="/icons/ico_profile_arrow@3x.png" mode="aspectFit"></image>
+        </view>
+    </view>
+    <view class="profile-order-item-content">
+        <view class="profile-order-item-column" wx:for="{{orderItemList}}" wx:key="index" data-index="{{index}}" bind:tap="orderItemListTap">
+            <image class="profile-order-item-icon" src="{{item['icon']}}" mode="aspectFit"></image>
+            <view class="profile-order-item-name">{{item['name']}}</view>
+            <view class="profile-header-info-message-count" style="right: -15rpx; top: -10rpx;" wx:if="{{item['count'] > 0}}">
+                {{item['count']}}
+            </view>
+        </view>
+    </view>
+</view>
+<view class="profile-product-content">
+    <view class="profile-product-title">推荐商品</view>
+    <view class="profile-product-cell-content">
+        <view class="profile-product-cell" wx:for="{{products}}" wx:key="index">
+            <image class="profile-product-image" src="{{item['image']}}" mode="aspectFill"></image>
+            <view class="profile-product-column">
+                <view class="profile-product-name">{{item['name']}}</view>
+                <view class="profile-header-base-row" style="align-items: flex-end; align-content: flex-end; margin-top: 8rpx;">
+                    <view class="profile-product-unit">¥</view>
+                    <view class="profile-product-price">{{item['price']}}</view>
+                </view>
+            </view>
+        </view>
+    </view>
+</view>

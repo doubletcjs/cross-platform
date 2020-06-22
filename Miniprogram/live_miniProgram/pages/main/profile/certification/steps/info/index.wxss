@@ -1,0 +1,131 @@
+.info-base-content {
+    background-color: rgba(28, 35, 52, 1);
+
+    padding-left: 30rpx;
+    padding-top: 42rpx;
+    padding-right: 30rpx;
+    padding-bottom: 10rpx;
+
+    border-top: solid 20rpx rgba(21, 25, 40, 1);
+
+    display: flex;
+    flex-direction: column;
+}
+
+.info-base-text {
+    font-size: 34rpx;
+    color: rgba(241, 241, 241, 1);
+    font-weight: bolder;
+}
+
+.info-bottom-button {
+    margin-left: 30rpx;
+    margin-right: 30rpx;
+    margin-top: 96rpx;
+    margin-bottom: 86rpx;
+
+    height: 94rpx;
+    background-color: rgba(23, 96, 255, 1);
+    border-radius: 10rpx;
+
+    font-size: 36rpx;
+    color: rgba(241, 241, 241, 1);
+
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-content: center;
+    align-items: center;
+}
+
+.info-input-content {
+    height: 100rpx;
+
+    display: flex;
+    flex-direction: row;
+    align-content: center;
+    align-items: center;
+}
+
+.info-input-name {
+    width: 124rpx;
+    height: 100%;
+
+    font-size: 28rpx;
+    color: rgba(145, 152, 159, 1);
+
+    display: flex;
+    flex-direction: row;
+    align-content: center;
+    align-items: center;
+}
+
+.info-input {
+    margin-left: 30rpx;
+    height: 100%;
+    width: 75%;
+
+    font-size: 28rpx;
+    color: white;
+}
+
+.info-input-placeholder {
+    font-size: 28rpx;
+    color: rgba(86, 93, 109, 1);
+}
+
+.info-idcard-content {
+    display: flex;
+    flex-direction: column;
+    align-content: center;
+    align-items: center;
+}
+
+.info-idcard-image {
+    width: 510rpx;
+    height: 284rpx;
+
+    border-radius: 12rpx;
+    background-color: rgba(21, 25, 40, 1);
+
+    position: relative;
+}
+
+.info-idcard-text {
+    font-size: 28rpx;
+    color: rgba(86, 93, 109, 1);
+
+    margin-top: 32rpx;
+    margin-bottom: 32rpx;
+}
+
+.info-upload-line {
+    width: 510rpx;
+    height: 2rpx;
+
+    background-color: rgba(241, 241, 241, 0.05);
+}
+
+.info-upload-column {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-content: center;
+    align-items: center;
+
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+}
+
+.info-upload-icon {
+    width: 72rpx;
+    height: 72rpx;
+}
+
+.info-upload-text {
+    font-size: 22rpx;
+    color: rgba(86, 93, 109, 1);
+}

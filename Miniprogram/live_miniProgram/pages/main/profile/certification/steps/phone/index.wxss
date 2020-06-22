@@ -1,0 +1,111 @@
+.phone-base-content {
+    background-color: rgba(28, 35, 52, 1);
+
+    padding-left: 30rpx;
+    padding-top: 42rpx;
+    padding-right: 30rpx;
+    padding-bottom: 10rpx;
+
+    border-top: solid 20rpx rgba(21, 25, 40, 1);
+
+    display: flex;
+    flex-direction: column;
+}
+
+.phone-base-text {
+    font-size: 34rpx;
+    color: rgba(241, 241, 241, 1);
+    font-weight: bolder;
+}
+
+.phone-input-content {
+    height: 104rpx;
+
+    display: flex;
+    flex-direction: row;
+    align-content: center;
+    align-items: center;
+
+    position: relative;
+}
+
+.phone-input-name {
+    width: 124rpx;
+    height: 100%;
+
+    font-size: 28rpx;
+    color: rgba(145, 152, 159, 1);
+
+    display: flex;
+    flex-direction: row;
+    align-content: center;
+    align-items: center;
+}
+
+.phone-input {
+    margin-left: 30rpx;
+    height: 100%;
+    width: 75%;
+
+    font-size: 28rpx;
+    color: white;
+}
+
+.phone-input-placeholder {
+    font-size: 28rpx;
+    color: rgba(86, 93, 109, 1);
+}
+
+.phone-verifycode {
+    height: 80%;
+    font-size: 28rpx;
+    color: rgba(23, 96, 255, 1);
+    text-align: right;
+
+    display: flex;
+    flex-direction: row;
+    align-content: center;
+    align-items: center;
+
+    position: absolute;
+    right: 0;
+}
+
+.phone-code-content {
+    margin-left: 30rpx;
+    height: 80%;
+
+    display: flex;
+    flex-direction: row;
+    align-content: center;
+    align-items: center;
+
+    font-size: 28rpx;
+    color: rgba(241, 241, 241, 1);
+}
+
+.phone-code-arrow {
+    margin-left: 26rpx;
+    width: 32rpx;
+    height: 32rpx;
+}
+
+.phone-bottom-button {
+    margin-left: 30rpx;
+    margin-right: 30rpx;
+    margin-top: 96rpx;
+    margin-bottom: 86rpx;
+
+    height: 94rpx;
+    background-color: rgba(23, 96, 255, 1);
+    border-radius: 10rpx;
+
+    font-size: 36rpx;
+    color: rgba(241, 241, 241, 1);
+
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-content: center;
+    align-items: center;
+}

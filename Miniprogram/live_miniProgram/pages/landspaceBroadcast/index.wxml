@@ -25,3 +25,5 @@
 <rankinglist visible="{{rankinglistvisible}}" bindclose="closeClick"></rankinglist>
 <!-- 分享组件 -->
 <share visible="{{sharevisible}}" landscape="{{true}}" bindclose="closeClick"></share>
+<!-- 滤镜组件 -->
+<filter visible="{{filtervisible}}" bindclose="closeClick"></filter>

@@ -24,6 +24,8 @@ final RegExp kPhoneRegExp = RegExp(
 final Future<SharedPreferences> _preferencesFuture =
     SharedPreferences.getInstance();
 
+Map currentAcctount = {};
+
 ///userID
 void userID(kObjectFunctionBlock complete) {
   _preferencesFuture.then((preferences) {
@@ -105,6 +107,7 @@ void recordUserInfo(Map info) {
       );
 
       kLog("更新用户信息");
+      currentAcctount = info;
     }).catchError((error) {
       kLog("error:$error");
     });
@@ -116,10 +119,12 @@ void fetchUser(kObjectFunctionBlock complete) {
   _preferencesFuture.then((preferences) {
     final mapString = preferences.get("account");
     if (isStringEmpty(mapString) == false) {
-      Map userInfo = jsonDecode(mapString);
+      Map info = jsonDecode(mapString);
       if (complete != null) {
-        complete(userInfo);
+        complete(info);
       }
+
+      currentAcctount = info;
     } else {
       if (complete != null) {
         complete({});

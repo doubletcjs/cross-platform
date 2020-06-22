@@ -84,11 +84,8 @@ class _PaycodePageState extends State<PaycodePage> {
   }
 
   void _refreshAccount() {
-    fetchUser((obj) {
-      Map info = Map.from(obj);
-      setState(() {
-        _account = info;
-      });
+    setState(() {
+      _account = currentAcctount;
     });
   }
 

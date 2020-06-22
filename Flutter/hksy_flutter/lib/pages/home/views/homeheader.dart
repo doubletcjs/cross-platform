@@ -50,14 +50,11 @@ class _HomeHeaderState extends State<HomeHeader> {
         ),
       );
     } else if (index == 1) {
-      fetchUser((obj) {
-        Map info = Map.from(obj);
-        if (info["personalStatus"] == 1) {
-          walletAlert(context);
-        } else {
-          certificationAlert(context);
-        }
-      });
+      if (currentAcctount["personalStatus"] == 1) {
+        walletAlert(context);
+      } else {
+        certificationAlert(context);
+      }
     }
   }
 

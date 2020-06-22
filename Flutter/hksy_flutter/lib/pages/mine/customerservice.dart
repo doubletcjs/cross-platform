@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:hksy_flutter/pages/mine/api/mineapi.dart';
 import 'package:hksy_flutter/public/public.dart';
 
 class CustomerService extends StatefulWidget {
@@ -9,7 +11,11 @@ class CustomerService extends StatefulWidget {
 }
 
 class _CustomerServiceState extends State<CustomerService> {
-  Widget _textView(String placeholder) {
+  TextEditingController _contentController = TextEditingController();
+  TextEditingController _nameController = TextEditingController();
+  TextEditingController _phoneController = TextEditingController();
+
+  Widget _textView(String placeholder, TextEditingController controller) {
     return Container(
       height: 124,
       padding: EdgeInsets.fromLTRB(11, 0, 11, 0),
@@ -27,6 +33,7 @@ class _CustomerServiceState extends State<CustomerService> {
         ),
         scrollPadding: EdgeInsets.zero,
         maxLines: null,
+        controller: controller,
         decoration: InputDecoration(
           contentPadding: EdgeInsets.fromLTRB(0, 14, 0, 14),
           hintText: placeholder,
@@ -43,7 +50,13 @@ class _CustomerServiceState extends State<CustomerService> {
     );
   }
 
-  Widget _contactTextField(String text, String placeholder) {
+  Widget _textField(
+    String text,
+    String placeholder,
+    TextEditingController controller, {
+    List<TextInputFormatter> inputFormatters,
+    TextInputType keyboardType = TextInputType.text,
+  }) {
     return Container(
       height: 40,
       padding: EdgeInsets.fromLTRB(13, 0, 13, 0),
@@ -83,11 +96,39 @@ class _CustomerServiceState extends State<CustomerService> {
                 enabledBorder: InputBorder.none,
                 focusedBorder: InputBorder.none,
               ),
+              inputFormatters: inputFormatters != null ? inputFormatters : [],
+              keyboardType: keyboardType,
             ),
           ),
         ],
       ),
     );
+  }
+
+  void _onConfirm() {
+    if (isStringEmpty(_contentController.text)) {
+      showToast("请输入您的留言内容", context);
+      return;
+    }
+
+    if (isStringEmpty(_contentController.text)) {
+      showToast("请输入您的姓名", context);
+      return;
+    }
+
+    if (regularMatch(_phoneController.text, kPhoneRegExp) == false) {
+      showToast("请输入正确的手机号", context);
+      return;
+    }
+
+    MineApi.addMessage(currentAcctount["userId"], _nameController.text,
+        _phoneController.text, _contentController.text, (data, msg) {
+      if (data != null) {
+        Navigator.of(context).pop();
+      } else {
+        showToast(msg, context);
+      }
+    });
   }
 
   @override
@@ -114,7 +155,7 @@ class _CustomerServiceState extends State<CustomerService> {
             SizedBox(
               height: 20,
             ),
-            _textView("请输入您的留言"),
+            _textView("请输入您的留言", _contentController),
             SizedBox(
               height: 28,
             ),
@@ -128,11 +169,20 @@ class _CustomerServiceState extends State<CustomerService> {
             SizedBox(
               height: 20,
             ),
-            _contactTextField("姓名：", "请输入您的姓名"),
+            _textField("姓名：", "请输入您的姓名", _nameController),
             SizedBox(
               height: 15,
             ),
-            _contactTextField("手机：", "请输入您的手机号码"),
+            _textField(
+              "手机：",
+              "请输入您的手机号码",
+              _phoneController,
+              inputFormatters: [
+                WhitelistingTextInputFormatter.digitsOnly,
+                LengthLimitingTextInputFormatter(11),
+              ],
+              keyboardType: TextInputType.number,
+            ),
             SizedBox(
               height: 80,
             ),
@@ -143,7 +193,9 @@ class _CustomerServiceState extends State<CustomerService> {
                 borderRadius: BorderRadius.circular(7.5),
               ),
               child: FlatButton(
-                onPressed: () {},
+                onPressed: () {
+                  this._onConfirm();
+                },
                 child: Text(
                   "提交留言",
                   style: TextStyle(

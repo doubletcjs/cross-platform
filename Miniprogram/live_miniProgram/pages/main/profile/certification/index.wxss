@@ -1,0 +1,53 @@
+.certification-step-bar {
+    width: 100%;
+    height: 108rpx;
+
+    position: fixed;
+    top: 0;
+    background-color: rgba(28, 35, 52, 1);
+    padding-left: 30rpx;
+    padding-right: 30rpx;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-content: center;
+    align-items: center;
+
+    z-index: 2;
+}
+
+.certification-step {
+    display: flex;
+    flex-direction: row;
+    align-content: center;
+    align-items: center;
+}
+
+.certification-step-icon {
+    width: 48rpx;
+    height: 48rpx;
+}
+
+.certification-step-text {
+    font-size: 28rpx;
+    margin-left: 10rpx;
+}
+
+.certification-step-arrow {
+    margin-left: 8rpx;
+    width: 14rpx;
+    height: 26rpx;
+}
+
+.certification-bottom-bar {
+    width: 100%;
+    height: 180rpx;
+
+    position: fixed;
+    bottom: 0;
+}
+
+.certification-step-base-content {
+    margin-top: 108rpx;
+}

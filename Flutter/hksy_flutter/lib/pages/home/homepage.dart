@@ -21,30 +21,32 @@ class _HomePageState extends State<HomePage> {
   //获取用户信息
   void _refreshUserInfo() {
     userID((id) {
-      AccountApi.getUserInfo(id, (data, msg) {
-        if (data != null) {
-          recordUserInfo(data);
-        }
-      });
+      if (isStringEmpty(id) == false) {
+        AccountApi.getUserInfo(id, (data, msg) {
+          if (data != null) {
+            recordUserInfo(data);
+          }
+        });
+
+        HomeApi.getAppVersion((data, msg) {
+          if (data != null) {
+            if (data.length > 0) {
+              HomeVersion().show(
+                context,
+                data,
+              );
+            }
+          }
+        });
+
+        fetchUser(null);
+      }
     });
   }
 
   @override
   void initState() {
     super.initState();
-
-    userID((id) {
-      HomeApi.getAppVersion((data, msg) {
-        if (data != null) {
-          if (data.length > 0) {
-            HomeVersion().show(
-              context,
-              data,
-            );
-          }
-        }
-      });
-    });
 
     DartNotificationCenter.subscribe(
       channel: kRefreshAccountNotification,
@@ -55,6 +57,11 @@ class _HomePageState extends State<HomePage> {
     );
 
     this._refreshUserInfo();
+  }
+
+  @override
+  void didUpdateWidget(HomePage oldWidget) {
+    super.didUpdateWidget(oldWidget);
   }
 
   @override

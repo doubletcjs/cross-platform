@@ -1,3 +1,46 @@
+.message-mask {
+    width: 100%;
+    height: 100%;
+}
+
+.message-tap {
+    width: 100%;
+    height: 172rpx;
+
+    position: absolute;
+    top: 0;
+
+    padding-left: 102rpx;
+    padding-right: 102rpx;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.message-tap-column {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    align-content: center;
+    justify-content: center;
+}
+
+.message-tap-icon {
+    width: 64rpx;
+    height: 64rpx;
+}
+
+.message-tap-name {
+    font-size: 28rpx;
+    margin-top: 8rpx;
+}
+
+.message-content {
+    position: absolute;
+    width: 100%;
+}
+
 .message-cell-content {
     padding-top: calc(36vmin / 7.5);
     padding-bottom: calc(36vmin / 7.5);
@@ -70,8 +113,8 @@
     position: absolute;
     right: calc(32vmin / 7.5);
 
-    padding-left: calc(14vmin / 7.5);
-    padding-right: calc(14vmin / 7.5);
+    padding-left: calc(16vmin / 7.5);
+    padding-right: calc(16vmin / 7.5);
     padding-top: calc(4vmin / 7.5);
     padding-bottom: calc(4vmin / 7.5);
 }

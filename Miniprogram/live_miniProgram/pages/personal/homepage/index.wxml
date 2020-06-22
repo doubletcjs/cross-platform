@@ -45,21 +45,17 @@
         私信
     </view>
 </view>
-
-<!-- tab切换  -->
+<!-- tab切换 -->
 <view class="tab">
-     <tabList bind:changeTab="changeTabhandle" attentionShow="{{false}}"  currentTab="{{currentTab}}" tablists="{{ tablists }}" />
-     <view class="search" bind:tap="search">
-         <image class="" src="/icons/icon_search@2x.png" mode="widthFix" lazy-load="false"></image>
-     </view>
+    <tabList bind:changeTab="changeTabhandle" attentionShow="{{false}}" currentTab="{{currentTab}}" tablists="{{ tablists }}" />
+    <view class="search" bind:tap="search">
+        <image class="" src="/icons/icon_search@2x.png" mode="widthFix" lazy-load="false"></image>
+    </view>
 </view>
 <!-- content 显示内容 -->
 <view class="">
     <!-- isShowAttention 我的主页显示阅读量按钮 其他人主页不显示 -->
-     <articleList  isAttention="{{false}}" isShowAttention="{{isShowAttention}}" bind:giveNumChange="giveNumChange" articleLists="{{articleLists}}" />
+    <articleList isAttention="{{false}}" isShowAttention="{{isShowAttention}}" bind:giveNumChange="giveNumChange" articleLists="{{articleLists}}" />
 </view>
-
-
-
 <alertview visible="{{alertvisible}}" contentString="{{alertContent}}" cancelString="取消" confirmString="确定" contentStringColor="rgba(53, 53, 53, 1)" cancelTextColor="rgba(28, 35, 52, 1)" confirmTextColor="rgba(23, 96, 255, 1)" bindclose="alertCloseClick" bindconfirm="alertConfirmClick"></alertview>
 <share visible="{{sharevisible}}" shareItems="{{shareItems}}" bind:close="shareCloseClick" bind:itemselect="shareConfirmClick"></share>

@@ -1,0 +1,6 @@
+{
+  "usingComponents": {
+    "genderactionsheet": "/components/popactionsheet/index"
+  },
+  "navigationBarTitleText": "账户设置"
+}

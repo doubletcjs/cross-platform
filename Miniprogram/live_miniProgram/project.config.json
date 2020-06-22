@@ -22,7 +22,7 @@
 			"disablePlugins": [],
 			"outputPath": ""
 		},
-		"useCompilerModule": true,
+		"useCompilerModule": false,
 		"userConfirmedUseCompilerModuleSwitch": false
 	},
 	"compileType": "miniprogram",
@@ -208,8 +208,8 @@
 				},
 				{
 					"id": -1,
-					"name": "个人主页",
-					"pathName": "pages/personal/homepage/index",
+					"name": "账户设置",
+					"pathName": "pages/main/profile/info/index",
 					"query": "",
 					"scene": null
 				}

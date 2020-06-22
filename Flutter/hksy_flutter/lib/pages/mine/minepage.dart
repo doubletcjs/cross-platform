@@ -116,15 +116,12 @@ class _MinePageState extends State<MinePage> {
   void didUpdateWidget(MinePage oldWidget) {
     super.didUpdateWidget(oldWidget);
 
-    fetchUser((obj) {
-      Map info = Map.from(obj);
-      setState(() {
-        _coinString = info["coin"];
-        _inviteCode = info["invitationCode"];
-        _phone = info["phone"];
-        _nickname = info["nickname"];
-        _avater = info["avater"];
-      });
+    setState(() {
+      _coinString = currentAcctount["coin"];
+      _inviteCode = currentAcctount["invitationCode"];
+      _phone = currentAcctount["phone"];
+      _nickname = currentAcctount["nickname"];
+      _avater = currentAcctount["avater"];
     });
   }
 
@@ -171,14 +168,11 @@ class _MinePageState extends State<MinePage> {
                 name: "我的钱包",
                 icon: _cellIcon("images/ico_my_wallet@3x.png"),
                 tapHandle: () {
-                  fetchUser((obj) {
-                    Map info = Map.from(obj);
-                    if (info["personalStatus"] == 1) {
-                      walletAlert(context);
-                    } else {
-                      certificationAlert(context);
-                    }
-                  });
+                  if (currentAcctount["personalStatus"] == 1) {
+                    walletAlert(context);
+                  } else {
+                    certificationAlert(context);
+                  }
                 },
               ),
               InfoCell(
@@ -233,26 +227,23 @@ class _MinePageState extends State<MinePage> {
                   "images/ico_my_super@3x.png",
                 ),
                 tapHandle: () {
-                  fetchUser((obj) {
-                    Map info = Map.from(obj);
-                    if (info["vipminerStatus"] == 1) {
-                      Navigator.of(context).push(
-                        MaterialPageRoute(
-                          builder: (context) {
-                            return VipStoragePage();
-                          },
-                        ),
-                      );
-                    } else {
-                      functionAlertView(
-                        context,
-                        title: "超级存储",
-                        content:
-                            "      你目前还不是超级存储，想成为超级存储请联系业务人员线下办理，成为我们的超级矿工则显示每日获得更多分红收益。",
-                        confirm: "确认",
-                      );
-                    }
-                  });
+                  if (currentAcctount["vipminerStatus"] == 1) {
+                    Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (context) {
+                          return VipStoragePage();
+                        },
+                      ),
+                    );
+                  } else {
+                    functionAlertView(
+                      context,
+                      title: "超级存储",
+                      content:
+                          "      你目前还不是超级存储，想成为超级存储请联系业务人员线下办理，成为我们的超级矿工则显示每日获得更多分红收益。",
+                      confirm: "确认",
+                    );
+                  }
                 },
               ),
               InfoCell(

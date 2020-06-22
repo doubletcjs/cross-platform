@@ -32,8 +32,6 @@
 .items-icon {
     width: 100rpx;
     height: 100rpx;
-
-    background-color: tan;
 }
 
 .items-name {

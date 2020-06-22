@@ -1,0 +1,16 @@
+<view class="certification-step-base-content">
+    <info wx:if="{{currentIndex == 0}}" bind:confirm="confirm"></info>
+    <phone wx:if="{{currentIndex == 1}}" bind:confirm="confirm"></phone>
+    <authentication wx:if="{{currentIndex >= 2}}" bind:confirm="confirm"></authentication>
+</view>
+<view class="certification-step-bar">
+    <view class="certification-step" wx:for="{{stepList}}" wx:key="index">
+        <image class="certification-step-icon" src="/icons/icon_certification_{{index+1}}-2@3x.png" mode="aspectFit" wx:if="{{currentIndex == index}}"></image>
+        <image class="certification-step-icon" src="/icons/icon_certification_{{index+1}}-1@3x.png" mode="aspectFit" wx:elif="{{currentIndex < index}}"></image>
+        <image class="certification-step-icon" src="/icons/icon_certification_done@3x.png" mode="aspectFit" wx:else></image>
+        <view class="certification-step-text" style="{{currentIndex >= index ? 'color: rgba(241, 241, 241, 1);' : 'color: rgba(86, 93, 109, 1);'}}">
+            {{item}}
+        </view>
+        <image class="certification-step-arrow" src="{{currentIndex >= index ? '/icons/IconsTintColorBlack@2x.png' : '/icons/ico_profile_cell_arrow@3x.png'}}" mode="aspectFit"></image>
+    </view>
+</view>

@@ -1,0 +1,8 @@
+{
+  "usingComponents": {
+    "info": "./steps/info/index",
+    "phone": "./steps/phone/index",
+    "authentication": "./steps/authentication/index"
+  },
+  "navigationBarTitleText": "实名认证"
+}

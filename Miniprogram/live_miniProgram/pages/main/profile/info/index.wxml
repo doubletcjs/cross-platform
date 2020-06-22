@@ -1,0 +1,15 @@
+<view class="info-base-cell" wx:for="{{infoItemList}}" wx:key="index" style="{{index == 0 ? 'padding-top: 44rpx; padding-bottom: 38rpx; border-bottom: solid 2rpx rgba(241, 241, 241, 0.1);' : ''}}" data-index="{{index}}" catch:tap="cellItemSelect">
+    <view class="info-base-cell-name">{{item['name']}}</view>
+    <picker class="picker-view" mode="region" value="" bindchange="regionChange" wx:if="{{index == 5}}">
+        <view class="info-base-row" style="position: absolute; right: 0; top: 0; height: 100%;">
+            <view class="info-base-cell-value">{{item['value']}}</view>
+            <image class="info-base-cell-arrow" src="/icons/ico_profile_cell_arrow@3x.png" mode="aspectFit"></image>
+        </view>
+    </picker>
+    <view class="info-base-row" wx:else>
+        <image class="info-account-head" src="/icons/person.png" mode="aspectFill" wx:if="{{index == 0}}"></image>
+        <view class="info-base-cell-value" wx:else>{{item['value']}}</view>
+        <image class="info-base-cell-arrow" src="/icons/ico_profile_cell_arrow@3x.png" mode="aspectFit"></image>
+    </view>
+</view>
+<genderactionsheet visible="{{genderactionvisible}}" items="{{genders}}" bindclose="closeClick" binditemselect="genderItemSelect"></genderactionsheet>

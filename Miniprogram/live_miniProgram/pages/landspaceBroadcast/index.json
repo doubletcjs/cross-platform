@@ -2,7 +2,8 @@
   "usingComponents": {
     "alertview": "/components/popalertview/index",
     "rankinglist": "/components/rankinglist/index",
-    "share": "/components/share/index"
+    "share": "/components/share/index",
+    "filter": "/components/filter/index"
   },
   "pageOrientation": "landscape",
   "navigationStyle": "custom"

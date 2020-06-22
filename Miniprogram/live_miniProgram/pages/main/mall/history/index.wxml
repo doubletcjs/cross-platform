@@ -1,0 +1,50 @@
+<view class="history">
+    <view class="history-cell-content" style="{{edittinghistory == true ? 'margin-bottom: 90rpx;' : ''}}">
+        <view class="history-date-section" wx:for="{{dataList}}" wx:for-index="section" wx:key="section">
+            <view class="history-date">{{item['date']}}</view>
+            <view class="history-base-cell" wx:for="{{item['products']}}" wx:for-item="product" wx:for-index="index" wx:key="index">
+                <view class="history-cell-edit-content" wx:if="{{edittinghistory == true}}">
+                    <image class="history-cell-edit-icon" src="{{product['selected'] == true ? '/icons/icon_history_selected@3x.png' : '/icons/icon_history_unselected@3x.png'}}" mode="aspectFit" data-section="{{section}}" data-index="{{index}}" bind:tap="singleSelectAction"></image>
+                </view>
+                <image class="history-cell-cover" src="/icons/product_placeholder@3x.png" mode="aspectFill">
+                    <view class="history-cell-noinventory" wx:if="{{product['inventory'] == 0}}">
+                        无货
+                    </view>
+                </image>
+                <view class="history-cell-column" style="{{edittinghistory == true ? 'width: 45%;' : 'width: 60%;'}}">
+                    <view class="history-cell-title" style="{{product['inventory'] == 0 ? 'color: rgba(255, 255, 255, 0.5);' : ''}}">
+                        {{product['title']}}
+                    </view>
+                    <view class="history-cell-row">
+                        <view class="history-cell-price-row">
+                            <view class="history-cell-unit" style="{{product['inventory'] == 0 ? 'color: rgba(255, 52, 101, 0.5);' : ''}}">
+                                ¥
+                            </view>
+                            <view class="history-cell-price" style="{{product['inventory'] == 0 ? 'color: rgba(255, 52, 101, 0.5);' : ''}}">
+                                {{product['price']}}
+                            </view>
+                        </view>
+                        <image class="history-cell-cart" src="/icons/icon_history_cart@3x.png" mode="aspectFit" wx:if="{{product['inventory'] > 0}}"></image>
+                    </view>
+                </view>
+            </view>
+        </view>
+    </view>
+    <view class="history-function-content" wx:if="{{edittinghistory == false}}">
+        <view class="history-function-text" bind:tap="emptyHistory">清空</view>
+        <view class="history-function-text" style="margin-left: 60rpx;" bind:tap="editHistory">
+            编辑
+        </view>
+    </view>
+    <view class="history-function-content" wx:else>
+        <view class="history-function-text" bind:tap="editHistory">完成</view>
+    </view>
+    <view class="history-cell-select-function-content" wx:if="{{edittinghistory == true}}">
+        <view class="history-cell-select-all-row">
+            <image class="history-cell-select-all-icon" src="{{selectedAll == true ? '/icons/icon_history_selected@3x.png' : '/icons/icon_history_unselected@3x.png'}}" mode="aspectFit" bind:tap="selectAllAction"></image>
+            <view class="history-cell-select-all-text" bind:tap="selectAllAction">全选</view>
+        </view>
+        <view class="history-cell-delete" bind:tap="deleteSelectHistory">删除</view>
+    </view>
+</view>
+<alertview visible="{{actionvisible}}" contentString="{{alertcontent}}" cancelString="取消" confirmString="确定" cancelTextColor="rgba(28, 35, 52, 1)" confirmTextColor="rgba(23, 96, 255, 1)" bindclose="closeClick" bind:confirm="alertConfirm"></alertview>

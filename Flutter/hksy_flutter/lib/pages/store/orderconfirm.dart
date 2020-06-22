@@ -35,19 +35,16 @@ class _OrderConfirmState extends State<OrderConfirm> {
   bool _balanceOut = false;
 
   void _refreshAccount() {
-    fetchUser((obj) {
-      Map info = Map.from(obj);
-      setState(() {
-        _price = "${this.widget.product["productPreferentialPrice"]}";
-        _coin = "${info["coin"]}";
+    setState(() {
+      _price = "${this.widget.product["productPreferentialPrice"]}";
+      _coin = "${currentAcctount["coin"]}";
 
-        double _tempPrice = double.parse(_price);
-        double _tempCoin = double.parse(_coin);
+      double _tempPrice = double.parse(_price);
+      double _tempCoin = double.parse(_coin);
 
-        if (_tempPrice - _tempCoin > 0) {
-          _balanceOut = true;
-        }
-      });
+      if (_tempPrice - _tempCoin > 0) {
+        _balanceOut = true;
+      }
     });
   }
 

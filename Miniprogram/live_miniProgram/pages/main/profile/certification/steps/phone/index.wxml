@@ -1,0 +1,17 @@
+<view class="phone-base-content">
+    <view class="phone-base-text">手机号</view>
+    <view class="phone-input-content">
+        <view class="phone-input-name">手机号码</view>
+        <view class="phone-code-content">
+            +86
+            <image class="phone-code-arrow" src="/icons/icon-coin-unfold@3x.png" mode="widthFix"></image>
+        </view>
+        <input type="number" style="width: 56%; margin-left: 26rpx;" id="phone" value="{{phone}}" class="phone-input" placeholder-class="phone-input-placeholder" placeholder="请输入手机号码" maxlength="11" bindinput="inputChange"></input>
+    </view>
+    <view class="phone-input-content">
+        <view class="phone-input-name">验证码：</view>
+        <input type="number" style="width: 50%;" id="verifycode" value="{{verifycode}}" class="phone-input" placeholder-class="phone-input-placeholder" placeholder="请输入验证码" maxlength="4" bindinput="inputChange"></input>
+        <view class="phone-verifycode" bind:tap="getVerifyCode">{{countDownString}}</view>
+    </view>
+</view>
+<view class="phone-bottom-button" bind:tap="nextAction">下一步</view>

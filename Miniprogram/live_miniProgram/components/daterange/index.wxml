@@ -1,0 +1,25 @@
+<view class="i-modal-mask {{ visible ? 'i-modal-mask-show' : '' }}" bind:tap="outClick">
+    <view class="date-content" catch:tap="emptyAction">
+        <view class="date-title">
+            <view class="date-title-name">请选择时间</view>
+            <image class="date-title-close" src="/icons/icon-coinorder-close@3x.png" mode="aspectFit" bind:tap="cancelAction"></image>
+        </view>
+        <view class="date-base-text">交易时间</view>
+        <view class="date-range-content">
+            <view class="date-range-cover" wx:for="{{dateList}}" wx:key="index">
+                <view class="date-range-item" data-index="{{index}}" bind:tap="selectTransactionDate" style="{{currentDefaultIndex == index ? 'background-color: rgba(23, 96, 255, 1); border: solid 2rpx rgba(23, 96, 255, 1); color: rgba(241, 241, 241, 1);' : 'background-color: rgba(241, 241, 241, 1); border: solid 2rpx rgba(145, 152, 159, 1); color: rgba(136, 136, 136, 1);'}}">
+                    {{item}}
+                </view>
+            </view>
+        </view>
+        <view class="date-base-text">自定义</view>
+        <view class="date-range-content">
+            <view class="date-range-cover" wx:for="{{defaultDateList}}" wx:key="index">
+                <picker class="picker-view" mode="date" value="{{item}}" data-index="{{index}}" bindchange="dateRangeChange" bindcancel="">
+                    <view class="date-range-select">{{item}}</view>
+                </picker>
+            </view>
+        </view>
+        <view class="date-confirm" bind:tap="confirmAction">确定</view>
+    </view>
+</view>
