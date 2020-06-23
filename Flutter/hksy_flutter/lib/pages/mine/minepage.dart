@@ -1,4 +1,5 @@
 import 'package:common_utils/common_utils.dart';
+import 'package:dart_notification_center/dart_notification_center.dart';
 import 'package:flutter/material.dart';
 import 'package:hksy_flutter/pages/calculate/calculatemain.dart';
 import 'package:hksy_flutter/pages/coin/mycoin.dart';
@@ -44,17 +45,22 @@ class _MinePageState extends State<MinePage> {
           Expanded(
             child: Row(
               children: <Widget>[
-                _avater != null && _avater.length > 0
-                    ? Image.network(
-                        _avater,
-                        width: 80,
-                        height: 80,
-                      )
-                    : Image.asset(
-                        "images/default_avatar@3x.png",
-                        width: 80,
-                        height: 80,
-                      ),
+                ClipRRect(
+                  child: _avater != null && _avater.length > 0
+                      ? Image.network(
+                          _avater,
+                          width: 80,
+                          height: 80,
+                          fit: BoxFit.cover,
+                        )
+                      : Image.asset(
+                          "images/default_avatar@3x.png",
+                          width: 80,
+                          height: 80,
+                          fit: BoxFit.cover,
+                        ),
+                  borderRadius: BorderRadius.circular(40),
+                ),
                 SizedBox(
                   width: 14,
                 ),
@@ -112,10 +118,7 @@ class _MinePageState extends State<MinePage> {
     );
   }
 
-  @override
-  void didUpdateWidget(MinePage oldWidget) {
-    super.didUpdateWidget(oldWidget);
-
+  void _refreshAccount() {
     setState(() {
       _coinString = currentAcctount["coin"];
       _inviteCode = currentAcctount["invitationCode"];
@@ -123,6 +126,21 @@ class _MinePageState extends State<MinePage> {
       _nickname = currentAcctount["nickname"];
       _avater = currentAcctount["avater"];
     });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+
+    DartNotificationCenter.subscribe(
+      channel: kUpdateAccountNotification,
+      observer: this,
+      onNotification: (options) {
+        this._refreshAccount();
+      },
+    );
+
+    this._refreshAccount();
   }
 
   @override

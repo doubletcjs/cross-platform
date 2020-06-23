@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hksy_flutter/pages/coin/coinrollout.dart';
+import 'package:hksy_flutter/pages/invitation/api/invitationapi.dart';
 import 'package:hksy_flutter/public/public.dart';
 
 class EarningHeader extends StatefulWidget {
@@ -10,11 +11,42 @@ class EarningHeader extends StatefulWidget {
 }
 
 class _EarningHeaderState extends State<EarningHeader> {
+  Map _earnings;
   List<String> _performances = [
     "剩余转出额度",
     "今日收益",
     "昨日收益",
   ];
+
+  List<String> _performanceValues = [
+    "0",
+    "0",
+    "0",
+  ];
+
+  String _coin = "0";
+
+  @override
+  void initState() {
+    super.initState();
+    userID((id) {
+      if (isStringEmpty(id) == false) {
+        InvitationApi.getEarningsForUser(id, (data, msg) {
+          if (data != null) {
+            _earnings = Map.from(data);
+            setState(() {
+              _coin = "${_earnings["giftcoin"]}";
+              _performanceValues[0] = "${_earnings["limitcoin"]}";
+              _performanceValues[1] = "${_earnings["todayEarnings"]}";
+              _performanceValues[2] = "${_earnings["yesterdayEarnings"]}";
+            });
+          } else {
+            showToast(msg, context);
+          }
+        });
+      }
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -51,7 +83,7 @@ class _EarningHeaderState extends State<EarningHeader> {
                 children: <Widget>[
                   Expanded(
                     child: Text(
-                      "2420",
+                      _coin,
                       style: TextStyle(
                         fontSize: 30,
                         color: rgba(255, 255, 255, 1),
@@ -105,11 +137,12 @@ class _EarningHeaderState extends State<EarningHeader> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: _performances.map(
                     (performance) {
+                      var index = _performances.indexOf(performance);
                       return Column(
                         children: <Widget>[
                           performance.length > 0
                               ? Text(
-                                  "0",
+                                  _performanceValues[index],
                                   style: TextStyle(
                                     fontSize: 13,
                                     color: rgba(255, 255, 255, 1),

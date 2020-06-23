@@ -25,21 +25,10 @@ class _HomePageState extends State<HomePage> {
         AccountApi.getUserInfo(id, (data, msg) {
           if (data != null) {
             recordUserInfo(data);
+            fetchUser(null);
+            kLog("获取用户信息");
           }
         });
-
-        HomeApi.getAppVersion((data, msg) {
-          if (data != null) {
-            if (data.length > 0) {
-              HomeVersion().show(
-                context,
-                data,
-              );
-            }
-          }
-        });
-
-        fetchUser(null);
       }
     });
   }
@@ -55,6 +44,21 @@ class _HomePageState extends State<HomePage> {
         this._refreshUserInfo();
       },
     );
+
+    userID((id) {
+      if (isStringEmpty(id) == false) {
+        HomeApi.getAppVersion((data, msg) {
+          if (data != null) {
+            if (data.length > 0) {
+              HomeVersion().show(
+                context,
+                data,
+              );
+            }
+          }
+        });
+      }
+    });
 
     this._refreshUserInfo();
   }

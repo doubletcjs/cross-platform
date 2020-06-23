@@ -38,27 +38,31 @@ class _ContractPageState extends State<ContractPage> {
     MineApi.getContractDetail(currentAcctount["userId"], _page, _limit,
         (data, msg) {
       if (data != null) {
-        List records = data["records"];
-        setState(() {
-          if (_page == 1) {
-            _dataList = records;
-          } else {
-            _dataList = _dataList + records;
-          }
-
-          if (records.length == 0 && _page > 1) {
-            _page -= 1;
-          }
-        });
-
-        _refreshController.refreshCompleted();
-        if (_page == data["pages"] || data["pages"] == 0) {
-          _refreshController.loadNoData();
+        if (data is String) {
+          showToast(data, context);
         } else {
-          _refreshController.refreshCompleted();
-        }
+          List records = data["records"];
+          setState(() {
+            if (_page == 1) {
+              _dataList = records;
+            } else {
+              _dataList = _dataList + records;
+            }
 
-        _showLoadMore = true;
+            if (records.length == 0 && _page > 1) {
+              _page -= 1;
+            }
+          });
+
+          _refreshController.refreshCompleted();
+          if (_page == data["pages"] || data["pages"] == 0) {
+            _refreshController.loadNoData();
+          } else {
+            _refreshController.refreshCompleted();
+          }
+
+          _showLoadMore = true;
+        }
       } else {
         setState(() {
           if (_page > 1) {

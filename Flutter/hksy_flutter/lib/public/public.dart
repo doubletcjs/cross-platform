@@ -16,6 +16,7 @@ typedef kVoidFunctionBlock = void Function();
 typedef kObjectFunctionBlock = void Function(Object object);
 final String kForceLogoutNotification = "ForceLogoutNotification";
 final String kRefreshAccountNotification = "RefreshAccountNotification";
+final String kUpdateAccountNotification = "UpdateAccountNotification";
 final String kSwitchTabNotification = "SwitchTabNotification";
 
 final RegExp kPhoneRegExp = RegExp(
@@ -108,6 +109,7 @@ void recordUserInfo(Map info) {
 
       kLog("更新用户信息");
       currentAcctount = info;
+      DartNotificationCenter.post(channel: kUpdateAccountNotification);
     }).catchError((error) {
       kLog("error:$error");
     });

@@ -52,4 +52,12 @@ class AccountApi {
       params: params,
     );
   }
+
+  static changeAvater(nickname, url, finish) {
+    Networking.requestBase(
+      "changeAvater",
+      finish,
+      params: {"nickname": nickname, "url": url},
+    );
+  }
 }

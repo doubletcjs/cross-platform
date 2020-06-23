@@ -13,7 +13,7 @@ class StorePage extends StatefulWidget {
 
 class _StorePageState extends State<StorePage> {
   RefreshController _refreshController =
-      RefreshController(initialRefresh: false);
+      RefreshController(initialRefresh: true);
   List _dataList = [];
   int _page = 1;
   int _limit = 20;
@@ -39,27 +39,33 @@ class _StorePageState extends State<StorePage> {
       _limit,
       (data, msg) {
         if (data != null) {
-          List records = data["records"];
-          setState(() {
-            if (_page == 1) {
-              _dataList = records;
-            } else {
-              _dataList = _dataList + records;
-            }
-
-            if (records.length == 0 && _page > 1) {
-              _page -= 1;
-            }
-          });
-
-          _refreshController.refreshCompleted();
-          if (_page == data["pages"] || data["pages"] == 0) {
-            _refreshController.loadNoData();
-          } else {
+          if (data is String) {
             _refreshController.refreshCompleted();
-          }
+            _refreshController.loadComplete();
+            showToast(data, context);
+          } else {
+            List records = data["records"];
+            setState(() {
+              if (_page == 1) {
+                _dataList = records;
+              } else {
+                _dataList = _dataList + records;
+              }
 
-          _showLoadMore = true;
+              if (records.length == 0 && _page > 1) {
+                _page -= 1;
+              }
+            });
+
+            _refreshController.refreshCompleted();
+            if (_page == data["pages"] || data["pages"] == 0) {
+              _refreshController.loadNoData();
+            } else {
+              _refreshController.refreshCompleted();
+            }
+
+            _showLoadMore = true;
+          }
         } else {
           setState(() {
             if (_page > 1) {
