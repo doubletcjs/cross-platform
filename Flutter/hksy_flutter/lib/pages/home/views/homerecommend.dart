@@ -32,6 +32,13 @@ class _HomeRecommendState extends State<HomeRecommend> {
   }
 
   @override
+  void dispose() {
+    super.dispose();
+
+    DartNotificationCenter.unsubscribe(observer: this);
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Container(
       padding: EdgeInsets.fromLTRB(12, 0, 12, 46.5),

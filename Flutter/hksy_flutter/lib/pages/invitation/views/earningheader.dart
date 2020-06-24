@@ -1,3 +1,4 @@
+import 'package:dart_notification_center/dart_notification_center.dart';
 import 'package:flutter/material.dart';
 import 'package:hksy_flutter/pages/coin/coinrollout.dart';
 import 'package:hksy_flutter/pages/invitation/api/invitationapi.dart';
@@ -26,9 +27,7 @@ class _EarningHeaderState extends State<EarningHeader> {
 
   String _coin = "0";
 
-  @override
-  void initState() {
-    super.initState();
+  void _refreshData() {
     userID((id) {
       if (isStringEmpty(id) == false) {
         InvitationApi.getEarningsForUser(id, (data, msg) {
@@ -46,6 +45,27 @@ class _EarningHeaderState extends State<EarningHeader> {
         });
       }
     });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+
+    DartNotificationCenter.subscribe(
+        channel: kUpdateAccountNotification,
+        observer: this,
+        onNotification: (options) {
+          this._refreshData();
+        });
+
+    this._refreshData();
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+
+    DartNotificationCenter.unsubscribe(observer: this);
   }
 
   @override
@@ -90,20 +110,23 @@ class _EarningHeaderState extends State<EarningHeader> {
                       ),
                     ),
                   ),
-                  InkWell(
-                    onTap: () {
-                      Navigator.of(context).push(
-                        MaterialPageRoute(builder: (context) {
-                          return CoinRollout();
-                        }),
-                      );
-                    },
-                    child: Container(
-                      padding: EdgeInsets.fromLTRB(19.5, 5.5, 13.5, 5.5),
-                      decoration: BoxDecoration(
-                        color: rgba(59, 121, 255, 1),
-                        borderRadius: BorderRadius.circular(16),
-                      ),
+                  Container(
+                    height: 32,
+                    decoration: BoxDecoration(
+                      color: rgba(59, 121, 255, 1),
+                      borderRadius: BorderRadius.circular(16),
+                    ),
+                    child: FlatButton(
+                      padding: EdgeInsets.fromLTRB(19.5, 0, 13.5, 0),
+                      onPressed: () {
+                        Navigator.of(context).push(
+                          MaterialPageRoute(builder: (context) {
+                            return CoinRollout(
+                              rolloutValue: double.parse(_coin),
+                            );
+                          }),
+                        );
+                      },
                       child: Row(
                         children: <Widget>[
                           Text(
@@ -123,6 +146,9 @@ class _EarningHeaderState extends State<EarningHeader> {
                             color: rgba(255, 255, 255, 1),
                           ),
                         ],
+                      ),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(16),
                       ),
                     ),
                   ),

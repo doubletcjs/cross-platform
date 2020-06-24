@@ -1,30 +1,109 @@
 import 'package:dart_notification_center/dart_notification_center.dart';
 import 'package:flutter/material.dart';
 import 'package:hksy_flutter/pages/coin/coinrollout.dart';
+import 'package:hksy_flutter/pages/storage/api/storageapi.dart';
 import 'package:hksy_flutter/public/public.dart';
 
 class StorageHeader extends StatefulWidget {
   bool isViper = false;
-  StorageHeader({Key key, this.isViper = false}) : super(key: key);
+  StorageHeader({
+    Key key,
+    this.isViper = false,
+  }) : super(key: key);
 
   @override
   _StorageHeaderState createState() => _StorageHeaderState();
 }
 
 class _StorageHeaderState extends State<StorageHeader> {
-  List<String> _performances = [
+  List<String> _performanceItems = [
     "前日业绩",
     "昨日业绩",
     "累计业绩",
   ];
+
+  List<String> _performanceValues = [
+    "0",
+    "0",
+    "0",
+  ];
+
+  String _storage = "0";
+  String _hkcstorage = "0";
 
   @override
   void initState() {
     super.initState();
 
     if (this.widget.isViper) {
-      _performances = ["剩余转出额度", "昨日分红", ""];
+      _performanceItems = ["剩余转出额度", "昨日分红", ""];
     }
+
+    if (this.widget.isViper == false) {
+      userID((id) {
+        if (isStringEmpty(id) == false) {
+          StorageApi.getPerformanceDatas(id, (data, msg) {
+            if (data != null) {
+              var _performance = Map.from(data);
+              setState(() {
+                _performanceValues[0] =
+                    "${_performance["before_yesterday_performance"]}";
+                _performanceValues[0] = isStringEmpty(_performanceValues[0])
+                    ? "0"
+                    : _performanceValues[0];
+
+                _performanceValues[1] =
+                    "${_performance["yesterday_performance"]}";
+                _performanceValues[1] = isStringEmpty(_performanceValues[1])
+                    ? "0"
+                    : _performanceValues[1];
+
+                _performanceValues[2] = "${_performance["expericence"]}";
+                _performanceValues[2] = isStringEmpty(_performanceValues[2])
+                    ? "0"
+                    : _performanceValues[2];
+
+                _storage = "${_performance["storage"]}";
+                _storage = isStringEmpty(_storage) ? "0" : _storage;
+
+                _hkcstorage = "${_performance["hkcstorage"]}";
+                _hkcstorage = isStringEmpty(_hkcstorage) ? "0" : _hkcstorage;
+              });
+            } else {
+              showToast(msg, context);
+            }
+          });
+        }
+      });
+    } else {
+      DartNotificationCenter.subscribe(
+          channel: "getPerformanceDatas",
+          observer: this,
+          onNotification: (options) {
+            var _performance = Map.from(options);
+            setState(() {
+              _storage = "${_performance["totalCoin"]}";
+              _storage = isStringEmpty(_storage) ? "0" : _storage;
+
+              _performanceValues[0] = "${_performance["limitCoin"]}";
+              _performanceValues[0] = isStringEmpty(_performanceValues[0])
+                  ? "0"
+                  : _performanceValues[0];
+
+              _performanceValues[1] = "${_performance["yesterdayEarnings"]}";
+              _performanceValues[1] = isStringEmpty(_performanceValues[1])
+                  ? "0"
+                  : _performanceValues[1];
+            });
+          });
+    }
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+
+    DartNotificationCenter.unsubscribe(observer: this);
   }
 
   @override
@@ -68,7 +147,7 @@ class _StorageHeaderState extends State<StorageHeader> {
                     child: Row(
                       children: <Widget>[
                         Text(
-                          "2420",
+                          _storage,
                           style: TextStyle(
                             fontSize: 30,
                             color: this.widget.isViper == true
@@ -83,7 +162,7 @@ class _StorageHeaderState extends State<StorageHeader> {
                           child: this.widget.isViper == true
                               ? Container()
                               : Text(
-                                  "T+1340(积分)",
+                                  "T+$_hkcstorage(积分)",
                                   style: TextStyle(
                                     fontSize: 13,
                                     color: rgba(255, 255, 255, 1),
@@ -93,33 +172,44 @@ class _StorageHeaderState extends State<StorageHeader> {
                       ],
                     ),
                   ),
-                  InkWell(
-                    onTap: () {
-                      if (this.widget.isViper == true) {
-                        Navigator.of(context).push(
-                          MaterialPageRoute(builder: (context) {
-                            return CoinRollout(
-                              isViper: this.widget.isViper,
-                            );
-                          }),
-                        );
-                      } else {
-                        Navigator.of(context).popUntil(
-                          ModalRoute.withName("/"),
-                        );
-                        DartNotificationCenter.post(
-                            channel: kSwitchTabNotification,
-                            options: {"index": 1});
-                      }
-                    },
-                    child: Container(
-                      padding: EdgeInsets.fromLTRB(19.5, 5.5, 13.5, 5.5),
-                      decoration: BoxDecoration(
-                        color: this.widget.isViper
-                            ? rgba(21, 25, 54, 1)
-                            : rgba(59, 121, 255, 1),
-                        borderRadius: BorderRadius.circular(16),
-                      ),
+                  Container(
+                    height: 32,
+                    decoration: BoxDecoration(
+                      color: this.widget.isViper
+                          ? rgba(21, 25, 54, 1)
+                          : rgba(59, 121, 255, 1),
+                      borderRadius: BorderRadius.circular(16),
+                    ),
+                    child: FlatButton(
+                      padding: EdgeInsets.fromLTRB(19.5, 0, 13.5, 0),
+                      onPressed: () {
+                        if (this.widget.isViper == true) {
+                          var totalCoin =
+                              double.parse(_storage).toStringAsFixed(2); // 总资产
+                          var limitCoin = double.parse(_performanceValues[0])
+                              .toStringAsFixed(2); // 剩余转出额度
+                          // 那一个值小，就传那一个值过去
+
+                          Navigator.of(context).push(
+                            MaterialPageRoute(builder: (context) {
+                              return CoinRollout(
+                                isViper: this.widget.isViper,
+                                rolloutValue: double.parse(totalCoin) >
+                                        double.parse(limitCoin)
+                                    ? double.parse(limitCoin)
+                                    : double.parse(totalCoin),
+                              );
+                            }),
+                          );
+                        } else {
+                          Navigator.of(context).popUntil(
+                            ModalRoute.withName("/"),
+                          );
+                          DartNotificationCenter.post(
+                              channel: kSwitchTabNotification,
+                              options: {"index": 1});
+                        }
+                      },
                       child: Row(
                         children: <Widget>[
                           Text(
@@ -144,6 +234,9 @@ class _StorageHeaderState extends State<StorageHeader> {
                           ),
                         ],
                       ),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(16),
+                      ),
                     ),
                   ),
                 ],
@@ -155,13 +248,14 @@ class _StorageHeaderState extends State<StorageHeader> {
                 padding: EdgeInsets.fromLTRB(19, 0, 19, 0),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: _performances.map(
+                  children: _performanceItems.map(
                     (performance) {
+                      var index = _performanceItems.indexOf(performance);
                       return Column(
                         children: <Widget>[
                           performance.length > 0
                               ? Text(
-                                  "0",
+                                  _performanceValues[index],
                                   style: TextStyle(
                                     fontSize: 13,
                                     color: this.widget.isViper == true

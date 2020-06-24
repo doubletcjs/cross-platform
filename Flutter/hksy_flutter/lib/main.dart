@@ -113,6 +113,13 @@ class _MyAppState extends State<MyApp> {
   }
 
   @override
+  void dispose() {
+    super.dispose();
+
+    DartNotificationCenter.unsubscribe(observer: this);
+  }
+
+  @override
   Widget build(BuildContext context) {
     return MaterialApp(
       title: "华科闪云",

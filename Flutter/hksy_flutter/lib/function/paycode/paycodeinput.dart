@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hksy_flutter/function/generaldialog.dart';
+import 'package:hksy_flutter/function/paycode/paycodepage.dart';
 import 'package:hksy_flutter/public/public.dart';
 
 class PaycodeInput extends StatefulWidget {
@@ -10,13 +11,25 @@ class PaycodeInput extends StatefulWidget {
   _PaycodeInputState createState() => _PaycodeInputState();
 
   show(BuildContext context) {
-    GeneralDialog().show(
-      context,
-      containerContent: this,
-      backgroundAlignment: Alignment.bottomCenter,
-      borderRadius: BorderRadius.circular(8),
-      barrierDismissible: false,
-    );
+    if (isStringEmpty(currentAcctount["paymentCode"])) {
+      Navigator.of(context).push(
+        MaterialPageRoute(
+          builder: (context) {
+            return PaycodePage();
+          },
+        ),
+      );
+
+      showToast("请先设置支付密码！", context);
+    } else {
+      GeneralDialog().show(
+        context,
+        containerContent: this,
+        backgroundAlignment: Alignment.bottomCenter,
+        borderRadius: BorderRadius.circular(8),
+        barrierDismissible: false,
+      );
+    }
   }
 }
 

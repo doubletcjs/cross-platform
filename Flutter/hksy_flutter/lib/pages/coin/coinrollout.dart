@@ -1,12 +1,17 @@
+import 'package:dart_notification_center/dart_notification_center.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:hksy_flutter/function/paycode/paycodeinput.dart';
+import 'package:hksy_flutter/pages/coin/api/coinapi.dart';
 import 'package:hksy_flutter/pages/coin/transfercomplete.dart';
 import 'package:hksy_flutter/public/public.dart';
+import 'package:xs_progress_hud/xs_progress_hud.dart';
 
 class CoinRollout extends StatefulWidget {
   bool isViper = false;
-  CoinRollout({Key key, this.isViper = false}) : super(key: key);
+  double rolloutValue = 0.0;
+  CoinRollout({Key key, this.isViper = false, this.rolloutValue})
+      : super(key: key);
 
   @override
   _CoinRolloutState createState() => _CoinRolloutState();
@@ -16,9 +21,11 @@ class _CoinRolloutState extends State<CoinRollout> {
   TextEditingController _numberEditingController = TextEditingController();
 
   void _rolloutAll() {
-    setState(() {
-      _numberEditingController.text = "13420";
-    });
+    if (this.widget.rolloutValue > 0) {
+      setState(() {
+        _numberEditingController.text = "${this.widget.rolloutValue}";
+      });
+    }
   }
 
   void _confirmRollout() {
@@ -28,27 +35,77 @@ class _CoinRolloutState extends State<CoinRollout> {
       return;
     }
 
-    if (this.widget.isViper) {
-      Navigator.of(context).push(
-        MaterialPageRoute(
-          builder: (context) {
-            return TransferComplete(
-              completeType: 5,
-            );
-          },
-        ),
-      );
+    FocusScope.of(context).requestFocus(FocusNode());
+    functionAlertView(
+      context,
+      title: "确定要转出到金币账户吗?",
+      content: "转出金币：" + "${_numberEditingController.text}" + "个",
+      cancel: "取消",
+      confirm: "确认",
+      cancelTextStyle: TextStyle(
+        color: rgba(145, 152, 173, 1),
+        fontSize: 15,
+      ),
+      confirmTextStyle: TextStyle(
+        color: rgba(23, 96, 255, 1),
+        fontSize: 15,
+      ),
+      titlePadding: EdgeInsets.fromLTRB(38.5, 40, 38, 20.5),
+      contentPadding: EdgeInsets.fromLTRB(38.5, 0, 38, 39),
+      contentTextAlign: TextAlign.center,
+      contentTextStyle: TextStyle(
+        color: rgba(23, 96, 255, 1),
+        fontSize: 15,
+      ),
+      titleTextStyle: TextStyle(
+        color: rgba(51, 51, 51, 1),
+        fontSize: 15,
+      ),
+      confirmHandle: () {
+        XsProgressHud hud = initHUD(context);
+        userID((id) {
+          if (isStringEmpty(id) == false) {
+            if (this.widget.isViper) {
+              CoinApi.vipgiftCoinTransfer(id, _numberEditingController.text,
+                  (data, msg) {
+                hideHUD(hud);
+                if (data != null) {
+                  showToast("划转成功!", context);
+                  this._emptyInput();
+                  DartNotificationCenter.post(
+                      channel: kUpdateAccountNotification);
 
-      Future.delayed(Duration(milliseconds: 400), () {
-        this._emptyInput();
-      });
-    } else {
-      PaycodeInput(
-        inputHandle: (password) {
-          Navigator.of(context).pop();
-        },
-      ).show(context);
-    }
+                  Future.delayed(Duration(milliseconds: 1000), () {
+                    Navigator.of(context).pop();
+                  });
+                } else {
+                  showToast(msg, context);
+                }
+              });
+            } else {
+              CoinApi.giftCoinTransfer(id, _numberEditingController.text,
+                  (data, msg) {
+                hideHUD(hud);
+                if (data != null) {
+                  showToast("划转成功!", context);
+                  this._emptyInput();
+                  DartNotificationCenter.post(
+                      channel: kUpdateAccountNotification);
+
+                  Future.delayed(Duration(milliseconds: 1000), () {
+                    Navigator.of(context).pop();
+                  });
+                } else {
+                  showToast(msg, context);
+                }
+              });
+            }
+          } else {
+            hideHUD(hud);
+          }
+        });
+      },
+    );
   }
 
   void _emptyInput() {
@@ -85,7 +142,7 @@ class _CoinRolloutState extends State<CoinRollout> {
                     ),
                   ),
                   Text(
-                    "0个",
+                    "${this.widget.rolloutValue}个",
                     style: TextStyle(
                       fontSize: 15,
                       color: rgba(145, 152, 173, 1),

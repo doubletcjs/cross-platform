@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:hksy_flutter/function/actionsheet.dart';
 import 'package:hksy_flutter/function/certification/certificationinfo.dart';
@@ -43,17 +44,23 @@ class _CertificationCenterState extends State<CertificationCenter> {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: <Widget>[
-              _account["avater"] != null && "${_account["avater"]}".length > 0
-                  ? Image.network(
-                      "${_account["avater"]}",
-                      width: 59,
-                      height: 59,
-                    )
-                  : Image.asset(
+              ClipRRect(
+                child: CachedNetworkImage(
+                  imageUrl: "${_account["avater"]}",
+                  width: 59,
+                  height: 59,
+                  fit: BoxFit.cover,
+                  placeholder: (context, url) {
+                    return Image.asset(
                       "images/default_avatar@3x.png",
                       width: 59,
                       height: 59,
-                    ),
+                      fit: BoxFit.cover,
+                    );
+                  },
+                ),
+                borderRadius: BorderRadius.circular(59 / 2),
+              ),
               SizedBox(
                 width: 19.5,
               ),

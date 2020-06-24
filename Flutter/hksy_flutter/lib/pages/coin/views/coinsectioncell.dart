@@ -1,3 +1,4 @@
+import 'package:common_utils/common_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:hksy_flutter/pages/coin/orderdetail.dart';
 import 'package:hksy_flutter/public/public.dart';
@@ -106,7 +107,15 @@ class CoinCell extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
                 Image.asset(
-                  "images/ico_mygold_list_cell_cashout@3x.png",
+                  (detail["type"] == 47 ||
+                          detail["type"] == 43 ||
+                          detail["type"] == 38)
+                      ? "images/ico_mygold_list_cell_recharge@3x.png"
+                      : (detail["type"] == 33 ||
+                              detail["type"] == 63 ||
+                              detail["type"] == 62)
+                          ? "images/ico_mygold_list_cell_cashout@3x.png"
+                          : "images/ico_mygold_list_cell_transfer@3x.png",
                   width: 32,
                   fit: BoxFit.fitWidth,
                 ),
@@ -121,7 +130,14 @@ class CoinCell extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget>[
                           Text(
-                            "151****4547",
+                            (detail["type"] == 47 ||
+                                    detail["type"] == 43 ||
+                                    detail["type"] == 38 ||
+                                    detail["type"] == 33 ||
+                                    detail["type"] == 63 ||
+                                    detail["type"] == 62)
+                                ? TextUtil.hideNumber(detail["myaccont"])
+                                : TextUtil.hideNumber(detail["otheraccont"]),
                             style: TextStyle(
                               fontSize: 15,
                               color: rgba(255, 255, 255, 1),
@@ -135,7 +151,9 @@ class CoinCell extends StatelessWidget {
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: <Widget>[
                               Text(
-                                "2020-10-11",
+                                DateUtil.formatDate(
+                                    DateUtil.getDateTime(detail["createTime"]),
+                                    format: "yyyy-MM-dd"),
                                 style: TextStyle(
                                   fontSize: 11,
                                   color: rgba(145, 152, 173, 1),
@@ -145,7 +163,9 @@ class CoinCell extends StatelessWidget {
                                 width: 10,
                               ),
                               Text(
-                                "17:48",
+                                DateUtil.formatDate(
+                                    DateUtil.getDateTime(detail["createTime"]),
+                                    format: "HH:mm"),
                                 style: TextStyle(
                                   fontSize: 11,
                                   color: rgba(145, 152, 173, 1),
@@ -156,7 +176,8 @@ class CoinCell extends StatelessWidget {
                         ],
                       ),
                       Text(
-                        "-1880",
+                        "${detail["inOrOut"] == 0 ? '-' : '+'}" +
+                            "${double.parse('${detail["amount"]}').toStringAsFixed(2)}",
                         style: TextStyle(
                           fontSize: 15,
                           color: rgba(255, 255, 255, 1),

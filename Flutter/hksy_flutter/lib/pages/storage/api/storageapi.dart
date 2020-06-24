@@ -1,16 +1,15 @@
 import 'package:hksy_flutter/public/networking.dart';
 
-class InvitationApi {
-  //邀请收益
-  static getEarningsForUser(userId, finish) {
-    Networking.requestBase("getEarningsForUser", finish, params: {
+class StorageApi {
+  static getPerformanceDatas(userId, finish) {
+    Networking.requestBase("getPerformanceDatas", finish, params: {
       "userId": userId,
     });
   }
 
-  static getEarningsDetailForUser(userId, page, limit, finish) {
+  static getPerformanceDatasList(userId, page, limit, finish) {
     Networking.requestBase(
-      "getEarningsDetailForUser",
+      "getPerformanceDatasList",
       finish,
       params: {
         "page": page,
@@ -20,9 +19,9 @@ class InvitationApi {
     );
   }
 
-  static getMyFriend(userId, page, limit, finish) {
+  static vipminerInfo(userId, page, limit, finish) {
     Networking.requestBase(
-      "getMyFriend",
+      "vipminerInfo",
       finish,
       params: {
         "page": page,

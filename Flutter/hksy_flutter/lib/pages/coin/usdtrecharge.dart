@@ -1,6 +1,10 @@
+import 'package:cached_network_image/cached_network_image.dart';
+import 'package:dart_notification_center/dart_notification_center.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:hksy_flutter/public/networking.dart';
 import 'package:hksy_flutter/public/public.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class UsdtRecharge extends StatefulWidget {
   UsdtRecharge({Key key}) : super(key: key);
@@ -10,6 +14,9 @@ class UsdtRecharge extends StatefulWidget {
 }
 
 class _UsdtRechargeState extends State<UsdtRecharge> {
+  String _qrcodePath = "";
+  String _usdtAddress = "";
+
   void _copyUsdt() {
     ClipboardData data = new ClipboardData(text: "要复制的内容");
     Clipboard.setData(data);
@@ -20,6 +27,35 @@ class _UsdtRechargeState extends State<UsdtRecharge> {
   }
 
   void _saveUsdtQrcode() {}
+
+  void _refreshAccount() {
+    setState(() {
+      _qrcodePath = kQrcodeURL + "/" + currentAcctount["usdtImgpath"];
+      _usdtAddress = currentAcctount["usdtAddr"];
+    });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+
+    DartNotificationCenter.subscribe(
+      channel: kUpdateAccountNotification,
+      observer: this,
+      onNotification: (options) {
+        this._refreshAccount();
+      },
+    );
+
+    this._refreshAccount();
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+
+    DartNotificationCenter.unsubscribe(observer: this);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -72,10 +108,17 @@ class _UsdtRechargeState extends State<UsdtRecharge> {
                     ),
                     child: Column(
                       children: <Widget>[
-                        Image.network(
-                          "http://app.hkicloud.com/static/usdt/1PCUGksYSEPdcXrrHHE3QkYmQWWxq3VRr9.png",
+                        CachedNetworkImage(
+                          imageUrl: _qrcodePath,
                           width: 180,
                           height: 180,
+                          errorWidget: (context, url, error) {
+                            return Container(
+                              width: 180,
+                              height: 180,
+                              color: Colors.white,
+                            );
+                          },
                         ),
                         SizedBox(
                           height: 18.5,
@@ -101,7 +144,7 @@ class _UsdtRechargeState extends State<UsdtRecharge> {
                           children: <Widget>[
                             Expanded(
                               child: Text(
-                                "0xb701eafb2a741349afd1496f50819458160279d250",
+                                _usdtAddress,
                                 style: TextStyle(
                                   fontSize: 15,
                                   color: rgba(145, 152, 173, 1),

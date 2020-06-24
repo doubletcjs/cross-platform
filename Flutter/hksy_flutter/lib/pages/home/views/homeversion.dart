@@ -86,6 +86,13 @@ class _HomeVersionState extends State<HomeVersion> {
   }
 
   @override
+  void dispose() {
+    super.dispose();
+
+    DartNotificationCenter.unsubscribe(observer: this);
+  }
+
+  @override
   Widget build(BuildContext context) {
     return _list.length == 0
         ? Column(

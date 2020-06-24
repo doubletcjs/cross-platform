@@ -1,3 +1,4 @@
+import 'package:common_utils/common_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:hksy_flutter/public/public.dart';
 
@@ -64,7 +65,7 @@ class InvitationCell extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       padding: EdgeInsets.fromLTRB(0, 25, 0, 21.5),
-      child: detail == null
+      child: detail == null || detail.length == 0
           ? Container()
           : Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -73,7 +74,11 @@ class InvitationCell extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
                     Text(
-                      "151****4547",
+                      detail["createTime"] == null
+                          ? detail["nickname"]
+                          : (isStringEmpty(detail["phone"]))
+                              ? "分红收益(个)"
+                              : TextUtil.hideNumber(detail["phone"]),
                       style: TextStyle(
                         fontSize: 15,
                         color: rgba(255, 255, 255, 1),
@@ -87,7 +92,11 @@ class InvitationCell extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: <Widget>[
                         Text(
-                          "2020-10-11",
+                          detail["createTime"] == null
+                              ? TextUtil.hideNumber(detail["phone"])
+                              : DateUtil.formatDate(
+                                  DateUtil.getDateTime(detail["createTime"]),
+                                  format: "yyyy-MM-dd"),
                           style: TextStyle(
                             fontSize: 11,
                             color: rgba(145, 152, 173, 1),
@@ -97,7 +106,11 @@ class InvitationCell extends StatelessWidget {
                           width: 10,
                         ),
                         Text(
-                          "17:48",
+                          detail["createTime"] == null
+                              ? ""
+                              : DateUtil.formatDate(
+                                  DateUtil.getDateTime(detail["createTime"]),
+                                  format: "HH:mm"),
                           style: TextStyle(
                             fontSize: 11,
                             color: rgba(145, 152, 173, 1),
@@ -108,7 +121,10 @@ class InvitationCell extends StatelessWidget {
                   ],
                 ),
                 Text(
-                  "+1880",
+                  detail["experience"] != null
+                      ? "${double.parse('${detail["experience"]}').toStringAsFixed(2)}"
+                      : "${detail["inOrOut"] == 0 ? '-' : '+'}" +
+                          "${double.parse('${detail["amount"]}').toStringAsFixed(2)}",
                   style: TextStyle(
                     fontSize: 15,
                     color: rgba(255, 255, 255, 1),

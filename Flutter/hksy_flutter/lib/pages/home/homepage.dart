@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:dart_notification_center/dart_notification_center.dart';
 import 'package:flutter/material.dart';
 import 'package:hksy_flutter/function/account/api/accountapi.dart';
@@ -50,6 +52,12 @@ class _HomePageState extends State<HomePage> {
         HomeApi.getAppVersion((data, msg) {
           if (data != null) {
             if (data.length > 0) {
+              if (Platform.isIOS) {
+                appDownload = "${data['ios_download']}";
+              } else {
+                appDownload = "${data['android_download']}";
+              }
+
               HomeVersion().show(
                 context,
                 data,

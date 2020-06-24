@@ -42,6 +42,13 @@ class _PersonInfoState extends State<PersonInfo> {
   }
 
   @override
+  void dispose() {
+    super.dispose();
+
+    DartNotificationCenter.unsubscribe(observer: this);
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: kMainBackgroundColor,

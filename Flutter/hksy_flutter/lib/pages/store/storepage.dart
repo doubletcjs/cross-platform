@@ -43,6 +43,10 @@ class _StorePageState extends State<StorePage> {
             _refreshController.refreshCompleted();
             _refreshController.loadComplete();
             showToast(data, context);
+
+            setState(() {
+              _showLoadMore = false;
+            });
           } else {
             List records = data["records"];
             setState(() {
@@ -57,14 +61,14 @@ class _StorePageState extends State<StorePage> {
               }
             });
 
-            _refreshController.refreshCompleted();
             if (_page == data["pages"] || data["pages"] == 0) {
               _refreshController.loadNoData();
             } else {
-              _refreshController.refreshCompleted();
+              _refreshController.loadComplete();
             }
 
             _showLoadMore = true;
+            _refreshController.refreshCompleted();
           }
         } else {
           setState(() {

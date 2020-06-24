@@ -1,3 +1,4 @@
+import 'package:dart_notification_center/dart_notification_center.dart';
 import 'package:flutter/material.dart';
 import 'package:hksy_flutter/pages/invitation/api/invitationapi.dart';
 import 'package:hksy_flutter/pages/invitation/views/earningheader.dart';
@@ -35,75 +36,126 @@ class _EarningsPageState extends State<EarningsPage> {
   }
 
   void _requestEarnings() {
-    InvitationApi.getEarningsDetailForUser("", _page, _limit, (data, msg) {
-      if (data != null) {
-        if (data is String) {
-          _refreshController.refreshCompleted();
-          _refreshController.loadComplete();
-          showToast(data, context);
-        } else {
-          List records = data["records"];
-          setState(() {
-            if (_page == 1) {
-              _dataList = records;
+    userID((id) {
+      if (isStringEmpty(id) == false) {
+        InvitationApi.getEarningsDetailForUser(id, _page, _limit, (data, msg) {
+          if (data != null) {
+            if (data is String) {
+              _refreshController.refreshCompleted();
+              _refreshController.loadComplete();
+              showToast(data, context);
+
+              setState(() {
+                _showLoadMore = false;
+              });
             } else {
-              _dataList = _dataList + records;
-            }
+              List records = data["records"];
+              setState(() {
+                if (_page == 1) {
+                  _dataList = records;
+                } else {
+                  _dataList = _dataList + records;
+                }
 
-            if (records.length == 0 && _page > 1) {
-              _page -= 1;
-            }
-          });
+                if (records.length == 0 && _page > 1) {
+                  _page -= 1;
+                }
+              });
 
-          _refreshController.refreshCompleted();
-          if (_page == data["pages"] || data["pages"] == 0) {
-            _refreshController.loadNoData();
+              if (_page == data["pages"] || data["pages"] == 0) {
+                _refreshController.loadNoData();
+              } else {
+                _refreshController.loadComplete();
+              }
+
+              if (_dataList.length > 0) {
+                _showLoadMore = true;
+              } else {
+                _showLoadMore = false;
+              }
+              _refreshController.refreshCompleted();
+            }
           } else {
-            _refreshController.refreshCompleted();
-          }
+            setState(() {
+              if (_page > 1) {
+                _page -= 1;
+              }
+            });
 
-          _showLoadMore = true;
-        }
-      } else {
-        setState(() {
-          if (_page > 1) {
-            _page -= 1;
+            _refreshController.refreshCompleted();
+            _refreshController.loadComplete();
+            showToast(msg, context);
           }
         });
-
+      } else {
         _refreshController.refreshCompleted();
         _refreshController.loadComplete();
-        showToast(msg, context);
+        showToast("无法获取用户信息", context);
+
+        setState(() {
+          _showLoadMore = false;
+        });
       }
     });
   }
 
   @override
+  void initState() {
+    super.initState();
+
+    DartNotificationCenter.subscribe(
+        channel: kUpdateAccountNotification,
+        observer: this,
+        onNotification: (options) {
+          this._refreshData();
+        });
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+
+    DartNotificationCenter.unsubscribe(observer: this);
+  }
+
+  @override
   Widget build(BuildContext context) {
-    return ListView.builder(
-      padding: EdgeInsets.fromLTRB(
-        12,
-        20,
-        12,
-        MediaQuery.of(context).padding.bottom,
+    return functionRefresher(
+      _refreshController,
+      ListView.builder(
+        padding: EdgeInsets.fromLTRB(
+          12,
+          20,
+          12,
+          MediaQuery.of(context).padding.bottom,
+        ),
+        itemBuilder: (context, index) {
+          return index == 0
+              ? Container(
+                  padding: EdgeInsets.fromLTRB(0, 0, 0, 35),
+                  child: EarningHeader(),
+                )
+              : InvitationSection(
+                  title: "邀请收益明细",
+                  emptyPlaceholder: "暂无收益信息～",
+                  cells: _dataList.map((data) {
+                    var index = _dataList.indexOf(data);
+                    return InvitationCell(
+                      detail: data,
+                      showLine: index == _dataList.length - 1 ? false : true,
+                    );
+                  }).toList(),
+                );
+        },
+        itemCount: 2,
       ),
-      itemBuilder: (context, index) {
-        return index == 0
-            ? Container(
-                padding: EdgeInsets.fromLTRB(0, 0, 0, 35),
-                child: EarningHeader(),
-              )
-            : InvitationSection(
-                title: "邀请收益明细",
-                emptyPlaceholder: "暂无收益信息～",
-                cells: _dataList.map((data) {
-                  return InvitationCell(
-                    detail: {},
-                  );
-                }).toList(),
-              );
+      onRefresh: () {
+        this._refreshData();
       },
-      itemCount: 2,
+      onLoadMore: () {
+        this._loadMoreData();
+      },
+      enableLoadMore: _showLoadMore,
     );
   }
 }

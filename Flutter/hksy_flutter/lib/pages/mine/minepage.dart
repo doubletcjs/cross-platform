@@ -144,6 +144,13 @@ class _MinePageState extends State<MinePage> {
   }
 
   @override
+  void dispose() {
+    super.dispose();
+
+    DartNotificationCenter.unsubscribe(observer: this);
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: kMainBackgroundColor,
@@ -225,7 +232,7 @@ class _MinePageState extends State<MinePage> {
               ),
               InfoCell(
                 name: "我的金币",
-                value: _coinString != null ? "12353$_coinString" + "个" : "",
+                value: _coinString != null ? "$_coinString" + "个" : "",
                 icon: _cellIcon(
                   "images/ico_my_gold@3x.png",
                 ),

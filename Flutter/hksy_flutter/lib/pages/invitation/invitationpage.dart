@@ -1,6 +1,7 @@
 import 'dart:typed_data';
 import 'dart:ui';
 
+import 'package:dart_notification_center/dart_notification_center.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
@@ -21,7 +22,7 @@ class _InvitationPageState extends State<InvitationPage> {
   GlobalKey _repaintKey = GlobalKey();
 
   void _copyLink() {
-    ClipboardData data = new ClipboardData(text: "要复制的内容");
+    ClipboardData data = new ClipboardData(text: appDownload);
     Clipboard.setData(data);
 
     Future.delayed(Duration(milliseconds: 200), () {
@@ -48,6 +49,14 @@ class _InvitationPageState extends State<InvitationPage> {
       kLog(e.toString());
       showToast("保存失败", context);
     }
+  }
+
+  Map _account = {};
+
+  void _refreshAccount() {
+    setState(() {
+      _account = currentAcctount;
+    });
   }
 
   Widget _baseWidget() {
@@ -90,7 +99,7 @@ class _InvitationPageState extends State<InvitationPage> {
                               ),
                               Expanded(
                                 child: Text(
-                                  "http://www.beefil.com:808",
+                                  appDownload,
                                   style: TextStyle(
                                     fontSize: 15,
                                     color: rgba(145, 152, 173, 1),
@@ -170,7 +179,7 @@ class _InvitationPageState extends State<InvitationPage> {
                         child: QrImage(
                           data: kQrcodeURL +
                               "/invite/login.html?invitation_code=" +
-                              "ct8g" +
+                              "${_account['code']}" +
                               "&a=" +
                               "${DateTime.now().millisecondsSinceEpoch}",
                           size: 180,
@@ -216,7 +225,7 @@ class _InvitationPageState extends State<InvitationPage> {
                     width: 43.5,
                   ),
                   Text(
-                    "ct8g",
+                    "${_account['code']}",
                     style: TextStyle(
                       fontSize: 23,
                       color: rgba(23, 96, 255, 1),
@@ -229,6 +238,28 @@ class _InvitationPageState extends State<InvitationPage> {
         ),
       ],
     );
+  }
+
+  @override
+  void initState() {
+    super.initState();
+
+    DartNotificationCenter.subscribe(
+      channel: kUpdateAccountNotification,
+      observer: this,
+      onNotification: (options) {
+        this._refreshAccount();
+      },
+    );
+
+    this._refreshAccount();
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+
+    DartNotificationCenter.unsubscribe(observer: this);
   }
 
   @override

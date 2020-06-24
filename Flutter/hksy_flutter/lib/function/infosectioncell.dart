@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:hksy_flutter/public/public.dart';
 
@@ -74,19 +75,20 @@ class InfoCell extends StatelessWidget {
                     children: <Widget>[
                       isPortrait == true
                           ? ClipRRect(
-                              child: value.length > 0
-                                  ? Image.network(
-                                      value,
-                                      width: 59,
-                                      height: 59,
-                                      fit: BoxFit.cover,
-                                    )
-                                  : Image.asset(
-                                      "images/default_avatar@3x.png",
-                                      width: 59,
-                                      height: 59,
-                                      fit: BoxFit.cover,
-                                    ),
+                              child: CachedNetworkImage(
+                                imageUrl: value,
+                                width: 59,
+                                height: 59,
+                                fit: BoxFit.cover,
+                                placeholder: (context, url) {
+                                  return Image.asset(
+                                    "images/default_avatar@3x.png",
+                                    width: 59,
+                                    height: 59,
+                                    fit: BoxFit.cover,
+                                  );
+                                },
+                              ),
                               borderRadius: BorderRadius.circular(59 / 2),
                             )
                           : value.length > 0

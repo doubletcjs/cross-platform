@@ -26,6 +26,7 @@ final Future<SharedPreferences> _preferencesFuture =
     SharedPreferences.getInstance();
 
 Map currentAcctount = {};
+String appDownload = "http://www.beefil.com:808";
 
 ///userID
 void userID(kObjectFunctionBlock complete) {
@@ -237,7 +238,7 @@ CustomFooter functionFooter({bool enable = true}) {
         );
       } else {
         body = Text(
-          "没有更多数据了!",
+          "没有更多了!",
           style: TextStyle(
             fontSize: 15,
             color: Colors.white,

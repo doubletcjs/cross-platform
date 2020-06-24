@@ -1,3 +1,4 @@
+import 'package:common_utils/common_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:hksy_flutter/public/public.dart';
 
@@ -64,7 +65,7 @@ class FriendCell extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       padding: EdgeInsets.fromLTRB(0, 25, 0, 21.5),
-      child: detail == null
+      child: detail == null || detail.length == 0
           ? Container()
           : Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -73,7 +74,7 @@ class FriendCell extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
                     Text(
-                      "151****4547",
+                      TextUtil.hideNumber(detail["phone"]),
                       style: TextStyle(
                         fontSize: 15,
                         color: rgba(255, 255, 255, 1),
@@ -87,7 +88,9 @@ class FriendCell extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: <Widget>[
                         Text(
-                          "2020-10-11",
+                          DateUtil.formatDate(
+                              DateUtil.getDateTime(detail["createTime"]),
+                              format: "yyyy-MM-dd"),
                           style: TextStyle(
                             fontSize: 11,
                             color: rgba(145, 152, 173, 1),
@@ -97,7 +100,9 @@ class FriendCell extends StatelessWidget {
                           width: 10,
                         ),
                         Text(
-                          "17:48",
+                          DateUtil.formatDate(
+                              DateUtil.getDateTime(detail["createTime"]),
+                              format: "HH:mm"),
                           style: TextStyle(
                             fontSize: 11,
                             color: rgba(145, 152, 173, 1),
@@ -111,17 +116,21 @@ class FriendCell extends StatelessWidget {
                   padding: EdgeInsets.fromLTRB(8, 1, 8, 1),
                   margin: EdgeInsets.fromLTRB(0, 0, 11, 0),
                   child: Text(
-                    "会员", //非会员
+                    detail["dicId"] == 1 ? "非会员" : "会员", //非会员
                     style: TextStyle(
                       fontSize: 12,
-                      color: rgba(57, 110, 255, 1), //rgba(153, 153, 153, 1)
+                      color: detail["dicId"] == 1
+                          ? rgba(153, 153, 153, 1)
+                          : rgba(57, 110, 255, 1), //rgba(153, 153, 153, 1)
                     ),
                   ),
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(4),
                     border: Border.fromBorderSide(
                       BorderSide(
-                        color: rgba(57, 110, 255, 1), //rgba(153, 153, 153, 1)
+                        color: detail["dicId"] == 1
+                            ? rgba(153, 153, 153, 1)
+                            : rgba(57, 110, 255, 1), //rgba(153, 153, 153, 1)
                         width: 0.8,
                       ),
                     ),
