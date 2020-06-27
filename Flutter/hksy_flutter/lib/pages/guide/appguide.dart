@@ -4,6 +4,8 @@ import 'package:flutter_swiper/flutter_swiper.dart';
 import 'package:hksy_flutter/public/public.dart';
 import 'package:package_info/package_info.dart';
 
+import '../../public/public.dart';
+
 class AppGuidePage extends StatefulWidget {
   AppGuidePage({Key key}) : super(key: key);
 
@@ -12,6 +14,7 @@ class AppGuidePage extends StatefulWidget {
 }
 
 class _AppGuidePageState extends State<AppGuidePage> {
+  SwiperController _swiperController = SwiperController();
   List<String> _list = [
     "images/appguide_0@3x.png",
     "images/appguide_1@3x.png",
@@ -45,6 +48,7 @@ class _AppGuidePageState extends State<AppGuidePage> {
         children: <Widget>[
           transparentAppBar(),
           Swiper.children(
+            controller: _swiperController,
             children: _list.map(
               (guide) {
                 int index = _list.indexOf(guide);
@@ -60,24 +64,25 @@ class _AppGuidePageState extends State<AppGuidePage> {
                         Positioned(
                           right: 0,
                           bottom: 20,
-                          child: index == 2
-                              ? FlatButton(
-                                  onPressed: () {
-                                    userID((id) {
-                                      if (isStringEmpty(id)) {
-                                        this._goLoginRegister();
-                                      } else {
-                                        this._goMainPage();
-                                      }
-                                    });
-                                  },
-                                  child: Container(
-                                    width:
-                                        MediaQuery.of(context).size.width / 3,
-                                    height: 90,
-                                  ),
-                                )
-                              : Container(),
+                          child: FlatButton(
+                            onPressed: () {
+                              if (index == 2) {
+                                userID((id) {
+                                  if (isStringEmpty(id)) {
+                                    this._goLoginRegister();
+                                  } else {
+                                    this._goMainPage();
+                                  }
+                                });
+                              } else {
+                                _swiperController.next();
+                              }
+                            },
+                            child: Container(
+                              width: MediaQuery.of(context).size.width / 3,
+                              height: 90,
+                            ),
+                          ),
                         ),
                       ],
                     ),
