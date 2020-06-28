@@ -2,6 +2,8 @@ import 'dart:io';
 
 import 'package:dio/dio.dart';
 import 'package:hksy_flutter/public/public.dart';
+
+import 'public.dart';
 // import 'package:dart_notification_center/dart_notification_center.dart';
 
 final Map<String, Object> _baseHeaders = {
@@ -22,7 +24,7 @@ class Networking {
       Map<String, Object> headers}) async {
     if (isStringEmpty(api)) {
       if (finish != null) {
-        finish("url不能为空");
+        finish("api不能为空");
       }
 
       return;
@@ -56,6 +58,7 @@ class Networking {
         MultipartFile multipartFile = MultipartFile.fromFileSync(path,
             filename: "upload_file_$idx.$suffix");
         mFiles.add(MapEntry("file", multipartFile));
+        kLog("name: " + "upload_file_$idx.$suffix");
       } else {
         List<int> fileData = files[idx];
         MultipartFile multipartFile = MultipartFile.fromBytes(fileData);
@@ -78,7 +81,7 @@ class Networking {
       Options options = Options(method: "POST");
       options.headers = _reqestHeaders;
 
-      kLog("上传 请求url: " + "$api");
+      kLog("上传 请求url: " + kServerURL + "$api");
       kLog("上传 请求参数: " + "$_reqestHeaders");
       kLog("上传 额外参数: " + "$params");
 
@@ -98,6 +101,7 @@ class Networking {
           },
         );
 
+        kLog("上传 原始数据:${_response.toString()}");
         if ("${_response.statusCode}" == kRequestSuccessCode) {
           // kLog("上传 原始数据:${_response.data}");
           var data = _response.data;

@@ -1,9 +1,20 @@
+import 'package:dart_notification_center/dart_notification_center.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:hksy_flutter/function/paycode/paycodeinput.dart';
 import 'package:hksy_flutter/pages/calculate/hkcrule.dart';
 import 'package:hksy_flutter/pages/coin/transfercomplete.dart';
 import 'package:hksy_flutter/public/public.dart';
+import 'package:xs_progress_hud/xs_progress_hud.dart';
+
+import '../../public/public.dart';
+import '../../public/public.dart';
+import '../../public/public.dart';
+import '../../public/public.dart';
+import '../../public/public.dart';
+import '../../public/public.dart';
+import '../../public/public.dart';
+import 'api/coinapi.dart';
 
 class CoinTransfer extends StatefulWidget {
   bool isHKC = false;
@@ -16,76 +27,135 @@ class CoinTransfer extends StatefulWidget {
 class _CoinTransferState extends State<CoinTransfer> {
   TextEditingController _countEditingController = TextEditingController();
   TextEditingController _phoneEditingController = TextEditingController();
+  Map _account = {};
+
+  void _refreshAccount() {
+    setState(() {
+      _account = currentAcctount;
+    });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+
+    DartNotificationCenter.subscribe(
+      channel: kUpdateAccountNotification,
+      observer: this,
+      onNotification: (options) {
+        this._refreshAccount();
+      },
+    );
+
+    this._refreshAccount();
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+
+    DartNotificationCenter.unsubscribe(observer: this);
+  }
 
   void _rolloutAll() {
     setState(() {
-      _countEditingController.text = "13420";
+      _countEditingController.text = "${_account['coin']}";
     });
   }
 
   void _confirmRollout() {
-    if (regularMatch(_phoneEditingController.text, kPhoneRegExp) == true) {
-      functionAlertView(
-        context,
-        title: "您确认转账到 1353335488 ？",
-        content: "转账金币：100个",
-        contentTextAlign: TextAlign.center,
-        titleTextStyle: TextStyle(
-          fontSize: 15,
-          color: rgba(51, 51, 51, 1),
-        ),
-        titlePadding: EdgeInsets.fromLTRB(20, 40, 20, 0),
-        contentTextStyle: TextStyle(
-          fontSize: 15,
-          color: rgba(23, 96, 255, 1),
-        ),
-        contentPadding: EdgeInsets.fromLTRB(20, 20.5, 20, 39),
-        cancel: "取消",
-        confirm: "确认",
-        confirmHandle: () {
-          Future.delayed(
-            Duration(milliseconds: 400),
-            () {
-              if (this.widget.isHKC) {
-                Navigator.of(context).push(
-                  MaterialPageRoute(
-                    builder: (context) {
-                      return TransferComplete(
-                        completeType: this.widget.isHKC ? 4 : 3,
-                      );
-                    },
-                  ),
-                );
-
-                Future.delayed(Duration(milliseconds: 400), () {
-                  this._emptyInput();
-                });
-              } else {
-                PaycodeInput(
-                  inputHandle: (password) {
-                    Navigator.of(context).push(
-                      MaterialPageRoute(
-                        builder: (context) {
-                          return TransferComplete(
-                            completeType: this.widget.isHKC ? 4 : 3,
-                          );
-                        },
-                      ),
-                    );
-
-                    Future.delayed(Duration(milliseconds: 400), () {
-                      this._emptyInput();
-                    });
-                  },
-                ).show(context);
-              }
-            },
-          );
-        },
-      );
-    } else {
-      showToast("请输入正确的手机号", context);
+    String msg = "";
+    if (isStringEmpty(_countEditingController.text) == true ||
+        double.parse("${_countEditingController.text}") == 0.0) {
+      msg = "请输入转出金额";
+    } else if (isStringEmpty(_phoneEditingController.text) == true) {
+      msg = "请输入账户";
+    } else if (regularMatch(_phoneEditingController.text, kPhoneRegExp) ==
+        false) {
+      msg = "请输入正确的手机号";
+    } else if (_account["phone"] == _phoneEditingController.text) {
+      msg = "无法转入当前登录账户";
     }
+
+    if (isStringEmpty(msg) == false) {
+      showToast(msg, context);
+
+      return;
+    }
+
+    functionAlertView(
+      context,
+      title: "您确认转账到 ${_phoneEditingController.text} ？",
+      content: "转账金币：${_countEditingController.text}个",
+      contentTextAlign: TextAlign.center,
+      titleTextStyle: TextStyle(
+        fontSize: 15,
+        color: rgba(51, 51, 51, 1),
+      ),
+      titlePadding: EdgeInsets.fromLTRB(20, 40, 20, 0),
+      contentTextStyle: TextStyle(
+        fontSize: 15,
+        color: rgba(23, 96, 255, 1),
+      ),
+      contentPadding: EdgeInsets.fromLTRB(20, 20.5, 20, 39),
+      cancel: "取消",
+      confirm: "确认",
+      confirmHandle: () {
+        Future.delayed(
+          Duration(milliseconds: 400),
+          () {
+            if (this.widget.isHKC) {
+              Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (context) {
+                    return TransferComplete(
+                      completeType: 4,
+                    );
+                  },
+                ),
+              );
+
+              Future.delayed(Duration(milliseconds: 400), () {
+                this._emptyInput();
+              });
+            } else {
+              PaycodeInput(
+                inputHandle: (password) {
+                  XsProgressHud hud = initHUD(context);
+                  userID((id) {
+                    if (isStringEmpty(id) == false) {
+                      CoinApi.transfer(id, _phoneEditingController.text,
+                          password, _countEditingController.text, (data, msg) {
+                        hideHUD(hud);
+                        if (data != null) {
+                          Navigator.of(context).push(
+                            MaterialPageRoute(
+                              builder: (context) {
+                                return TransferComplete(
+                                  completeType: 3,
+                                );
+                              },
+                            ),
+                          );
+
+                          Future.delayed(Duration(milliseconds: 400), () {
+                            this._emptyInput();
+                          });
+                        } else {
+                          showToast(msg, context);
+                        }
+                      });
+                    } else {
+                      hideHUD(hud);
+                    }
+                  });
+                },
+              ).show(context);
+            }
+          },
+        );
+      },
+    );
   }
 
   void _emptyInput() {
@@ -143,7 +213,9 @@ class _CoinTransferState extends State<CoinTransfer> {
                     ),
                   ),
                   Text(
-                    this.widget.isHKC ? "342580.48HKC" : "13420个",
+                    this.widget.isHKC
+                        ? "342580.48HKC"
+                        : "${_account['coin']}" + "个",
                     style: TextStyle(
                       fontSize: 15,
                       color: rgba(145, 152, 173, 1),
@@ -204,7 +276,7 @@ class _CoinTransferState extends State<CoinTransfer> {
                                         FloatingLabelBehavior.never,
                                     labelText: this.widget.isHKC
                                         ? "可转出342580.48HKC"
-                                        : "可转出13420个",
+                                        : "可转出${_account['coin']}个",
                                     labelStyle: TextStyle(
                                       fontSize: 13,
                                       color: rgba(145, 152, 173, 1),

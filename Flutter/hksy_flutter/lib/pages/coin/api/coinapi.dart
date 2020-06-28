@@ -22,4 +22,13 @@ class CoinApi {
       "limit": limit,
     });
   }
+
+  static transfer(userId, phone, paymentCode, balance, finish) {
+    Networking.requestBase("transfer", finish, params: {
+      "ownerUserId": userId,
+      "phone": phone,
+      "paymentCode": paymentCode,
+      "balance": balance,
+    });
+  }
 }

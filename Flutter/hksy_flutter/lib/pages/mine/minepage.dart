@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:common_utils/common_utils.dart';
 import 'package:dart_notification_center/dart_notification_center.dart';
 import 'package:flutter/material.dart';
@@ -46,19 +47,23 @@ class _MinePageState extends State<MinePage> {
             child: Row(
               children: <Widget>[
                 ClipRRect(
-                  child: _avater != null && _avater.length > 0
-                      ? Image.network(
-                          _avater,
-                          width: 80,
-                          height: 80,
-                          fit: BoxFit.cover,
-                        )
-                      : Image.asset(
+                  child: ClipRRect(
+                    child: CachedNetworkImage(
+                      imageUrl: _avater,
+                      width: 80,
+                      height: 80,
+                      fit: BoxFit.cover,
+                      placeholder: (context, url) {
+                        return Image.asset(
                           "images/default_avatar@3x.png",
                           width: 80,
                           height: 80,
                           fit: BoxFit.cover,
-                        ),
+                        );
+                      },
+                    ),
+                    borderRadius: BorderRadius.circular(80 / 2),
+                  ),
                   borderRadius: BorderRadius.circular(40),
                 ),
                 SizedBox(

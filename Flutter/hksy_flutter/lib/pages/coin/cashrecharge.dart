@@ -6,7 +6,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:hksy_flutter/pages/coin/transfercomplete.dart';
 import 'package:hksy_flutter/public/public.dart';
+import 'package:hksy_flutter/public/networking.dart';
 import 'package:xs_progress_hud/xs_progress_hud.dart';
+
+import '../../public/public.dart';
+import '../../public/public.dart';
+import '../../public/public.dart';
+import '../../public/public.dart';
 
 class CashRecharge extends StatefulWidget {
   CashRecharge({Key key}) : super(key: key);
@@ -45,27 +51,56 @@ class _CashRechargeState extends State<CashRecharge> {
   }
 
   void _uploadImages() {
+    var list = [];
+    _selectFiles.forEach((element) {
+      if ("${element.path}" != "images/addImg@3x.png") {
+        list.add(element);
+      }
+    });
+
+    kLog("list:" + list.toString());
+
     XsProgressHud hud = initHUD(context);
-    Future.delayed(Duration(milliseconds: 800), () {
-      hideHUD(hud);
-      this._confirmRecharge();
+    Networking.uploadFiles(list.length == 1 ? "uploadImg" : "uploadImgs", list,
+        (data, msg) {
+      if (data != null) {
+        var list = [];
+        if (data is String) {
+          String fileName = data;
+          list.add(fileName);
+        } else {
+          list.addAll(data);
+        }
+
+        hideHUD(hud);
+        if (list.length == 0) {
+          showToast("图片上传失败!", context);
+        } else {
+          var voucherPath = list.join(",");
+          this._confirmRecharge(voucherPath);
+        }
+      } else {
+        hideHUD(hud);
+        showToast(msg, context);
+      }
     });
   }
 
-  void _confirmRecharge() {
-    Navigator.of(context).push(
-      MaterialPageRoute(
-        builder: (context) {
-          return TransferComplete(
-            completeType: 2,
-          );
-        },
-      ),
-    );
+  void _confirmRecharge(String voucherPath) {
+    kLog("voucherPath: " + voucherPath);
+    // Navigator.of(context).push(
+    //   MaterialPageRoute(
+    //     builder: (context) {
+    //       return TransferComplete(
+    //         completeType: 2,
+    //       );
+    //     },
+    //   ),
+    // );
 
-    Future.delayed(Duration(milliseconds: 400), () {
-      this._emptyInput();
-    });
+    // Future.delayed(Duration(milliseconds: 400), () {
+    //   this._emptyInput();
+    // });
   }
 
   void _emptyInput() {
