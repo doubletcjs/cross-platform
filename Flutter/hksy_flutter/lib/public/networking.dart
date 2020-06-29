@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:dio/dio.dart';
 import 'package:hksy_flutter/public/public.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import 'public.dart';
 // import 'package:dart_notification_center/dart_notification_center.dart';
@@ -58,7 +59,6 @@ class Networking {
         MultipartFile multipartFile = MultipartFile.fromFileSync(path,
             filename: "upload_file_$idx.$suffix");
         mFiles.add(MapEntry("file", multipartFile));
-        kLog("name: " + "upload_file_$idx.$suffix");
       } else {
         List<int> fileData = files[idx];
         MultipartFile multipartFile = MultipartFile.fromBytes(fileData);
@@ -101,19 +101,42 @@ class Networking {
           },
         );
 
-        kLog("上传 原始数据:${_response.toString()}");
         if ("${_response.statusCode}" == kRequestSuccessCode) {
-          // kLog("上传 原始数据:${_response.data}");
           var data = _response.data;
-          String _fileName = "${data["msg"]}";
-          // kLog("上传 _fileName:$_fileName");
-          if (isStringEmpty(_fileName)) {
-            if (finish != null) {
-              finish(null, "返回图片url为空！");
+          kLog("上传 原始数据:${data.toString()}");
+          if ("${data["code"]}" == kRequestSuccessCode) {
+            if (data["data"] != null && data["data"] is List) {
+              List _list = data["data"];
+              if (_list.length == 0) {
+                if (finish != null) {
+                  finish(null, "返回图片url为空！");
+                }
+              } else {
+                if (finish != null) {
+                  finish(_list, null);
+                }
+              }
+            } else {
+              String _fileName = "${data["msg"]}";
+              canLaunch(_fileName).then((value) {
+                if (value == false) {
+                  if (finish != null) {
+                    finish(null, "返回图片url为空！");
+                  }
+                } else {
+                  if (finish != null) {
+                    finish(_fileName, null);
+                  }
+                }
+              }).catchError((error) {
+                if (finish != null) {
+                  finish(null, "返回图片url为空！");
+                }
+              });
             }
           } else {
             if (finish != null) {
-              finish(_fileName, null);
+              finish(null, "${data["msg"]}");
             }
           }
         }

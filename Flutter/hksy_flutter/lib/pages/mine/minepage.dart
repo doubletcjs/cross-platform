@@ -24,8 +24,8 @@ class _MinePageState extends State<MinePage> {
   var _coinString;
   var _inviteCode;
   var _phone;
-  String _nickname;
-  String _avater;
+  String _nickname = "";
+  String _avater = "";
 
   Widget _cellIcon(String imageName) {
     return Container(
@@ -47,24 +47,21 @@ class _MinePageState extends State<MinePage> {
             child: Row(
               children: <Widget>[
                 ClipRRect(
-                  child: ClipRRect(
-                    child: CachedNetworkImage(
-                      imageUrl: _avater,
-                      width: 80,
-                      height: 80,
-                      fit: BoxFit.cover,
-                      placeholder: (context, url) {
-                        return Image.asset(
-                          "images/default_avatar@3x.png",
-                          width: 80,
-                          height: 80,
-                          fit: BoxFit.cover,
-                        );
-                      },
-                    ),
-                    borderRadius: BorderRadius.circular(80 / 2),
+                  child: CachedNetworkImage(
+                    imageUrl: "$_avater",
+                    width: 80,
+                    height: 80,
+                    fit: BoxFit.cover,
+                    placeholder: (context, url) {
+                      return Image.asset(
+                        "images/default_avatar@3x.png",
+                        width: 80,
+                        height: 80,
+                        fit: BoxFit.cover,
+                      );
+                    },
                   ),
-                  borderRadius: BorderRadius.circular(40),
+                  borderRadius: BorderRadius.circular(80 / 2),
                 ),
                 SizedBox(
                   width: 14,
