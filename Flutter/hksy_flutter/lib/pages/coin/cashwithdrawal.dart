@@ -1,8 +1,13 @@
+import 'package:dart_notification_center/dart_notification_center.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:hksy_flutter/function/paycode/paycodeinput.dart';
 import 'package:hksy_flutter/pages/coin/transfercomplete.dart';
 import 'package:hksy_flutter/public/public.dart';
+import 'package:xs_progress_hud/xs_progress_hud.dart';
+
+import 'api/coinapi.dart';
+import 'api/coinapi.dart';
 
 class CashWithdrawal extends StatefulWidget {
   CashWithdrawal({Key key}) : super(key: key);
@@ -13,10 +18,12 @@ class CashWithdrawal extends StatefulWidget {
 
 class _CashWithdrawalState extends State<CashWithdrawal> {
   TextEditingController _numberEditingController = TextEditingController();
+  Map _account = {};
+  double _coin = 0.0;
 
   void _rolloutAll() {
     setState(() {
-      _numberEditingController.text = "13420";
+      _numberEditingController.text = "$_coin";
     });
   }
 
@@ -26,21 +33,40 @@ class _CashWithdrawalState extends State<CashWithdrawal> {
       showToast("请输入转出金额", context);
       return;
     }
+    FocusScope.of(context).requestFocus(FocusNode());
 
     PaycodeInput(
       inputHandle: (password) {
-        Navigator.of(context).push(
-          MaterialPageRoute(
-            builder: (context) {
-              return TransferComplete(
-                completeType: 2,
-              );
-            },
-          ),
-        );
+        XsProgressHud hud = initHUD(context);
+        userID((id) {
+          if (isStringEmpty(id) == false) {
+            CoinApi.withdrawCash(id, _numberEditingController.text, password,
+                (data, msg) {
+              if (data != null) {
+                DartNotificationCenter.post(
+                    channel: kRefreshAccountNotification);
+                Future.delayed(Duration(milliseconds: 800), () {
+                  hideHUD(hud);
+                  this._emptyInput();
 
-        Future.delayed(Duration(milliseconds: 400), () {
-          this._emptyInput();
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (context) {
+                        return TransferComplete(
+                          completeType: 2,
+                        );
+                      },
+                    ),
+                  );
+                });
+              } else {
+                hideHUD(hud);
+                showToast(msg, context);
+              }
+            });
+          } else {
+            hideHUD(hud);
+          }
         });
       },
     ).show(context);
@@ -48,6 +74,36 @@ class _CashWithdrawalState extends State<CashWithdrawal> {
 
   void _emptyInput() {
     _numberEditingController.text = "";
+  }
+
+  void _refreshAccount() {
+    setState(() {
+      _account = currentAcctount;
+      _coin =
+          double.parse(double.parse("${_account['coin']}").toStringAsFixed(2));
+    });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+
+    DartNotificationCenter.subscribe(
+      channel: kUpdateAccountNotification,
+      observer: this,
+      onNotification: (options) {
+        this._refreshAccount();
+      },
+    );
+
+    this._refreshAccount();
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+
+    DartNotificationCenter.unsubscribe(observer: this);
   }
 
   @override
@@ -80,7 +136,7 @@ class _CashWithdrawalState extends State<CashWithdrawal> {
                     ),
                   ),
                   Text(
-                    "13420个",
+                    "$_coin" + "个",
                     style: TextStyle(
                       fontSize: 15,
                       color: rgba(145, 152, 173, 1),
@@ -129,7 +185,7 @@ class _CashWithdrawalState extends State<CashWithdrawal> {
                                   decoration: InputDecoration(
                                     enabledBorder: InputBorder.none,
                                     focusedBorder: InputBorder.none,
-                                    hintText: "可提现13420个",
+                                    hintText: "可提现$_coin" + "个",
                                     hintStyle: TextStyle(
                                       fontSize: 13,
                                       color: rgba(145, 152, 173, 1),

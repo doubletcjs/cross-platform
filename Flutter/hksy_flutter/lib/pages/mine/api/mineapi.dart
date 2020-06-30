@@ -8,7 +8,7 @@ class MineApi {
   }
 
   static getContractDetail(userId, page, limit, finish) {
-    Networking.requestBase("createContract", finish, params: {
+    Networking.requestBase("getContractDetail", finish, params: {
       "userId": userId,
       "page": page,
       "limit": limit,

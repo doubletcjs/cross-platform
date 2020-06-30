@@ -50,4 +50,12 @@ class CoinApi {
       "out_address": outaddress,
     });
   }
+
+  static withdrawCash(userId, cashNumber, paymentCode, finish) {
+    Networking.requestBase("withdrawCash", finish, params: {
+      "userId": userId,
+      "cashNumber": cashNumber,
+      "paymentCode": paymentCode,
+    });
+  }
 }

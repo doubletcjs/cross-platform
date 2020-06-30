@@ -1,6 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:hksy_flutter/public/public.dart';
+import 'package:xs_progress_hud/xs_progress_hud.dart';
+
+import '../../../public/public.dart';
+import '../../../public/public.dart';
+import '../../../public/public.dart';
+import '../../../public/public.dart';
+import '../../account/api/accountapi.dart';
 
 typedef kCertificationBlock = void Function(Map object);
 
@@ -25,6 +32,26 @@ class _CertificationBankState extends State<CertificationBank> {
         "bankaddress": _addressEditingController.text,
       });
     }
+  }
+
+  void _getBankName() {
+    if (isStringEmpty(_bankCardEditingController.text) ||
+        _bankCardEditingController.text.length < 8) {
+      return;
+    }
+
+    FocusScope.of(context).requestFocus(FocusNode());
+    XsProgressHud hud = initHUD(context);
+    AccountApi.getBankName(_bankCardEditingController.text, (data, msg) {
+      hideHUD(hud);
+      if (data != null) {
+        setState(() {
+          _bankNameEditingController.text = data;
+        });
+      } else {
+        showToast(msg, context);
+      }
+    });
   }
 
   @override
@@ -92,7 +119,7 @@ class _CertificationBankState extends State<CertificationBank> {
                           ),
                           inputFormatters: [
                             WhitelistingTextInputFormatter.digitsOnly,
-                            LengthLimitingTextInputFormatter(11),
+                            LengthLimitingTextInputFormatter(19),
                           ],
                           keyboardType: TextInputType.number,
                           onChanged: (text) {
@@ -127,29 +154,34 @@ class _CertificationBankState extends State<CertificationBank> {
                         width: 12,
                       ),
                       Expanded(
-                        child: TextField(
-                          controller: _bankNameEditingController,
-                          textAlign: TextAlign.right,
-                          enabled: false,
-                          style: TextStyle(
-                            fontSize: 15,
-                            color: rgba(255, 255, 255, 1),
-                          ),
-                          decoration: InputDecoration(
-                            enabledBorder: InputBorder.none,
-                            focusedBorder: InputBorder.none,
-                            disabledBorder: InputBorder.none,
-                            hintText: "获取持卡银行",
-                            hintStyle: TextStyle(
+                        child: InkWell(
+                          onTap: () {
+                            this._getBankName();
+                          },
+                          child: TextField(
+                            controller: _bankNameEditingController,
+                            textAlign: TextAlign.right,
+                            enabled: false,
+                            style: TextStyle(
                               fontSize: 15,
-                              color: rgba(145, 152, 173, 1),
+                              color: rgba(255, 255, 255, 1),
                             ),
+                            decoration: InputDecoration(
+                              enabledBorder: InputBorder.none,
+                              focusedBorder: InputBorder.none,
+                              disabledBorder: InputBorder.none,
+                              hintText: "获取持卡银行",
+                              hintStyle: TextStyle(
+                                fontSize: 15,
+                                color: rgba(145, 152, 173, 1),
+                              ),
+                            ),
+                            inputFormatters: [
+                              WhitelistingTextInputFormatter.digitsOnly,
+                              LengthLimitingTextInputFormatter(18),
+                            ],
+                            keyboardType: TextInputType.number,
                           ),
-                          inputFormatters: [
-                            WhitelistingTextInputFormatter.digitsOnly,
-                            LengthLimitingTextInputFormatter(18),
-                          ],
-                          keyboardType: TextInputType.number,
                         ),
                       ),
                     ],

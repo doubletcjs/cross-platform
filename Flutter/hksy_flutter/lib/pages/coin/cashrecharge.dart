@@ -68,6 +68,7 @@ class _CashRechargeState extends State<CashRecharge> {
         }
 
         if (list.length == 0) {
+          hideHUD(hud);
           showToast("图片上传失败!", context);
         } else {
           var voucherPath = list.join(",");

@@ -26,7 +26,7 @@ class _UsdtWithdrawalState extends State<UsdtWithdrawal> {
 
   void _rolloutAll() {
     setState(() {
-      _numberEditingController.text = "13420";
+      _numberEditingController.text = "$_coin";
       this._calculateAction(_numberEditingController.text);
     });
   }

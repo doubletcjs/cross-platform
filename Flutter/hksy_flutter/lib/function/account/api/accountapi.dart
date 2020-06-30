@@ -57,7 +57,28 @@ class AccountApi {
     Networking.requestBase(
       "changeAvater",
       finish,
-      params: {"nickname": nickname, "url": url},
+      params: {
+        "nickname": nickname,
+        "url": url,
+      },
+    );
+  }
+
+  static getBankName(bankCard, finish) {
+    Networking.requestBase(
+      "getBankName",
+      finish,
+      params: {
+        "bankCard": bankCard,
+      },
+    );
+  }
+
+  static authentication(params, finish) {
+    Networking.requestBase(
+      "authentication",
+      finish,
+      params: params,
     );
   }
 }
