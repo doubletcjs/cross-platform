@@ -31,4 +31,23 @@ class CoinApi {
       "balance": balance,
     });
   }
+
+  static offlineRecharge(userId, voucherPath, balance, finish) {
+    Networking.requestBase("offlineRecharge", finish, params: {
+      "userId": userId,
+      "voucherPath": voucherPath,
+      "balance": balance,
+    });
+  }
+
+  static submitUSDTWithdraw(
+      userId, coinnumber, arrivalamount, usdtfee, outaddress, finish) {
+    Networking.requestBase("offlineRecharge", finish, params: {
+      "userId": userId,
+      "coin_number": coinnumber,
+      "arrival_amount": arrivalamount,
+      "usdt_fee": usdtfee,
+      "out_address": outaddress,
+    });
+  }
 }

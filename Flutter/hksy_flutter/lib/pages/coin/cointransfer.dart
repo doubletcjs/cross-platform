@@ -3,18 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:hksy_flutter/function/paycode/paycodeinput.dart';
 import 'package:hksy_flutter/pages/calculate/hkcrule.dart';
+import 'package:hksy_flutter/pages/coin/api/coinapi.dart';
 import 'package:hksy_flutter/pages/coin/transfercomplete.dart';
 import 'package:hksy_flutter/public/public.dart';
 import 'package:xs_progress_hud/xs_progress_hud.dart';
-
-import '../../public/public.dart';
-import '../../public/public.dart';
-import '../../public/public.dart';
-import '../../public/public.dart';
-import '../../public/public.dart';
-import '../../public/public.dart';
-import '../../public/public.dart';
-import 'api/coinapi.dart';
 
 class CoinTransfer extends StatefulWidget {
   bool isHKC = false;

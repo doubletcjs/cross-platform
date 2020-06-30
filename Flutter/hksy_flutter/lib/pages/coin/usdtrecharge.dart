@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:hksy_flutter/public/networking.dart';
 import 'package:hksy_flutter/public/public.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 class UsdtRecharge extends StatefulWidget {
   UsdtRecharge({Key key}) : super(key: key);

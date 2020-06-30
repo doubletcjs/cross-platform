@@ -1,5 +1,7 @@
+import 'package:dart_notification_center/dart_notification_center.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:hksy_flutter/pages/coin/api/coinapi.dart';
 import 'package:hksy_flutter/pages/coin/transfercomplete.dart';
 import 'package:hksy_flutter/public/public.dart';
 import 'package:xs_progress_hud/xs_progress_hud.dart';
@@ -14,11 +16,13 @@ class UsdtWithdrawal extends StatefulWidget {
 class _UsdtWithdrawalState extends State<UsdtWithdrawal> {
   TextEditingController _addressEditingController = TextEditingController();
   TextEditingController _numberEditingController = TextEditingController();
+  Map _account = {};
 
   double _inputCoin = 0.0;
   double _poundage = 0.0;
   double _usdtCount = 0.0;
-  double _minCoin = 100;
+  double _minCoin = 0.0;
+  double _coin = 0.0;
 
   void _rolloutAll() {
     setState(() {
@@ -50,23 +54,36 @@ class _UsdtWithdrawalState extends State<UsdtWithdrawal> {
       return;
     }
 
+    FocusScope.of(context).requestFocus(FocusNode());
     XsProgressHud hud = initHUD(context);
-    Future.delayed(Duration(seconds: 2), () {
-      hideHUD(hud);
+    userID((id) {
+      if (isStringEmpty(id) == false) {
+        CoinApi.submitUSDTWithdraw(id, _inputCoin, _usdtCount, _poundage,
+            _addressEditingController.text, (data, msg) {
+          if (data != null) {
+            DartNotificationCenter.post(channel: kRefreshAccountNotification);
+            Future.delayed(Duration(milliseconds: 800), () {
+              hideHUD(hud);
+              this._emptyInput();
 
-      Navigator.of(context).push(
-        MaterialPageRoute(
-          builder: (context) {
-            return TransferComplete(
-              completeType: 2,
-            );
-          },
-        ),
-      );
-
-      Future.delayed(Duration(milliseconds: 400), () {
-        this._emptyInput();
-      });
+              Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (context) {
+                    return TransferComplete(
+                      completeType: 2,
+                    );
+                  },
+                ),
+              );
+            });
+          } else {
+            hideHUD(hud);
+            showToast(msg, context);
+          }
+        });
+      } else {
+        hideHUD(hud);
+      }
     });
   }
 
@@ -74,6 +91,38 @@ class _UsdtWithdrawalState extends State<UsdtWithdrawal> {
     _numberEditingController.text = "";
     _addressEditingController.text = "";
     this._calculateAction("");
+  }
+
+  void _refreshAccount() {
+    setState(() {
+      _account = currentAcctount;
+      _minCoin = double.parse(
+          double.parse("${_account['usdt_min_amount']}").toStringAsFixed(2));
+      _coin =
+          double.parse(double.parse("${_account['coin']}").toStringAsFixed(2));
+    });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+
+    DartNotificationCenter.subscribe(
+      channel: kUpdateAccountNotification,
+      observer: this,
+      onNotification: (options) {
+        this._refreshAccount();
+      },
+    );
+
+    this._refreshAccount();
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+
+    DartNotificationCenter.unsubscribe(observer: this);
   }
 
   @override
@@ -106,7 +155,7 @@ class _UsdtWithdrawalState extends State<UsdtWithdrawal> {
                     ),
                   ),
                   Text(
-                    "13420个",
+                    "$_coin" + "个",
                     style: TextStyle(
                       fontSize: 15,
                       color: rgba(145, 152, 173, 1),
@@ -210,7 +259,7 @@ class _UsdtWithdrawalState extends State<UsdtWithdrawal> {
                                   decoration: InputDecoration(
                                     enabledBorder: InputBorder.none,
                                     focusedBorder: InputBorder.none,
-                                    hintText: "可提现13420个",
+                                    hintText: "可提现$_coin" + "个",
                                     hintStyle: TextStyle(
                                       fontSize: 13,
                                       color: rgba(145, 152, 173, 1),
