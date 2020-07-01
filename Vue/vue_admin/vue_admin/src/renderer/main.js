@@ -4,6 +4,10 @@ import axios from 'axios'
 import App from './App'
 import router from './router'
 
+import jQuery from "jquery";
+window.jQuery = require("jquery")
+require("bootstrap")
+
 if (!process.env.IS_WEB) Vue.use(require('vue-electron'))
 Vue.http = Vue.prototype.$http = axios
 Vue.config.productionTip = false

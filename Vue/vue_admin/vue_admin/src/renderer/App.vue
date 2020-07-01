@@ -1,12 +1,46 @@
 <template>
   <div id="app">
-    <router-link to="/">主页</router-link>
-    <router-link to="/about">关于</router-link>
+    <nav class="navbar navbar-default">
+      <div class="container">
+        <div class="navbar-header">
+          <button
+            type="button"
+            class="navbar-toggle collapsed"
+            data-toggle="collapse"
+            data-target="#navbar"
+            aria-expanded="false"
+            aria-controls="navbar"
+          >
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="#">用户管理系统</a>
+        </div>
+        <div id="navbar" class="collapse navbar-collapse">
+          <ul class="nav navbar-nav">
+            <li>
+              <router-link to="/">主页</router-link>
+            </li>
+            <li>
+              <router-link to="/about">关于</router-link>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+    <!-- <router-link to="/">主页</router-link>
+    <router-link to="/about">关于</router-link>-->
     <router-view></router-view>
   </div>
 </template>
 
 <script>
+// import jQuery from "jquery";
+// window.jQuery = require("jquery");
+// require("bootstrap");
+import "bootstrap/dist/css/bootstrap.min.css";
 export default {
   name: "vue_admin"
 };
