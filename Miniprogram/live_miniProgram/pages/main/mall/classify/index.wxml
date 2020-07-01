@@ -1,0 +1,24 @@
+<view class="classify-content">
+    <view class="classify-list-content">
+        <view class="classify-list-cell" wx:for="{{classifyList}}" wx:key="index" style="background-color: {{index == classifyIndex ? 'rgba(21, 25, 40, 1)' : 'rgba(28, 35, 52, 1)'}};" data-index="{{index}}" bind:tap="classifyTap">
+            {{item}}
+            <view class="classify-list-line" style="{{index == classifyIndex ? 'background-color: rgba(23, 96, 255, 1);' : ''}}"></view>
+        </view>
+    </view>
+    <view class="classifies-mask-content">
+        <view class="classifies-content">
+            <view class="classifies-cell" wx:for="{{classifies}}" wx:key="index" style="{{(index%3 == 0 || index%3 == 1) ? 'margin-right: 28rpx;' : ''}}">
+                <image class="classifies-cell-cover" src="{{item['icon']}}" mode="aspectFill"></image>
+                <view class="classifies-cell-name">{{item['name']}}</view>
+            </view>
+        </view>
+    </view>
+</view>
+<view class="search-bar-content">
+    <view class="inputValue" bind:tap="goSearch">
+        <view class="imgbox">
+            <image class="" src="/icons/icon_search@3x.png" mode="widthFix" lazy-load="false"></image>
+        </view>
+        搜索商品名称或关键词
+    </view>
+</view>

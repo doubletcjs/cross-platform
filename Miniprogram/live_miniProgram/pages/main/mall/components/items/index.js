@@ -49,7 +49,56 @@ Component({
 
   },
   methods: {
+    //选择
+    itemSelect(res) {
+      var index = res.currentTarget.dataset.index
+      if (index == 3) {
+        wx.navigateTo({
+          url: '/pages/main/mall/coupons/index',
+          success: (result) => {
 
+          },
+          fail: () => {},
+          complete: () => {}
+        });
+      } else if (index == 6) {
+        wx.navigateTo({
+          url: '/pages/main/mall/address/index',
+          success: (result) => {
+
+          },
+          fail: () => {},
+          complete: () => {}
+        });
+      } else if (index == 4) {
+        wx.switchTab({
+          url: '/pages/main/live/index',
+          success: (result) => {
+
+          },
+          fail: () => {},
+          complete: () => {}
+        });
+      } else if (index == 2) {
+        wx.navigateTo({
+          url: '/pages/main/mall/order/index',
+          success: (result) => {
+
+          },
+          fail: () => {},
+          complete: () => {}
+        });
+      } else if (index == 5) {
+        wx.navigateTo({
+          url: '/pages/main/mall/collection/index',
+          success: (result) => {
+
+          },
+          fail: () => {},
+          complete: () => {}
+        });
+      }
+    }
   },
   created: function () {
 

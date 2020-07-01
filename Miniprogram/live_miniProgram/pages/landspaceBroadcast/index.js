@@ -6,7 +6,7 @@ Page({
       "/icons/icon_LiveVideo_beautiful@3x.png",
       "/icons/icon_LiveVideo_camera@3x.png",
       "/icons/icon_LiveVideo_estoppel1@3x.png",
-      "/icons/icon_LiveVideo_share@3x.png",
+      "/icons/icon_chat_share@3x.png",
     ],
     functionItems: [
       "/icons/icon_LiveVideo_activity@3x.png",

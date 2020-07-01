@@ -1,0 +1,19 @@
+<view class="i-modal-mask {{ visible ? 'i-modal-mask-show' : '' }}" catch:tap="outClick">
+    <view class="joinuser-content" catch:tap="emptyAction">
+        <image class="joinuser-close" src="/icons/icon-coinorder-close@3x.png" mode="aspectFit" bind:tap="cancelAction"></image>
+        <view class="joinuser-title">{{userList.length}}人在拼单,可直接参与</view>
+        <view class="joinuser-list-content">
+            <view class="joinuser-list-cell" wx:for="{{userList}}" wx:key="index">
+                <view class="joinuser-cell-base-row">
+                    <image class="joinuser-cell-head" src="{{item['head']}}" mode="aspectFill"></image>
+                    <view class="joinuser-cell-name">{{item['name']}}</view>
+                </view>
+                <view class="joinuser-cell-right-row">
+                    <view class="joinuser-cell-time-text">剩余时间</view>
+                    <view class="joinuser-cell-time">{{item['remain']}}</view>
+                    <view class="joinuser-cell-button">去拼团</view>
+                </view>
+            </view>
+        </view>
+    </view>
+</view>

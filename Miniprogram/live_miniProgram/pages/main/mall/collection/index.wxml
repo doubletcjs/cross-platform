@@ -1,0 +1,36 @@
+<view class="collection">
+    <view class="collection-function-content">
+        <image class="collection-function-search" src="/icons/icon_search@3x.png" mode="aspectFit" wx:if="{{edittingcollection == false}}"></image>
+        <view class="collection-function-text" bind:tap="editCollection">
+            {{edittingcollection == true ? '完成' : '管理'}}
+        </view>
+    </view>
+    <view class="collection-cell-centent" style="{{edittingcollection == true ? 'padding-bottom: 90rpx;' : ''}}">
+        <view class="collection-cell-mask" wx:for="{{products}}" wx:key="index">
+            <view class="collection-cell-edit-content" wx:if="{{edittingcollection == true}}">
+                <image class="collection-cell-edit-icon" src="{{item['selected'] == true ? '/icons/select1@3x.png' : '/icons/unselect1@3x.png'}}" mode="aspectFit" data-index="{{index}}" bind:tap="singleSelectAction"></image>
+            </view>
+            <view class="collection-cell">
+                <image class="collection-cell-cover" src="/icons/product_placeholder@3x.png" mode="aspectFill"></image>
+                <view class="collection-cell-column" style="{{edittingcollection == true ? 'width: 51%;' : 'width: 58%;'}}">
+                    <view class="collection-cell-title">{{item['title']}}</view>
+                    <view class="collection-cell-row">
+                        <view class="collection-cell-price-row">
+                            <view class="collection-cell-unit">¥</view>
+                            <view class="collection-cell-price">{{item['price']}}</view>
+                        </view>
+                        <view class="collection-cell-count">已经拼{{item['count']}}+件</view>
+                    </view>
+                </view>
+            </view>
+        </view>
+    </view>
+    <view class="collection-cell-select-function-content" wx:if="{{edittingcollection == true}}">
+        <view class="collection-cell-select-all-row">
+            <image class="collection-cell-select-all-icon" src="{{selectedAll == true ? '/icons/select1@3x.png' : '/icons/unselect1@3x.png'}}" mode="aspectFit" bind:tap="selectAllAction"></image>
+            <view class="collection-cell-select-all-text" bind:tap="selectAllAction">全选</view>
+        </view>
+        <view class="collection-cell-delete" bind:tap="deleteSelectCollection">删除</view>
+    </view>
+</view>
+<alertview visible="{{actionvisible}}" contentString="是否把商品从收藏夹删除" cancelString="取消" confirmString="确定" contentStringColor="rgba(53, 53, 53, 1)" cancelTextColor="rgba(28, 35, 52, 1)" confirmTextColor="rgba(23, 96, 255, 1)" bindclose="closeClick" bind:confirm="alertConfirm"></alertview>

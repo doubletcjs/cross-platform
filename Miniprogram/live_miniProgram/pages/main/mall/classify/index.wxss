@@ -1,0 +1,144 @@
+.search-bar-content {
+    padding-left: 30rpx;
+    padding-top: 30rpx;
+    padding-right: 30rpx;
+    padding-bottom: 16rpx;
+
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: rgba(21, 25, 40, 1);
+    border-bottom: solid 20rpx rgba(0, 0, 0, 0.5);
+}
+
+.search-bar-image {
+    width: 64rpx;
+    height: 64rpx;
+}
+
+.inputValue {
+    width: 690rpx;
+    height: 64rpx;
+    display: flex;
+    align-items: center;
+    border-radius: 64rpx;
+    /* background:rgba(0,0,0,0.1); */
+    background: rgba(45, 48, 62, 1);
+    -webkit-border-radius: 64rpx;
+    -moz-border-radius: 64rpx;
+    -ms-border-radius: 64rpx;
+    -o-border-radius: 64rpx;
+    position: relative;
+    color: #565D6D;
+    padding-left: 64rpx;
+    line-height: 64rpx;
+}
+
+.inputValue .imgbox {
+    position: absolute;
+    left: 15rpx;
+    top: 11rpx;
+    width: 44rpx;
+    height: 44rpx;
+    border-radius: 44rpx;
+    -webkit-border-radius: 44rpx;
+    -moz-border-radius: 44rpx;
+    -ms-border-radius: 44rpx;
+    -o-border-radius: 44rpx;
+    overflow: hidden;
+    z-index: 2;
+}
+
+.classify-content {
+    position: fixed;
+    top: 128rpx;
+    left: 0;
+    right: 0;
+    bottom: 0;
+}
+
+.classify-list-content {
+    width: 240rpx;
+    height: 100%;
+
+    overflow: scroll;
+
+    background-color: rgba(28, 35, 52, 1);
+}
+
+.classify-list-cell {
+    width: 100%;
+    height: 120rpx;
+
+    font-size: 36rpx;
+    color: rgba(241, 241, 241, 1);
+    font-weight: bold;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+
+    position: relative;
+}
+
+.classify-list-line {
+    width: 10rpx;
+    height: 40rpx;
+
+    position: absolute;
+    left: 0;
+}
+
+.classifies-mask-content {
+    position: absolute;
+    left: 240rpx;
+    right: 0;
+    top: 0;
+    bottom: 0;
+
+    overflow: scroll;
+}
+
+.classifies-content {
+    padding-left: 30rpx;
+    padding-top: 80rpx;
+    padding-bottom: 48rpx;
+
+    display: flex;
+    flex-direction: row;
+
+    flex-wrap: wrap;
+}
+
+.classifies-cell {
+    width: 132rpx;
+    margin-bottom: 32rpx;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    align-content: center;
+
+    border-top-left-radius: 12rpx;
+    border-top-right-radius: 12rpx;
+}
+
+.classifies-cell-cover {
+    width: 100%;
+    height: 132rpx;
+
+    border-radius: 12rpx;
+}
+
+.classifies-cell-name {
+    font-size: 28rpx;
+    color: rgba(241, 241, 241, 1);
+    margin-top: 16rpx;
+}

@@ -1,0 +1,15 @@
+<view style="margin-top: {{topSpace}}rpx;">
+    <view class="profile-product-title">{{title}}</view>
+    <view class="profile-product-cell-content">
+        <view class="profile-product-cell" wx:for="{{products}}" wx:key="index">
+            <image class="profile-product-image" src="{{item['image']}}" mode="aspectFill"></image>
+            <view class="profile-product-column">
+                <view class="profile-product-name">{{item['name']}}</view>
+                <view class="profile-header-base-row" style="align-items: flex-end; align-content: flex-end; margin-top: 8rpx;">
+                    <view class="profile-product-unit">¥</view>
+                    <view class="profile-product-price">{{item['price']}}</view>
+                </view>
+            </view>
+        </view>
+    </view>
+</view>

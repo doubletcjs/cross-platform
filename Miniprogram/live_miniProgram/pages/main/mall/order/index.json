@@ -1,0 +1,6 @@
+{
+  "usingComponents": {
+    "tab":"/components/tabList/tabList",
+    "orderList":"../components/orderList/index"
+  }
+}

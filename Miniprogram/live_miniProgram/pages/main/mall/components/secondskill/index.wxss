@@ -1,0 +1,129 @@
+.secondskill-content {
+    margin-top: 40rpx;
+    margin-left: 30rpx;
+    margin-right: 30rpx;
+
+    background-color: rgba(28, 35, 52, 1);
+    border-radius: 12rpx;
+
+    padding-left: 20rpx;
+    padding-right: 20rpx;
+    padding-top: 32rpx;
+
+    display: flex;
+    flex-direction: column;
+}
+
+.secondskill-title-row {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: flex-end;
+
+    margin-bottom: 32rpx;
+}
+
+.secondskill-title {
+    font-size: 40rpx;
+    color: rgba(255, 255, 255, 1);
+    font-weight: bolder;
+}
+
+.secondskill-more {
+    font-size: 28rpx;
+    color: rgba(255, 255, 255, 1);
+}
+
+.secondskill-countdown-row {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    align-content: center;
+}
+
+.secondskill-product-content {
+    display: flex;
+    flex-direction: row;
+
+    flex-wrap: wrap;
+}
+
+.secondskill-product-column {
+    width: 200rpx;
+    margin-bottom: 40rpx;
+
+    display: flex;
+    flex-direction: column;
+}
+
+.secondskill-product-base-row {
+    display: flex;
+    flex-direction: row;
+}
+
+.secondskill-product-cover {
+    width: 100%;
+    height: 168rpx;
+
+    border-radius: 12rpx;
+}
+
+.secondskill-product-unit {
+    font-size: 18rpx;
+    color: rgba(255, 52, 101, 1);
+    font-weight: bolder;
+
+    margin-bottom: 4rpx;
+}
+
+.secondskill-product-price {
+    font-size: 28rpx;
+    color: rgba(255, 52, 101, 1);
+    font-weight: bolder;
+}
+
+.secondskill-product-original-unit {
+    font-size: 18rpx;
+    color: rgba(145, 152, 159, 1);
+    font-weight: bolder;
+
+    margin-bottom: 4rpx;
+    text-decoration: line-through;
+}
+
+.secondskill-product-original-price {
+    font-size: 22rpx;
+    color: rgba(145, 152, 159, 1);
+    font-weight: bolder;
+    text-decoration: line-through;
+}
+
+.secondskill-product-subtitle {
+    font-size: 22rpx;
+    color: rgba(255, 255, 255, 1);
+    font-weight: bolder;
+
+    margin-left: 8rpx;
+    margin-right: 12rpx;
+}
+
+.secondskill-countdown {
+    font-size: 22rpx;
+    color: rgba(255, 255, 255, 1);
+    text-align: center;
+
+    width: 40rpx;
+    padding-top: 5rpx;
+    padding-bottom: 5rpx;
+
+    background-color: rgba(23, 96, 255, 1);
+    border-radius: 6rpx;
+}
+
+.secondskill-countdown-dot {
+    font-size: 22rpx;
+    color: rgba(255, 255, 255, 1);
+    text-align: center;
+
+    width: 30rpx;
+}

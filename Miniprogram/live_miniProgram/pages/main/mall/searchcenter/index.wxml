@@ -1,0 +1,18 @@
+<view class="search-item-content" wx:if="{{inputValue.length == 0}}">
+    <view class="search-title-row">
+        <view class="search-title">最近搜索</view>
+        <image class="search-empty" src="/icons/icon_delete@3x.png" mode="aspectFit" bind:tap="emptySearchHistroy"></image>
+    </view>
+    <view class="history-content-mask">
+        <view class="history-content-cover" wx:for="{{history}}" wx:key="index" data-index="{{index}}" bind:tap="historySelect">
+            <view class="history-content-text">{{item}}</view>
+        </view>
+    </view>
+</view>
+<view class="search-item-content" wx:else>
+    <resultpage></resultpage>
+</view>
+<view class="search-bar-content">
+    <searchInput bind:search="search" inputValue="{{inputValue}}" width="{{570}}" focus="{{focus}}" placeholder="搜索商品名称或关键词"></searchInput>
+    <view class="search-bar-cancel" bind:tap="emptySearch">取消</view>
+</view>

@@ -24,7 +24,7 @@
           <view class="cli_date">{{item.date}}</view>
           <!-- 分享 -->
           <view class="cli_buttom_item_wrapper" data-index="{{index}}" catchtap="transmit">
-            <image class="cli_share_img" src="/icons/icon_chat_share@3x.png" mode="widthFix" lazy-load="false"></image>
+            <image class="cli_share_img" src="/icons/@3x.png" mode="widthFix" lazy-load="false"></image>
             <view class="cli_buttom_text">{{item.shareNum}}</view>
           </view>
           <!-- 评论 -->

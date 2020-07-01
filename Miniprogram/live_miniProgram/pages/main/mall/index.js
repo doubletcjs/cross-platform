@@ -5,7 +5,31 @@ Page({
    * 页面的初始数据
    */
   data: {
-
+    products: [{
+      name: "学霸学习，国AA级护眼认证，智能护目灯",
+      price: 149,
+      image: "/icons/icon-profile-product-placeholder@3x.png"
+    }, {
+      name: "告别桌面沙发尘屑毛发mini桌面吸尘器",
+      price: 59,
+      image: "/icons/icon-profile-product-placeholder@3x.png"
+    }, {
+      name: "告别桌面沙发尘屑毛发mini桌面吸尘器",
+      price: 59,
+      image: "/icons/icon-profile-product-placeholder@3x.png"
+    }, {
+      name: "告别桌面沙发尘屑毛发mini桌面吸尘器",
+      price: 59,
+      image: "/icons/icon-profile-product-placeholder@3x.png"
+    }, {
+      name: "告别桌面沙发尘屑毛发mini桌面吸尘器",
+      price: 59,
+      image: "/icons/icon-profile-product-placeholder@3x.png"
+    }, {
+      name: "告别桌面沙发尘屑毛发mini桌面吸尘器",
+      price: 59,
+      image: "/icons/icon-profile-product-placeholder@3x.png"
+    }]
   },
 
   /**
@@ -77,7 +101,18 @@ Page({
   //搜索中心
   goSearch: function () {
     wx.navigateTo({
-      url: '/pages/main/community/searchcenter/index',
+      url: '/pages/main/mall/searchcenter/index',
+      success: (result) => {
+
+      },
+      fail: () => {},
+      complete: () => {}
+    });
+  },
+  //分类
+  goClassify: function () {
+    wx.navigateTo({
+      url: '/pages/main/mall/classify/index',
       success: (result) => {
 
       },

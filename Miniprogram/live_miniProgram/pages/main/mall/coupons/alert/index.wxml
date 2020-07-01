@@ -1,0 +1,14 @@
+<view class="i-modal-mask {{ visible ? 'i-modal-mask-show' : '' }}" bind:tap="outClick">
+    <view class="centerView" catch:tap="emptyAction">
+        <view class="titleText">兑换码</view>
+        <input type="text" class="input-content" placeholder="请输入兑换码" placeholder-class="input-placeholder" value="{{inputValue}}" bindinput="conversionInput"></input>
+        <view class="buttonView">
+            <view class="buttonText" style="border-right: solid calc(1vmin / 7.5) rgba(0, 0, 0, 0.1); color: rgba(0, 0, 0, 1);" bind:tap="cancelAction">
+                取消
+            </view>
+            <view class="buttonText" style="color: rgba(87, 107, 149, 1);" bind:tap="confirmAction">
+                兑换
+            </view>
+        </view>
+    </view>
+</view>

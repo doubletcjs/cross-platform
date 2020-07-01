@@ -1,0 +1,28 @@
+<view class="secondskill-content">
+    <view class="secondskill-title-row">
+        <view class="secondskill-countdown-row">
+            <view class="secondskill-title">热门秒杀</view>
+            <view class="secondskill-product-subtitle ">{{subtitle}}</view>
+            <view class="secondskill-product-base-row" wx:for="{{countdownlist}}" wx:key="index">
+                <view class="secondskill-countdown-dot" wx:if="{{item == ':'}}">:</view>
+                <view class="secondskill-countdown" wx:else>
+                    {{item == 'hour'? hour : item == 'minute' ? minute : second}}
+                </view>
+            </view>
+        </view>
+        <view class="secondskill-more">更多</view>
+    </view>
+    <view class="secondskill-product-content">
+        <view class="secondskill-product-column" wx:for="{{products}}" wx:key="index" style="{{(index%3 == 0 || index%3 == 1) ? 'margin-right: 25rpx;' : ''}}">
+            <image class="secondskill-product-cover" src="{{item['image']}}" mode="aspectFill"></image>
+            <view class="secondskill-product-base-row" style="align-items: flex-end; align-content: flex-end; margin-top: 24rpx;">
+                <view class="secondskill-product-unit">¥</view>
+                <view class="secondskill-product-price">{{item['price']}}</view>
+            </view>
+            <view class="secondskill-product-base-row" style="align-items: flex-end; align-content: flex-end; margin-top: 8rpx;">
+                <view class="secondskill-product-original-unit">¥</view>
+                <view class="secondskill-product-original-price">{{item['originalprice']}}</view>
+            </view>
+        </view>
+    </view>
+</view>

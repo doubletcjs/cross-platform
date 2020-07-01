@@ -1,5 +1,5 @@
 <view class="search-bar-content" style="{{inputValue.length == 0 ? 'border-bottom: solid 20rpx rgba(0, 0, 0, 0.5);' : ''}}">
-    <searchInput bind:search="search" inputValue="{{inputValue}}" width="{{570}}" focus="{{true}}"></searchInput>
+    <searchInput bind:search="search" inputValue="{{inputValue}}" width="{{570}}" focus="{{focus}}"></searchInput>
     <view class="search-bar-cancel" bind:tap="emptySearch">取消</view>
 </view>
 <view class="search-item-content" wx:if="{{inputValue.length == 0}}">

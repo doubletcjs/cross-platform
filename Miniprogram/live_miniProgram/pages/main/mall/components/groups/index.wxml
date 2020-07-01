@@ -1,0 +1,7 @@
+<view class="groups-content">
+    <view class="groups-title-row">
+        <view class="groups-title">热门拼团</view>
+        <view class="groups-more">更多</view>
+    </view>
+    <groupcell products="{{products}}"></groupcell>
+</view>

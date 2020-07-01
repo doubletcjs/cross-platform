@@ -1,0 +1,6 @@
+{
+  "component": true,
+  "usingComponents": {
+    "groupcell": "/pages/main/mall/components/products/groupcell/index"
+  }
+}

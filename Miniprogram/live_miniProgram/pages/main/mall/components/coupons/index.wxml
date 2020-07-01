@@ -1,0 +1,27 @@
+<view class="i-modal-mask {{ visible ? 'i-modal-mask-show' : '' }}" catch:tap="outClick">
+    <view class="coupons-content" catch:tap="emptyAction">
+        <view class="coupons-title">请选择优惠券</view>
+        <image class="coupons-close" src="/icons/icon-coinorder-close@3x.png" mode="aspectFit" bind:tap="cancelAction"></image>
+        <view class="coupons-list-content">
+            <view class="coupons-list-cell" wx:for="{{couponsList}}" wx:key="index">
+                <image class="coupons-list-cell-backgroud" src="/icons/icon-coupons@3x.png" mode="aspectFill"></image>
+                <view class="coupons-list-cell-receive" style="color: {{item['status'] == 0 ? 'rgba(255, 52, 101, 1)' : 'rgba(53, 53, 53, 1)'}};" data-index="{{index}}" bind:tap="couponItemSelect">
+                    {{item['status'] == 0 ? '点击领取' : '已领取'}}
+                </view>
+                <view class="coupons-price-column">
+                    <view class="coupons-price-row">
+                        <view class="coupons-price-unit">¥</view>
+                        <view class="coupons-price">{{item['price']}}</view>
+                    </view>
+                    <view class="coupons-fullprice">满{{item['fullPrice']}}可用</view>
+                </view>
+                <view class="coupons-content-column">
+                    <view class="coupons-name">{{item['name']}}</view>
+                    <view class="coupons-date-range">
+                        {{item['startDate']}}-{{item['endDate']}}
+                    </view>
+                </view>
+            </view>
+        </view>
+    </view>
+</view>

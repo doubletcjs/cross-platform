@@ -1,0 +1,40 @@
+<view class="address-base-cell">
+    <view class="address-base-text">收货人</view>
+    <input type="text" value="{{address['name']}}" bindinput="nameInput" class="address-base-input" placeholder="请输入收货人姓名" placeholder-class="address-base-input-placeholder" style="margin-left: 64rpx; width: 75%;"></input>
+</view>
+<view class="address-base-cell">
+    <view class="address-base-text">手机号码</view>
+    <view class="phone-code-content">
+        +86
+        <image class="phone-code-arrow" src="/icons/icon-coin-unfold@3x.png" mode="widthFix"></image>
+    </view>
+    <input type="number" value="{{address['phone']}}" bindinput="phoneInput" class="address-base-input" placeholder="请输入手机号码" placeholder-class="address-base-input-placeholder" maxlength="11" style="margin-left: 36rpx; width: 53%;"></input>
+</view>
+<view class="address-base-cell">
+    <view class="address-base-text">收货地区</view>
+    <picker class="" mode="region" value="{{[address['province'], address['city'], address['area']]}}" bindchange="regionChanged" style="margin-left: 36rpx; width: 74%;">
+        <view class="address-base-input" wx:if="{{address['province'].length > 0 && address['city'].length > 0 && address['area'].length > 0}}">
+            {{address['province']}}{{address['city']}}{{address['area']}}
+        </view>
+        <view class="address-base-input-placeholder" wx:else>省市区、县乡镇等</view>
+    </picker>
+</view>
+<view class="address-base-cell" style="align-items: flex-start; align-content: flex-start;">
+    <view class="address-base-text">详细地址</view>
+    <textarea type="text" value="{{address['address']}}" bindinput="addressInput" class="address-base-input" placeholder="街道、楼牌号等" placeholder-class="address-base-input-placeholder" style="margin-left: 36rpx; width: 75%; height: 130rpx;"></textarea>
+</view>
+<view class="address-base-cell" style="margin-top: 24rpx; align-items: flex-start; align-content: flex-start;">
+    <view class="address-base-text">标签</view>
+    <view class="label-content-mask">
+        <view class="label-content-cover" wx:for="{{labelList}}" wx:key="index" data-index="{{index}}" bind:tap="labelSelect">
+            <view class="label-content-text" style="{{item == address['label'] ? 'color: rgba(241, 241, 241, 1); background-color: rgba(23, 96, 255, 1);' : 'color: rgba(86, 93, 109, 1); background-color: rgba(241, 241, 241, 0.1);'}}">
+                {{item}}
+            </view>
+        </view>
+    </view>
+</view>
+<view class="address-base-cell" style="justify-content: space-between;">
+    <view class="address-base-text">设为默认地址</view>
+    <switch class="" checked="{{address['default']}}" type="switch" bindchange="defaultAddressSwitch" color="rgba(23, 96, 255, 1)"></switch>
+</view>
+<view class="address-confirm-content" bind:tap="onConfirm">保存</view>

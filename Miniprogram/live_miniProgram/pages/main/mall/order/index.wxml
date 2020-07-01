@@ -1,0 +1,8 @@
+<view class="">
+    <view class="" style="margin-top:30rpx;">
+        <tab currentTab="{{currentTab}}" bind:changeTab="changeTabhandle" tablists="{{tablists}}" color="{{'#151928'}}" attentionShow="{{false}}"/> 
+    </view>
+    <view class="listBox">
+        <orderList list="{{list}}" />
+    </view>
+</view>

@@ -1,0 +1,43 @@
+<view class="address-mask">
+    <view class="address-cell-content" wx:for="{{addressList}}" wx:key="index">
+        <view class="address-cell-base">
+            <image class="address-cell-icon" src="/icons/ico-address-dz1@3x.png" mode="aspectFit"></image>
+            <view class="address-cell-column">
+                <view class="address-cell-base-row">
+                    <view class="address-cell-base-text">{{item['name']}}</view>
+                    <view class="address-cell-base-text" style="margin-left: 16rpx;">
+                        {{item['phone']}}
+                    </view>
+                    <view class="address-cell-label" wx:if="{{item['label'].length > 0}}">
+                        {{item['label']}}
+                    </view>
+                </view>
+                <view class="address-cell-address">
+                    {{item['province']}}{{item['city']}}{{item['area']}}{{item['address']}}
+                </view>
+            </view>
+        </view>
+        <view class="address-cell-function-content">
+            <view class="address-cell-base-row" data-index="{{index}}" bind:tap="defaultAddress">
+                <image class="address-cell-function-icon" src="{{item['default'] == true ? '/icons/select1@3x.png' : '/icons/unselect1@3x.png'}}" mode="aspectFit"></image>
+                <view class="address-cell-function-text" style="{{item['default'] == true ? 'color: rgba(23, 96, 255, 1);' : ''}}">
+                    {{item['default'] == true ? '已设为默认地址' : '设为默认地址'}}
+                </view>
+            </view>
+            <view class="address-cell-base-row">
+                <view class="address-cell-function-right-text" data-index="{{index}}" bind:tap="deleteAddressAlert">
+                    删除
+                </view>
+                <view class="address-cell-function-right-text" style="margin-left: 64rpx;" data-index="{{index}}" bind:tap="editAddress">
+                    修改
+                </view>
+            </view>
+        </view>
+    </view>
+</view>
+<view class="address-confirm-content" bind:tap="addAddress">
+    <image class="address-confirm-icon" src="/icons/ico-address-add@3x.png" mode="aspectFit"></image>
+    <view class="address-confirm-text">添加收货地址</view>
+</view>
+<alertview visible="{{alertvisible}}" contentString="是否删除该地址" cancelString="取消" confirmString="删除" bindclose="closeAddressAlert" bind:confirm="confirmDeleteAddress" contentStringColor="rgba(53, 53, 53, 1)" cancelTextColor="rgba(28, 35, 52, 0.9)" confirmTextColor="rgba(23, 96, 255, 1)"></alertview>
+<alertview visible="{{defaultalertvisible}}" contentString="是否设为默认地址，并置顶" cancelString="取消" confirmString="确定" bindclose="closeAddressAlert" bind:confirm="confirmDefaultAddress" contentStringColor="rgba(53, 53, 53, 1)" cancelTextColor="rgba(28, 35, 52, 0.9)" confirmTextColor="rgba(23, 96, 255, 1)"></alertview>

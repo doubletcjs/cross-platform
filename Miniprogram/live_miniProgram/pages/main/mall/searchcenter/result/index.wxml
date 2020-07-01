@@ -1,0 +1,25 @@
+<view class="result-tab-content">
+    <view class="result-tab-base-row">
+        <view class="result-tab-base-column" wx:for="{{tabList}}" wx:key="index" style="margin-right: 56rpx;" data-index="{{index}}" bind:tap="switchBaseTab">
+            <view class="result-tab-base-row" wx:if="{{index == tabList.length-1}}">
+                <view class="result-tab-base-text">{{item}}</view>
+                <view class="result-tab-base-column" style="margin-left: 8rpx; justify-content: center; align-items: center; align-content: center;">
+                    <image class="result-tab-price-sort" src="{{priceStatus == 0 ? '/icons/ico-qinxz2@3x.png' : '/icons/ico-qinxz2-white@3x.png'}}" mode="aspectFit"></image>
+                    <image class="result-tab-price-sort" src="{{priceStatus == 0 ? '/icons/ico-qinxz1-white@3x.png' : '/icons/ico-qinxz1@3x.png'}}" mode="aspectFit" style="margin-top: 6rpx; "></image>
+                </view>
+            </view>
+            <view class="result-tab-base-text" wx:else>{{item}}</view>
+            <view class="result-tab-line" style="{{tabIndex == index ? 'background-color: rgba(23, 96, 255, 1);' : ''}}"></view>
+        </view>
+    </view>
+    <view class="result-tab-base-row" style="margin-bottom: 12rpx; align-items: center; align-content: center;" bind:tap="showScreening">
+        <view class="result-tab-base-text">筛选</view>
+        <image style="width: 40rpx; heigth: 40rpx; margin-left: 8rpx;" src="/icons/ico-screening@3x.png" mode="widthFix"></image>
+    </view>
+</view>
+<view class="result-empty-data" wx:if="{{products.length == 0}}">
+    <image class="result-empty-image" src="/icons/ico-mall-empty@3x.png" mode="aspectFit|aspectFill|widthFix" lazy-load="false" binderror="" bindload=""></image>
+    <view class="result-empty-title">抱歉，没有相关商品~</view>
+</view>
+<productcell topSpace="{{128}}" products="{{products}}" wx:else></productcell>
+<screening visible="{{screeningvisible}}" bindclose="screeningClose" bind:confirm="screeningConfirm"></screening>

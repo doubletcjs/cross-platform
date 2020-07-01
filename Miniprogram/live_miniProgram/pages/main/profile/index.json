@@ -1,4 +1,6 @@
 {
-  "usingComponents": {},
+  "usingComponents": {
+    "productcell": "/pages/main/mall/components/products/basecell/index"
+  },
   "navigationBarTitleText": "我的"
 }

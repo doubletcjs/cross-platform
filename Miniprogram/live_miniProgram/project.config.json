@@ -17,11 +17,13 @@
 		"checkInvalidKey": true,
 		"checkSiteMap": true,
 		"uploadWithSourceMap": true,
+		"compileHotReLoad": false,
 		"babelSetting": {
 			"ignore": [],
 			"disablePlugins": [],
 			"outputPath": ""
 		},
+		"useIsolateContext": true,
 		"useCompilerModule": false,
 		"userConfirmedUseCompilerModuleSwitch": false
 	},
@@ -210,6 +212,20 @@
 					"id": -1,
 					"name": "账户设置",
 					"pathName": "pages/main/profile/info/index",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "优惠券",
+					"pathName": "pages/main/mall/coupons/index",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "订单列表",
+					"pathName": "pages/main/mall/order/index",
 					"query": "",
 					"scene": null
 				}

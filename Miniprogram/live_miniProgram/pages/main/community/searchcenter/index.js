@@ -23,7 +23,8 @@ Page({
       "Filecoin收益方式",
       "两会热议区块链，结合人体抗过敏",
       "主网上线"
-    ]
+    ],
+    focus: false,
   },
   //options(Object)
   onLoad: function (options) {
@@ -57,6 +58,7 @@ Page({
   onTabItemTap: function (item) {
 
   },
+  //取消搜索
   emptySearch: function () {
     this.setData({
       inputValue: ""
@@ -68,7 +70,8 @@ Page({
     var history = this.data.history[index]
 
     this.setData({
-      inputValue: history
+      inputValue: history,
+      focus: true
     })
   },
   //热点点击
@@ -77,7 +80,8 @@ Page({
     var hot = this.data.hotList[index]
 
     this.setData({
-      inputValue: history
+      inputValue: history,
+      focus: true
     })
   },
   //话题点击
@@ -86,12 +90,16 @@ Page({
     var topic = this.data.hotTopicList[index]
 
     this.setData({
-      inputValue: topic
+      inputValue: topic,
+      focus: true
     })
   },
   // 搜索
   search(e) {
-    let search = e.detail;
+    let search = e.detail
+    this.setData({
+      inputValue: search
+    })
     console.log('search', search)
   }
 });

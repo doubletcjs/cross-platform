@@ -1,0 +1,7 @@
+{
+  "component": true,
+  "usingComponents": {
+    "productcell": "/pages/main/mall/components/products/basecell/index",
+    "screening": "../screening/index"
+  }
+}

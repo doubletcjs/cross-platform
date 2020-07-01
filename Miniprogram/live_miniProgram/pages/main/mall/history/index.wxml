@@ -4,7 +4,7 @@
             <view class="history-date">{{item['date']}}</view>
             <view class="history-base-cell" wx:for="{{item['products']}}" wx:for-item="product" wx:for-index="index" wx:key="index">
                 <view class="history-cell-edit-content" wx:if="{{edittinghistory == true}}">
-                    <image class="history-cell-edit-icon" src="{{product['selected'] == true ? '/icons/icon_history_selected@3x.png' : '/icons/icon_history_unselected@3x.png'}}" mode="aspectFit" data-section="{{section}}" data-index="{{index}}" bind:tap="singleSelectAction"></image>
+                    <image class="history-cell-edit-icon" src="{{product['selected'] == true ? '/icons/select1@3x.png' : '/icons/unselect1@3x.png'}}" mode="aspectFit" data-section="{{section}}" data-index="{{index}}" bind:tap="singleSelectAction"></image>
                 </view>
                 <image class="history-cell-cover" src="/icons/product_placeholder@3x.png" mode="aspectFill">
                     <view class="history-cell-noinventory" wx:if="{{product['inventory'] == 0}}">
@@ -41,7 +41,7 @@
     </view>
     <view class="history-cell-select-function-content" wx:if="{{edittinghistory == true}}">
         <view class="history-cell-select-all-row">
-            <image class="history-cell-select-all-icon" src="{{selectedAll == true ? '/icons/icon_history_selected@3x.png' : '/icons/icon_history_unselected@3x.png'}}" mode="aspectFit" bind:tap="selectAllAction"></image>
+            <image class="history-cell-select-all-icon" src="{{selectedAll == true ? '/icons/select1@3x.png' : '/icons/unselect1@3x.png'}}" mode="aspectFit" bind:tap="selectAllAction"></image>
             <view class="history-cell-select-all-text" bind:tap="selectAllAction">全选</view>
         </view>
         <view class="history-cell-delete" bind:tap="deleteSelectHistory">删除</view>

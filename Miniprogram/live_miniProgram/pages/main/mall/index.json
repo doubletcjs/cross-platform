@@ -1,5 +1,9 @@
 {
   "usingComponents": {
-    "items": "./components/items/index"
-  }
+    "items": "./components/items/index",
+    "productcell": "/pages/main/mall/components/products/basecell/index",
+    "group": "/pages/main/mall/components/groups/index",
+    "secondskill": "/pages/main/mall/components/secondskill/index"
+  },
+  "navigationBarTitleText": "商城"
 }

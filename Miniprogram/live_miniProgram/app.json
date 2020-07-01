@@ -46,7 +46,14 @@
     "pages/main/mall/history/index",
     "pages/main/mall/evaluate/index",
     "pages/main/profile/coinorder/index",
-    "pages/main/profile/certification/index"
+    "pages/main/profile/certification/index",
+    "pages/main/mall/classify/index",
+    "pages/main/mall/searchcenter/index",
+    "pages/main/mall/coupons/index",
+    "pages/main/mall/address/index",
+    "pages/main/mall/address/editting/index",
+    "pages/main/mall/order/index",
+    "pages/main/mall/collection/index"
   ],
   "window": {
     "backgroundTextStyle": "light",
@@ -60,7 +67,8 @@
     "backgroundColor": "#000000",
     "position": "bottom",
     "borderStyle": "black",
-    "list": [{
+    "list": [
+      {
         "pagePath": "pages/main/home/index",
         "text": "首页",
         "iconPath": "icons/icon_bar_home.png",

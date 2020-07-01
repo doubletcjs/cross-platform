@@ -1,0 +1,25 @@
+<view class="groups-product-column">
+    <view class="groups-product-cell" wx:for="{{products}}" wx:key="index">
+        <image class="groups-product-cover" src="{{item['image']}}" mode="aspectFill"></image>
+        <view class="groups-product-column" style="margin-left: 20rpx; width: 318rpx;">
+            <view class="groups-product-title">{{item['name']}}</view>
+            <view class="groups-product-base-row" style="align-items: flex-end; align-content: flex-end; margin-top: 12rpx;">
+                <view class="groups-product-unit">¥</view>
+                <view class="groups-product-price">{{item['price']}}</view>
+            </view>
+            <view class="groups-product-base-row" style="align-items: flex-end; align-content: flex-end; margin-top: 2rpx;">
+                <view class="groups-product-original-unit">¥</view>
+                <view class="groups-product-original-price">{{item['originalprice']}}</view>
+            </view>
+            <view class="groups-product-bottom-row">
+                <view class="groups-product-base-row" style="width: 55%; align-items: center; align-content: center; justify-content: space-between;">
+                    <view class="groups-product-person-content">
+                        <image class="groups-product-person" wx:for="{{item['persons']}}" wx:for-item="person" wx:for-index="personindex" wx:key="personindex" src="{{person['head']}}" mode="aspectFill" style="margin-left: {{personindex == 0 ? '0' : '-30'}}rpx;"></image>
+                    </view>
+                    <view class="groups-product-person-count">{{item['persons'].length}}人团</view>
+                </view>
+                <view class="groups-product-group">去拼团</view>
+            </view>
+        </view>
+    </view>
+</view>

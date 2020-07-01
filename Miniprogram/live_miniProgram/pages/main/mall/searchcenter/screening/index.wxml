@@ -1,0 +1,27 @@
+<view class="i-modal-mask {{ visible ? 'i-modal-mask-show' : '' }}" catch:tap="outClick">
+    <view class="screening-content" catch:tap="emptyAction">
+        <view class="screening-title">筛选</view>
+        <view class="screening-base-text" style="margin-top: 80rpx;">品牌</view>
+        <view class="brand-content-mask">
+            <view class="brand-content-cover" wx:for="{{brandList}}" wx:key="index" data-index="{{index}}" bind:tap="brandSelect">
+                <view class="brand-content-text" style="background-color: {{item['select'] == true ? 'rgba(23, 96, 255, 1)' : 'rgba(28, 35, 52, 1)'}};">
+                    {{item['name']}}
+                </view>
+            </view>
+        </view>
+        <view class="screening-base-text">价格区间</view>
+        <view class="price-row">
+            <view class="price-input-content">
+                <input type="number" class="price-input" value="{{lowPrice}}" placeholder="最低价" placeholder-class="price-input-placeholder" maxlength="6" id="lowprice" bindinput="priceInput"></input>
+            </view>
+            <view class="price-line"></view>
+            <view class="price-input-content">
+                <input type="number" class="price-input" value="{{heigthPrice}}" placeholder="最高价" placeholder-class="price-input-placeholder" maxlength="6" id="heightprice" bindinput="priceInput"></input>
+            </view>
+        </view>
+        <view class="screening-base-row">
+            <view class="screening-reset" bind:tap="resetAction">重置</view>
+            <view class="screening-confirm" bind:tap="onConfirm">确定</view>
+        </view>
+    </view>
+</view>

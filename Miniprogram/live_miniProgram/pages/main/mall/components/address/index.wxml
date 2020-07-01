@@ -1,0 +1,18 @@
+<view class="i-modal-mask {{ visible ? 'i-modal-mask-show' : '' }}" catch:tap="outClick">
+    <view class="address-content" catch:tap="emptyAction">
+        <view class="address-title">选择地址</view>
+        <image class="address-close" src="/icons/icon-coinorder-close@3x.png" mode="aspectFit" bind:tap="cancelAction"></image>
+        <view class="address-list-content">
+            <view class="address-list-cell" wx:for="{{addressList}}" wx:key="index" data-index="{{index}}" bind:tap="addressItemSelect">
+                <image class="address-list-icon" src="{{item['selected'] == true ? '/icons/select1@3x.png' : '/icons/ico-dz1-grey@3x.png'}}" mode="aspectFit"></image>
+                <view class="address-list-column">
+                    <view class="address-list-text" style="color: {{item['selected'] == true ? 'rgba(241, 241, 241, 1)' : 'rgba(145, 152, 159, 1)'}};">
+                        {{item['province']}}{{item['city']}}{{item['area']}}{{item['address']}}
+                    </view>
+                    <image class="address-list-default" src="/icons/ico-xhuo@3x.png" mode="widthFix" wx:if="{{item['default'] == true}}"></image>
+                </view>
+            </view>
+        </view>
+        <view class="address-select-other" bind:tap="addressPageAction">选择其他地址</view>
+    </view>
+</view>

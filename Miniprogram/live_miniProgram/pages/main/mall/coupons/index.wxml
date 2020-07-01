@@ -1,0 +1,29 @@
+<view class="coupons-content">
+    <view class="coupons-list-cell" wx:for="{{couponsList}}" wx:key="index">
+        <image class="coupons-list-cell-backgroud" src="{{item['status'] == 0 ? '/icons/icon-coupons@3x.png' : '/icons/icon-coupons-disable@3x.png'}}" mode="aspectFill"></image>
+        <view class="coupons-list-cell-receive" style="color: {{item['status'] == 0 ? 'rgba(255, 52, 101, 1)' : 'rgba(136, 136, 136, 1)'}};" data-index="{{index}}" bind:tap="couponItemSelect">
+            {{item['status'] == 0 ? '立即使用' : '已失效'}}
+        </view>
+        <view class="coupons-price-column">
+            <view class="coupons-price-row">
+                <view class="coupons-price-unit" style="color: {{item['status'] == 1 ? 'rgba(241, 241, 241, 1)' : ''}};">
+                    ¥
+                </view>
+                <view class="coupons-price" style="color: {{item['status'] == 1 ? 'rgba(241, 241, 241, 1)' : ''}};">
+                    {{item['price']}}
+                </view>
+            </view>
+            <view class="coupons-fullprice" style="color: {{item['status'] == 1 ? 'rgba(241, 241, 241, 1)' : ''}};">
+                满{{item['fullPrice']}}可用
+            </view>
+        </view>
+        <view class="coupons-content-column">
+            <view class="coupons-name">{{item['name']}}</view>
+            <view class="coupons-date-range">{{item['startDate']}}-{{item['endDate']}}</view>
+        </view>
+    </view>
+</view>
+<view class="coupons-title">
+    <view class="coupons-title-button" bind:tap="openAlert">兑换码</view>
+</view>
+<alertview visible="{{visible}}" bindclose="closeAlert" bindconfirm="alertConfirm"></alertview>

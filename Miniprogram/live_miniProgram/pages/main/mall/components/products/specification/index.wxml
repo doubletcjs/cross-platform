@@ -1,0 +1,42 @@
+<view class="i-modal-mask {{ visible ? 'i-modal-mask-show' : '' }}" catch:tap="outClick">
+    <view class="specification-content" catch:tap="emptyAction">
+        <image class="specification-close" src="/icons/icon-coinorder-close@3x.png" mode="aspectFit" bind:tap="cancelAction"></image>
+        <view class="specification-info-content">
+            <image class="specification-info-cover" src="/icons/product_placeholder@3x.png" mode="aspectFill"></image>
+            <view class="specification-info-column">
+                <view class="specification-price-row">
+                    <view class="specification-price-unit">¥</view>
+                    <view class="specification-price">2299</view>
+                </view>
+                <view class="specification-inventory">库存：86件</view>
+            </view>
+        </view>
+        <view class="specification-content-mask">
+            <view class="specification-base-text">颜色</view>
+            <view class="grid-content-mask">
+                <view class="grid-content-cover" wx:for="{{colorList}}" wx:key="index" data-index="{{index}}" bind:tap="colorSelect">
+                    <view class="grid-content-text" style="background-color: {{colorIndex == index ? 'rgba(23, 96, 255, 1)' : 'rgba(28, 35, 52, 1)'}};">
+                        {{item['name']}}
+                    </view>
+                </view>
+            </view>
+            <view class="specification-base-text" style="margin-top: 40rpx;">规格</view>
+            <view class="grid-content-mask">
+                <view class="grid-content-cover" wx:for="{{specList}}" wx:key="index" data-index="{{index}}" bind:tap="specSelect">
+                    <view class="grid-content-text" style="background-color: {{specIndex == index ? 'rgba(23, 96, 255, 1)' : 'rgba(28, 35, 52, 1)'}};">
+                        {{item['name']}}
+                    </view>
+                </view>
+            </view>
+            <view class="specification-count-mask">
+                <view class="specification-base-text">数量</view>
+                <view class="specification-count-row">
+                    <image class="specification-count-button" src="{{count == 1 ? '/icons/ico_jianh_disable@3x.png' : '/icons/ico_jianh@3x.png'}}" mode="aspectFit" bind:tap="subtract"></image>
+                    <view class="specification-count">{{count}}</view>
+                    <image class="specification-count-button" src="/icons/ico_jiah@3x.png" mode="aspectFit" bind:tap="append"></image>
+                </view>
+            </view>
+        </view>
+        <view class="specification-confirm" bind:tap="specificationConfirm">确认</view>
+    </view>
+</view>
