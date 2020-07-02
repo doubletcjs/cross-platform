@@ -38,14 +38,14 @@
       "id": 6
     },
     {
-      "name": "4444",
-      "phone": "4444",
-      "email": "4444@qq.com",
-      "profile": "4444",
-      "id": 7,
-      "graduationschool": "4444",
-      "education": "4444",
-      "profession": "4444"
+      "name": "methods1",
+      "phone": "33",
+      "email": "33@qq.com",
+      "education": "methods",
+      "graduationschool": "methods",
+      "profession": "methods",
+      "profile": "methods",
+      "id": 7
     }
   ],
   "companies": [
