@@ -10,7 +10,8 @@
     "build:dir": "node .electron-vue/build.js && electron-builder --dir",
     "build:clean": "cross-env BUILD_TARGET=clean node .electron-vue/build.js",
     "build:web": "cross-env BUILD_TARGET=web node .electron-vue/build.js",
-    "dev": "node .electron-vue/dev-runner.js",
+    "json:server": "json-server --watch db.json",
+    "dev": "npm run json:server & node .electron-vue/dev-runner.js",
     "pack": "npm run pack:main && npm run pack:renderer",
     "pack:main": "cross-env NODE_ENV=production webpack --progress --colors --config .electron-vue/webpack.main.config.js",
     "pack:renderer": "cross-env NODE_ENV=production webpack --progress --colors --config .electron-vue/webpack.renderer.config.js",
@@ -26,7 +27,8 @@
       "dist/electron/**/*"
     ],
     "dmg": {
-      "contents": [{
+      "contents": [
+        {
           "x": 410,
           "y": 150,
           "type": "link",
@@ -52,22 +54,18 @@
       "icon": "build/icons/icon.ico",
       "artifactName": "${productName}_${version}.${ext}",
       "verifyUpdateCodeSignature": false,
-      "target": [{
-        "target": "nsis",
-        "arch": [
-          "ia32"
-        ]
-      }]
+      "target": [
+        {
+          "target": "nsis",
+          "arch": [
+            "ia32"
+          ]
+        }
+      ]
     },
     "linux": {
       "icon": "build/icons"
-    },
-    "nsis": {
-      "oneClick": false,
-      "createDesktopShortcut": "always",
-      "allowToChangeInstallationDirectory": true
-    },
-    "extends": null
+    }
   },
   "dependencies": {
     "vue": "^2.5.16",
@@ -99,6 +97,7 @@
     "file-loader": "^1.1.11",
     "html-webpack-plugin": "^3.2.0",
     "jquery": "^3.5.1",
+    "json-server": "^0.16.1",
     "mini-css-extract-plugin": "0.4.0",
     "multispinner": "^0.2.1",
     "node-loader": "^0.6.0",
