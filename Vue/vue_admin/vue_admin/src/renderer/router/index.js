@@ -10,6 +10,7 @@ import Edit from '../../components/Edit'
 Vue.use(Router)
 
 export default new Router({
+  history: true,
   routes: [
     // {
     //   path: '/',
