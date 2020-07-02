@@ -1,0 +1,7 @@
+{
+  "usingComponents": {
+    "alertview": "/components/popalertview/index",
+    "specification": "../components/products/specification/index"
+  },
+  "navigationBarTitleText": "购物车"
+}

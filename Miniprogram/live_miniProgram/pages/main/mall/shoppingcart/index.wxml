@@ -1,0 +1,46 @@
+<view class="shoppingcart-title">
+    <view class="shoppingcart-title-button" bind:tap="edittingAction">
+        {{editting == true ? '完成' : '管理'}}
+    </view>
+</view>
+<view class="shoppingcart-list-content" style="padding-bottom: 152rpx;">
+    <view class="shoppingcart-cell" wx:for="{{products}}" wx:key="index">
+        <image class="shoppingcart-cell-select" src="{{item['selected'] == true ? '/icons/select1@3x.png' : '/icons/unselect1@3x.png'}}" mode="aspectFit" data-index="{{index}}" bind:tap="singleSelectAction"></image>
+        <image class="shoppingcart-cell-cover" src="/icons/icon-profile-product-placeholder@3x.png" mode="aspectFill"></image>
+        <view class="shoppingcart-base-column">
+            <view class="shoppingcart-cell-title">{{item['title']}}</view>
+            <view class="shoppingcart-spec-content" data-index="{{index}}" bind:tap="selectSpec">
+                <view class="shoppingcart-sepc-text ">{{item['sepc']}}</view>
+                <image class="shoppingcart-sepc-arrow" src="/icons/ico-qinxz1-white@3x.png" mode="aspectFit"></image>
+            </view>
+            <view class="shoppingcart-bottom-price-row" style="position: absolute; bottom: 0;">
+                <view class="shoppingcart-bottom-unit">¥</view>
+                <view class="shoppingcart-bottom-price">{{item['price']}}</view>
+            </view>
+        </view>
+        <view class="shoppingcart-cell-function">
+            <image class="shoppingcart-cell-function-button" src="{{item['count'] <= 1 ? '/icons/ico_jianh_disable@3x.png' : '/icons/ico_jianh@3x.png'}}" mode="aspectFit" data-index="{{index}}" bind:tap="minusCount"></image>
+            <view class="shoppingcart-cell-function-count">{{item['count']}}</view>
+            <image class="shoppingcart-cell-function-button" src="/icons/ico_jiah@3x.png" mode="aspectFit" data-index="{{index}}" bind:tap="addCount"></image>
+        </view>
+    </view>
+</view>
+<view class="shoppingcart-bottom-content">
+    <view class="shoppingcart-base-row" bind:tap="selectAllAction">
+        <image class="shoppingcart-bottom-all" src="{{selectedAll == true ? '/icons/select1@3x.png' : '/icons/unselect1@3x.png'}}" mode="aspectFit"></image>
+        <view class="shoppingcart-bottom-text" style="margin-left: 32rpx;">全选</view>
+    </view>
+    <view class="shoppingcart-base-row" wx:if="{{editting == false}}">
+        <view class="shoppingcart-base-row">
+            <view class="shoppingcart-bottom-text">合计：</view>
+            <view class="shoppingcart-bottom-price-row">
+                <view class="shoppingcart-bottom-unit">¥</view>
+                <view class="shoppingcart-bottom-price">{{totalPrice}}</view>
+            </view>
+        </view>
+        <image class="shoppingcart-bottom-settlement" src="/icons/icon_settlement@3x.png"></image>
+    </view>
+    <view class="shoppingcart-bottom-delete" bind:tap="deleteSelect" wx:else>删除</view>
+</view>
+<alertview visible="{{actionvisible}}" contentString="是否删除所选商品" cancelString="取消" confirmString="确定" contentStringColor="rgba(53, 53, 53, 1)" cancelTextColor="rgba(28, 35, 52, 1)" confirmTextColor="rgba(23, 96, 255, 1)" bindclose="closeClick" bind:confirm="alertConfirm"></alertview>
+<specification visible="{{specvisible}}" bindclose="closeClick" product="{{selectProduct}}"></specification>

@@ -97,6 +97,15 @@ Component({
           fail: () => {},
           complete: () => {}
         });
+      } else if (index == 0) {
+        wx.navigateTo({
+          url: '/pages/main/mall/shoppingcart/index',
+          success: (result) => {
+
+          },
+          fail: () => {},
+          complete: () => {}
+        });
       }
     }
   },

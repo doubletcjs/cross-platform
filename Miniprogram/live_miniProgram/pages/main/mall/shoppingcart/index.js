@@ -4,26 +4,24 @@ Page({
     products: [{
         title: "手机黄金搭档,PD快充折叠支架无线充电宝",
         price: 139,
+        count: 1,
         selected: false,
-        count: 10234,
+        sepc: "松林绿"
       },
       {
-        title: "驱蚊器+小夜灯2合1驱蚊高手居家必备",
-        price: 38,
+        title: "扫拖不用亲自动 扫拖不用亲自动扫拖不用亲自动拖两用机器人...",
+        price: 2299,
+        count: 1,
         selected: false,
-        count: 234,
-      },
-      {
-        title: "手机黄金搭档,PD快充折叠支架无线充电宝",
-        price: 149,
-        selected: false,
-        count: 11234,
+        sepc: "盐湖白，购买扫..."
       },
     ],
+    editting: false,
+    selectedAll: false, // 全选
     actionvisible: false, //弹框状态
-    edittingcollection: false, //编辑状态
-    selectedAll: false, //是否全选
-    alertcontent: "确定清空浏览记录？", //弹框内容 
+    totalPrice: "0.00", //合计金额
+    specvisible: false, //规格弹框状态
+    selectProduct: {}
   },
   //options(Object)
   onLoad: function (options) {
@@ -57,30 +55,53 @@ Page({
   onTabItemTap: function (item) {
 
   },
-  //编辑收藏
-  editCollection: function () {
-    if (this.data.products.length > 0) {
+  //编辑购物车
+  edittingAction() {
+    this.setData({
+      editting: !this.data.editting
+    })
+  },
+  //选择规格
+  selectSpec(res) {
+    var index = res.currentTarget.dataset.index
+    this.setData({
+      selectProduct: this.data.products[index],
+      specvisible: true
+    })
+
+    this.calculatePrice()
+  },
+  //加数量
+  addCount(res) {
+    var index = res.currentTarget.dataset.index
+    var list = this.data.products
+    var product = list[index]
+    product.count += 1
+    list[index] = product
+
+    this.setData({
+      products: list
+    })
+
+    this.calculatePrice()
+  },
+  //减数量
+  minusCount(res) {
+    var index = res.currentTarget.dataset.index
+    var list = this.data.products
+    var product = list[index]
+    if (product.count > 1) {
+      product.count -= 1
+      if (product.count < 1) {
+        product.count = 1
+      }
+      list[index] = product
+
       this.setData({
-        edittingcollection: !this.data.edittingcollection
+        products: list
       })
 
-      this.checktSelectAll()
-      if (this.data.edittingcollection == false) {
-        setTimeout(() => {
-          var list = this.data.products
-          for (let index = 0; index < list.length; index++) {
-            const element = list[index]
-            element["selected"] = false
-            list[index] = element
-          }
-
-          this.setData({
-            products: list
-          })
-
-          console.log('object :>> ', "selected");
-        }, 300);
-      }
+      this.calculatePrice()
     }
   },
   //单个点击
@@ -96,6 +117,7 @@ Page({
     })
 
     this.checktSelectAll()
+    this.calculatePrice()
   },
   //检测是否选择
   checktIsSelect: function () {
@@ -143,9 +165,11 @@ Page({
     this.setData({
       products: list
     })
+
+    this.calculatePrice()
   },
   //删除所选记录
-  deleteSelectCollection: function () {
+  deleteSelect: function () {
     if (this.checktIsSelect()) {
       this.setData({
         actionvisible: true
@@ -155,7 +179,8 @@ Page({
   //关闭弹框
   closeClick: function () {
     this.setData({
-      actionvisible: false
+      actionvisible: false,
+      specvisible: false
     })
   },
   //弹框确认
@@ -164,7 +189,7 @@ Page({
       this.setData({
         actionvisible: false,
         products: [],
-        edittingcollection: false,
+        editting: false,
         selectedAll: false
       })
     } else {
@@ -185,25 +210,25 @@ Page({
           this.setData({
             actionvisible: false,
             products: [],
-            edittingcollection: false,
+            editting: false,
             selectedAll: false
           })
         }, 300);
       }
     }
   },
-  //检测是否选择
-  checktIsSelect: function () {
-    var isSelect = false
-    var list = this.data.products
-    for (let index = 0; index < list.length; index++) {
-      const element = list[index]
-      if (element["selected"] == true && isSelect == false) {
-        isSelect = true
-        break
+  //计算价格
+  calculatePrice() {
+    var price = 0
+    for (let index = 0; index < this.data.products.length; index++) {
+      const element = this.data.products[index]
+      if (element["selected"] == true) {
+        price += element.price * element.count
       }
     }
 
-    return isSelect
-  },
+    this.setData({
+      totalPrice: price.toFixed(2)
+    })
+  }
 });

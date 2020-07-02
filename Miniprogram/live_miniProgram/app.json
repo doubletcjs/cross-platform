@@ -53,7 +53,8 @@
     "pages/main/mall/address/index",
     "pages/main/mall/address/editting/index",
     "pages/main/mall/order/index",
-    "pages/main/mall/collection/index"
+    "pages/main/mall/collection/index",
+    "pages/main/mall/shoppingcart/index"
   ],
   "window": {
     "backgroundTextStyle": "light",

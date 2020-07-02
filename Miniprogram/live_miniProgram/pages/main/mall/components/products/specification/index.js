@@ -11,6 +11,11 @@ Component({
       type: Boolean,
       value: true
     },
+    //商品
+    product: {
+      type: Object,
+      value: {}
+    }
   },
   data: {
     colorList: [{
@@ -28,8 +33,7 @@ Component({
         name: "购买扫地机器人+100送更换赃物碟片"
       }
     ],
-    specIndex: 0,
-    count: 1
+    specIndex: 0
   },
   methods: {
     //关闭alert
@@ -66,20 +70,23 @@ Component({
     },
     //数量加
     append() {
+      var temp = this.data.product
+      temp.count += 1
+
       this.setData({
-        count: this.data.count + 1
+        product: temp
       })
     },
     //数量减
     subtract() {
-      var tempCount = this.data.count - 1
-      if (tempCount < 1) {
-        tempCount = 1
-      }
+      var temp = this.data.product
+      if (temp.count > 1) {
+        temp.count -= 1
 
-      this.setData({
-        count: tempCount
-      })
+        this.setData({
+          product: temp
+        })
+      }
     },
     //确认选择
     specificationConfirm() {
@@ -87,16 +94,16 @@ Component({
     },
   },
   created: function () {
-
+    console.log("created");
   },
   attached: function () {
-
+    console.log("attached");
   },
   ready: function () {
-
+    console.log("ready");
   },
   moved: function () {
-
+    console.log("moved");
   },
   detached: function () {
 

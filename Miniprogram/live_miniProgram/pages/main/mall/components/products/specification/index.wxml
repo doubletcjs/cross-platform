@@ -6,7 +6,7 @@
             <view class="specification-info-column">
                 <view class="specification-price-row">
                     <view class="specification-price-unit">¥</view>
-                    <view class="specification-price">2299</view>
+                    <view class="specification-price">{{product['price']}}</view>
                 </view>
                 <view class="specification-inventory">库存：86件</view>
             </view>
@@ -31,8 +31,8 @@
             <view class="specification-count-mask">
                 <view class="specification-base-text">数量</view>
                 <view class="specification-count-row">
-                    <image class="specification-count-button" src="{{count == 1 ? '/icons/ico_jianh_disable@3x.png' : '/icons/ico_jianh@3x.png'}}" mode="aspectFit" bind:tap="subtract"></image>
-                    <view class="specification-count">{{count}}</view>
+                    <image class="specification-count-button" src="{{product['count'] == 1 ? '/icons/ico_jianh_disable@3x.png' : '/icons/ico_jianh@3x.png'}}" mode="aspectFit" bind:tap="subtract"></image>
+                    <view class="specification-count">{{product['count']}}</view>
                     <image class="specification-count-button" src="/icons/ico_jiah@3x.png" mode="aspectFit" bind:tap="append"></image>
                 </view>
             </view>
