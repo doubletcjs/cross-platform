@@ -27,6 +27,11 @@
               <router-link to="/about">关于</router-link>
             </li>
           </ul>
+          <ul class="nav navbar-nav navbar-right">
+            <li>
+              <router-link to="/add">添加用户</router-link>
+            </li>
+          </ul>
         </div>
       </div>
     </nav>
@@ -40,7 +45,6 @@
 // import jQuery from "jquery";
 // window.jQuery = require("jquery");
 // require("bootstrap");
-import "bootstrap/dist/css/bootstrap.min.css";
 export default {
   name: "vue_admin"
 };
