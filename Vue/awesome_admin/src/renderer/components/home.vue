@@ -46,11 +46,11 @@ export default {
     },
     closeAlert() {
       this.toast = "";
-      this.$route.query.alert = "";
+      this.$route.params.alert = "";
     },
     showDetail(index) {
       var account = this.dataList[index];
-      console.log("account :>> ", JSON.stringify(account));
+      this.$router.push("/detail/" + account.id);
     }
   },
   created() {
@@ -58,12 +58,12 @@ export default {
     this.toast = "";
   },
   updated() {
-    if (this.$route.query.alert) {
-      this.toast = this.$route.query.alert;
+    if (this.$route.params.alert) {
+      this.toast = this.$route.params.alert;
 
       setTimeout(() => {
         this.toast = "";
-        this.$route.query.alert = "";
+        this.$route.params.alert = "";
       }, 3000);
     } else {
       this.toast = "";
@@ -71,7 +71,7 @@ export default {
 
     setTimeout(() => {
       if (this.toast.length > 0) {
-        this.$route.query.alert = "";
+        this.$route.params.alert = "";
       }
     }, 400);
   }

@@ -5,6 +5,7 @@ import Home from '../components/home'
 import About from '../components/about'
 import Creation from '../components/creation'
 import Detail from '../components/detail'
+import Edit from '../components/editting'
 
 Vue.use(Router)
 
@@ -30,5 +31,9 @@ export default new Router({
     path: '/detail/:id',
     name: 'detail',
     component: Detail
+  }, {
+    path: '/editting/:id',
+    name: 'editting',
+    component: Edit
   }, ]
 })

@@ -1,5 +1,6 @@
 <template>
   <div id="app">
+    <el-button type="default" @click="backAction">返回</el-button>
     <div class="creation-content">
       <div>用户信息</div>
       <div class="creation-item-content">
@@ -52,37 +53,52 @@
           v-model="account['profile']"
         ></el-input>
       </div>
-      <el-button type="primary" @click="createAction">添加</el-button>
+      <el-button type="primary" @click="onConfirm">完成</el-button>
     </div>
   </div>
 </template>
 
 <script>
 export default {
-  name: "creation",
+  name: "editting",
   data() {
     return {
       account: {}
     };
   },
   methods: {
-    createAction() {
+    requestData(id) {
+      var weakSelf = this;
+      this.$http.get("http://localhost:3000/users/" + id).then(function(res) {
+        weakSelf.account = res.data;
+      });
+    },
+    onConfirm() {
       if (!this.account.name || !this.account.phone || !this.account.email) {
         alert("姓名、电话、邮箱不能为空！");
       } else {
         var weakSelf = this;
         this.$http
-          .post("http://localhost:3000/users", this.account)
+          .put("http://localhost:3000/users/" + this.account.id, this.account)
           .then(function(res) {
             weakSelf.$router.push({
-              name: "home",
+              name: "detail",
               params: {
-                alert: "添加用户信息成功！"
+                id: weakSelf.account.id,
+                alert: "修改用户信息成功！"
               }
             });
           });
       }
+    },
+    backAction() {
+      this.$router.go(-1);
+      this.$route.params.alert = "";
     }
+  },
+  created() {
+    var id = this.$route.params.id;
+    this.requestData(id);
   }
 };
 </script>
@@ -96,6 +112,7 @@ export default {
   padding-bottom: 20px;
 
   border-radius: 4px;
+  margin-top: 30px;
 }
 
 .creation-item-content {
