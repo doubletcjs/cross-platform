@@ -1,0 +1,8 @@
+{
+  "component": true,
+  "usingComponents": {
+    "coupons": "/pages/main/mall/components/coupons/index",
+    "specification": "/pages/main/mall/components/products/specification/index",
+    "address": "/pages/main/mall/components/address/index"
+  }
+}

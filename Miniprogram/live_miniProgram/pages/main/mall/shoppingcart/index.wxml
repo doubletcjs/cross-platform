@@ -38,7 +38,7 @@
                 <view class="shoppingcart-bottom-price">{{totalPrice}}</view>
             </view>
         </view>
-        <image class="shoppingcart-bottom-settlement" src="/icons/icon_settlement@3x.png"></image>
+        <image class="shoppingcart-bottom-settlement" src="/icons/icon_settlement@3x.png" bind:tap="settlement"></image>
     </view>
     <view class="shoppingcart-bottom-delete" bind:tap="deleteSelect" wx:else>删除</view>
 </view>

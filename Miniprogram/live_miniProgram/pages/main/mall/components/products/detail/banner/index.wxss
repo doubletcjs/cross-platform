@@ -1,0 +1,32 @@
+.banner-swiper-content {
+    position: relative;
+
+    background-color: royalblue;
+}
+
+.banner-swiper {
+    width: 750rpx;
+    height: 750rpx;
+}
+
+.banner-swiper-item {
+    width: 750rpx;
+    height: 750rpx;
+}
+
+.banner-swiper-indicator {
+    border-radius: 30rpx;
+    background-color: rgba(0, 0, 0, 0.3);
+
+    padding-left: 20rpx;
+    padding-right: 22rpx;
+    padding-top: 10rpx;
+    padding-bottom: 10rpx;
+
+    position: absolute;
+    right: 30rpx;
+    bottom: 22rpx;
+
+    font-size: 28rpx;
+    color: rgba(241, 241, 241, 1);
+}

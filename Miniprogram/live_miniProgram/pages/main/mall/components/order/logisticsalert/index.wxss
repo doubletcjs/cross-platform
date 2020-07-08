@@ -1,0 +1,57 @@
+.logisticsalert-content {
+    padding-left: 30rpx;
+    padding-right: 30rpx;
+    padding-top: 40rpx;
+    padding-bottom: 40rpx;
+
+    background-color: rgba(21, 25, 40, 1);
+    border-bottom: solid 20rpx rgba(0, 0, 0, 0.5);
+
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    align-content: center;
+}
+
+.logisticsalert-icon {
+    width: 90rpx;
+    height: 90rpx;
+}
+
+.logisticsalert-column {
+    width: 75%;
+
+    display: flex;
+    flex-direction: column;
+    margin-left: 32rpx;
+}
+
+.logisticsalert-text {
+    color: rgba(241, 241, 241, 1);
+    font-size: 28rpx;
+    word-break: break-all;
+
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    white-space: normal !important;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.logisticsalert-subtext {
+    color: rgba(145, 152, 159, 1);
+    font-size: 22rpx;
+
+    margin-top: 8rpx;
+}
+
+.logisticsalert-arrow {
+    width: 14rpx;
+    height: 28rpx;
+
+    position: absolute;
+    right: 30rpx;
+    top: 72rpx;
+}

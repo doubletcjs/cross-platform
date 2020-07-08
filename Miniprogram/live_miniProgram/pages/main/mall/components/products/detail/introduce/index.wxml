@@ -1,0 +1,17 @@
+<view class="introduce-base-text" style="margin-left: 30rpx; margin-right: 30rpx;">商品介绍</view>
+<image class="introduce-image-cover" src="" mode="aspectFill"></image>
+<view class="introduce-base-text" style="margin-left: 30rpx; margin-right: 30rpx;">服务</view>
+<view class="introduce-server-content">
+    <view class="introduce-base-row" style="border-top: dashed 2rpx rgba(255, 255, 255, 0.3);">
+        <view class="introduce-base-text">包装清单</view>
+        <view class="introduce-base-value">扫地机器人x1 说明书x1 保修卡x1 合格证x1</view>
+    </view>
+    <view class="introduce-base-row">
+        <view class="introduce-base-text">售后服务</view>
+        <view class="introduce-base-value">整机保修五年。全国联保</view>
+    </view>
+    <view class="introduce-base-row">
+        <view class="introduce-base-text">价格说明</view>
+        <view class="introduce-base-value">1.商品价：商品价为商品的销售价\n2.划线价：商品展示划横线价格是参考价</view>
+    </view>
+</view>

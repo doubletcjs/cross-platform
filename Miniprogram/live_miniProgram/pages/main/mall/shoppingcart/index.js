@@ -230,5 +230,16 @@ Page({
     this.setData({
       totalPrice: price.toFixed(2)
     })
+  },
+  //结算
+  settlement() {
+    wx.navigateTo({
+      url: '../order/detail/index',
+      success: (result) => {
+
+      },
+      fail: () => {},
+      complete: () => {}
+    });
   }
 });

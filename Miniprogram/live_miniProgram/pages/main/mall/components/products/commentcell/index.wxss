@@ -1,0 +1,70 @@
+.commentcell-mask {
+    width: 100%;
+}
+
+.commentcell-content {
+    margin-left: 30rpx;
+    margin-right: 30rpx;
+
+    padding-top: 32rpx;
+}
+
+.commentcell-base-row {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    align-content: center;
+}
+
+
+.commentcell-header {
+    width: 64rpx;
+    height: 64rpx;
+    border-radius: 32rpx;
+}
+
+.commentcell-name {
+    font-size: 28rpx;
+    color: rgba(241, 241, 241, 1);
+    margin-left: 20rpx;
+}
+
+.commentcell-score-icon {
+    width: 24rpx;
+    height: 24rpx;
+
+    margin-right: 8rpx;
+}
+
+.commentcell-text {
+    margin-top: 32rpx;
+    font-size: 28rpx;
+    color: rgba(145, 152, 159, 1);
+    word-break: break-all;
+}
+
+.commentcell-image-content {
+    margin-top: 16rpx;
+
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+}
+
+.commentcell-image-cover {
+    width: 33%;
+    height: 210rpx;
+    margin-bottom: 30rpx;
+
+    display: flex;
+    flex-direction: row;
+}
+
+.commentcell-image {
+    width: 210rpx;
+    height: 100%;
+    border-radius: 12rpx;
+
+    background-color: palegoldenrod;
+}

@@ -1,0 +1,22 @@
+<view class="comments-centent" style="{{comments.length > 3 ? 'padding-bottom: 24rpx;' : ''}}">
+    <view class="comments-base-row" style="margin-left: 30rpx;">
+        <image class="comments-base-line" src="/icons/ico-zs1@3x.png" mode="aspectFit"></image>
+        <view class="comments-base-title">评论</view>
+        <view class="comments-count">（{{58}}）</view>
+    </view>
+    <view class="comments-chance-row">
+        <view class="comments-chance">好评率99%</view>
+        <image class="comments-chance-arrow" src="/icons/IconsTintColorBlack@2x.png" mode="aspectFit"></image>
+    </view>
+    <view class="label-content-mask">
+        <view class="label-content-cover" wx:for="{{labels}}" wx:key="index" data-index="{{index}}" bind:tap="labelSelect">
+            <view class="label-content-text">{{item['name']}}({{item['count']}})</view>
+        </view>
+    </view>
+    <view wx:for="{{comments}}" wx:key="index">
+        <commentcell comment="{{item}}" hideLine="{{index == comments.length-1}}"></commentcell>
+    </view>
+    <view class="comments-base-row" style="justify-content: center;">
+        <view class="comments-more" bind:tap="showMore">查看全部评价</view>
+    </view>
+</view>

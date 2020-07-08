@@ -1,0 +1,17 @@
+<view class="commentcell-mask" style="{{hideLine == true ? '' : 'border-bottom: solid 2rpx rgba(255, 255, 255, 0.05);'}}">
+    <view class="commentcell-content" style="{{comment['images'].length > 0 ? 'padding-bottom: 4rpx;' : 'padding-bottom: 32rpx;'}}">
+        <view class="commentcell-base-row">
+            <image class="commentcell-header" src="{{comment['person']['header']}}" mode="aspectFill"></image>
+            <view class="commentcell-name">{{comment['person']['name']}}</view>
+            <view class="commentcell-base-row" style="margin-left: 20rpx;">
+                <image class="commentcell-score-icon" src="/icons/icon-score-start@3x.png" mode="aspectFit" wx:for="{{scoreList}}" wx:key="index" wx:if="{{index <= comment['score']-1}}"></image>
+            </view>
+        </view>
+        <view class="commentcell-text">{{comment['content']}}</view>
+        <view class="commentcell-image-content" wx:if="{{comment['images'].length > 0}}">
+            <view class="commentcell-image-cover" wx:for="{{comment['images']}}" wx:key="index" style="{{index%3 == 1 ? 'justify-content: center;' : index%3 == 2 ? 'justify-content: flex-end;' : 'justify-content: flex-start;'}}">
+                <image class="commentcell-image" src="" mode="aspectFill"></image>
+            </view>
+        </view>
+    </view>
+</view>

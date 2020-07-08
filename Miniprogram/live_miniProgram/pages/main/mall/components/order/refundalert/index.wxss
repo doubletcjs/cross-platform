@@ -1,0 +1,42 @@
+.refundalert-content {
+    padding-left: 30rpx;
+    padding-right: 30rpx;
+    padding-top: 40rpx;
+    padding-bottom: 40rpx;
+
+    background-color: rgba(21, 25, 40, 1);
+    border-bottom: solid 20rpx rgba(0, 0, 0, 0.5);
+
+    display: flex;
+    flex-direction: row;
+}
+
+.refundalert-icon {
+    width: 90rpx;
+    height: 90rpx;
+}
+
+.refundalert-column {
+    width: 84%;
+
+    display: flex;
+    flex-direction: column;
+    margin-left: 32rpx;
+}
+
+.refundalert-title {
+    color: rgba(241, 241, 241, 1);
+    font-size: 28rpx;
+}
+
+.refundalert-text {
+    color: rgba(145, 152, 159, 1);
+    font-size: 28rpx;
+    margin-top: 16rpx;
+}
+
+.refundalert-subtext {
+    color: rgba(145, 152, 159, 1);
+    font-size: 22rpx;
+    margin-top: 16rpx;
+}

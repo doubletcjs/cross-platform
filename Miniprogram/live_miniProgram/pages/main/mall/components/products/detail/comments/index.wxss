@@ -1,0 +1,102 @@
+.comments-centent {
+    padding-top: 32rpx;
+
+    position: relative;
+    border-bottom: solid 20rpx rgba(0, 0, 0, 0.5);
+}
+
+.comments-base-row {
+    display: flex;
+    flex-direction: row;
+    align-content: center;
+    align-items: center;
+}
+
+.comments-base-line {
+    width: 6rpx;
+    height: 30rpx;
+}
+
+.comments-base-title {
+    margin-left: 8rpx;
+    font-size: 32rpx;
+    color: rgba(241, 241, 241, 1);
+}
+
+.comments-count {
+    font-size: 28rpx;
+    color: rgba(145, 152, 159, 1);
+}
+
+.comments-chance-row {
+    display: flex;
+    flex-direction: row;
+    align-content: center;
+    align-items: center;
+
+    position: absolute;
+    top: 36rpx;
+    right: 30rpx;
+}
+
+.comments-chance-arrow {
+    width: 14rpx;
+    height: 28rpx;
+
+    margin-left: 18rpx;
+}
+
+.comments-chance {
+    font-size: 22rpx;
+    color: rgba(145, 152, 159, 1);
+}
+
+.comments-more {
+    color: rgba(145, 152, 159, 1);
+    font-size: 32rpx;
+
+    margin-top: 20rpx;
+    padding-left: 72rpx;
+    padding-right: 72rpx;
+    padding-top: 14rpx;
+    padding-bottom: 12rpx;
+
+    border-radius: 35rpx;
+    border: solid 2rpx rgba(145, 152, 159, 1);
+}
+
+.label-content-mask {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+
+    margin-top: 24rpx;
+    margin-left: 30rpx;
+}
+
+.label-content-cover {
+    max-width: 700rpx;
+    padding-right: 30rpx;
+    margin-bottom: 30rpx;
+
+    border-radius: 6rpx;
+}
+
+.label-content-text {
+    max-width: 700rpx;
+    color: rgba(145, 152, 159, 1);
+    font-size: 28rpx;
+
+    padding-left: 30rpx;
+    padding-right: 30rpx;
+    padding-top: 10rpx;
+    padding-bottom: 10rpx;
+
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+
+    border-radius: 8rpx;
+    background-color: rgba(28, 35, 52, 1);
+}

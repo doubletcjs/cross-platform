@@ -1,0 +1,144 @@
+.header-base-content {
+    padding-left: 30rpx;
+    padding-right: 30rpx;
+    padding-top: 32rpx;
+
+    position: relative;
+    background-color: rgba(21, 25, 40, 1);
+    border-bottom: 20rpx solid rgba(0, 0, 0, 0.5);
+}
+
+.header-base-column {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    align-content: center;
+}
+
+
+.header-base-row {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    align-content: center;
+
+    position: relative;
+}
+
+.header-price-row {
+    display: flex;
+    flex-direction: row;
+    align-content: flex-end;
+    align-items: flex-end;
+}
+
+.header-price {
+    font-size: 56rpx;
+    color: rgba(255, 52, 101, 1);
+    font-weight: bold;
+}
+
+.header-original-price {
+    font-size: 28rpx;
+    color: rgba(86, 93, 109, 1);
+
+    margin-left: 20rpx;
+    margin-bottom: 10rpx;
+    text-decoration: line-through;
+}
+
+.header-price-unit {
+    font-size: 28rpx;
+    color: rgba(255, 52, 101, 1);
+
+    margin-bottom: 10rpx;
+}
+
+.header-name {
+    margin-top: 40rpx;
+    width: 560rpx;
+
+    font-size: 36rpx;
+    color: rgba(241, 241, 241, 1);
+    font-weight: bold;
+}
+
+.header-function-column {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    align-content: center;
+
+    position: absolute;
+    right: 44rpx;
+    top: 32rpx;
+}
+
+.header-function-icon {
+    width: 64rpx;
+    height: 64rpx;
+}
+
+.header-function-text {
+    font-size: 22rpx;
+    color: rgba(86, 93, 109, 1);
+}
+
+.header-introduction {
+    margin-top: 30rpx;
+
+    font-size: 28rpx;
+    color: rgba(145, 152, 159, 1);
+    word-break: break-all;
+}
+
+.header-base-text {
+    font-size: 32rpx;
+    color: rgba(241, 241, 241, 1);
+}
+
+.header-base-value {
+    font-size: 28rpx;
+    color: rgba(145, 152, 159, 1);
+
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+    white-space: normal !important;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.header-base-subvalue {
+    font-size: 28rpx;
+    color: rgba(86, 93, 109, 1);
+
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+    white-space: normal !important;
+    overflow: hidden;
+    text-overflow: ellipsis;
+
+    position: absolute;
+    right: 0;
+    top: 0;
+}
+
+.header-location-icon {
+    width: 32rpx;
+    height: 32rpx;
+}
+
+.header-arrow-icon {
+    width: 14rpx;
+    height: 28rpx;
+
+    position: absolute;
+    right: 0;
+}
+
+.header-spotgood-icon {
+    width: 62rpx;
+    height: 28rpx;
+}

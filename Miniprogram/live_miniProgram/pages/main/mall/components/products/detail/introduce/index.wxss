@@ -1,0 +1,43 @@
+.introduce-base-text {
+    font-size: 28rpx;
+    color: rgba(241, 241, 241, 1);
+}
+
+.introduce-base-row {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    align-content: flex-start;
+
+    border-bottom: dashed 2rpx rgba(255, 255, 255, 0.3);
+
+    padding-top: 32rpx;
+    padding-bottom: 32rpx;
+}
+
+.introduce-server-content {
+    margin-left: 30rpx;
+    margin-right: 30rpx;
+
+    padding-top: 32rpx;
+    padding-bottom: 90rpx;
+}
+
+.introduce-base-value {
+    font-size: 28rpx;
+    color: rgba(145, 152, 159, 1);
+    width: 500rpx;
+    margin-left: 40rpx;
+}
+
+.introduce-image-cover {
+    margin-left: 30rpx;
+    margin-right: 30rpx;
+    margin-top: 32rpx;
+    margin-bottom: 40rpx;
+
+    width: 690rpx;
+    height: 1544rpx;
+
+    background-color: rgba(255, 255, 255, 1);
+}

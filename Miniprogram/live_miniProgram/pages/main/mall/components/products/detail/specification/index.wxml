@@ -1,0 +1,16 @@
+<view class="spec-centent">
+    <view class="spec-base-row">
+        <image class="spec-base-line" src="/icons/ico-zs1@3x.png" mode="aspectFit"></image>
+        <view class="spec-base-title">详情</view>
+    </view>
+    <view class="spec-base-text" style="margin-top: 34rpx;">规格参数</view>
+    <view class="spec-title-value-row" wx:for="{{dataList}}" wx:key="index" style="{{index == 0 ? 'margin-top: 32rpx; border-top: solid 2rpx rgba(255, 255, 255, 0.3);' : ''}}">
+        <view class="spec-title-content" style="border-right: solid 2rpx rgba(255, 255, 255, 0.3);">
+            {{item['name']}}
+        </view>
+        <view class="spec-value-content">{{item['value']}}</view>
+    </view>
+    <view class="spec-base-row" style="justify-content: center;" wx:if="{{dataList.length < specList.length}}">
+        <view class="spec-more" bind:tap="showMore">查看更多</view>
+    </view>
+</view>

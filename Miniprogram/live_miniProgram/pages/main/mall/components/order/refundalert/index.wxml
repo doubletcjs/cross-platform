@@ -1,0 +1,10 @@
+<view class="refundalert-content">
+    <image class="refundalert-icon" src="/icons/ico-refund@3x.png" mode="aspectFit"></image>
+    <view class="refundalert-column">
+        <view class="refundalert-title">
+            {{status == 5 ? '您已成功发起退款申请，请耐心等待平台处理' : status == 6 ? '退款成功' : ''}}
+        </view>
+        <view class="refundalert-text">退款原因： 拍多了/拍错</view>
+        <view class="refundalert-subtext">2020-06-09 11:06:24</view>
+    </view>
+</view>

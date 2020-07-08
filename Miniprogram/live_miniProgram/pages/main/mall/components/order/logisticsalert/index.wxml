@@ -1,0 +1,10 @@
+<view class="logisticsalert-content">
+    <image class="logisticsalert-icon" src="/icons/ico-dz1@3x.png" mode="aspectFit"></image>
+    <view class="logisticsalert-column">
+        <view class="logisticsalert-text">
+            {{status == 1 ? '订单已提交，等待卖家发货' : status == 2 ? '【广州市】快件一从广州人和出发，送往发往人和方石' : status == 3 ? '已签收，签收人是【代理点或者本人签收】，如你未收到此快递，请拨...' : ''}}
+        </view>
+        <view class="logisticsalert-subtext">2020-06-09 11:06:24</view>
+    </view>
+    <image class="logisticsalert-arrow" src="/icons/ico_profile_cell_arrow@3x.png" mode="aspectFit"></image>
+</view>

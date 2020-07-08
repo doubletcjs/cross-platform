@@ -1,6 +1,7 @@
 {
   "usingComponents": {
-    "tab":"/components/tabList/tabList",
-    "orderList":"../components/orderList/index"
-  }
+    "tab": "/components/tabList/tabList",
+    "orderList": "../components/orderList/index"
+  },
+  "navigationBarTitleText": "我的订单"
 }

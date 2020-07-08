@@ -1,5 +1,10 @@
+.tab-content {
+    position: fixed;
+    top: 0;
+    z-index: 1500;
+    background-color: brown;
+}
 
-
-.listBox{
+.listBox {
     padding: 15rpx 30rpx 60rpx 30rpx;
 }

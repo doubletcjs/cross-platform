@@ -14,7 +14,9 @@ Component({
     //商品
     product: {
       type: Object,
-      value: {}
+      value: {
+        count: 1
+      }
     }
   },
   data: {

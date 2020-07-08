@@ -1,7 +1,7 @@
 <view style="margin-top: {{topSpace}}rpx;">
     <view class="profile-product-title">{{title}}</view>
     <view class="profile-product-cell-content">
-        <view class="profile-product-cell" wx:for="{{products}}" wx:key="index">
+        <view class="profile-product-cell" wx:for="{{products}}" wx:key="index" data-index="{{index}}" bind:tap="productDetail">
             <image class="profile-product-image" src="{{item['image']}}" mode="aspectFill"></image>
             <view class="profile-product-column">
                 <view class="profile-product-name">{{item['name']}}</view>

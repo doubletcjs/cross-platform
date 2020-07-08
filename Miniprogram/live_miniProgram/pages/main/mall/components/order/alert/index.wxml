@@ -1,0 +1,9 @@
+<view class="alert-content">
+    <view class="alert-text" style="margin-top: 40rpx;">
+        {{status == 0 ? '等待买家付款' : status == 1 ? '买家已付款' : status == 2 ? '商家已发货' : status == 3 ? '交易成功' : (status == 4 || status == 6) ? '订单关闭' : status == 5 ? '退款中' : ''}}
+    </view>
+    <view class="alert-text" style="margin-top: 12rpx;">
+        {{(status == 0 || status == 5) ? remain : status == 1 ? '卖家将会在48小时内发货' : status == 2 ? '普通快递' : status == 4 ? '超时关闭' : status == 6 ? '退款成功' : ''}}
+    </view>
+    <image class="alert-icon" src="{{status == 0 ? '/icons/ico-daifukuang@3x.png' : status == 1 ? '/icons/ico-daifahuo@3x.png' : status == 2 ? '/icons/ico-yifahuo@3x.png' : status == 3 ? '/icons/ico-jiaoyichenggong@3x.png' : (status == 4 || status == 6) ? '/icons/ico-dingdanguangbi@3x.png' : status == 5 ? '/icons/ico-tuikuanzhong@3x.png' : ''}}" mode="aspectFit"></image>
+</view>

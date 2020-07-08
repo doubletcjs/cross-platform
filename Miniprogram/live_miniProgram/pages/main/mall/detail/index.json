@@ -1,0 +1,11 @@
+{
+  "usingComponents": {
+    "banner": "../components/products/detail/banner/index",
+    "baseheader": "../components/products/detail/baseheader/index",
+    "introduce": "../components/products/detail/introduce/index",
+    "detailspec": "../components/products/detail/specification/index",
+    "comments": "../components/products/detail/comments/index",
+    "specification": "../components/products/specification/index"
+  },
+  "navigationBarTitleText": "商品详情"
+}

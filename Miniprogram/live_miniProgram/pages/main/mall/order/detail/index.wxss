@@ -1,0 +1,264 @@
+.order-detail {
+    width: 100%;
+
+    overflow: scroll;
+}
+
+.order-detail-function-bottom {
+    height: 120rpx;
+
+    padding-left: 30rpx;
+    padding-right: 30rpx;
+
+    background-color: rgba(21, 25, 40, 1);
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    align-items: center;
+    align-content: center;
+}
+
+.order-detail-button {
+    font-size: 28rpx;
+    background-color: rgba(21, 25, 40, 1);
+
+    height: 60rpx;
+    border-radius: 30rpx;
+    padding-left: 30rpx;
+    padding-right: 30rpx;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+}
+
+.address-content {
+    padding-left: 30rpx;
+    padding-right: 30rpx;
+    padding-top: 40rpx;
+    padding-bottom: 40rpx;
+
+    background-color: rgba(21, 25, 40, 1);
+    border-bottom: solid 20rpx rgba(0, 0, 0, 0.5);
+
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    align-content: center;
+}
+
+.address-icon {
+    width: 90rpx;
+    height: 90rpx;
+}
+
+.address-column {
+    display: flex;
+    flex-direction: column;
+    margin-left: 32rpx;
+
+    width: 85%;
+}
+
+.address-row {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    align-content: center;
+}
+
+.address-text {
+    font-size: 32rpx;
+    color: rgba(241, 241, 241, 1);
+
+    word-break: break-all;
+}
+
+.address-phone {
+    font-size: 28rpx;
+    color: rgba(145, 152, 159, 1);
+
+    margin-left: 24rpx;
+}
+
+.product-content {
+    padding-left: 30rpx;
+    padding-right: 30rpx;
+    padding-top: 48rpx;
+    padding-bottom: 48rpx;
+
+    background-color: rgba(21, 25, 40, 1);
+    border-bottom: solid 20rpx rgba(0, 0, 0, 0.5);
+
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    align-content: center;
+}
+
+.product-cover {
+    width: 190rpx;
+    height: 190rpx;
+
+    border-radius: 12rpx;
+    background-color: aqua;
+}
+
+.product-title {
+    width: 210rpx;
+    font-size: 28rpx;
+    color: rgba(241, 241, 241, 1);
+
+    position: absolute;
+    top: 54rpx;
+    right: 270rpx;
+
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    white-space: normal !important;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.product-sepc {
+    width: 210rpx;
+    font-size: 28rpx;
+    color: rgba(86, 93, 109, 1);
+
+    position: absolute;
+    bottom: 56rpx;
+    right: 270rpx;
+
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    white-space: normal !important;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.product-price-row {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-end;
+    align-content: flex-end;
+
+    position: absolute;
+    top: 54rpx;
+    right: 70rpx;
+}
+
+.product-price-unit {
+    font-size: 18rpx;
+    color: rgba(145, 152, 159, 1);
+
+    margin-bottom: 4rpx;
+}
+
+.product-price {
+    font-weight: bold;
+    font-size: 32rpx;
+    color: rgba(145, 152, 159, 1);
+}
+
+.product-count {
+    font-size: 22rpx;
+    color: rgba(145, 152, 159, 1);
+
+    position: absolute;
+    top: 110rpx;
+    right: 70rpx;
+}
+
+.order-content {
+    padding-left: 30rpx;
+    padding-right: 30rpx;
+    padding-top: 34rpx;
+    padding-bottom: 26rpx;
+
+    background-color: rgba(21, 25, 40, 1);
+    border-bottom: solid 20rpx rgba(0, 0, 0, 0.5);
+
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    align-items: start;
+    align-content: start;
+}
+
+.order-text {
+    font-size: 28rpx;
+}
+
+.order-copy {
+    font-size: 22rpx;
+    color: rgba(145, 152, 159, 1);
+
+    border: solid 2rpx rgba(145, 152, 159, 1);
+    border-radius: 6rpx;
+    background-color: rgba(21, 25, 40, 1);
+
+    padding-left: 24rpx;
+    padding-right: 24rpx;
+    padding-top: 4rpx;
+    padding-bottom: 4rpx;
+
+    position: absolute;
+    right: 30rpx;
+    top: 36rpx;
+}
+
+.order-pay-arrow {
+    width: 14rpx;
+    height: 28rpx;
+
+    position: absolute;
+    right: 32rpx;
+    bottom: 30rpx;
+}
+
+.order-function-content {
+    padding-top: 44rpx;
+    padding-left: 110rpx;
+    padding-right: 110rpx;
+
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    align-content: center;
+
+    margin-bottom: 116rpx;
+}
+
+.order-function-icon {
+    width: 48rpx;
+    height: 48rpx;
+}
+
+.order-function-text {
+    font-size: 28rpx;
+    color: rgba(241, 241, 241, 1);
+    margin-left: 8rpx;
+}
+
+.order-function-line {
+    width: 2rpx;
+    height: 44rpx;
+
+    background-color: rgba(255, 255, 255, 0.3);
+    position: absolute;
+    top: 42rpx;
+    left: 50%;
+}

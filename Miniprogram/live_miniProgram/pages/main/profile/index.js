@@ -132,16 +132,35 @@ Page({
   //订单列表按钮
   orderItemListTap: function (res) {
     var index = res.currentTarget.dataset.index
-    if (index == 3) {
-      wx.navigateTo({
-        url: '/pages/main/mall/evaluate/index',
-        success: (result) => {
+    wx.navigateTo({
+      url: '/pages/main/mall/order/index?tab=' + (index == 4 ? -1 : (index + 1)),
+      success: (result) => {
 
-        },
-        fail: () => {},
-        complete: () => {}
-      });
-    }
+      },
+      fail: () => {},
+      complete: () => {}
+    });
+    // if (index == 3) {
+    //   wx.navigateTo({
+    //     url: '/pages/main/mall/evaluate/index',
+    //     success: (result) => {
+
+    //     },
+    //     fail: () => {},
+    //     complete: () => {}
+    //   });
+    // }
+  },
+  //全部订单
+  myOrderList() {
+    wx.navigateTo({
+      url: '/pages/main/mall/order/index',
+      success: (result) => {
+
+      },
+      fail: () => {},
+      complete: () => {}
+    });
   },
   //列表按钮
   itemListTap: function (res) {
@@ -158,6 +177,24 @@ Page({
     } else if (index == 2) {
       wx.navigateTo({
         url: '/pages/main/mall/history/index',
+        success: (result) => {
+
+        },
+        fail: () => {},
+        complete: () => {}
+      });
+    } else if (index == 0) {
+      wx.navigateTo({
+        url: '/pages/main/mall/collection/index',
+        success: (result) => {
+
+        },
+        fail: () => {},
+        complete: () => {}
+      });
+    } else if (index == 1) {
+      wx.navigateTo({
+        url: '/pages/main/mall/coupons/index',
         success: (result) => {
 
         },

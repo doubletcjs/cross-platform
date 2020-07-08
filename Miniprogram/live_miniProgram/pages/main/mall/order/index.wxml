@@ -1,8 +1,6 @@
-<view class="">
-    <view class="" style="margin-top:30rpx;">
-        <tab currentTab="{{currentTab}}" bind:changeTab="changeTabhandle" tablists="{{tablists}}" color="{{'#151928'}}" attentionShow="{{false}}"/> 
-    </view>
-    <view class="listBox">
-        <orderList list="{{list}}" />
-    </view>
+<view class="tab-content" wx:if="{{currentTab >= 0}}">
+    <tab currentTab="{{currentTab}}" bind:changeTab="changeTabHandle" tablists="{{tablists}}" color="{{'#151928'}}" attentionShow="{{false}}" />
+</view>
+<view class="listBox" style="{{currentTab >= 0 ? 'margin-top: 99rpx;' : ''}}">
+    <orderList list="{{list}}" />
 </view>

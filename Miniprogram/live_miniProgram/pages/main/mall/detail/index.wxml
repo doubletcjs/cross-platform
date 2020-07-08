@@ -1,0 +1,32 @@
+<view class="detail-content">
+    <banner></banner>
+    <baseheader></baseheader>
+    <comments></comments>
+    <detailspec></detailspec>
+    <introduce></introduce>
+</view>
+<view class="detail-function-bottom">
+    <view class="detail-base-row">
+        <view class="detail-base-column" bind:tap="backHome">
+            <image class="detail-icon" src="/icons/icon_bar_home1@3x.png" mode="aspectFit"></image>
+            <view class="detail-text">首页</view>
+        </view>
+        <view class="detail-base-column" style="margin-left: 22rpx;">
+            <image class="detail-icon" src="/icons/icon_bar_service1@3x.png" mode="aspectFit"></image>
+            <view class="detail-text">客服</view>
+        </view>
+        <view class="detail-base-column" style="margin-left: 18rpx;" bind:tap="shoppingCartAction">
+            <image class="detail-icon" src="/icons/icon_bar_shoppingcart1@3x.png" mode="aspectFit"></image>
+            <view class="detail-text">购物车</view>
+        </view>
+    </view>
+    <view class="detail-base-row">
+        <image class="detail-button" src="/icons/ico-detail-shoppingcart@3x.png" mode="aspectFit">
+            <view class="detail-button-text" bind:tap="addShoppingCartAction">加入购物车</view>
+        </image>
+        <image class="detail-button" src="/icons/ico-detail-buy@3x.png" mode="aspectFit" style="margin-left: 30rpx;">
+            <view class="detail-button-text" bind:tap="createOrder">购买</view>
+        </image>
+    </view>
+</view>
+<specification visible="{{specvisible}}" bind:close="shoppingCartClose"></specification>

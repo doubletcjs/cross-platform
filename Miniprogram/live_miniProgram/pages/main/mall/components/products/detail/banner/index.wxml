@@ -1,0 +1,6 @@
+<view class=".banner-swiper-content">
+    <swiper class="banner-swiper" indicator-dots="{{false}}" autoplay="{{true}}" current="{{currentBanner}}" circular="false" vertical="{{false}}" bindchange="swiperScroll">
+        <swiper-item class="banner-swiper-item" wx:for="{{productImages}}" wx:key="index" style="{{index%2 == 0 ? 'background-color: rosybrown': 'background-color: green'}};"></swiper-item>
+    </swiper>
+    <view class="banner-swiper-indicator">{{currentBanner+1}}/{{productImages.length}}</view>
+</view>

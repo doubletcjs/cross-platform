@@ -21,7 +21,18 @@ Component({
 
   },
   methods: {
+    //商品详情
+    productDetail(res) {
+      var index = res.currentTarget.dataset.index
+      wx.navigateTo({
+        url: '/pages/main/mall/detail/index',
+        success: (result) => {
 
+        },
+        fail: () => {},
+        complete: () => {}
+      });
+    }
   },
   created: function () {
 

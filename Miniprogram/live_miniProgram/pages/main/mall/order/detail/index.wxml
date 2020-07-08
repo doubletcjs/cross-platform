@@ -1,0 +1,53 @@
+<alert status="{{order.status}}"></alert>
+<logisticsalert wx:if="{{order.status == 1 || order.status == 2 || order.status ==  3}}" status="{{order.status}}"></logisticsalert>
+<refundalert wx:if="{{order.status == 5 || order.status == 6}}" status="{{order.status}}"></refundalert>
+<view class="order-detail" style="margin-bottom: {{bottomFunctions.length > 0 ? '120' : '0'}}rpx;">
+    <view class="address-content" wx:if="{{order.status != 5 && order.status != 6}}">
+        <image class="address-icon" src="/icons/ico-address-dz1@3x.png"></image>
+        <view class="address-column">
+            <view class="address-row">
+                <view class="address-text">红于二</view>
+                <view class="address-phone">175****3648</view>
+            </view>
+            <view class="address-text" style="margin-top: 18rpx;">广东省广州市白云区人和镇人和村芳华路星航国际909</view>
+        </view>
+    </view>
+    <view class="product-content">
+        <image class="product-cover" src="" mode="aspectFill"></image>
+        <view class="product-title">扫拖不用亲自动拖两用机器扫拖不用亲自动拖两用机器人</view>
+        <view class="product-sepc">盐湖白，购买扫机器人送蓝盐湖白，购买扫机器人送蓝色...</view>
+        <view class="product-price-row">
+            <view class="product-price-unit">¥</view>
+            <view class="product-price">2299.00</view>
+        </view>
+        <view class="product-count">x2</view>
+    </view>
+    <view class="order-content">
+        <view class="address-row" wx:for="{{orderItems}}" wx:key="index" style="margin-bottom: {{index < orderItems.length-1 ? '32rpx' : '0'}};">
+            <view class="order-text" style="color: {{index < orderItems.length-2 ? 'rgba(145, 152, 159, 1)' : 'rgba(241, 241, 241, 1)'}};">
+                {{item}}
+            </view>
+            <view class="order-text" style="width: 63%; position: absolute; left: 242rpx; color: {{index < orderItems.length-2 ? 'rgba(145, 152, 159, 1)' : 'rgba(241, 241, 241, 1)'}};">
+                {{orderValues[index]}}
+            </view>
+        </view>
+        <view class="order-copy">复制</view>
+        <image class="order-pay-arrow" src="/icons/ico_profile_cell_arrow@3x.png" mode="aspectFit"></image>
+    </view>
+    <view class="order-function-content">
+        <view class="address-row">
+            <image class="order-function-icon" src="/icons/ico-lianxikefu@3x.png" mode="aspectFit"></image>
+            <view class="order-function-text">联系客服</view>
+        </view>
+        <view class="address-row">
+            <image class="order-function-icon" src="/icons/ico-bodadianhua@3x.png" mode="aspectFit"></image>
+            <view class="order-function-text">拨打电话</view>
+        </view>
+        <view class="order-function-line"></view>
+    </view>
+</view>
+<view class="order-detail-function-bottom" wx:if="{{bottomFunctions.length > 0}}">
+    <view class="order-detail-button" wx:for="{{bottomFunctions}}" wx:key="index" style="margin-left: 20rpx; color: {{(index == bottomFunctions.length-1 && item != '删除订单') ? 'rgba(23, 96, 255, 1)' : 'rgba(145, 152, 159, 1)'}}; border: solid 2rpx {{(index == bottomFunctions.length-1 && item != '删除订单') ? 'rgba(23, 96, 255, 1)' : 'rgba(145, 152, 159, 1)'}};">
+        {{item}}
+    </view>
+</view>

@@ -37,7 +37,7 @@
 <view class="profile-order-content">
     <view class="profile-header-base-row" style="align-items: center; align-content: center; justify-content: space-between; padding-top: 26rpx; padding-bottom: 24rpx; border-bottom: solid 2rpx rgba(241, 241, 241, 0.05);">
         <view class="profile-header-coin">我的订单</view>
-        <view class="profile-header-base-row" style="align-items: center; align-content: center; justify-content: center;">
+        <view class="profile-header-base-row" style="align-items: center; align-content: center; justify-content: center;" bind:tap="myOrderList">
             <view class="profile-header-coin-order" style="color: rgba(23, 96, 255, 1);">
                 查看全部订单
             </view>

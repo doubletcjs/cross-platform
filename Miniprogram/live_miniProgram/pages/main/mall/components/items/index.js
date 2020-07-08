@@ -35,7 +35,7 @@ Component({
         {
           name: "地址管理",
           number: 0,
-          icon: "/icons/ico-dz1@3x.png",
+          icon: "/icons/ico-address-dz1@3x.png",
         },
         {
           name: "联系客服",

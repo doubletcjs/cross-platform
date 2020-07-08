@@ -1,0 +1,8 @@
+{
+  "usingComponents": {
+    "alert": "../../components/order/alert/index",
+    "logisticsalert": "../../components/order/logisticsalert/index",
+    "refundalert": "../../components/order/refundalert/index"
+  },
+  "navigationBarTitleText": "订单详情"
+}

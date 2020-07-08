@@ -1,0 +1,77 @@
+.spec-centent {
+    padding-left: 30rpx;
+    padding-right: 30rpx;
+    padding-top: 32rpx;
+    padding-bottom: 24rpx;
+}
+
+.spec-base-row {
+    display: flex;
+    flex-direction: row;
+    align-content: center;
+    align-items: center;
+}
+
+.spec-base-line {
+    width: 6rpx;
+    height: 30rpx;
+}
+
+.spec-base-title {
+    margin-left: 8rpx;
+    font-size: 32rpx;
+    color: rgba(241, 241, 241, 1);
+}
+
+.spec-base-text {
+    font-size: 28rpx;
+    color: rgba(241, 241, 241, 1);
+}
+
+.spec-title-content {
+    width: 162rpx;
+
+    padding-left: 20rpx;
+    padding-right: 20rpx;
+    padding-top: 32rpx;
+    padding-bottom: 32rpx;
+
+    font-size: 28rpx;
+    color: rgba(241, 241, 241, 1);
+}
+
+.spec-value-content {
+    width: 524rpx;
+
+    padding-left: 20rpx;
+    padding-right: 20rpx;
+    padding-top: 32rpx;
+    padding-bottom: 32rpx;
+
+    font-size: 28rpx;
+    color: rgba(145, 152, 159, 1);
+    word-break: break-all;
+}
+
+.spec-title-value-row {
+    display: flex;
+    flex-direction: row;
+
+    border-left: solid 2rpx rgba(255, 255, 255, 0.3);
+    border-bottom: solid 2rpx rgba(255, 255, 255, 0.3);
+    border-right: solid 2rpx rgba(255, 255, 255, 0.3);
+}
+
+.spec-more {
+    color: rgba(145, 152, 159, 1);
+    font-size: 32rpx;
+
+    margin-top: 20rpx;
+    padding-left: 72rpx;
+    padding-right: 72rpx;
+    padding-top: 14rpx;
+    padding-bottom: 12rpx;
+
+    border-radius: 35rpx;
+    border: solid 2rpx rgba(145, 152, 159, 1);
+}

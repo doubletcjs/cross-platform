@@ -1,0 +1,73 @@
+<view class="header-base-content" style="padding-bottom: 40rpx;">
+    <view class="header-price-row">
+        <view class="header-price-unit">¥</view>
+        <view class="header-price">2299</view>
+        <view class="header-original-price">¥2599</view>
+    </view>
+    <view class="header-name">扫拖不用亲自动手s扫拖两用机器人激光高精导航</view>
+    <view class="header-function-column">
+        <view class="header-base-column" style="justify-content: center;">
+            <image class="header-function-icon" src="{{setAlert == true ? '/icons/ico-JJTX2@3x.png' : '/icons/ico-JJTX1@3x.png'}}"></image>
+            <view class="header-function-text" style="{{setAlert == true ? 'color: rgba(23, 96, 255, 1);' : ''}}">
+                降价提醒
+            </view>
+        </view>
+        <view class="header-base-column" style="justify-content: center;">
+            <image class="header-function-icon" src="{{setCollect == true ? '/icons/ico-xqsc2@3x.png' : '/icons/ico-xqsc1@3x.png'}}"></image>
+            <view class="header-function-text" style="{{setCollect == true ? 'color: rgba(255, 136, 48, 1);' : ''}}">
+                收藏
+            </view>
+        </view>
+    </view>
+    <view class="header-introduction">急速发货 全场包邮  好货提前屯，等等描述........后面有多少字就展示出来多少，不做隐藏</view>
+</view>
+<view class="header-base-content" style="padding-bottom: 28rpx;">
+    <view class="header-base-row" style="margin-bottom: 28rpx;">
+        <view class="header-base-text">发货</view>
+        <image class="header-location-icon" style="margin-left: 56rpx;" mode="aspectFit" src="/icons/ico-dz1-grey@3x.png"></image>
+        <view class="header-base-value" style="margin-left: 4rpx;">广东广州</view>
+        <view class="header-base-value" style="margin-left: 34rpx;">快递：0.0</view>
+        <view class="header-base-subvalue">销量：1880</view>
+    </view>
+    <view class="header-base-row" style="margin-bottom: 32rpx; align-items: flex-start; align-content: flex-start;">
+        <view class="header-base-text">优惠</view>
+        <view class="header-base-column" style="margin-left: 56rpx;" bind:tap="couponsAction">
+            <view class="header-base-value" wx:for="{{coupons}}" wx:key="index" style="{{index < coupons.length ? 'margin-bottom: 16rpx; width: 500rpx;' : 'width: 500rpx;'}}">
+                {{item}}
+            </view>
+        </view>
+        <image class="header-arrow-icon" src="/icons/IconsTintColorBlack@2x.png" mode="aspectFit" bind:tap="couponsAction"></image>
+    </view>
+    <view class="header-base-row">
+        <view class="header-base-text">服务</view>
+        <view class="header-base-value" style="margin-left: 56rpx; width: 500rpx;">
+            官方发货&售后，七天无理由退款
+        </view>
+    </view>
+</view>
+<view class="header-base-content" style="padding-bottom: 32rpx;">
+    <view class="header-base-row" style="margin-bottom: 28rpx;">
+        <view class="header-base-text">物流</view>
+        <image class="header-spotgood-icon" style="margin-left: 56rpx;" mode="aspectFit" src="/icons/ico-xianhuo@3x.png"></image>
+        <view class="header-base-value" style="margin-left: 20rpx; width: 440rpx;">
+            16:00前下单，当天发货
+        </view>
+    </view>
+    <view class="header-base-row" style="margin-bottom: 28rpx;" bind:tap="specificationAction">
+        <view class="header-base-text">已选</view>
+        <view class="header-base-value" style="margin-left: 56rpx; width: 500rpx;">
+            盐湖白，购买扫购买扫地机器人送蓝色...
+        </view>
+        <image class="header-arrow-icon" src="/icons/IconsTintColorBlack@2x.png" mode="aspectFit"></image>
+    </view>
+    <view class="header-base-row" bind:tap="addressAction">
+        <view class="header-base-text">送至</view>
+        <view class="header-base-value" style="margin-left: 56rpx; width: 500rpx;">
+            广东省广州市白云区人和芳华路星航国...
+        </view>
+        <image class="header-arrow-icon" src="/icons/IconsTintColorBlack@2x.png" mode="aspectFit"></image>
+    </view>
+</view>
+<coupons visible="{{couponvisible}}" bind:close="couponsClose"></coupons>
+<specification visible="{{specvisible}}" bind:close="specificationClose"></specification>
+<address visible="{{addressvisible}}" bind:close="addressClose"></address>
