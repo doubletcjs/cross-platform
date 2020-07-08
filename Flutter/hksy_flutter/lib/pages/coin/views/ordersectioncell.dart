@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hksy_flutter/function/emptypage.dart';
 import 'package:hksy_flutter/public/public.dart';
 
 class OrderSection extends StatelessWidget {
@@ -9,28 +10,21 @@ class OrderSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: EdgeInsets.fromLTRB(20, 0, 20, 0),
-      decoration: BoxDecoration(
-        color: rgba(28, 35, 63, 1),
-        borderRadius: BorderRadius.circular(7.5),
-      ),
-      child: cells.length > 0
-          ? Column(
-              children: cells,
-            )
-          : Container(
-              alignment: Alignment.center,
-              padding: EdgeInsets.fromLTRB(0, 40, 0, 90),
-              child: Text(
-                emptyPlaceholder,
-                style: TextStyle(
-                  fontSize: 15,
-                  color: rgba(145, 152, 173, 1),
-                ),
-              ),
+    return cells.length > 0
+        ? Container(
+            padding: EdgeInsets.fromLTRB(20, 0, 20, 0),
+            decoration: BoxDecoration(
+              color: rgba(28, 35, 63, 1),
+              borderRadius: BorderRadius.circular(7.5),
             ),
-    );
+            child: Column(
+              children: cells,
+            ),
+          )
+        : BaseEmptyPage(
+            title: emptyPlaceholder,
+            topSpace: 100,
+          );
   }
 }
 
@@ -56,7 +50,15 @@ class OrderCell extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget>[
                           Text(
-                            "+10000.00",
+                            order["type"] == 47
+                                ? "+${order['price']}"
+                                : order["type"] == 33
+                                    ? "+${order['cashNumber']}"
+                                    : order["type"] == 24
+                                        ? order["inOrOut"] == 0
+                                            ? "+"
+                                            : "-" + "${order['amount']}"
+                                        : "",
                             style: TextStyle(
                               fontSize: 15,
                               color: rgba(255, 255, 255, 1),
@@ -65,51 +67,71 @@ class OrderCell extends StatelessWidget {
                           SizedBox(
                             height: 8.5,
                           ),
-                          Row(
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: <Widget>[
-                              Text(
-                                "2020-10-11",
-                                style: TextStyle(
-                                  fontSize: 11,
-                                  color: rgba(145, 152, 173, 1),
-                                ),
-                              ),
-                              SizedBox(
-                                width: 10,
-                              ),
-                              Text(
-                                "17:48",
-                                style: TextStyle(
-                                  fontSize: 11,
-                                  color: rgba(145, 152, 173, 1),
-                                ),
-                              ),
-                            ],
+                          Text(
+                            order["type"] == 24
+                                ? "${order['createTime']}\n对方账户：${order['otheraccont']}"
+                                : "${order['createTime']}",
+                            style: TextStyle(
+                              fontSize: 11,
+                              color: rgba(145, 152, 173, 1),
+                            ),
                           ),
                         ],
                       ),
                       Text(
-                        "已充值",
+                        order["type"] == 47
+                            ? (order["status"] == 1
+                                ? "已充值"
+                                : (order["status"] == 0 || order["status"] == 3)
+                                    ? "审核中"
+                                    : "审核失败")
+                            : order["type"] == 33
+                                ? (order["cashStatus"] == 1
+                                    ? "已提现"
+                                    : (order["cashStatus"] == 0 ||
+                                            order["cashStatus"] == 3)
+                                        ? "审核中"
+                                        : "审核失败")
+                                : order["type"] == 24
+                                    ? (order["inOrOut"] == 0 ? "已转出" : "已转入")
+                                    : "",
                         style: TextStyle(
                           fontSize: 15,
-                          color: rgba(255, 255, 255, 1), //rgba(255, 52, 101, 1)
+                          color: (order["type"] == 47 && order["status"] == 2)
+                              ? rgba(255, 52, 101, 1)
+                              : (order["type"] == 33 &&
+                                      order["cashStatus"] == 2)
+                                  ? rgba(255, 52, 101, 1)
+                                  : rgba(
+                                      255, 255, 255, 1), //rgba(255, 52, 101, 1)
                         ),
                       ),
                     ],
                   ),
           ),
-          Container(
-            padding: EdgeInsets.fromLTRB(0, 0, 0, 31.5),
-            child: Text(
-              "*钱款未到对公账户",
-              style: TextStyle(
-                fontSize: 11,
-                color: rgba(255, 52, 101, 1),
-              ),
-            ),
-          ),
+          (order["type"] == 47 && order["status"] == 2)
+              ? Container(
+                  padding: EdgeInsets.fromLTRB(0, 0, 0, 31.5),
+                  child: Text(
+                    "${order["remark"]}",
+                    style: TextStyle(
+                      fontSize: 11,
+                      color: rgba(255, 52, 101, 1),
+                    ),
+                  ),
+                )
+              : (order["type"] == 33 && order["cashStatus"] == 2)
+                  ? Container(
+                      padding: EdgeInsets.fromLTRB(0, 0, 0, 31.5),
+                      child: Text(
+                        "${order["verifyInfo"]}",
+                        style: TextStyle(
+                          fontSize: 11,
+                          color: rgba(255, 52, 101, 1),
+                        ),
+                      ),
+                    )
+                  : Container(),
         ],
       ),
       decoration: BoxDecoration(

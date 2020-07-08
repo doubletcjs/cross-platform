@@ -14,7 +14,7 @@ class OrderDetail extends StatefulWidget {
 class _OrderDetailState extends State<OrderDetail>
     with TickerProviderStateMixin {
   List<String> _tabs = [
-    "全部",
+    // "全部",
     "充值",
     "提现",
     "互转",
@@ -101,9 +101,6 @@ class _OrderDetailState extends State<OrderDetail>
                 ),
                 OrderList(
                   type: 2,
-                ),
-                OrderList(
-                  type: 3,
                 ),
               ],
               index: _tabController.index,

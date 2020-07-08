@@ -1,13 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:hksy_flutter/function/account/api/accountapi.dart';
 import 'package:hksy_flutter/public/public.dart';
 import 'package:xs_progress_hud/xs_progress_hud.dart';
-
-import '../../../public/public.dart';
-import '../../../public/public.dart';
-import '../../../public/public.dart';
-import '../../../public/public.dart';
-import '../../account/api/accountapi.dart';
 
 typedef kCertificationBlock = void Function(Map object);
 

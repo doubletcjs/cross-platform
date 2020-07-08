@@ -4,7 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:hksy_flutter/function/actionsheet.dart';
-import 'package:hksy_flutter/function/certification/certificationmain.dart';
+import 'package:hksy_flutter/function/certification/certificationcenter.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:toast/toast.dart';
@@ -529,26 +529,13 @@ void certificationAlert(BuildContext context) {
     ),
     contentPadding: EdgeInsets.fromLTRB(20, 25.5, 20, 37),
     confirmHandle: () {
-      ActionSheet(
-        cancel: "取消",
-        titles: [
-          "大陆身份证",
-          "其他证件",
-        ],
-        handle: (isCancel, index) {
-          if (isCancel == false) {
-            Navigator.of(context).push(
-              MaterialPageRoute(
-                builder: (context) {
-                  return CertificationMain(
-                    type: index,
-                  );
-                },
-              ),
-            );
-          }
-        },
-      ).show(context);
+      Navigator.of(context).push(
+        MaterialPageRoute(
+          builder: (context) {
+            return CertificationCenter();
+          },
+        ),
+      );
     },
   );
 }

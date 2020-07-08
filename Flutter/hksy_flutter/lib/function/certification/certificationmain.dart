@@ -3,18 +3,13 @@ import 'dart:io';
 import 'package:common_utils/common_utils.dart';
 import 'package:dart_notification_center/dart_notification_center.dart';
 import 'package:flutter/material.dart';
+import 'package:hksy_flutter/function/account/api/accountapi.dart';
 import 'package:hksy_flutter/function/certification/pages/certificationbank.dart';
 import 'package:hksy_flutter/function/certification/pages/certificationbase.dart';
 import 'package:hksy_flutter/function/certification/pages/certificationphone.dart';
 import 'package:hksy_flutter/public/public.dart';
 import 'package:hksy_flutter/public/networking.dart';
 import 'package:xs_progress_hud/xs_progress_hud.dart';
-
-import '../../public/public.dart';
-import '../../public/public.dart';
-import '../../public/public.dart';
-import '../../public/public.dart';
-import '../account/api/accountapi.dart';
 
 class CertificationMain extends StatefulWidget {
   int type = 0;

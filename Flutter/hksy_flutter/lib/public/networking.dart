@@ -97,14 +97,19 @@ class Networking {
               progress(count / total);
             }
 
-            kLog("上传进度:${count / total}");
+            // kLog("上传进度:${count / total}");
           },
         );
 
         if ("${_response.statusCode}" == kRequestSuccessCode) {
           var data = _response.data;
-          kLog("上传 原始数据:${data.toString()}");
-          if ("${data["code"]}" == kRequestSuccessCode) {
+          // kLog("上传 原始数据:${data.toString()}");
+          var code = "${data["code"]}";
+          if (data["state"] != null && isStringEmpty(data["state"]) == false) {
+            code = "${data["state"]}";
+          }
+
+          if (code == kRequestSuccessCode) {
             if (data["data"] != null && data["data"] is List) {
               List _list = data["data"];
               if (_list.length == 0) {

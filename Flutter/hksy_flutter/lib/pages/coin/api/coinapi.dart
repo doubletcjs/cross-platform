@@ -58,4 +58,28 @@ class CoinApi {
       "paymentCode": paymentCode,
     });
   }
+
+  static queryOfflinePayDetail(userId, page, limit, finish) {
+    Networking.requestBase("queryOfflinePayDetail", finish, params: {
+      "userId": userId,
+      "page": page,
+      "limit": limit,
+    });
+  }
+
+  static queryTbWithdrawadLog(userId, page, limit, finish) {
+    Networking.requestBase("queryTbWithdrawadLog", finish, params: {
+      "userId": userId,
+      "page": page,
+      "limit": limit,
+    });
+  }
+
+  static queryGoldExchange(userId, page, limit, finish) {
+    Networking.requestBase("queryGoldExchange", finish, params: {
+      "userId": userId,
+      "page": page,
+      "limit": limit,
+    });
+  }
 }

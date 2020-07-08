@@ -4,8 +4,6 @@ import 'package:flutter_swiper/flutter_swiper.dart';
 import 'package:hksy_flutter/public/public.dart';
 import 'package:package_info/package_info.dart';
 
-import '../../public/public.dart';
-
 class AppGuidePage extends StatefulWidget {
   AppGuidePage({Key key}) : super(key: key);
 
