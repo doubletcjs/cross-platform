@@ -2,12 +2,10 @@ import 'package:dart_notification_center/dart_notification_center.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:hksy_flutter/function/paycode/paycodeinput.dart';
+import 'package:hksy_flutter/pages/coin/api/coinapi.dart';
 import 'package:hksy_flutter/pages/coin/transfercomplete.dart';
 import 'package:hksy_flutter/public/public.dart';
 import 'package:xs_progress_hud/xs_progress_hud.dart';
-
-import 'api/coinapi.dart';
-import 'api/coinapi.dart';
 
 class CashWithdrawal extends StatefulWidget {
   CashWithdrawal({Key key}) : super(key: key);
