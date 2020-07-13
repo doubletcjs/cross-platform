@@ -4,6 +4,11 @@
       <div class="avatar-box">
         <img src="../assets/login_logo.png" class="avatar-image" />
       </div>
+      <el-form label-width="80px">
+        <el-form-item label>
+          <el-input placeholder="aa"></el-input>
+        </el-form-item>
+      </el-form>
     </div>
   </div>
 </template>
@@ -42,7 +47,7 @@ export default {
   box-shadow: 0 0 10px #eeeeee;
 
   position: absolute;
-  left: 50%; 
+  left: 50%;
   transform: translate(-50%, -50%);
 }
 
