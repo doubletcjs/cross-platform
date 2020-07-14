@@ -50,3 +50,15 @@
 [2020-07-14T18:06:00.424] [DEBUG] cheese - 奥迪s
 [2020-07-14T18:06:00.457] [DEBUG] cheese - null
 [2020-07-14T18:06:00.458] [DEBUG] cheese - null
+[2020-07-14T21:38:54.903] [DEBUG] cheese - login => username:admin,password:1111111
+[2020-07-14T21:38:54.906] [DEBUG] cheese - admin
+[2020-07-14T21:38:54.926] [DEBUG] cheese - null
+[2020-07-14T21:38:54.927] [DEBUG] cheese - null
+[2020-07-14T21:58:36.161] [DEBUG] cheese - login => username:admin,password:111111
+[2020-07-14T21:58:36.163] [DEBUG] cheese - admin
+[2020-07-14T21:58:36.177] [DEBUG] cheese - null
+[2020-07-14T21:58:36.178] [DEBUG] cheese - null
+[2020-07-14T21:58:39.453] [DEBUG] cheese - login => username:admin,password:111111
+[2020-07-14T21:58:39.453] [DEBUG] cheese - admin
+[2020-07-14T21:58:39.456] [DEBUG] cheese - null
+[2020-07-14T21:58:39.456] [DEBUG] cheese - null
