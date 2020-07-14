@@ -4,9 +4,21 @@
       <div class="avatar-box">
         <img src="../assets/login_logo.png" class="avatar-image" />
       </div>
-      <el-form label-width="80px">
-        <el-form-item label>
-          <el-input placeholder="aa"></el-input>
+      <el-form class="login-form" :rules="rules" :model="form" ref="formRef">
+        <el-form-item prop="username">
+          <el-input prefix-icon="iconfont icon-user" placeholder="请输入用户名" v-model="form.username"></el-input>
+        </el-form-item>
+        <el-form-item prop="password">
+          <el-input
+            prefix-icon="iconfont icon-3702mima"
+            placeholder="请输入密码"
+            show-password
+            v-model="form.password"
+          ></el-input>
+        </el-form-item>
+        <el-form-item class="btns">
+          <el-button type="primary" @click="onConfirm">登录</el-button>
+          <el-button type="info" @click="resetForm">重置</el-button>
         </el-form-item>
       </el-form>
     </div>
@@ -15,7 +27,58 @@
 
 <script>
 export default {
-  name: "login"
+  name: "login",
+  data() {
+    return {
+      form: {
+        username: "",
+        password: ""
+      },
+      rules: {
+        username: [
+          {
+            required: true,
+            message: "请输入用户名",
+            trigger: "blur"
+          },
+          {
+            min: 3,
+            max: 10,
+            message: "长度在 3 到 10 个字符",
+            trigger: "blur"
+          }
+        ],
+        password: [
+          {
+            required: true,
+            message: "请输入密码",
+            trigger: "blur"
+          },
+          {
+            min: 6,
+            max: 15,
+            message: "长度在 6 到 15 个字符",
+            trigger: "blur"
+          }
+        ]
+      }
+    };
+  },
+  methods: {
+    onConfirm() {
+      this.$refs.formRef.validate((isSuccessful, data) => {
+        if (isSuccessful) {
+          this.$http.post("login", this.form).then(function(res) {
+            var data = res.data;
+            console.log("res :>> ", JSON.stringify(data));
+          });
+        }
+      });
+    },
+    resetForm() {
+      this.$refs.formRef.resetFields();
+    }
+  }
 };
 </script>
 
@@ -57,5 +120,19 @@ export default {
 
   border-radius: 50%;
   background-color: #eeeeee;
+}
+
+.btns {
+  display: flex; 
+  justify-content: flex-end;
+}
+
+.login-form { 
+  position: absolute;
+  bottom: 0;
+
+  width: 100%;
+  padding: 0 20px;
+  box-sizing: border-box;
 }
 </style>
