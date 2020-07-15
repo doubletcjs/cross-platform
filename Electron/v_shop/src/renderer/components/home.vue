@@ -10,7 +10,11 @@
       </el-header>
       <el-container>
         <el-aside :width="collapse ? '64px' : '200px'">
-          <div class="toggle-button" @click="toggleCollapse">|||</div>
+          <div
+            class="toggle-button"
+            @click="toggleCollapse"
+            :style="collapse ? 'width: 64px;' : 'width: 200px;'"
+          >|||</div>
           <el-menu
             background-color="#545c64"
             text-color="#fff"
