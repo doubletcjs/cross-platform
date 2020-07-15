@@ -66,11 +66,19 @@ export default {
   },
   methods: {
     onConfirm() {
+      var weakSelf = this;
       this.$refs.formRef.validate((isSuccessful, data) => {
         if (isSuccessful) {
-          this.$http.post("login", this.form).then(function(res) {
-            var data = res.data;
-            console.log("res :>> ", JSON.stringify(data));
+          weakSelf.$http.post("login", weakSelf.form).then(function(res) {
+            var response = res.data;
+            if (response.meta.status == 200) {
+              var data = response.data;
+              weakSelf.$toast.success("登录成功");
+              window.sessionStorage.setItem("token", data.token);
+              weakSelf.$router.push("/home");
+            } else {
+              weakSelf.$toast.error(response.meta.msg);
+            }
           });
         }
       });
