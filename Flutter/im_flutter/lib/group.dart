@@ -26,7 +26,10 @@ class _GroupPageState extends State<GroupPage> {
   }
 
   /// 点击事件
-  void _onClick(group) {}
+  void _onClick(group) {
+    print(group.groupId);
+    print(group.groupName);
+  }
 
   @override
   void initState() {
