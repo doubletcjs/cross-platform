@@ -169,14 +169,12 @@ class _SessionPageState extends State<SessionPage> {
           String _nickName = "";
           String _avatar = "";
           String _content = "";
-          if (session.type == SessionType.System ||
-              session.type == SessionType.Group) {
+          if (session.type == SessionType.System) {
             _nickName = "系统账号";
-            if (session.type == SessionType.Group) {
-              _content = "[群系统消息]";
-            } else {
-              _content = session.message.note;
-            }
+            _content = "[系统消息]";
+          } else if (session.type == SessionType.Group) {
+            _nickName = session.nickname;
+            _content = "[群消息]";
           } else {
             _nickName = session.message.userInfo.nickName +
                 session.message.userInfo.identifier;
