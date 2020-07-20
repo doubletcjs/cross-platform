@@ -1,7 +1,8 @@
 import Vue from 'vue'
 
 import ElementUI, {
-  Message
+  Message,
+  MessageBox
 } from 'element-ui'
 import "element-ui/lib/theme-chalk/index.css";
 Vue.use(ElementUI)
@@ -23,6 +24,7 @@ if (!process.env.IS_WEB) Vue.use(require('vue-electron'))
 Vue.http = Vue.prototype.$http = Axios
 Vue.config.productionTip = false
 Vue.prototype.$toast = Message
+Vue.prototype.$confirm = MessageBox.confirm
 
 /* eslint-disable no-new */
 new Vue({

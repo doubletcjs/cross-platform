@@ -29,8 +29,18 @@
         </el-table-column>
         <el-table-column label="操作" width="180">
           <template slot-scope="scope">
-            <el-button type="primary" icon="el-icon-edit" size="mini"></el-button>
-            <el-button type="danger" icon="el-icon-delete" size="mini"></el-button>
+            <el-button
+              type="primary"
+              icon="el-icon-edit"
+              size="mini"
+              @click="showEditDialog(scope.row)"
+            ></el-button>
+            <el-button
+              type="danger"
+              icon="el-icon-delete"
+              size="mini"
+              @click="showDeleteDialog(scope.row)"
+            ></el-button>
             <el-tooltip content="分配角色" placement="top" effect="dark" :enterable="false">
               <el-button type="warning" icon="el-icon-setting" size="mini"></el-button>
             </el-tooltip>
@@ -41,7 +51,7 @@
         @size-change="handleSizeChange"
         @current-change="handleCurrentChange"
         :current-page="page"
-        :page-sizes="[20, 40, 60, 80]"
+        :page-sizes="[10, 20, 30, 40]"
         :page-size="limit"
         layout="total, sizes, prev, pager, next, jumper"
         :total="total"
@@ -49,7 +59,7 @@
       ></el-pagination>
     </el-card>
 
-    <el-dialog title="提示" :visible.sync="dialogVisible" width="50%">
+    <el-dialog title="提示" :visible.sync="dialogVisible" width="50%" @close="dialogVisibleClose">
       <el-form :model="addForm" :rules="addFormRules" ref="addFormRef" label-width="70px">
         <el-form-item label="用户名" prop="username">
           <el-input v-model="addForm.username"></el-input>
@@ -66,7 +76,31 @@
       </el-form>
       <span slot="footer" class="dialog-footer">
         <el-button @click="dialogVisible = false">取 消</el-button>
-        <el-button type="primary" @click="dialogVisible = false">确 定</el-button>
+        <el-button type="primary" @click="addUser">确 定</el-button>
+      </span>
+    </el-dialog>
+
+    <el-dialog
+      title="修改用户信息"
+      :visible.sync="editDialogVisible"
+      width="50%"
+      @close="editDialogVisibleClose"
+    >
+      <el-form :model="editForm" ref="editFormRef" :rules="editFormRules" label-width="70px">
+        <el-form-item label="用户名" prop="username">
+          <el-input v-model="editForm.username" disabled></el-input>
+        </el-form-item>
+        <el-form-item label="邮箱" prop="email">
+          <el-input v-model="editForm.email"></el-input>
+        </el-form-item>
+        <el-form-item label="手机" prop="mobile">
+          <el-input v-model="editForm.mobile"></el-input>
+        </el-form-item>
+      </el-form>
+
+      <span slot="footer" class="dialog-footer">
+        <el-button @click="editDialogVisible = false">取 消</el-button>
+        <el-button type="primary" @click="editUser">确 定</el-button>
       </span>
     </el-dialog>
   </div>
@@ -76,14 +110,43 @@
 export default {
   name: "users",
   data() {
+    var checkEmail = (rule, value, callback) => {
+      var regEmail = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+      if (regEmail.test(value)) {
+        return callback();
+      }
+
+      return callback(Error("请输入合法的邮箱"));
+    };
+    var checkMobile = (rule, value, callback) => {
+      var regMobile = /^(13[0-9]{9})|(15[0-9][0-9]{8})|(18[0-9][0-9]{8})$/;
+      if (regMobile.test(value)) {
+        return callback();
+      }
+
+      return callback(Error("请输入合法的手机号"));
+    };
+
     return {
       page: 1,
-      limit: 20,
+      limit: 10,
       dataList: [],
       keyword: "",
       currentPage: 0,
       total: 0,
       dialogVisible: false,
+      editDialogVisible: false,
+      editForm: {},
+      editFormRules: {
+        email: [
+          { required: true, message: "请输入邮箱", trigger: "blur" },
+          { validator: checkEmail, trigger: "blur" }
+        ],
+        mobile: [
+          { required: true, message: "请输入手机", trigger: "blur" },
+          { validator: checkMobile, trigger: "blur" }
+        ]
+      },
       addForm: {},
       addFormRules: {
         username: [
@@ -104,8 +167,14 @@ export default {
             trigger: "blur"
           }
         ],
-        email: [{ required: true, message: "请输入邮箱", trigger: "blur" }],
-        mobile: [{ required: true, message: "请输入手机", trigger: "blur" }]
+        email: [
+          { required: true, message: "请输入邮箱", trigger: "blur" },
+          { validator: checkEmail, trigger: "blur" }
+        ],
+        mobile: [
+          { required: true, message: "请输入手机", trigger: "blur" },
+          { validator: checkMobile, trigger: "blur" }
+        ]
       }
     };
   },
@@ -158,10 +227,93 @@ export default {
     },
     addDialogVisible() {
       this.dialogVisible = !this.dialogVisible;
+    },
+    dialogVisibleClose() {
+      this.$refs.addFormRef.resetFields();
+    },
+    addUser() {
+      const weakSelf = this;
+      this.$refs.addFormRef.validate(function(valid) {
+        if (valid) {
+          weakSelf.$http.post("users", weakSelf.addForm).then(res => {
+            var response = res.data;
+            if (response.meta.status != 201) {
+              weakSelf.$message.error("添加用户失败！");
+            } else {
+              weakSelf.dialogVisible = false;
+
+              weakSelf.$message.success("添加用户成功！");
+              weakSelf.getUserList();
+            }
+          });
+        }
+      });
+    },
+    showEditDialog(info) {
+      const weakSelf = this;
+      this.$http.get("users/" + info.id).then(function(res) {
+        const response = res.data;
+        if (response.meta.status == 200) {
+          weakSelf.editForm = response.data;
+          weakSelf.editDialogVisible = true;
+        } else {
+          weakSelf.$message.error(response.meta.msg);
+        }
+      });
+    },
+    editDialogVisibleClose() {
+      this.$refs.editFormRef.resetFields();
+    },
+    editUser() {
+      const weakSelf = this;
+      this.$refs.editFormRef.validate(function(valid) {
+        if (valid) {
+          weakSelf.$http
+            .put("users/" + weakSelf.editForm.id, {
+              email: weakSelf.editForm.email,
+              mobile: weakSelf.editForm.mobile
+            })
+            .then(function(res) {
+              const response = res.data;
+              if (response.meta.status == 200) {
+                weakSelf.editDialogVisible = false;
+                weakSelf.$message.success("用户信息修改成功！");
+                weakSelf.getUserList();
+              } else {
+                weakSelf.$message.error(response.meta.msg);
+              }
+            });
+        }
+      });
+    },
+    showDeleteDialog(info) {
+      const weakSelf = this;
+      this.$confirm("此操作将永久删除该用户, 是否继续?", "提示", {
+        confirmButtonText: "确定",
+        cancelButtonText: "取消",
+        type: "warning"
+      })
+        .then(() => {
+          this.$http.delete("users/" + info.id).then(function(res) {
+            const response = res.data;
+            if (response.meta.status == 200) {
+              weakSelf.$message.success("删除用户成功！");
+              weakSelf.getUserList();
+            } else {
+              weakSelf.$message.error(response.meta.msg);
+            }
+          });
+        })
+        .catch(() => {
+          this.$message({
+            type: "info",
+            message: "已取消删除"
+          });
+        });
     }
   }
 };
 </script>
 
-<style lang="scss" scoped>
+<style scoped>
 </style>
