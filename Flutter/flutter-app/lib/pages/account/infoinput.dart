@@ -14,7 +14,7 @@ class InfoInputPage extends StatefulWidget {
 class _InfoInputPageState extends State<InfoInputPage> {
   TextEditingController _dateEditingController = TextEditingController();
   int _maxLength = 80; //签名长度
-  bool _nextAviable = false; //是否填写完毕
+  bool _aviableNext = false; //是否填写完毕
   Map _infoPackage = {
     "name": "",
     "birthdate": "",
@@ -24,21 +24,21 @@ class _InfoInputPageState extends State<InfoInputPage> {
 
   //检测输入数据
   void _checkInfoInput() {
-    bool _didAviable = true;
+    bool _aviable = true;
     _infoPackage.forEach((key, value) {
       if (key == "gender") {
         if (value == -1) {
-          _didAviable = false;
+          _aviable = false;
         }
       } else {
         if (ObjectUtil.isEmptyString(value) == true || "$value".length == 0) {
-          _didAviable = false;
+          _aviable = false;
         }
       }
     });
 
     setState(() {
-      _nextAviable = _didAviable;
+      _aviableNext = _aviable;
     });
   }
 
@@ -379,9 +379,9 @@ class _InfoInputPageState extends State<InfoInputPage> {
               height: 44,
               width: MediaQuery.of(context).size.width,
               decoration: BoxDecoration(
-                color: _nextAviable == false ? rgba(216, 216, 216, 1) : null,
+                color: _aviableNext == false ? rgba(216, 216, 216, 1) : null,
                 borderRadius: BorderRadius.circular(44 / 2),
-                gradient: _nextAviable == false
+                gradient: _aviableNext == false
                     ? null
                     : LinearGradient(
                         colors: [
@@ -394,7 +394,7 @@ class _InfoInputPageState extends State<InfoInputPage> {
               ),
               child: FlatButton(
                 padding: EdgeInsets.zero,
-                onPressed: _nextAviable == false
+                onPressed: _aviableNext == false
                     ? null
                     : () {
                         this._onConfirm();

@@ -16,7 +16,7 @@ class InputAvatarPage extends StatefulWidget {
 }
 
 class _InputAvatarPageState extends State<InputAvatarPage> {
-  bool _nextAviable = false; //是否填写完毕
+  bool _aviableNext = false; //是否填写完毕
   List<String> _lebelList = [
     "一些约会",
     "情侣关系",
@@ -32,11 +32,11 @@ class _InputAvatarPageState extends State<InputAvatarPage> {
   void _checkInfoInput() {
     if (_avatar != null && _selectLebels.length > 0) {
       setState(() {
-        _nextAviable = true;
+        _aviableNext = true;
       });
     } else {
       setState(() {
-        _nextAviable = false;
+        _aviableNext = false;
       });
     }
   }
@@ -272,9 +272,9 @@ class _InputAvatarPageState extends State<InputAvatarPage> {
             height: 44,
             width: MediaQuery.of(context).size.width,
             decoration: BoxDecoration(
-              color: _nextAviable == false ? rgba(216, 216, 216, 1) : null,
+              color: _aviableNext == false ? rgba(216, 216, 216, 1) : null,
               borderRadius: BorderRadius.circular(44 / 2),
-              gradient: _nextAviable == false
+              gradient: _aviableNext == false
                   ? null
                   : LinearGradient(
                       colors: [
@@ -287,7 +287,7 @@ class _InputAvatarPageState extends State<InputAvatarPage> {
             ),
             child: FlatButton(
               padding: EdgeInsets.zero,
-              onPressed: _nextAviable == false
+              onPressed: _aviableNext == false
                   ? null
                   : () {
                       this._onConfirm();

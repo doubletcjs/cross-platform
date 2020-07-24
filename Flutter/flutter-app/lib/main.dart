@@ -1,9 +1,9 @@
 import 'package:dart_notification_center/dart_notification_center.dart';
 import 'package:flutter/material.dart';
 import 'pages/account/accountmain.dart';
-import 'pages/message/main_message.dart';
-import 'pages/mine/main_mine.dart';
-import 'pages/near/main_near.dart';
+import 'pages/message/message_tab.dart';
+import 'pages/mine/mine_tab.dart';
+import 'pages/near/near_tab.dart';
 import 'public/public.dart';
 
 void main() {

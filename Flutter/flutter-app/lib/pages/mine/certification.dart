@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import '../../public/public.dart';
 
-class AvatarCertification extends StatefulWidget {
-  AvatarCertification({Key key}) : super(key: key);
+class CertificationPage extends StatefulWidget {
+  CertificationPage({Key key}) : super(key: key);
 
   @override
-  _AvatarCertificationState createState() => _AvatarCertificationState();
+  _CertificationPageState createState() => _CertificationPageState();
 }
 
-class _AvatarCertificationState extends State<AvatarCertification> {
+class _CertificationPageState extends State<CertificationPage> {
   var _avatar = "aa";
 
   //删除视频
@@ -138,7 +138,7 @@ class _AvatarCertificationState extends State<AvatarCertification> {
                 SizedBox(
                   height: 10,
                 ),
-                //提醒
+                //温馨提醒
                 Container(
                   width: MediaQuery.of(context).size.width,
                   padding: EdgeInsets.fromLTRB(10.5, 10.5, 10.5, 10.5),

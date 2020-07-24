@@ -1,22 +1,24 @@
 import 'package:flutter/material.dart';
 import '../../public/public.dart';
-import 'views/homepage/avatarheader.dart';
+import 'views/homepage/coverheader.dart';
 import 'views/homepage/infocontent.dart';
 import 'views/homepage/infoheader.dart';
 import 'views/homepage/memberalert.dart';
 import 'views/homepage/reportalert.dart';
-import 'mineeditpage.dart';
+import 'mineinfopage.dart';
 
 class MineHomePage extends StatefulWidget {
-  MineHomePage({Key key}) : super(key: key);
+  bool isSelf = false; //是否查看本人主页
+  MineHomePage({
+    Key key,
+    this.isSelf = false,
+  }) : super(key: key);
 
   @override
   _MineHomePageState createState() => _MineHomePageState();
 }
 
 class _MineHomePageState extends State<MineHomePage> {
-  bool _isSelf = true;
-
   //点赞
   void _likeAction() {}
 
@@ -29,7 +31,7 @@ class _MineHomePageState extends State<MineHomePage> {
   void _editInfo() {
     Navigator.of(context).push(
       MaterialPageRoute(builder: (context) {
-        return MineEditPage();
+        return MineInfoPage();
       }),
     );
   }
@@ -47,84 +49,138 @@ class _MineHomePageState extends State<MineHomePage> {
         children: <Widget>[
           transparentAppBar(),
           ListView(
-            padding: EdgeInsets.fromLTRB(0, 0, 0,
-                _isSelf ? 0 : (94 + MediaQuery.of(context).padding.bottom)),
+            padding: EdgeInsets.fromLTRB(
+                0,
+                0,
+                0,
+                this.widget.isSelf
+                    ? 0
+                    : (94 + MediaQuery.of(context).padding.bottom)),
             children: <Widget>[
-              AvatarHeader(),
+              //封面
+              CoverHeader(),
+              //账户信息
               InfoHeader(),
+              //用户信息
               InfoContent(),
             ],
           ),
           //返回按钮
           Positioned(
-            left: 4,
-            top: 8 + MediaQuery.of(context).padding.top,
-            width: 44,
-            height: 44,
-            child: FlatButton(
-              padding: EdgeInsets.zero,
-              child: Image.asset(
-                "images/Arrow left@3x.png",
-                width: 10,
-                height: 18,
+            top: MediaQuery.of(context).padding.top,
+            child: Container(
+              width: AppBar().preferredSize.height,
+              height: AppBar().preferredSize.height,
+              decoration: BoxDecoration(
+                borderRadius:
+                    BorderRadius.circular(AppBar().preferredSize.height / 2),
               ),
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
+              child: FlatButton(
+                padding: EdgeInsets.zero,
+                child: Image.asset(
+                  "images/Arrow left@3x.png",
+                  width: 10,
+                  height: 18,
+                ),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+                shape: RoundedRectangleBorder(
+                  borderRadius:
+                      BorderRadius.circular(AppBar().preferredSize.height / 2),
+                ),
+              ),
             ),
           ),
           //更多按钮（本人编辑按钮）
-          _isSelf
+          this.widget.isSelf
               ? Positioned(
-                  right: 15.5,
-                  top: 8 + MediaQuery.of(context).padding.top,
-                  width: 54,
-                  height: 27,
+                  top: MediaQuery.of(context).padding.top,
+                  right: 15,
                   child: Container(
-                    decoration: BoxDecoration(
-                      gradient: LinearGradient(
-                        colors: [rgba(255, 44, 96, 1), rgba(255, 114, 81, 1)],
-                        begin: Alignment.centerLeft,
-                        end: Alignment.centerLeft,
-                      ),
-                      borderRadius: BorderRadius.circular(27 / 2),
-                    ),
-                    child: FlatButton(
-                      padding: EdgeInsets.zero,
-                      onPressed: () {
-                        this._editInfo();
-                      },
-                      child: Text(
-                        "编辑",
-                        style: TextStyle(
-                          color: rgba(255, 255, 255, 1),
-                          fontSize: 13,
+                    width: AppBar().preferredSize.height,
+                    height: AppBar().preferredSize.height,
+                    child: Center(
+                      child: Container(
+                        width: 54,
+                        height: 27,
+                        decoration: BoxDecoration(
+                          gradient: LinearGradient(
+                            colors: [
+                              rgba(255, 44, 96, 1),
+                              rgba(255, 114, 81, 1)
+                            ],
+                            begin: Alignment.centerLeft,
+                            end: Alignment.centerLeft,
+                          ),
+                          borderRadius: BorderRadius.circular(27 / 2),
                         ),
-                      ),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(27 / 2),
+                        child: FlatButton(
+                          padding: EdgeInsets.zero,
+                          onPressed: () {
+                            this._editInfo();
+                          },
+                          child: Text(
+                            "编辑",
+                            style: TextStyle(
+                              color: rgba(255, 255, 255, 1),
+                              fontSize: 13,
+                            ),
+                          ),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(27 / 2),
+                          ),
+                        ),
                       ),
                     ),
                   ),
                 )
               : Positioned(
-                  right: 4,
-                  top: 8 + MediaQuery.of(context).padding.top,
-                  width: 44,
-                  height: 44,
-                  child: FlatButton(
-                    padding: EdgeInsets.zero,
-                    child: Image.asset(
-                      "images/Combined Shape@3x.png",
-                      width: 20.5,
-                      height: 5,
+                  top: MediaQuery.of(context).padding.top,
+                  right: 0,
+                  child: Container(
+                    width: AppBar().preferredSize.height,
+                    height: AppBar().preferredSize.height,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(
+                          AppBar().preferredSize.height / 2),
                     ),
-                    onPressed: () {
-                      this._reportUser();
-                    },
+                    child: FlatButton(
+                      padding: EdgeInsets.zero,
+                      child: Image.asset(
+                        "images/Combined Shape@3x.png",
+                        width: 20.5,
+                        height: 5,
+                      ),
+                      onPressed: () {
+                        this._reportUser();
+                      },
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(
+                            AppBar().preferredSize.height / 2),
+                      ),
+                    ),
                   ),
                 ),
-          _isSelf
+
+          // Positioned(
+          //     right: 4,
+          //     top: 8 + MediaQuery.of(context).padding.top,
+          //     width: 44,
+          //     height: 44,
+          //     child: FlatButton(
+          //       padding: EdgeInsets.zero,
+          //       child: Image.asset(
+          //         "images/Combined Shape@3x.png",
+          //         width: 20.5,
+          //         height: 5,
+          //       ),
+          //       onPressed: () {
+          //         this._reportUser();
+          //       },
+          //     ),
+          //   ),
+          this.widget.isSelf
               ? Container()
               : Positioned(
                   left: 0,

@@ -71,7 +71,9 @@ class _MineHeaderState extends State<MineHeader> {
                 onTap: () {
                   Navigator.of(context).push(
                     MaterialPageRoute(builder: (context) {
-                      return MineHomePage();
+                      return MineHomePage(
+                        isSelf: true,
+                      );
                     }),
                   );
                 },

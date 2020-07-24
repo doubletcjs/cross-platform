@@ -5,11 +5,14 @@ class MineCell extends StatelessWidget {
   String icon = "";
   String text = "";
   bool showLine = true;
+  kVoidFunctionBlock tapHandle;
+
   MineCell({
     Key key,
     this.showLine = true,
     this.icon = "",
     this.text = "",
+    this.tapHandle,
   }) : super(key: key);
 
   @override
@@ -17,7 +20,11 @@ class MineCell extends StatelessWidget {
     return Material(
       color: Colors.white,
       child: InkWell(
-        onTap: () {},
+        onTap: () {
+          if (tapHandle != null) {
+            tapHandle();
+          }
+        },
         child: Container(
           padding: EdgeInsets.fromLTRB(14, 0, 18.5, 0),
           height: 49,

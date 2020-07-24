@@ -1,25 +1,28 @@
 import 'package:flutter/material.dart';
+import '../../../../public/public.dart';
 
-class AvatarHeader extends StatefulWidget {
-  AvatarHeader({Key key}) : super(key: key);
+class CoverHeader extends StatefulWidget {
+  CoverHeader({Key key}) : super(key: key);
 
   @override
-  _AvatarHeaderState createState() => _AvatarHeaderState();
+  _CoverHeaderState createState() => _CoverHeaderState();
 }
 
-class _AvatarHeaderState extends State<AvatarHeader> {
+class _CoverHeaderState extends State<CoverHeader> {
+  int _currentIndex = 0; //当前封面index
+
   @override
   Widget build(BuildContext context) {
     return Stack(
       children: <Widget>[
-        //当前头像
+        //当前封面
         Image.asset(
           "images/placeholder@3x.png",
           fit: BoxFit.cover,
           width: MediaQuery.of(context).size.width,
           height: 375,
         ),
-        //历史头像列表
+        //封面列表
         Positioned(
           left: 0,
           right: 0,
@@ -33,8 +36,24 @@ class _AvatarHeaderState extends State<AvatarHeader> {
                 width: 37,
                 height: 37,
                 decoration: BoxDecoration(
-                  color: Colors.green,
                   borderRadius: BorderRadius.circular(4),
+                  border: Border.all(
+                    width: 1,
+                    color: index == _currentIndex
+                        ? Colors.black26
+                        : rgba(0, 0, 0, 0),
+                  ),
+                ),
+                child: FlatButton(
+                  onPressed: () {
+                    setState(() {
+                      _currentIndex = index;
+                    });
+                  },
+                  child: Container(),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(4),
+                  ),
                 ),
               );
             },

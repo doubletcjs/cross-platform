@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../../avatarcertification.dart';
+import '../../certification.dart';
 import '../../../../public/public.dart';
 import '../../../function/generaldialog.dart';
 import '../../views/homepage/upgradealert.dart';
@@ -24,7 +24,7 @@ class MemberAlert extends StatelessWidget {
     Navigator.of(context).pop();
     Navigator.of(context).push(
       MaterialPageRoute(builder: (context) {
-        return AvatarCertification();
+        return CertificationPage();
       }),
     );
   }

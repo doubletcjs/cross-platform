@@ -21,6 +21,9 @@ void kLog(Object any) {
   }
 }
 
+//无值返回block回调
+typedef kVoidFunctionBlock = void Function();
+
 ///开发、发布
 bool kDebug() {
   return kReleaseMode == true ? false : true;

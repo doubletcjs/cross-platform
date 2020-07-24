@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../near/nearlist.dart';
+import 'nearlist.dart';
 import '../../public/public.dart';
 
 class NearPage extends StatefulWidget {
