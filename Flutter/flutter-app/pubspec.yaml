@@ -32,9 +32,10 @@ dependencies:
   dart_notification_center: any  
   common_utils: any
   toast: any  
-  banner_view: any
-  flutter_cupertino_date_picker: any
-  image_pickers: any
+  banner_view: any 
+  image_pickers: any   
+  flutter_cupertino_data_picker: any
+  flutter_inapp_purchase: any
 
 dev_dependencies:
   flutter_test:
@@ -58,11 +59,12 @@ flutter:
 
   assets:
     - images/
+    - assets/
 
   fonts:
     - family: iconfont
       fonts:
-        - asset: fonts/iconfont.ttf
+        - asset: assets/iconfont.ttf
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.

@@ -1,5 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'feedback.dart';
+import 'resetphone.dart';
+import 'cancelaccount.dart';
 import '../../public/public.dart';
 import 'views/settingsectioncell.dart';
 import '../account/blocklistpage.dart';
@@ -12,6 +15,70 @@ class SettingPage extends StatefulWidget {
 }
 
 class _SettingPageState extends State<SettingPage> {
+  ImageCache get imageData => PaintingBinding.instance.imageCache;
+
+  //缓存大小
+  String _getCacheSize() {
+    int byteData = imageData.currentSizeBytes;
+    return "${(byteData / (1024 * 8) / 1024).toStringAsFixed(2)}" + "M";
+  }
+
+  //清理缓存
+  void _cleanCache() {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          content: Text("确定要清空缓存吗？"),
+          actions: <Widget>[
+            FlatButton(
+              child: Text("取消"),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+            FlatButton(
+              child: Text("确定"),
+              onPressed: () {
+                Navigator.of(context).pop();
+                imageData.clear();
+                setState(() {});
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  //退出登录
+  void _logoutAction() {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          content: Text("确定要退出吗？"),
+          actions: <Widget>[
+            FlatButton(
+              child: Text("取消"),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+            FlatButton(
+              child: Text("确定"),
+              onPressed: () {
+                Navigator.of(context).pop();
+                imageData.clear();
+                setState(() {});
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -76,26 +143,46 @@ class _SettingPageState extends State<SettingPage> {
           SettingBaseCell(
             name: "更改手机号",
             value: "182****8820",
-            tapHandle: () {},
+            tapHandle: () {
+              Navigator.of(context).push(
+                MaterialPageRoute(builder: (context) {
+                  return ResetPhonePage();
+                }),
+              );
+            },
           ),
           SettingBaseCell(
             name: "注销账号",
-            tapHandle: () {},
+            tapHandle: () {
+              Navigator.of(context).push(
+                MaterialPageRoute(builder: (context) {
+                  return CancelAccountPage();
+                }),
+              );
+            },
           ),
           // 清理缓存
           SettingBaseSection(),
           SettingBaseCell(
             name: "清理缓存",
-            value: "7.09M",
+            value: this._getCacheSize(),
             hideLine: true,
-            tapHandle: () {},
+            tapHandle: () {
+              this._cleanCache();
+            },
           ),
           // 意见反馈
           SettingBaseSection(),
           SettingBaseCell(
             name: "意见反馈",
             hideLine: true,
-            tapHandle: () {},
+            tapHandle: () {
+              Navigator.of(context).push(
+                MaterialPageRoute(builder: (context) {
+                  return FeedBackPage();
+                }),
+              );
+            },
           ),
           // 退出
           Container(
@@ -116,7 +203,9 @@ class _SettingPageState extends State<SettingPage> {
             ),
             child: FlatButton(
               padding: EdgeInsets.zero,
-              onPressed: () {},
+              onPressed: () {
+                this._logoutAction();
+              },
               child: Text(
                 "退出",
                 style: TextStyle(

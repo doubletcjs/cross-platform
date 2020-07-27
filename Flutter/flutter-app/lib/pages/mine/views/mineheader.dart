@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import '../../mine/minehomepage.dart';
 import '../../../public/public.dart';
@@ -31,15 +32,18 @@ class _MineHeaderState extends State<MineHeader> {
               ),
               Stack(
                 children: <Widget>[
+                  //头像
                   ClipRRect(
-                    child: Image.asset(
-                      "images/f6156644b385.jpg.png",
+                    child: CachedNetworkImage(
+                      imageUrl:
+                          "https://upload.jianshu.io/users/upload_avatars/14072228/980d845b-ffda-4a82-8d4e-67ffe82ad13b?imageMogr2/auto-orient/strip|imageView2/1/w/96/h/96",
                       width: 102,
                       height: 102,
                       fit: BoxFit.cover,
                     ),
                     borderRadius: BorderRadius.circular(102 / 2),
                   ),
+                  //认证
                   Positioned(
                     bottom: 0,
                     right: 10,
@@ -54,6 +58,7 @@ class _MineHeaderState extends State<MineHeader> {
               SizedBox(
                 height: 18.5,
               ),
+              //昵称
               Text(
                 "Saya Tillman",
                 maxLines: 2,
@@ -67,6 +72,7 @@ class _MineHeaderState extends State<MineHeader> {
               SizedBox(
                 height: 7,
               ),
+              //个人资料
               InkWell(
                 onTap: () {
                   Navigator.of(context).push(

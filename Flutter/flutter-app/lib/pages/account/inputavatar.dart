@@ -68,6 +68,7 @@ class _InputAvatarPageState extends State<InputAvatarPage> {
         Media _media = list.first;
         setState(() {
           _avatar = _media.path;
+          this._checkInfoInput();
         });
       }
     }).catchError((error) {

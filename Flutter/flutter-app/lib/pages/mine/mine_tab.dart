@@ -5,6 +5,7 @@ import '../../public/public.dart';
 import 'certification.dart';
 import '../wallet/walletpage.dart';
 import '../setting/settingpage.dart';
+import 'views/homepage/upgradealert.dart';
 
 class MinePage extends StatefulWidget {
   MinePage({Key key}) : super(key: key);
@@ -35,7 +36,9 @@ class _MinePageState extends State<MinePage> {
                       MineCell(
                         icon: "images/vip@3x.png",
                         text: "会员",
-                        tapHandle: () {},
+                        tapHandle: () {
+                          UpgradeAlert().show(context);
+                        },
                       ),
                       MineCell(
                         icon: "images/jinbi@3x.png",

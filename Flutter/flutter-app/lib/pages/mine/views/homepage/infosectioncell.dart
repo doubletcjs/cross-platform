@@ -6,6 +6,7 @@ class InfoBaseCell extends StatelessWidget {
   bool hideLine = false;
   String name = "";
   String value = "";
+  Widget valueWidget;
   kVoidFunctionBlock tapHandle;
 
   InfoBaseCell({
@@ -14,6 +15,7 @@ class InfoBaseCell extends StatelessWidget {
     this.name = "",
     this.value = "",
     this.tapHandle,
+    this.valueWidget,
   }) : super(key: key);
 
   @override
@@ -47,15 +49,20 @@ class InfoBaseCell extends StatelessWidget {
                   Row(
                     children: <Widget>[
                       //内容
-                      ObjectUtil.isEmptyString(value) == true
-                          ? Container()
-                          : Text(
-                              value,
-                              style: TextStyle(
-                                fontSize: 15,
-                                color: rgba(166, 166, 166, 1),
-                              ),
-                            ),
+                      valueWidget != null
+                          ? Container(
+                              width: 230,
+                              child: valueWidget,
+                            )
+                          : ObjectUtil.isEmptyString(value) == true
+                              ? Container()
+                              : Text(
+                                  value,
+                                  style: TextStyle(
+                                    fontSize: 15,
+                                    color: rgba(166, 166, 166, 1),
+                                  ),
+                                ),
                       SizedBox(
                         width: 8.5,
                       ),

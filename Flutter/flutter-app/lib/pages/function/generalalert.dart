@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'generaldialog.dart';
 
-typedef kAlertFunctionBlock = void Function();
+typedef _kAlertFunctionBlock = void Function();
 
 class GeneralAlert extends StatelessWidget {
   String title = "标题";
@@ -14,7 +14,7 @@ class GeneralAlert extends StatelessWidget {
   String confirm = "确定";
   TextStyle confirmStyle;
 
-  kAlertFunctionBlock confirmHandle;
+  _kAlertFunctionBlock confirmHandle;
 
   GeneralAlert({
     Key key,

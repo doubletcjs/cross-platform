@@ -32,51 +32,49 @@ class SettingBaseCell extends StatelessWidget {
           children: <Widget>[
             Container(
               height: 44,
-              child: Container(
-                padding: EdgeInsets.fromLTRB(16, 0, 16, 0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: <Widget>[
-                    //名称
-                    ObjectUtil.isEmptyString(name) == true
-                        ? Container()
-                        : Text(
-                            name,
-                            style: TextStyle(
-                              fontSize: 15,
-                              color: rgba(51, 51, 51, 1),
-                            ),
+              padding: EdgeInsets.fromLTRB(16, 0, 16, 0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: <Widget>[
+                  //名称
+                  ObjectUtil.isEmptyString(name) == true
+                      ? Container()
+                      : Text(
+                          name,
+                          style: TextStyle(
+                            fontSize: 15,
+                            color: rgba(51, 51, 51, 1),
                           ),
-                    valueWidget != null
-                        ? valueWidget
-                        : Row(
-                            children: <Widget>[
-                              //内容
-                              ObjectUtil.isEmptyString(value) == true
-                                  ? Container()
-                                  : Text(
-                                      value,
-                                      style: TextStyle(
-                                        fontSize: 15,
-                                        color: rgba(166, 166, 166, 1),
-                                      ),
+                        ),
+                  valueWidget != null
+                      ? valueWidget
+                      : Row(
+                          children: <Widget>[
+                            //内容
+                            ObjectUtil.isEmptyString(value) == true
+                                ? Container()
+                                : Text(
+                                    value,
+                                    style: TextStyle(
+                                      fontSize: 15,
+                                      color: rgba(166, 166, 166, 1),
                                     ),
-                              SizedBox(
-                                width: 8.5,
-                              ),
-                              //箭头
-                              Image.asset(
-                                "images/Arrow@3x.png",
-                                width: 6,
-                                height: 10.5,
-                              ),
-                              SizedBox(
-                                width: 8,
-                              ),
-                            ],
-                          ),
-                  ],
-                ),
+                                  ),
+                            SizedBox(
+                              width: 8.5,
+                            ),
+                            //箭头
+                            Image.asset(
+                              "images/Arrow@3x.png",
+                              width: 6,
+                              height: 10.5,
+                            ),
+                            SizedBox(
+                              width: 8,
+                            ),
+                          ],
+                        ),
+                ],
               ),
             ),
             hideLine

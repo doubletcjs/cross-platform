@@ -1,6 +1,6 @@
 import 'package:common_utils/common_utils.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_cupertino_date_picker/flutter_cupertino_date_picker.dart';
 import 'inputavatar.dart';
 import '../../public/public.dart';
 
@@ -16,9 +16,9 @@ class _InfoInputPageState extends State<InfoInputPage> {
   int _maxLength = 80; //签名长度
   bool _aviableNext = false; //是否填写完毕
   Map _infoPackage = {
-    "name": "",
-    "birthdate": "",
-    "gender": -1, //性别 0 女 1 男
+    "nickname": "",
+    "birthday": "",
+    "gender": "保密", //性别 女 男 保密
     "signature": "",
   };
 
@@ -27,7 +27,7 @@ class _InfoInputPageState extends State<InfoInputPage> {
     bool _aviable = true;
     _infoPackage.forEach((key, value) {
       if (key == "gender") {
-        if (value == -1) {
+        if (value == "保密") {
           _aviable = false;
         }
       } else {
@@ -46,42 +46,37 @@ class _InfoInputPageState extends State<InfoInputPage> {
   void _borndaySelection() {
     FocusScope.of(context).requestFocus(FocusNode());
     DateTime _date = DateTime.now();
-    if (ObjectUtil.isEmptyString(_infoPackage["birthdate"]) == false) {
-      _date = DateTime.parse(_infoPackage["birthdate"]);
+    if (ObjectUtil.isEmptyString(_infoPackage["birthday"]) == false) {
+      _date = DateTime.parse(_infoPackage["birthday"]);
+    } else {
+      setState(() {
+        String _dataStr = DateUtil.formatDate(_date, format: "yyyy-MM-dd");
+        _infoPackage["birthday"] = _dataStr;
+        _dateEditingController.text = _dataStr;
+      });
     }
 
-    DatePicker.showDatePicker(context,
-        dateFormat: "yyyy年-M月-d日",
-        initialDateTime: _date,
-        pickerTheme: DateTimePickerTheme(
-          showTitle: false,
-          backgroundColor: rgba(255, 255, 255, 1),
-          pickerHeight: 216,
-          itemTextStyle: TextStyle(
-            fontSize: 23,
-            color: rgba(0, 0, 0, 1),
-            fontWeight: FontWeight.w400,
-          ),
-          itemHeight: 40,
-        ), onChange: (dateTime, selectedIndex) {
-      setState(() {
-        String _dataStr = DateUtil.formatDate(dateTime, format: "yyyy-MM-dd");
-        _infoPackage["birthdate"] = _dataStr;
-        _dateEditingController.text = _dataStr;
+    final picker = CupertinoDatePicker(
+      onDateTimeChanged: (date) {
+        setState(() {
+          String _dataStr = DateUtil.formatDate(date, format: "yyyy-MM-dd");
+          _infoPackage["birthday"] = _dataStr;
+          _dateEditingController.text = _dataStr;
+        });
+      },
+      initialDateTime: _date,
+      mode: CupertinoDatePickerMode.date,
+    );
 
-        this._checkInfoInput();
-      });
-    }, onClose: () {
-      setState(() {
-        if (ObjectUtil.isEmptyString(_infoPackage["birthdate"]) == true) {
-          _infoPackage["birthdate"] =
-              DateUtil.formatDate(_date, format: "yyyy-MM-dd");
-          _dateEditingController.text = _infoPackage["birthdate"];
-        }
-
-        this._checkInfoInput();
-      });
-    });
+    showCupertinoModalPopup(
+        context: context,
+        builder: (context) {
+          return Container(
+            color: Colors.white,
+            height: 216,
+            child: picker,
+          );
+        });
   }
 
   //下一步
@@ -146,7 +141,7 @@ class _InfoInputPageState extends State<InfoInputPage> {
               ),
               onChanged: (text) {
                 setState(() {
-                  _infoPackage["name"] = text;
+                  _infoPackage["nickname"] = text;
                   this._checkInfoInput();
                 });
               },
@@ -208,7 +203,7 @@ class _InfoInputPageState extends State<InfoInputPage> {
                     onTap: () {
                       FocusScope.of(context).requestFocus(FocusNode());
                       setState(() {
-                        _infoPackage["gender"] = 0;
+                        _infoPackage["gender"] = "女";
                         this._checkInfoInput();
                       });
                     },
@@ -218,7 +213,7 @@ class _InfoInputPageState extends State<InfoInputPage> {
                         focusedBorder: UnderlineInputBorder(
                           borderSide: BorderSide(
                             width: 0.3,
-                            color: _infoPackage["gender"] == 0
+                            color: _infoPackage["gender"] == "女"
                                 ? rgba(254, 52, 91, 1)
                                 : rgba(188, 188, 188, 1),
                           ),
@@ -226,14 +221,14 @@ class _InfoInputPageState extends State<InfoInputPage> {
                         enabledBorder: UnderlineInputBorder(
                           borderSide: BorderSide(
                             width: 0.3,
-                            color: _infoPackage["gender"] == 0
+                            color: _infoPackage["gender"] == "女"
                                 ? rgba(254, 52, 91, 1)
                                 : rgba(188, 188, 188, 1),
                           ),
                         ),
                         hintText: "女生",
                         hintStyle: TextStyle(
-                          color: _infoPackage["gender"] == 0
+                          color: _infoPackage["gender"] == "女"
                               ? rgba(254, 52, 91, 1)
                               : rgba(171, 171, 171, 1),
                           fontSize: 14,
@@ -244,7 +239,7 @@ class _InfoInputPageState extends State<InfoInputPage> {
                             "images/woman_icon@3x.png",
                             width: 18,
                             height: 25,
-                            color: _infoPackage["gender"] == 0
+                            color: _infoPackage["gender"] == "女"
                                 ? rgba(254, 52, 91, 1)
                                 : rgba(171, 171, 171, 1),
                           ),
@@ -262,7 +257,7 @@ class _InfoInputPageState extends State<InfoInputPage> {
                     onTap: () {
                       setState(() {
                         FocusScope.of(context).requestFocus(FocusNode());
-                        _infoPackage["gender"] = 1;
+                        _infoPackage["gender"] = "男";
                         this._checkInfoInput();
                       });
                     },
@@ -272,7 +267,7 @@ class _InfoInputPageState extends State<InfoInputPage> {
                         focusedBorder: UnderlineInputBorder(
                           borderSide: BorderSide(
                             width: 0.3,
-                            color: _infoPackage["gender"] == 1
+                            color: _infoPackage["gender"] == "男"
                                 ? rgba(254, 52, 91, 1)
                                 : rgba(188, 188, 188, 1),
                           ),
@@ -280,14 +275,14 @@ class _InfoInputPageState extends State<InfoInputPage> {
                         enabledBorder: UnderlineInputBorder(
                           borderSide: BorderSide(
                             width: 0.3,
-                            color: _infoPackage["gender"] == 1
+                            color: _infoPackage["gender"] == "男"
                                 ? rgba(254, 52, 91, 1)
                                 : rgba(188, 188, 188, 1),
                           ),
                         ),
                         hintText: "男生",
                         hintStyle: TextStyle(
-                          color: _infoPackage["gender"] == 1
+                          color: _infoPackage["gender"] == "男"
                               ? rgba(254, 52, 91, 1)
                               : rgba(171, 171, 171, 1),
                           fontSize: 14,
@@ -298,7 +293,7 @@ class _InfoInputPageState extends State<InfoInputPage> {
                             "images/man_icon@3x.png",
                             width: 18,
                             height: 25,
-                            color: _infoPackage["gender"] == 1
+                            color: _infoPackage["gender"] == "男"
                                 ? rgba(254, 52, 91, 1)
                                 : rgba(171, 171, 171, 1),
                           ),
