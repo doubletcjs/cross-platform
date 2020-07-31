@@ -1,29 +1,31 @@
-import 'dart:io';
-
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:image_pickers/Media.dart';
-import 'package:image_pickers/UIConfig.dart';
-import 'package:image_pickers/image_pickers.dart';
+import 'package:multi_image_picker/multi_image_picker.dart';
+import 'package:xs_progress_hud/xs_progress_hud.dart';
 import '../../../../public/public.dart';
+
+typedef _kCoverGridUpdateBlock = void Function(List coverList);
 
 class CoverGridView extends StatefulWidget {
   double gridWidth = 0; //控件宽度
   List coverList; //展示列表，图片url
   int maxColumn = 4; //每行显示数 用于计算间距
-  double itemWH = 87; //宽高，默认87
+  double itemSpace = 8; //间距，默认12
   double bottemSpace = 10; //底部间隙
   int imageCount = 9; //最多可以选择图片数
   bool coverAddition = false; //添加封面
+  _kCoverGridUpdateBlock updateHandle; //图片列表编辑通知
 
   CoverGridView({
     Key key,
     this.coverList,
     this.gridWidth = 0,
     this.maxColumn = 4,
-    this.itemWH = 87,
+    this.itemSpace = 12,
     this.bottemSpace = 10,
     this.imageCount = 9,
     this.coverAddition = false,
+    this.updateHandle,
   }) : super(key: key);
 
   @override
@@ -31,7 +33,7 @@ class CoverGridView extends StatefulWidget {
 }
 
 class _CoverGridViewState extends State<CoverGridView> {
-  double _space = 0;
+  double _itemWH = 0;
   List _coverList = [];
 
   @override
@@ -40,7 +42,7 @@ class _CoverGridViewState extends State<CoverGridView> {
       setState(() {
         this.widget.coverList = [];
       });
-    }
+    } else {}
 
     super.initState();
 
@@ -49,6 +51,10 @@ class _CoverGridViewState extends State<CoverGridView> {
         this.widget.gridWidth = MediaQuery.of(context).size.width;
       });
     }
+
+    setState(() {
+      _coverList.addAll(this.widget.coverList);
+    });
   }
 
   //添加按钮
@@ -75,8 +81,8 @@ class _CoverGridViewState extends State<CoverGridView> {
   //封面框架控件
   Widget _coverFrame({Widget child}) {
     return Container(
-      width: this.widget.itemWH,
-      height: this.widget.itemWH,
+      width: _itemWH,
+      height: _itemWH,
       decoration: BoxDecoration(
         color: rgba(246, 246, 246, 1),
         borderRadius: BorderRadius.circular(3),
@@ -94,12 +100,27 @@ class _CoverGridViewState extends State<CoverGridView> {
           child: Stack(
             children: <Widget>[
               ClipRRect(
-                child: Image.file(
-                  File(element),
-                  width: this.widget.itemWH,
-                  height: this.widget.itemWH,
-                  fit: BoxFit.cover,
-                ),
+                child: (element is String)
+                    ? CachedNetworkImage(
+                        placeholder: (context, url) {
+                          return Image.asset(
+                            "images/placeholder_mini@3x.png",
+                            width: _itemWH,
+                            height: _itemWH,
+                            fit: BoxFit.cover,
+                          );
+                        },
+                        imageUrl: element != null ? "$element" : "",
+                        width: _itemWH,
+                        height: _itemWH,
+                        fit: BoxFit.cover,
+                      )
+                    : Image.memory(
+                        element,
+                        width: _itemWH,
+                        height: _itemWH,
+                        fit: BoxFit.cover,
+                      ),
                 borderRadius: BorderRadius.circular(3),
               ),
               Positioned(
@@ -118,6 +139,9 @@ class _CoverGridViewState extends State<CoverGridView> {
                     onPressed: () {
                       setState(() {
                         _coverList.remove(element);
+                        if (this.widget.updateHandle != null) {
+                          this.widget.updateHandle(_coverList);
+                        }
                       });
                     },
                     shape: RoundedRectangleBorder(
@@ -141,33 +165,47 @@ class _CoverGridViewState extends State<CoverGridView> {
 
   //添加图片
   void _selectImages() {
-    ImagePickers.pickerPaths(
-      selectCount: this.widget.imageCount - _coverList.length,
-      showCamera: true,
-      compressSize: 800,
-      uiConfig: UIConfig(
-        uiThemeColor: Colors.black,
-      ),
-    ).then((list) {
-      List _tempCoverList = _coverList;
-      list.forEach((element) {
-        _tempCoverList.add(element.path);
-      });
+    MultiImagePicker.pickImages(
+      maxImages: this.widget.imageCount - _coverList.length,
+      enableCamera: true,
+    ).then((assets) {
+      if (assets.length > 0) {
+        Future.delayed(Duration(milliseconds: 0), () {
+          XsProgressHud.show(context);
+        });
 
-      setState(() {
-        _coverList = _tempCoverList;
-      });
-    }).catchError((error) {
-      showToast(error.toString(), context);
-    });
+        List _tempCoverList = _coverList;
+        var index = 0;
+        assets.forEach((element) {
+          element.getByteData().then((byteData) {
+            List<int> _imageData = byteData.buffer.asUint8List();
+            _tempCoverList.add(_imageData);
+            if (index == assets.length - 1) {
+              setState(() {
+                _coverList = _tempCoverList;
+                Future.delayed(Duration(milliseconds: 100), () {
+                  XsProgressHud.hide();
+                });
+
+                if (this.widget.updateHandle != null) {
+                  this.widget.updateHandle(_coverList);
+                }
+              });
+            } else {
+              index += 1;
+            }
+          });
+        });
+      }
+    }).catchError((error) {});
   }
 
   @override
   Widget build(BuildContext context) {
-    if (_space == 0) {
-      _space = (this.widget.gridWidth -
-              (this.widget.itemWH * this.widget.maxColumn)) /
-          (this.widget.maxColumn - 1);
+    if (_itemWH == 0) {
+      _itemWH = (this.widget.gridWidth -
+              (this.widget.itemSpace * (this.widget.maxColumn - 1))) /
+          this.widget.maxColumn;
     }
 
     return this.widget.coverAddition == false
@@ -180,8 +218,8 @@ class _CoverGridViewState extends State<CoverGridView> {
             ),
             width: this.widget.gridWidth,
             child: Wrap(
-              spacing: _space,
-              runSpacing: _space,
+              spacing: this.widget.itemSpace,
+              runSpacing: this.widget.itemSpace,
               children: this.widget.coverList.map((cover) {
                 return this._coverFrame();
               }).toList(),
@@ -196,8 +234,8 @@ class _CoverGridViewState extends State<CoverGridView> {
             ),
             width: this.widget.gridWidth,
             child: Wrap(
-              spacing: _space,
-              runSpacing: _space,
+              spacing: this.widget.itemSpace,
+              runSpacing: this.widget.itemSpace,
               alignment: WrapAlignment.start,
               children: this._loadCoverList(),
             ),

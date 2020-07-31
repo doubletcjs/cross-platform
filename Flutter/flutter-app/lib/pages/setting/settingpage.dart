@@ -1,5 +1,7 @@
+import 'package:dart_notification_center/dart_notification_center.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:xs_progress_hud/xs_progress_hud.dart';
 import 'feedback.dart';
 import 'resetphone.dart';
 import 'cancelaccount.dart';
@@ -16,11 +18,14 @@ class SettingPage extends StatefulWidget {
 
 class _SettingPageState extends State<SettingPage> {
   ImageCache get imageData => PaintingBinding.instance.imageCache;
+  String _cacheSize = ""; //缓存大小
 
   //缓存大小
-  String _getCacheSize() {
+  void _getCacheSize() {
     int byteData = imageData.currentSizeBytes;
-    return "${(byteData / (1024 * 8) / 1024).toStringAsFixed(2)}" + "M";
+    setState(() {
+      _cacheSize = "${(byteData / (1024 * 8) / 1024).toStringAsFixed(2)}" + "M";
+    });
   }
 
   //清理缓存
@@ -42,7 +47,9 @@ class _SettingPageState extends State<SettingPage> {
               onPressed: () {
                 Navigator.of(context).pop();
                 imageData.clear();
-                setState(() {});
+                setState(() {
+                  this._getCacheSize();
+                });
               },
             ),
           ],
@@ -68,15 +75,35 @@ class _SettingPageState extends State<SettingPage> {
             FlatButton(
               child: Text("确定"),
               onPressed: () {
-                Navigator.of(context).pop();
-                imageData.clear();
-                setState(() {});
+                XsProgressHud.show(context);
+                recordToken("");
+                recordUserID("");
+
+                Future.delayed(Duration(milliseconds: 600), () {
+                  XsProgressHud.hide();
+                  Navigator.of(context).popUntil(ModalRoute.withName("/"));
+                  DartNotificationCenter.post(
+                    channel: kAccountHandleNotification,
+                    options: {
+                      "type": 2,
+                    },
+                  );
+                });
               },
             ),
           ],
         );
       },
     );
+  }
+
+  @override
+  void initState() {
+    super.initState();
+
+    Future.delayed(Duration(milliseconds: 100), () {
+      this._getCacheSize();
+    });
   }
 
   @override
@@ -165,7 +192,7 @@ class _SettingPageState extends State<SettingPage> {
           SettingBaseSection(),
           SettingBaseCell(
             name: "清理缓存",
-            value: this._getCacheSize(),
+            value: _cacheSize,
             hideLine: true,
             tapHandle: () {
               this._cleanCache();

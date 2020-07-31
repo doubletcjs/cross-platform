@@ -1,4 +1,8 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
+import 'package:multi_image_picker/multi_image_picker.dart';
+import 'package:xs_progress_hud/xs_progress_hud.dart';
 import '../../public/public.dart';
 
 class CertificationPage extends StatefulWidget {
@@ -9,7 +13,7 @@ class CertificationPage extends StatefulWidget {
 }
 
 class _CertificationPageState extends State<CertificationPage> {
-  var _avatar = "aa";
+  var _avatar;
 
   //删除视频
   void _deleteAction() {
@@ -19,7 +23,29 @@ class _CertificationPageState extends State<CertificationPage> {
   }
 
   //选择图片
-  void _selectAction() {}
+  void _selectAction() {
+    MultiImagePicker.pickImages(
+      maxImages: 1,
+      enableCamera: true,
+    ).then((assets) {
+      if (assets.length > 0) {
+        Future.delayed(Duration(milliseconds: 0), () {
+          XsProgressHud.show(context);
+        });
+
+        Asset _asset = assets.first;
+        _asset.getByteData().then((byteData) {
+          List<int> _imageData = byteData.buffer.asUint8List();
+          setState(() {
+            _avatar = _imageData;
+            Future.delayed(Duration(milliseconds: 100), () {
+              XsProgressHud.hide();
+            });
+          });
+        });
+      }
+    }).catchError((error) {});
+  }
 
   //播放
   void _playAction() {}
@@ -73,8 +99,8 @@ class _CertificationPageState extends State<CertificationPage> {
                               : Stack(
                                   children: <Widget>[
                                     ClipRRect(
-                                      child: Image.asset(
-                                        "images/placeholder_mini@3x.png",
+                                      child: Image.memory(
+                                        _avatar,
                                         fit: BoxFit.cover,
                                         width: 87,
                                         height: 87,

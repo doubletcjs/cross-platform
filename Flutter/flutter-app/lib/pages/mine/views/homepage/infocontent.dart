@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import '../../../../public/public.dart';
 
 class InfoContent extends StatefulWidget {
-  InfoContent({Key key}) : super(key: key);
+  Map account;
+  InfoContent({Key key, this.account}) : super(key: key);
 
   @override
   _InfoContentState createState() => _InfoContentState();
@@ -14,6 +15,20 @@ class _InfoContentState extends State<InfoContent> {
     "images/sehngao@3x.png",
     "images/geren@3x.png",
   ];
+
+  List _livingstatus = [
+    "保密",
+    "一个人",
+    "和家人",
+    "和某人",
+    "和朋友",
+  ]; //居住状态 0：保密 1：一个人 2：和家人 3：和某人 4：和朋友
+  List _smokinghabit = [
+    "保密",
+    "从不",
+    "偶尔",
+    "经常",
+  ]; //抽烟习惯 0：保密 1：从不 2：偶尔 3：经常
 
   @override
   Widget build(BuildContext context) {
@@ -36,7 +51,7 @@ class _InfoContentState extends State<InfoContent> {
           ),
           //个性签名
           Text(
-            "往后余生想与你携手终身",
+            "${this.widget.account["signature"]}",
             style: TextStyle(
               color: rgba(51, 51, 51, 1),
               fontSize: 16,
@@ -77,7 +92,13 @@ class _InfoContentState extends State<InfoContent> {
                     ),
                     Expanded(
                       child: Text(
-                        "使用我们自定义的字体图标使用我们自定义的字体图标",
+                        index == 0
+                            ? "单身"
+                            : index == 1
+                                ? "${this.widget.account["height"]}" + "cm"
+                                : index == 2
+                                    ? "${_livingstatus[this.widget.account["living_status"]]}，${this.widget.account["child_nums"]}个小孩，${_smokinghabit[this.widget.account["smoking_habit"]]}"
+                                    : "",
                         style: TextStyle(
                           color: rgba(51, 51, 51, 1),
                           fontSize: 15,

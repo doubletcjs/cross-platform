@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:xs_progress_hud/xs_progress_hud.dart';
 import '../../public/public.dart';
 import 'views/homepage/coverheader.dart';
 import 'views/homepage/infocontent.dart';
@@ -6,6 +7,7 @@ import 'views/homepage/infoheader.dart';
 import 'views/homepage/memberalert.dart';
 import 'views/homepage/reportalert.dart';
 import 'mineinfopage.dart';
+import '../account/api/accountapi.dart';
 
 class MineHomePage extends StatefulWidget {
   bool isSelf = false; //是否查看本人主页
@@ -41,6 +43,33 @@ class _MineHomePageState extends State<MineHomePage> {
     ReportAlert().show(context);
   }
 
+  //获取用户信息
+  Map _account;
+  void _refreshAccount() {
+    XsProgressHud.show(context);
+    AccountApi.profile((data, msg) {
+      XsProgressHud.hide();
+      if (data != null) {
+        setState(() {
+          _account = Map.from(data);
+        });
+      } else {
+        showToast(msg, context);
+      }
+    });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+
+    Future.delayed(Duration(milliseconds: 100), () {
+      if (this.widget.isSelf) {
+        this._refreshAccount();
+      }
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -58,11 +87,25 @@ class _MineHomePageState extends State<MineHomePage> {
                     : (94 + MediaQuery.of(context).padding.bottom)),
             children: <Widget>[
               //封面
-              CoverHeader(),
+              _account == null
+                  ? Container()
+                  : CoverHeader(
+                      isSelf: this.widget.isSelf,
+                      account: _account,
+                    ),
               //账户信息
-              InfoHeader(),
+              _account == null
+                  ? Container()
+                  : InfoHeader(
+                      isSelf: this.widget.isSelf,
+                      account: _account,
+                    ),
               //用户信息
-              InfoContent(),
+              _account == null
+                  ? Container()
+                  : InfoContent(
+                      account: _account,
+                    ),
             ],
           ),
           //返回按钮
@@ -78,9 +121,9 @@ class _MineHomePageState extends State<MineHomePage> {
               child: FlatButton(
                 padding: EdgeInsets.zero,
                 child: Image.asset(
-                  "images/Arrow left@3x.png",
-                  width: 10,
-                  height: 18,
+                  "images/home_page_back@3x.png",
+                  width: 29,
+                  height: 29,
                 ),
                 onPressed: () {
                   Navigator.of(context).pop();
@@ -148,9 +191,9 @@ class _MineHomePageState extends State<MineHomePage> {
                     child: FlatButton(
                       padding: EdgeInsets.zero,
                       child: Image.asset(
-                        "images/Combined Shape@3x.png",
-                        width: 20.5,
-                        height: 5,
+                        "images/home_page_more@3x.png",
+                        width: 29,
+                        height: 29,
                       ),
                       onPressed: () {
                         this._reportUser();
@@ -207,7 +250,7 @@ class _MineHomePageState extends State<MineHomePage> {
                       SizedBox(
                         width: 46,
                       ),
-                      //聊天
+                      //��天
                       FlatButton(
                         padding: EdgeInsets.zero,
                         shape: RoundedRectangleBorder(

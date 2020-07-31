@@ -1,9 +1,14 @@
+import 'package:common_utils/common_utils.dart';
+import 'package:dart_notification_center/dart_notification_center.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:toast/toast.dart';
 
 // 用户登录状态变化 type 0 登录 1 账号信息刷新 2 登出
 final String kAccountHandleNotification = "AccountHandleNotification";
+// 用户资料完善情况
+final String kAccountProfileNotification = "AccountProfileNotification";
 // 切换tab
 final String kTabSwitchNotification = "TabSwitchNotification";
 
@@ -23,6 +28,12 @@ void kLog(Object any) {
 
 //无值返回block回调
 typedef kVoidFunctionBlock = void Function();
+//带值返回block回调
+typedef kObjectFunctionBlock = void Function(Object object);
+
+//数据存储
+final Future<SharedPreferences> _preferencesFuture =
+    SharedPreferences.getInstance();
 
 ///开发、发布
 bool kDebug() {
@@ -96,4 +107,78 @@ Widget transparentAppBar({Brightness brightness = Brightness.dark}) {
     brightness: brightness,
     leftItem: Container(),
   );
+}
+
+///用户id，存储、读取。userID
+void userID(kObjectFunctionBlock complete) {
+  _preferencesFuture.then((preferences) {
+    if (complete != null) {
+      if (ObjectUtil.isEmpty(preferences.get("userid"))) {
+        complete("");
+      } else {
+        complete("${preferences.get('userid')}");
+      }
+    }
+  }).catchError((error) {
+    kLog("error:$error");
+    //用户id为空，强制退出
+    DartNotificationCenter.post(
+      channel: kAccountHandleNotification,
+      options: {
+        "type": 2,
+      },
+    );
+    if (complete != null) {
+      complete("");
+    }
+  });
+}
+
+void recordUserID(userID) {
+  _preferencesFuture.then((preferences) {
+    preferences.setString(
+      "userid",
+      "$userID",
+    );
+    kLog("recordUserID");
+  }).catchError((error) {
+    kLog("error:$error");
+  });
+}
+
+///请求token，存储、读取。token
+void token(kObjectFunctionBlock complete) {
+  _preferencesFuture.then((preferences) {
+    if (complete != null) {
+      if (ObjectUtil.isEmpty(preferences.get("token"))) {
+        complete("");
+      } else {
+        complete("${preferences.get('token')}");
+      }
+    }
+  }).catchError((error) {
+    kLog("error:$error");
+    //token为空，强制退出
+    DartNotificationCenter.post(
+      channel: kAccountHandleNotification,
+      options: {
+        "type": 2,
+      },
+    );
+    if (complete != null) {
+      complete("");
+    }
+  });
+}
+
+void recordToken(token) {
+  _preferencesFuture.then((preferences) {
+    preferences.setString(
+      "token",
+      "$token",
+    );
+    kLog("recordToken");
+  }).catchError((error) {
+    kLog("error:$error");
+  });
 }

@@ -2,6 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import '../../mine/minehomepage.dart';
 import '../../../public/public.dart';
+import '../../account/api/accountapi.dart';
 
 class MineHeader extends StatefulWidget {
   MineHeader({Key key}) : super(key: key);
@@ -11,6 +12,29 @@ class MineHeader extends StatefulWidget {
 }
 
 class _MineHeaderState extends State<MineHeader> {
+  Map _account = {};
+  //获取用户信息
+  void _refreshAccount() {
+    AccountApi.profile((data, msg) {
+      if (data != null) {
+        setState(() {
+          _account = Map.from(data);
+        });
+      } else {
+        showToast(msg, context);
+      }
+    });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+
+    Future.delayed(Duration(milliseconds: 10), () {
+      this._refreshAccount();
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Stack(
@@ -35,8 +59,16 @@ class _MineHeaderState extends State<MineHeader> {
                   //头像
                   ClipRRect(
                     child: CachedNetworkImage(
+                      placeholder: (context, url) {
+                        return Image.asset(
+                          "images/placeholder_mini@3x.png",
+                          width: 102,
+                          height: 102,
+                          fit: BoxFit.cover,
+                        );
+                      },
                       imageUrl:
-                          "https://upload.jianshu.io/users/upload_avatars/14072228/980d845b-ffda-4a82-8d4e-67ffe82ad13b?imageMogr2/auto-orient/strip|imageView2/1/w/96/h/96",
+                          _account["avatar"] != null ? _account["avatar"] : "",
                       width: 102,
                       height: 102,
                       fit: BoxFit.cover,
@@ -60,7 +92,7 @@ class _MineHeaderState extends State<MineHeader> {
               ),
               //昵称
               Text(
-                "Saya Tillman",
+                _account["nickname"] != null ? _account["nickname"] : "用户名",
                 maxLines: 2,
                 overflow: TextOverflow.ellipsis,
                 textAlign: TextAlign.center,

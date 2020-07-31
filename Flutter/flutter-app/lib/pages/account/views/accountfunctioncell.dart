@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:common_utils/common_utils.dart';
 import 'package:flutter/material.dart';
+import '../../mine/minehomepage.dart';
 import '../../../public/public.dart';
 
 class AccountFunctionCell extends StatefulWidget {
@@ -39,14 +40,24 @@ class _AccountFunctionCellState extends State<AccountFunctionCell> {
               Stack(
                 children: <Widget>[
                   //头像
-                  ClipRRect(
-                    child: CachedNetworkImage(
-                      imageUrl:
-                          "https://upload.jianshu.io/users/upload_avatars/14072228/980d845b-ffda-4a82-8d4e-67ffe82ad13b?imageMogr2/auto-orient/strip|imageView2/1/w/96/h/96",
-                      width: 67,
-                      height: 67,
-                      fit: BoxFit.cover,
+                  InkWell(
+                    child: ClipRRect(
+                      child: CachedNetworkImage(
+                        imageUrl:
+                            "https://upload.jianshu.io/users/upload_avatars/14072228/980d845b-ffda-4a82-8d4e-67ffe82ad13b?imageMogr2/auto-orient/strip|imageView2/1/w/96/h/96",
+                        width: 67,
+                        height: 67,
+                        fit: BoxFit.cover,
+                      ),
+                      borderRadius: BorderRadius.circular(67 / 2),
                     ),
+                    onTap: () {
+                      Navigator.of(context).push(
+                        MaterialPageRoute(builder: (context) {
+                          return MineHomePage();
+                        }),
+                      );
+                    },
                     borderRadius: BorderRadius.circular(67 / 2),
                   ),
                   //认证标志

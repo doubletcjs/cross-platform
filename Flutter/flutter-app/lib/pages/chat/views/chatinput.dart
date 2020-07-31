@@ -1,44 +1,55 @@
 import 'dart:convert';
+import 'package:common_utils/common_utils.dart';
 import 'package:flutter/services.dart' show rootBundle;
 
 import 'package:flutter/material.dart';
 import '../../../public/public.dart';
 
-typedef _kInputChangedBlock = void Function(double height);
-typedef _kInputSendBlock = void Function();
 typedef _kAddEmojiBlock = void Function(String emoji);
+typedef _kChatInputBlock = void Function(String content);
+typedef _kChatVoidBlock = void Function();
 
 class ChatInput extends StatefulWidget {
-  //输入框尺寸变化通知block
-  _kInputChangedBlock onInputChangedHandle;
+  _kChatInputBlock inputHandle;
 
-  ChatInput({Key key, this.onInputChangedHandle}) : super(key: key);
+  ChatInput({Key key, this.inputHandle}) : super(key: key);
+
+  _ChatInputState _state;
 
   @override
-  _ChatInputState createState() => _ChatInputState();
+  _ChatInputState createState() {
+    if (_state == null) {
+      _state = _ChatInputState();
+    }
+
+    return _state;
+  }
+
+  //关闭输入框
+  void closeChatInput() {
+    _state._closeChatInput();
+  }
 }
 
 class _ChatInputState extends State<ChatInput> {
   TextEditingController _textEditingController =
       TextEditingController(); //输入框TextEditingController
-  FocusNode _focusNode = FocusNode(); //输入框FocusNode
-  GlobalKey _globalKey = GlobalKey(); //功能按钮GlobalKey 用于计算功能按钮总宽度
-  GlobalKey _frameGlobalKey = GlobalKey(); //输入框GlobalKey 用于计算输入框高度变化后，框件总高度
+
   bool _showEmoji = false; //是否显示表情
-
-  //通知尺寸变化
-  void _notificationFrameChanged() {
-    if (this.widget.onInputChangedHandle != null) {
-      this.widget.onInputChangedHandle(_frameGlobalKey.currentContext
-          .findRenderObject()
-          .paintBounds
-          .size
-          .height);
-    }
-  }
-
+  FocusNode _focusNode = FocusNode(); //输入框FocusNode
   int _maxColumn = 6; //每行6个表情
   List _emojiPages = []; //表情分页
+
+  //关闭输入框
+  void _closeChatInput() {
+    if (_focusNode.canRequestFocus) {
+      this.setState(() {
+        // 失去焦点
+        _focusNode.unfocus();
+        _showEmoji = false;
+      });
+    }
+  }
 
   //表情分页
   void _fetchEmojiPage(List emojis) {
@@ -86,209 +97,191 @@ class _ChatInputState extends State<ChatInput> {
     });
   }
 
+  //发送内容
+  void _sendAction() {
+    if (this.widget.inputHandle != null &&
+        ObjectUtil.isEmptyString(_textEditingController.text) == false) {
+      this.widget.inputHandle(_textEditingController.text);
+
+      Future.delayed(Duration(milliseconds: 200), () {
+        _textEditingController.text = "";
+        // this._closeChatI nput();
+      });
+    }
+  }
+
   @override
   void initState() {
     super.initState();
-
-    //框件总高度变化通知
-    Future.delayed(Duration(milliseconds: 20), () {
-      this._notificationFrameChanged();
-    });
-
-    _focusNode.addListener(() {
-      Future.delayed(Duration(milliseconds: 140), () {
-        this._notificationFrameChanged();
-      });
-    });
 
     //读取本地表情
     this._loadDefaultEmoji();
   }
 
   @override
-  void dispose() {
-    _textEditingController.dispose();
-    super.dispose();
-  }
-
-  @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () {},
-      child: Container(
-        key: _frameGlobalKey,
-        color: rgba(243, 243, 243, 1),
-        padding: EdgeInsets.fromLTRB(
-            0,
-            0,
-            0,
-            (_showEmoji == true ? 0 : 16.5) +
-                MediaQuery.of(context).padding.bottom),
-        child: Column(
-          children: <Widget>[
-            Container(
-              margin: EdgeInsets.fromLTRB(13.5, 0, 13.5, 0),
-              padding: EdgeInsets.fromLTRB(28, 0, 16, 0),
-              decoration: BoxDecoration(
-                color: rgba(254, 254, 254, 1),
-                borderRadius: BorderRadius.circular(48 / 2),
-              ),
-              constraints: BoxConstraints(
-                maxHeight: 41.0 * 3,
-                minHeight: 41,
-              ),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  Expanded(
-                    child: Stack(
-                      children: <Widget>[
-                        //输入框
-                        Container(
-                          padding: EdgeInsets.fromLTRB(
-                              0,
-                              0,
-                              _globalKey.currentContext == null
-                                  ? 0
-                                  : _globalKey.currentContext
-                                      .findRenderObject()
-                                      .paintBounds
-                                      .size
-                                      .width,
-                              0),
-                          constraints: BoxConstraints(
-                            maxHeight: 41.0 * 3,
-                            minHeight: 41,
-                          ),
-                          child: TextField(
-                            controller: _textEditingController,
-                            focusNode: _focusNode,
-                            maxLines: null,
-                            keyboardType: TextInputType.multiline,
-                            style: TextStyle(
-                              color: rgba(51, 51, 51, 1),
-                              fontSize: 16,
-                            ),
-                            decoration: InputDecoration(
-                              hintText: "请输入消息…",
-                              hintStyle: TextStyle(
-                                color: rgba(204, 204, 204, 1),
-                                fontSize: 16,
-                              ),
-                              focusedBorder: InputBorder.none,
-                              enabledBorder: InputBorder.none,
-                            ),
-                            onChanged: (text) {
-                              setState(() {});
-                              this._notificationFrameChanged();
-                            },
-                            onTap: () {
-                              setState(() {
-                                _showEmoji = false;
-                              });
-                              this._notificationFrameChanged();
-                            },
-                          ),
-                        ),
-                        Positioned(
-                          top: 0,
-                          right: 0,
-                          bottom: 0,
-                          child: Container(
-                            key: _globalKey,
-                            alignment: Alignment.topCenter,
-                            child: Row(
-                              children: <Widget>[
-                                //表情
-                                Container(
-                                  height: 48,
-                                  alignment: Alignment.centerRight,
-                                  child: InkWell(
-                                    onTap: () {
-                                      setState(() {
-                                        _showEmoji = !_showEmoji;
-                                        this._notificationFrameChanged();
-                                      });
-
-                                      if (_showEmoji) {
-                                        // 失去焦点
-                                        _focusNode.unfocus();
-                                      } else {
-                                        // 获取焦点
-                                        FocusScope.of(context)
-                                            .requestFocus(_focusNode);
-                                      }
-                                    },
-                                    child: Image.asset(
-                                      _showEmoji == true
-                                          ? "images/chat_expression_sel@3x.png"
-                                          : "images/chat_expression@3x.png",
-                                      width: 18,
-                                      height: 18,
-                                    ),
-                                  ),
-                                ),
-                                //发送
-                                _showEmoji == false &&
-                                        _textEditingController.text.length > 0
-                                    ? Container(
-                                        width: 64,
-                                        height: 28,
-                                        margin:
-                                            EdgeInsets.fromLTRB(15, 0, 0, 0),
-                                        child: FlatButton(
-                                          onPressed: () {},
-                                          child: Text(
-                                            "发送",
-                                            style: TextStyle(
-                                              color: rgba(255, 255, 255, 1),
-                                              fontSize: 13,
-                                            ),
-                                          ),
-                                          shape: RoundedRectangleBorder(
-                                            borderRadius:
-                                                BorderRadius.circular(28 / 2),
-                                          ),
-                                        ),
-                                        decoration: BoxDecoration(
-                                          gradient: LinearGradient(
-                                            colors: [
-                                              rgba(255, 44, 96, 1),
-                                              rgba(255, 114, 81, 1),
-                                            ],
-                                            begin: Alignment.centerLeft,
-                                            end: Alignment.centerRight,
-                                          ),
-                                          borderRadius:
-                                              BorderRadius.circular(28 / 2),
-                                        ),
-                                      )
-                                    : Container(),
-                              ],
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ],
-              ),
+    return Container(
+      color: rgba(243, 243, 243, 1),
+      child: Column(
+        children: <Widget>[
+          //输入框
+          Container(
+            margin: EdgeInsets.fromLTRB(13.5, 0, 13.5, 0),
+            padding: EdgeInsets.fromLTRB(28, 0, 16, 0),
+            decoration: BoxDecoration(
+              color: rgba(254, 254, 254, 1),
+              borderRadius: BorderRadius.circular(48 / 2),
             ),
-            _showEmoji == true
-                ? ChatEmojiPad(
-                    maxColumn: _maxColumn,
-                    emojiPages: _emojiPages,
-                    emojiBlock: (emoji) {
+            constraints: BoxConstraints(
+              maxHeight: 41.0 * 3,
+              minHeight: 41,
+            ),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                Flexible(
+                  child: TextField(
+                    controller: _textEditingController,
+                    focusNode: _focusNode,
+                    maxLines: null,
+                    keyboardType: TextInputType.multiline,
+                    style: TextStyle(
+                      color: rgba(51, 51, 51, 1),
+                      fontSize: 16,
+                    ),
+                    decoration: InputDecoration(
+                      hintText: "请输入消息…",
+                      hintStyle: TextStyle(
+                        color: rgba(204, 204, 204, 1),
+                        fontSize: 16,
+                      ),
+                      focusedBorder: InputBorder.none,
+                      enabledBorder: InputBorder.none,
+                    ),
+                    onChanged: (text) {
+                      setState(() {});
+                    },
+                    onTap: () {
                       setState(() {
-                        _textEditingController.text =
-                            _textEditingController.text + emoji;
+                        _showEmoji = false;
                       });
                     },
-                  )
-                : Container()
-          ],
-        ),
+                  ),
+                ),
+                Container(
+                  height: 48,
+                  child: Row(
+                    children: <Widget>[
+                      //切换表情
+                      Container(
+                        padding: EdgeInsets.fromLTRB(15, 0, 7.5, 0),
+                        alignment: Alignment.center,
+                        child: InkWell(
+                          onTap: () {
+                            if (_showEmoji == false) {
+                              // 失去焦点
+                              _focusNode.unfocus();
+                              Future.delayed(Duration(milliseconds: 10), () {
+                                setState(() {
+                                  _showEmoji = !_showEmoji;
+                                });
+                              });
+                            } else {
+                              setState(() {
+                                _showEmoji = !_showEmoji;
+                              });
+
+                              // 获取焦点
+                              FocusScope.of(context).requestFocus(_focusNode);
+                            }
+                          },
+                          child: Image.asset(
+                            _showEmoji == true
+                                ? "images/chat_expression_sel@3x.png"
+                                : "images/chat_expression@3x.png",
+                            width: 18,
+                            height: 18,
+                          ),
+                        ),
+                      ),
+                      //发送
+                      _showEmoji == false &&
+                              _textEditingController.text.length > 0
+                          ? Container(
+                              width: 64,
+                              height: 28,
+                              margin: EdgeInsets.fromLTRB(7.5, 0, 0, 0),
+                              child: FlatButton(
+                                onPressed: () {
+                                  this._sendAction();
+                                },
+                                child: Text(
+                                  "发送",
+                                  style: TextStyle(
+                                    color: rgba(255, 255, 255, 1),
+                                    fontSize: 13,
+                                  ),
+                                ),
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(28 / 2),
+                                ),
+                              ),
+                              decoration: BoxDecoration(
+                                gradient: LinearGradient(
+                                  colors: [
+                                    rgba(255, 44, 96, 1),
+                                    rgba(255, 114, 81, 1),
+                                  ],
+                                  begin: Alignment.centerLeft,
+                                  end: Alignment.centerRight,
+                                ),
+                                borderRadius: BorderRadius.circular(28 / 2),
+                              ),
+                            )
+                          : Container(),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          ),
+          //表情列表
+          _showEmoji == true
+              ? ChatEmojiPad(
+                  maxColumn: _maxColumn,
+                  emojiPages: _emojiPages,
+                  emojiHandle: (emoji) {
+                    setState(() {
+                      _textEditingController.text =
+                          _textEditingController.text + emoji;
+                    });
+                  },
+                  sendHandle: () {
+                    this._sendAction();
+                  },
+                  deleteHandle: () {
+                    if (_textEditingController.text.length > 0) {
+                      var deleteStr = _textEditingController.text
+                          .substring(_textEditingController.text.length - 1);
+                      final runes = deleteStr.runes;
+                      int current = runes.elementAt(0);
+                      if (current > 255) {
+                        _textEditingController.text =
+                            _textEditingController.text.substring(
+                                0, _textEditingController.text.length - 2);
+                      } else {
+                        _textEditingController.text =
+                            _textEditingController.text.substring(
+                                0, _textEditingController.text.length - 1);
+                      }
+                    } else {
+                      _textEditingController.text = "";
+                    }
+                  },
+                )
+              : Container(),
+        ],
       ),
     );
   }
@@ -297,13 +290,17 @@ class _ChatInputState extends State<ChatInput> {
 class ChatEmojiPad extends StatefulWidget {
   int maxColumn = 6; //每行6个表情
   List emojiPages = []; //表情分页
-  _kAddEmojiBlock emojiBlock;
+  _kAddEmojiBlock emojiHandle;
+  _kChatVoidBlock sendHandle;
+  _kChatVoidBlock deleteHandle;
 
   ChatEmojiPad({
     Key key,
     this.maxColumn = 6,
     this.emojiPages,
-    this.emojiBlock,
+    this.emojiHandle,
+    this.sendHandle,
+    this.deleteHandle,
   }) : super(key: key);
 
   @override
@@ -319,12 +316,9 @@ class _ChatEmojiPadState extends State<ChatEmojiPad> {
       children: <Widget>[
         //表情列表
         Container(
-          height: 16.5 +
-              ((MediaQuery.of(context).size.width - (8 * 2)) /
-                      this.widget.maxColumn) *
-                  3.5,
           padding: EdgeInsets.only(left: 8, top: 16.5, right: 8, bottom: 16),
           color: rgba(243, 243, 243, 1),
+          height: 220 + MediaQuery.of(context).padding.bottom,
           child: Stack(
             children: <Widget>[
               PageView.builder(
@@ -351,8 +345,8 @@ class _ChatEmojiPadState extends State<ChatEmojiPad> {
                             //表情
                             return GestureDetector(
                               onTap: () {
-                                if (this.widget.emojiBlock != null) {
-                                  this.widget.emojiBlock(
+                                if (this.widget.emojiHandle != null) {
+                                  this.widget.emojiHandle(
                                         String.fromCharCode(
                                             _emojis[idx]["unicode"]),
                                       );
@@ -370,21 +364,25 @@ class _ChatEmojiPadState extends State<ChatEmojiPad> {
                           childCount: _emojis.length,
                         ),
                       ),
-                      //关闭、发送按钮
+                      //删除、发送按钮
                       Positioned(
-                        right: 16.5,
-                        bottom: 16.5,
+                        right: 6,
+                        bottom: 23,
                         height: ((MediaQuery.of(context).size.width - (8 * 2)) /
                             this.widget.maxColumn),
                         child: Row(
                           children: <Widget>[
-                            //关闭按钮
+                            //删除按钮
                             Container(
                               width: 30,
                               height: 30,
                               child: FlatButton(
                                 padding: EdgeInsets.zero,
-                                onPressed: () {},
+                                onPressed: () {
+                                  if (this.widget.deleteHandle != null) {
+                                    this.widget.deleteHandle();
+                                  }
+                                },
                                 child: Image.asset(
                                   "images/chat_emoji_delete@3x.png",
                                 ),
@@ -399,7 +397,11 @@ class _ChatEmojiPadState extends State<ChatEmojiPad> {
                               height: 28,
                               child: FlatButton(
                                 padding: EdgeInsets.zero,
-                                onPressed: () {},
+                                onPressed: () {
+                                  if (this.widget.sendHandle != null) {
+                                    this.widget.sendHandle();
+                                  }
+                                },
                                 child: Text(
                                   "发送",
                                   style: TextStyle(

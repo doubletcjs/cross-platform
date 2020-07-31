@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import '../../public/public.dart';
 import '../mine/minehomepage.dart';
 import 'views/chatinput.dart';
+import 'views/chartmessagecell.dart';
 
 class ChatMainPage extends StatefulWidget {
   ChatMainPage({Key key}) : super(key: key);
@@ -12,7 +13,11 @@ class ChatMainPage extends StatefulWidget {
 
 class _ChatMainPageState extends State<ChatMainPage> {
   ScrollController _scrollController = ScrollController();
-  double _inputHeight = 0;
+  ChatInput _chatInput = ChatInput(
+    inputHandle: (text) {
+      kLog(text);
+    },
+  );
 
   @override
   void initState() {
@@ -20,7 +25,7 @@ class _ChatMainPageState extends State<ChatMainPage> {
     _scrollController.addListener(() {
       int offset = _scrollController.position.pixels.toInt();
       if (offset != 0) {
-        FocusScope.of(context).requestFocus(FocusNode());
+        _chatInput.closeChatInput();
       }
     });
   }
@@ -154,41 +159,21 @@ class _ChatMainPageState extends State<ChatMainPage> {
                 child: ListView.builder(
                   controller: _scrollController,
                   reverse: true,
-                  padding: EdgeInsets.fromLTRB(0, 0, 0, _inputHeight),
+                  padding: EdgeInsets.zero,
                   itemBuilder: (context, index) {
-                    return Container(
-                      height: 66,
-                      decoration: BoxDecoration(
-                        color: Colors.amberAccent,
-                        border: Border(
-                          bottom: BorderSide(
-                            width: 1,
-                            color: Colors.blue,
-                          ),
-                        ),
-                      ),
-                      child: Text(
-                        "$index",
-                      ),
+                    return ChartMessageCell(
+                      type: index % 2 == 0 ? 1 : index % 3 == 0 ? 2 : 0,
                     );
                   },
                   itemCount: 100,
                 ),
               ),
+              //输入框
+              _chatInput,
+              SizedBox(
+                height: MediaQuery.of(context).padding.bottom,
+              ),
             ],
-          ),
-          //输入框
-          Positioned(
-            left: 0,
-            bottom: 0,
-            right: 0,
-            child: ChatInput(
-              onInputChangedHandle: (height) {
-                setState(() {
-                  _inputHeight = height;
-                });
-              },
-            ),
           ),
         ],
       ),

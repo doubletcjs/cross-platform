@@ -1,15 +1,15 @@
-import 'dart:io';
+import 'dart:convert';
 
 import 'package:dart_notification_center/dart_notification_center.dart';
 import 'package:flutter/material.dart';
-import 'package:image_pickers/Media.dart';
-import 'package:image_pickers/UIConfig.dart';
-import 'package:image_pickers/image_pickers.dart';
+import 'package:multi_image_picker/multi_image_picker.dart';
+import 'package:xs_progress_hud/xs_progress_hud.dart';
+import '../../public/networking.dart';
 import '../../public/public.dart';
+import 'api/accountapi.dart';
 
 class InputAvatarPage extends StatefulWidget {
-  Map infoPackage = {};
-  InputAvatarPage({Key key, this.infoPackage}) : super(key: key);
+  InputAvatarPage({Key key}) : super(key: key);
 
   @override
   _InputAvatarPageState createState() => _InputAvatarPageState();
@@ -27,6 +27,7 @@ class _InputAvatarPageState extends State<InputAvatarPage> {
   ];
   List<String> _selectLebels = [];
   var _avatar;
+  var _imageByteData;
 
   //检测输入数据
   void _checkInfoInput() {
@@ -43,37 +44,77 @@ class _InputAvatarPageState extends State<InputAvatarPage> {
 
   //完成
   void _onConfirm() {
-    Navigator.of(context).popUntil(
-      ModalRoute.withName("/"),
-    );
-    DartNotificationCenter.post(
-      channel: kAccountHandleNotification,
-      options: {
-        "type": 0,
-      },
-    );
+    //注册第三步
+    void _register(urls) {
+      var params = {
+        "avatar": urls[0],
+        "interest": JsonDecoder().convert(JsonEncoder().convert(_selectLebels)),
+      };
+
+      AccountApi.editProfile(params, (data, msg) {
+        if (data != null) {
+          XsProgressHud.hide();
+          Future.delayed(Duration(milliseconds: 1000), () {
+            //回到首页
+            DartNotificationCenter.post(
+              channel: kAccountHandleNotification,
+              options: {
+                "type": 0,
+              },
+            );
+
+            Navigator.of(context)
+                .pushNamedAndRemoveUntil("/", (route) => false);
+          });
+        } else {
+          XsProgressHud.hide();
+          showToast("$msg", context);
+        }
+      });
+    }
+
+    XsProgressHud.show(context);
+
+    //上传头像
+    Networking.uploadFiles("/api/v1/upload", [_imageByteData], (data, msg) {
+      if (data != null) {
+        List urls = data;
+        //注册第三步
+        if (urls.length > 0) {
+          _register(urls);
+        }
+      } else {
+        XsProgressHud.hide();
+        showToast("$msg", context);
+      }
+    });
   }
 
   //选择图片
   void _selectAvatarImage() {
-    ImagePickers.pickerPaths(
-      selectCount: 1,
-      showCamera: true,
-      compressSize: 500,
-      uiConfig: UIConfig(
-        uiThemeColor: Colors.black,
-      ),
-    ).then((list) {
-      if (list.length > 0) {
-        Media _media = list.first;
-        setState(() {
-          _avatar = _media.path;
-          this._checkInfoInput();
+    MultiImagePicker.pickImages(
+      maxImages: 1,
+      enableCamera: true,
+    ).then((assets) {
+      if (assets.length > 0) {
+        Future.delayed(Duration(milliseconds: 0), () {
+          XsProgressHud.show(context);
+        });
+
+        Asset _asset = assets.first;
+        _asset.getByteData().then((byteData) {
+          List<int> _imageData = byteData.buffer.asUint8List();
+          setState(() {
+            _avatar = _imageData;
+            _imageByteData = byteData;
+            this._checkInfoInput();
+            Future.delayed(Duration(milliseconds: 100), () {
+              XsProgressHud.hide();
+            });
+          });
         });
       }
-    }).catchError((error) {
-      showToast(error.toString(), context);
-    });
+    }).catchError((error) {});
   }
 
   @override
@@ -119,8 +160,8 @@ class _InputAvatarPageState extends State<InputAvatarPage> {
                               height: 102,
                               fit: BoxFit.cover,
                             )
-                          : Image.file(
-                              File(_avatar),
+                          : Image.memory(
+                              _avatar,
                               width: 102,
                               height: 102,
                               fit: BoxFit.cover,

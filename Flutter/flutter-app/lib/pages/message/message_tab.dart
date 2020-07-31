@@ -33,7 +33,6 @@ class _MessagePageState extends State<MessagePage> {
   List<Widget> _loadCellList() {
     List<Widget> _list = [];
 
-/*
     _list.add(
       MessageCell(
         padding: EdgeInsets.fromLTRB(13.5, 12.5, 14.5, 12.5),
@@ -42,32 +41,56 @@ class _MessagePageState extends State<MessagePage> {
         content: "看看有多少人想看你哟~",
         subContent: "07:00",
         icon: "images/kan@3x.png",
+        tapHandle: () {
+          Future.delayed(Duration(milliseconds: 200), () {
+            //UpgradeAlert().show(context);
+
+            Navigator.of(context).push(
+              MaterialPageRoute(builder: (context) {
+                return FunctionRecord(
+                  recordType: 0,
+                );
+              }),
+            );
+          });
+        },
       ),
     );
 
     _list.add(
       MessageCell(
-        padding: EdgeInsets.fromLTRB(13.5, 12.5, 14.5, 12.5), 
+        padding: EdgeInsets.fromLTRB(13.5, 12.5, 14.5, 12.5),
         redCount: 4,
         title: "谁看过我",
         content: "喜欢你的人有谁呢？",
         subContent: "07:00",
         icon: "images/like@3x.png",
         tapHandle: () {
-          GeneralAlert(
-            title: "解锁",
-            content: "升级会员可查看【谁喜欢我】\n不要错过缘分哦。",
-            confirm: "升级会员",
-            confirmHandle: () {
-              Future.delayed(Duration(milliseconds: 200), () {
-                UpgradeAlert().show(context);
-              });
-            },
-          ).show(context);
+          // GeneralAlert(
+          //   title: "解锁",
+          //   content: "升级会员可查看【谁喜欢我】\n不要错过缘分哦。",
+          //   confirm: "升级会员",
+          //   confirmHandle: () {
+          //     Future.delayed(Duration(milliseconds: 200), () {
+          //       UpgradeAlert().show(context);
+          //     });
+          //   },
+          // ).show(context);
+          Future.delayed(Duration(milliseconds: 200), () {
+            UpgradeAlert().show(context);
+
+            // Navigator.of(context).push(
+            //   MaterialPageRoute(builder: (context) {
+            //     return FunctionRecord(
+            //       recordType: 0,
+            //     );
+            //   }),
+            // );
+          });
         },
       ),
     );
-*/
+
     _list.add(
       Container(
         height: 1,
@@ -135,64 +158,64 @@ class _MessagePageState extends State<MessagePage> {
                 MessageTitleView(
                   title: "消息",
                 ),
-                //谁看过我
-                MessageCell(
-                  padding: EdgeInsets.fromLTRB(13.5, 12.5, 14.5, 12.5),
-                  redCount: 8,
-                  title: "谁看过我",
-                  content: "看看有多少人想看你哟~",
-                  subContent: "07:00",
-                  icon: "images/kan@3x.png",
-                  tapHandle: () {
-                    GeneralAlert(
-                      title: "解锁",
-                      content: "升级会员可查看【谁看过我】\n不要错过缘分哦。",
-                      confirm: "升级会员",
-                      confirmHandle: () {
-                        Future.delayed(Duration(milliseconds: 200), () {
-                          UpgradeAlert().show(context);
+                // //谁看过我
+                // MessageCell(
+                //   padding: EdgeInsets.fromLTRB(13.5, 12.5, 14.5, 12.5),
+                //   redCount: 8,
+                //   title: "谁看过我",
+                //   content: "看看有多少人想看你哟~",
+                //   subContent: "07:00",
+                //   icon: "images/kan@3x.png",
+                //   tapHandle: () {
+                //     GeneralAlert(
+                //       title: "解锁",
+                //       content: "升级会员可查看【谁看过我】\n不要错过缘分哦。",
+                //       confirm: "升级会员",
+                //       confirmHandle: () {
+                //         Future.delayed(Duration(milliseconds: 200), () {
+                //           UpgradeAlert().show(context);
 
-                          // Navigator.of(context).push(
-                          //   MaterialPageRoute(builder: (context) {
-                          //     return FunctionRecord(
-                          //       recordType: 0,
-                          //     );
-                          //   }),
-                          // );
-                        });
-                      },
-                    ).show(context);
-                  },
-                ),
-                //谁喜欢我
-                MessageCell(
-                  padding: EdgeInsets.fromLTRB(13.5, 12.5, 14.5, 12.5),
-                  redCount: 4,
-                  title: "谁喜欢我",
-                  content: "喜欢你的人有谁呢？",
-                  subContent: "07:00",
-                  icon: "images/like@3x.png",
-                  tapHandle: () {
-                    GeneralAlert(
-                      title: "解锁",
-                      content: "升级会员可查看【谁喜欢我】\n不要错过缘分哦。",
-                      confirm: "升级会员",
-                      confirmHandle: () {
-                        Future.delayed(Duration(milliseconds: 200), () {
-                          //UpgradeAlert().show(context);
+                //           // Navigator.of(context).push(
+                //           //   MaterialPageRoute(builder: (context) {
+                //           //     return FunctionRecord(
+                //           //       recordType: 0,
+                //           //     );
+                //           //   }),
+                //           // );
+                //         });
+                //       },
+                //     ).show(context);
+                //   },
+                // ),
+                // //谁喜欢我
+                // MessageCell(
+                //   padding: EdgeInsets.fromLTRB(13.5, 12.5, 14.5, 12.5),
+                //   redCount: 4,
+                //   title: "谁喜欢我",
+                //   content: "喜欢你的人有谁呢？",
+                //   subContent: "07:00",
+                //   icon: "images/like@3x.png",
+                //   tapHandle: () {
+                //     GeneralAlert(
+                //       title: "解锁",
+                //       content: "升级会员可查看【谁喜欢我】\n不要错过缘分哦。",
+                //       confirm: "升级会员",
+                //       confirmHandle: () {
+                //         Future.delayed(Duration(milliseconds: 200), () {
+                //           //UpgradeAlert().show(context);
 
-                          Navigator.of(context).push(
-                            MaterialPageRoute(builder: (context) {
-                              return FunctionRecord(
-                                recordType: 1,
-                              );
-                            }),
-                          );
-                        });
-                      },
-                    ).show(context);
-                  },
-                ),
+                //           Navigator.of(context).push(
+                //             MaterialPageRoute(builder: (context) {
+                //               return FunctionRecord(
+                //                 recordType: 1,
+                //               );
+                //             }),
+                //           );
+                //         });
+                //       },
+                //     ).show(context);
+                //   },
+                // ),
                 Expanded(
                   child: ListView(
                     padding: EdgeInsets.only(

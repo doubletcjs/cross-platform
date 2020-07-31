@@ -1,14 +1,28 @@
+import 'package:common_utils/common_utils.dart';
 import 'package:flutter/material.dart';
+import 'package:xs_progress_hud/xs_progress_hud.dart';
 import '../../public/public.dart';
+import '../account/api/accountapi.dart';
 
 class ContactListPage extends StatefulWidget {
-  ContactListPage({Key key}) : super(key: key);
+  Map account;
+  kVoidFunctionBlock refreshHandle;
+  ContactListPage({
+    Key key,
+    this.account,
+    this.refreshHandle,
+  }) : super(key: key);
 
   @override
   _ContactListPageState createState() => _ContactListPageState();
 }
 
 class _ContactListPageState extends State<ContactListPage> {
+  TextEditingController _telController = TextEditingController();
+  TextEditingController _wechatController = TextEditingController();
+  TextEditingController _qqController = TextEditingController();
+  TextEditingController _douyinController = TextEditingController();
+
   List<String> _contactNames = [
     "手机号",
     "微信号",
@@ -26,6 +40,55 @@ class _ContactListPageState extends State<ContactListPage> {
   //保存
   void _onSaveConfirm() {
     FocusScope.of(context).requestFocus(FocusNode());
+    XsProgressHud.show(context);
+
+    AccountApi.editProfile({
+      "qq": _qqController.text,
+      "wechat": _wechatController.text,
+      "tel": _telController.text,
+      "douyin": _douyinController.text,
+    }, (data, msg) {
+      XsProgressHud.hide();
+      if (data != null) {
+        Navigator.of(context).pop();
+        if (this.widget.refreshHandle != null) {
+          this.widget.refreshHandle();
+        }
+      } else {
+        showToast("$msg", context);
+      }
+    });
+  }
+
+  //读取联系方式
+  void _loadContact() {
+    if (this.widget.account != null) {
+      setState(() {
+        _wechatController.text =
+            ObjectUtil.isEmpty(this.widget.account["wechat"]) == true
+                ? ""
+                : this.widget.account["wechat"];
+        _qqController.text =
+            ObjectUtil.isEmpty(this.widget.account["qq"]) == true
+                ? ""
+                : this.widget.account["qq"];
+        _douyinController.text =
+            ObjectUtil.isEmpty(this.widget.account["douyin"]) == true
+                ? ""
+                : this.widget.account["douyin"];
+        _telController.text =
+            ObjectUtil.isEmpty(this.widget.account["tel"]) == true
+                ? ""
+                : this.widget.account["tel"];
+      });
+    }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+
+    this._loadContact();
   }
 
   @override
@@ -80,6 +143,13 @@ class _ContactListPageState extends State<ContactListPage> {
                             ),
                             Expanded(
                               child: TextField(
+                                controller: index == 0
+                                    ? _telController
+                                    : index == 1
+                                        ? _wechatController
+                                        : index == 2
+                                            ? _qqController
+                                            : _douyinController,
                                 decoration: InputDecoration(
                                   enabledBorder: InputBorder.none,
                                   focusedBorder: InputBorder.none,

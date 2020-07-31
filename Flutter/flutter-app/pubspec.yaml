@@ -33,9 +33,13 @@ dependencies:
   common_utils: any
   toast: any  
   banner_view: any 
-  image_pickers: any   
-  flutter_cupertino_data_picker: any
+  multi_image_picker: any    
   flutter_inapp_purchase: any
+  xs_progress_hud: any
+  city_pickers: any
+  tencent_im_plugin: any
+  dio: any
+  shared_preferences: any 
 
 dev_dependencies:
   flutter_test:

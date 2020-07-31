@@ -4,6 +4,7 @@ import '../../../../public/public.dart';
 
 class InfoBaseCell extends StatelessWidget {
   bool hideLine = false;
+  bool hideArrow = false;
   String name = "";
   String value = "";
   Widget valueWidget;
@@ -12,6 +13,7 @@ class InfoBaseCell extends StatelessWidget {
   InfoBaseCell({
     Key key,
     this.hideLine = false,
+    this.hideArrow = false,
     this.name = "",
     this.value = "",
     this.tapHandle,
@@ -23,11 +25,13 @@ class InfoBaseCell extends StatelessWidget {
     return Material(
       color: rgba(255, 255, 255, 1),
       child: InkWell(
-        onTap: () {
-          if (tapHandle != null) {
-            tapHandle();
-          }
-        },
+        onTap: tapHandle == null
+            ? null
+            : () {
+                if (tapHandle != null) {
+                  tapHandle();
+                }
+              },
         child: Column(
           children: <Widget>[
             Container(
@@ -67,11 +71,13 @@ class InfoBaseCell extends StatelessWidget {
                         width: 8.5,
                       ),
                       //箭头
-                      Image.asset(
-                        "images/Arrow@3x.png",
-                        width: 6,
-                        height: 10.5,
-                      ),
+                      hideArrow == true
+                          ? Container()
+                          : Image.asset(
+                              "images/Arrow@3x.png",
+                              width: 6,
+                              height: 10.5,
+                            ),
                       SizedBox(
                         width: 8,
                       ),

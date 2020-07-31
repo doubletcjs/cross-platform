@@ -2,15 +2,19 @@ import 'package:flutter/material.dart';
 import '../../../../public/public.dart';
 
 class InfoHeader extends StatefulWidget {
-  InfoHeader({Key key}) : super(key: key);
+  bool isSelf = false;
+  Map account;
+  InfoHeader({
+    Key key,
+    this.isSelf = false,
+    this.account,
+  }) : super(key: key);
 
   @override
   _InfoHeaderState createState() => _InfoHeaderState();
 }
 
 class _InfoHeaderState extends State<InfoHeader> {
-  bool _isSelf = false;
-
   Size _fetchNameSize(String name) {
     Size _size = getTextSize(
       name,
@@ -31,7 +35,7 @@ class _InfoHeaderState extends State<InfoHeader> {
   Widget build(BuildContext context) {
     return Container(
       margin: EdgeInsets.fromLTRB(15, 0, 15, 0),
-      padding: EdgeInsets.fromLTRB(0, 14, 0, _isSelf ? 33 : 16),
+      padding: EdgeInsets.fromLTRB(0, 14, 0, this.widget.isSelf ? 33 : 16),
       decoration: BoxDecoration(
         color: kMainBackgroundColor,
         border: Border(
@@ -52,9 +56,11 @@ class _InfoHeaderState extends State<InfoHeader> {
                   children: <Widget>[
                     //用户名
                     Container(
-                      width: _fetchNameSize("Dorian Feeney").width,
+                      width:
+                          _fetchNameSize("${this.widget.account["nickname"]}")
+                              .width,
                       child: Text(
-                        "Dorian Feeney",
+                        "${this.widget.account["nickname"]}",
                         overflow: TextOverflow.ellipsis,
                         style: TextStyle(
                           fontSize: 22,
@@ -63,9 +69,9 @@ class _InfoHeaderState extends State<InfoHeader> {
                       ),
                     ),
                     SizedBox(
-                      width: _isSelf ? 0 : 4.5,
+                      width: this.widget.isSelf ? 0 : 4.5,
                     ),
-                    _isSelf
+                    this.widget.isSelf
                         ? Container()
                         : Row(
                             mainAxisSize: MainAxisSize.min,
@@ -90,11 +96,11 @@ class _InfoHeaderState extends State<InfoHeader> {
                   ],
                 ),
                 SizedBox(
-                  height: _isSelf ? 0 : 0.5,
+                  height: this.widget.isSelf ? 0 : 0.5,
                 ),
                 //距离、在线状态，本人不显示
                 //公里数+上线天数或在线
-                _isSelf
+                this.widget.isSelf
                     ? Container()
                     : Row(
                         children: <Widget>[
@@ -120,7 +126,7 @@ class _InfoHeaderState extends State<InfoHeader> {
                         ],
                       ),
                 SizedBox(
-                  height: _isSelf ? 5 : 6.5,
+                  height: this.widget.isSelf ? 5 : 6.5,
                 ),
                 //性别，年龄 男 rgba(0, 199, 245, 1) 女 rgba(255, 95, 125, 1)
                 Container(
@@ -136,7 +142,9 @@ class _InfoHeaderState extends State<InfoHeader> {
                     children: <Widget>[
                       //性别图标
                       Image.asset(
-                        "images/woman@3x.png",
+                        this.widget.account["sex"] == 1
+                            ? "images/man@3x.png"
+                            : "images/woman@3x.png",
                         width: 5,
                         height: 7.5,
                       ),
@@ -144,7 +152,7 @@ class _InfoHeaderState extends State<InfoHeader> {
                         width: 3,
                       ),
                       Text(
-                        "30",
+                        "${this.widget.account["age"]}",
                         style: TextStyle(
                           fontSize: 9,
                           color: rgba(255, 255, 255, 1),
@@ -157,9 +165,9 @@ class _InfoHeaderState extends State<InfoHeader> {
             ),
           ),
           SizedBox(
-            width: _isSelf ? 0 : 8,
+            width: this.widget.isSelf ? 0 : 8,
           ),
-          _isSelf
+          this.widget.isSelf
               ? Container()
               : Column(
                   crossAxisAlignment: CrossAxisAlignment.end,

@@ -4,8 +4,11 @@ import 'package:common_utils/common_utils.dart';
 import 'package:dart_notification_center/dart_notification_center.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import '../function/datapicker.dart';
+import 'package:xs_progress_hud/xs_progress_hud.dart';
 import '../../public/public.dart';
 import './infoinput.dart';
+import 'api/accountapi.dart';
 
 class LoginRegisterPage extends StatefulWidget {
   bool isRegister = false;
@@ -19,6 +22,8 @@ class _LoginRegisterPageState extends State<LoginRegisterPage> {
   TextEditingController _phoneEditingController = TextEditingController();
   TextEditingController _verifycodeEditingController = TextEditingController();
 
+  List _areaCodeList = [];
+  String _areaCode = "86"; //国家区号
   String _verifyString = "获取验证码";
   int _countDownSecond = 0;
   Timer _countdownTimer;
@@ -27,7 +32,7 @@ class _LoginRegisterPageState extends State<LoginRegisterPage> {
   void _startCountDown() {
     setState(() {
       _countDownSecond = 60;
-      _verifyString = "$_countDownSecond" + "s";
+      _verifyString = "$_countDownSecond" + "秒后重新获取";
 
       _countdownTimer = Timer.periodic(
         Duration(seconds: 1),
@@ -35,7 +40,7 @@ class _LoginRegisterPageState extends State<LoginRegisterPage> {
           setState(() {
             if (_countDownSecond > 0) {
               _countDownSecond -= 1;
-              _verifyString = "$_countDownSecond" + "s";
+              _verifyString = "$_countDownSecond" + "秒后重新获取";
             } else {
               _verifyString = "获取验证码";
               _countdownTimer.cancel();
@@ -64,26 +69,165 @@ class _LoginRegisterPageState extends State<LoginRegisterPage> {
     }
 
     FocusScope.of(context).requestFocus(FocusNode());
+    XsProgressHud.show(context);
+
+    AccountApi.verifyCode(
+        _phoneEditingController.text,
+        (this.widget.isRegister == true ? "register" : "login"),
+        _areaCode, (data, msg) {
+      XsProgressHud.hide();
+      if (data != null) {
+        // 开始倒计时
+        this._startCountDown();
+      } else {
+        showToast(msg, context);
+      }
+    });
   }
 
   //登录、注册
   void _onConfirm() {
+    if (ObjectUtil.isEmptyString(_phoneEditingController.text) == true) {
+      showToast("请输入手机号！", context);
+      return;
+    }
+
+    if (ObjectUtil.isEmptyString(_verifycodeEditingController.text) == true) {
+      showToast("请输入验证码！", context);
+      return;
+    }
+
+    FocusScope.of(context).requestFocus(FocusNode());
+    XsProgressHud.show(context);
+
     if (this.widget.isRegister) {
-      Navigator.of(context).push(
-        MaterialPageRoute(builder: (context) {
-          return InfoInputPage();
-        }),
-      );
+      AccountApi.register(
+          _phoneEditingController.text, _verifycodeEditingController.text,
+          (data, msg) {
+        XsProgressHud.hide();
+        if (data != null) {
+          showToast("注册成功!", context);
+          //注册成功，记录token，userid
+          recordToken(data["token"]);
+          recordUserID(data["id"]);
+
+          Navigator.of(context).pushAndRemoveUntil(
+            MaterialPageRoute(builder: (context) {
+              return InfoInputPage();
+            }),
+            (route) => route == null,
+          );
+        } else {
+          showToast("$msg", context);
+        }
+      });
     } else {
-      Navigator.of(context).popUntil(
-        ModalRoute.withName("/"),
-      );
-      DartNotificationCenter.post(
-        channel: kAccountHandleNotification,
-        options: {
-          "type": 0,
+      AccountApi.smsLogin(
+          _phoneEditingController.text, _verifycodeEditingController.text,
+          (data, msg) {
+        XsProgressHud.hide();
+        if (data != null) {
+          //登录成功，记录token，userid
+          recordToken(data["token"]);
+          recordUserID(data["id"]);
+
+          showToast("登录成功!", context);
+          Future.delayed(Duration(milliseconds: 1000), () {
+            //回到首页
+            Navigator.of(context).popUntil(
+              ModalRoute.withName("/"),
+            );
+            DartNotificationCenter.post(
+              channel: kAccountHandleNotification,
+              options: {
+                "type": 0,
+              },
+            );
+          });
+
+          /*
+          //注册步骤 0：已完成所有注册 2：第二步 3：第三步
+          int registerstatus = data["register_status"];
+          if (registerstatus == 0) {
+            showToast("登录成功!", context);
+            Future.delayed(Duration(milliseconds: 1000), () {
+              //回到首页
+              Navigator.of(context).popUntil(
+                ModalRoute.withName("/"),
+              );
+              DartNotificationCenter.post(
+                channel: kAccountHandleNotification,
+                options: {
+                  "type": 0,
+                },
+              );
+            });
+          } else if (registerstatus == 2) {
+            Navigator.of(context).push(
+              MaterialPageRoute(builder: (context) {
+                return InfoInputPage();
+              }),
+            );
+          } else if (registerstatus == 3) {
+            Navigator.of(context).push(
+              MaterialPageRoute(builder: (context) {
+                return InputAvatarPage();
+              }),
+            );
+          }
+          */
+        } else {
+          showToast("$msg", context);
+        }
+      });
+    }
+  }
+
+  //获取国家区号
+  void _getCountryCode(kVoidFunctionBlock finish) {
+    XsProgressHud.show(context);
+    AccountApi.countryCode((data, msg) {
+      if (data != null) {
+        var _list = List.from(data);
+        setState(() {
+          XsProgressHud.hide();
+          _areaCodeList = _list;
+          if (finish != null) {
+            finish();
+          }
+        });
+      } else {
+        XsProgressHud.hide();
+        showToast(msg, context);
+      }
+    });
+  }
+
+  //选择国家区号
+  void _selectCountryCode() {
+    void _showing() {
+      List _list = _areaCodeList.map((e) {
+        return e["area_code"];
+      }).toList();
+
+      DataPicker.showDatePicker(
+        context,
+        datas: _list,
+        selectedIndex: _list.indexOf(_areaCode),
+        onConfirm: (data) {
+          setState(() {
+            _areaCode = data;
+          });
         },
       );
+    }
+
+    if (_areaCodeList.length == 0) {
+      this._getCountryCode(() {
+        _showing();
+      });
+    } else {
+      _showing();
     }
   }
 
@@ -95,6 +239,8 @@ class _LoginRegisterPageState extends State<LoginRegisterPage> {
     String suffix = "",
     TextStyle suffixStyle,
     TextEditingController controller,
+    String prefix = "",
+    TextStyle prefixStyle,
   }) {
     List<TextInputFormatter> _inputFormatters = [];
     if (maxLength > 0) {
@@ -110,6 +256,13 @@ class _LoginRegisterPageState extends State<LoginRegisterPage> {
       );
     }
 
+    if (prefixStyle == null) {
+      prefixStyle = TextStyle(
+        fontSize: 12,
+        color: rgba(51, 51, 51, 1),
+      );
+    }
+
     return Container(
       margin: EdgeInsets.fromLTRB(21, 0, 21, 0),
       padding: EdgeInsets.fromLTRB(22, 0, suffix.length > 0 ? 11 : 24, 0),
@@ -120,6 +273,45 @@ class _LoginRegisterPageState extends State<LoginRegisterPage> {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: <Widget>[
+          prefix.length > 0
+              ? Material(
+                  color: rgba(245, 245, 245, 1),
+                  child: InkWell(
+                    onTap: () {
+                      this._selectCountryCode();
+                    },
+                    child: Container(
+                      padding: EdgeInsets.all(10),
+                      child: Row(
+                        children: <Widget>[
+                          Text(
+                            _areaCode,
+                            style: TextStyle(
+                              color: rgba(51, 51, 51, 1),
+                              fontSize: 12,
+                            ),
+                          ),
+                          SizedBox(
+                            width: 5,
+                          ),
+                          Image.asset(
+                            "images/Arrow down@3x.png",
+                            width: 11,
+                            height: 7.5,
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                )
+              : Container(),
+          prefix.length > 0
+              ? SizedBox(
+                  width: 8,
+                )
+              : SizedBox(
+                  width: 0,
+                ),
           Expanded(
             child: TextField(
               scrollPadding: EdgeInsets.zero,
@@ -214,6 +406,7 @@ class _LoginRegisterPageState extends State<LoginRegisterPage> {
               maxLength: 11,
               suffix: _verifyString,
               controller: _phoneEditingController,
+              prefix: _areaCode,
             ),
             SizedBox(
               height: 20,

@@ -1,5 +1,8 @@
+import 'package:common_utils/common_utils.dart';
 import 'package:dart_notification_center/dart_notification_center.dart';
 import 'package:flutter/material.dart';
+import 'package:yue_mei/pages/account/infoinput.dart';
+import 'package:yue_mei/pages/account/inputavatar.dart';
 import 'pages/account/accountmain.dart';
 import 'pages/message/message_tab.dart';
 import 'pages/mine/mine_tab.dart';
@@ -19,7 +22,7 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
   int _currentIndex = 0;
-  int _pageStatus = 0; //0 未登录 1 已登录
+  int _pageStatus = -1; // -1 启动页 0 未登录 1 已登录
   int _unreadCount = 0; //未读消息数
 
   //未读消息角标
@@ -136,18 +139,60 @@ class _MyAppState extends State<MyApp> {
   void initState() {
     super.initState();
 
-    setState(() {
-      _unreadCount = 130;
+    var _userID = "";
+    userID((userID) {
+      if (ObjectUtil.isEmptyString(userID) == false) {
+        _userID = userID;
+        setState(() {
+          _pageStatus = 1;
+        });
+      } else {
+        setState(() {
+          _pageStatus = 0;
+        });
+      }
     });
 
     DartNotificationCenter.subscribe(
       channel: kAccountHandleNotification,
       observer: this,
       onNotification: (option) {
+        //type 0 登录 1 账号信息刷新 2 登出
         if (option["type"] == 0) {
           setState(() {
             _pageStatus = 1;
           });
+        } else if (option["type"] == 2) {
+          if (ObjectUtil.isEmptyString(_userID) == false) {
+            setState(() {
+              _pageStatus = 0;
+            });
+          }
+        }
+      },
+    );
+
+    DartNotificationCenter.subscribe(
+      channel: kAccountProfileNotification,
+      observer: this,
+      onNotification: (option) {
+        //status 470 资料完善第一步
+        if (option["status"] == 470) {
+          Router.navigatorKey.currentState.pushAndRemoveUntil(
+            MaterialPageRoute(builder: (context) {
+              return InfoInputPage();
+            }),
+            (route) => route == null,
+          );
+        }
+        // status 471 资料完善第二步
+        if (option["status"] == 471) {
+          Router.navigatorKey.currentState.pushAndRemoveUntil(
+            MaterialPageRoute(builder: (context) {
+              return InputAvatarPage();
+            }),
+            (route) => route == null,
+          );
         }
       },
     );
@@ -164,14 +209,17 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: '约约',
+      navigatorKey: Router.navigatorKey, //设置在这里
       home: Scaffold(
         backgroundColor: kMainBackgroundColor,
-        body: _pageStatus == 0
-            ? AccountMainPage()
-            : IndexedStack(
-                children: _tabs,
-                index: _currentIndex,
-              ),
+        body: _pageStatus == -1
+            ? Container()
+            : _pageStatus == 0
+                ? AccountMainPage()
+                : IndexedStack(
+                    children: _tabs,
+                    index: _currentIndex,
+                  ),
         bottomNavigationBar: _pageStatus == 0
             ? null
             : BottomNavigationBar(
@@ -193,4 +241,8 @@ class _MyAppState extends State<MyApp> {
       ),
     );
   }
+}
+
+class Router {
+  static GlobalKey<NavigatorState> navigatorKey = GlobalKey();
 }

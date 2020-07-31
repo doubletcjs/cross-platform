@@ -1,8 +1,10 @@
 import 'package:common_utils/common_utils.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:xs_progress_hud/xs_progress_hud.dart';
 import 'inputavatar.dart';
 import '../../public/public.dart';
+import 'api/accountapi.dart';
 
 class InfoInputPage extends StatefulWidget {
   InfoInputPage({Key key}) : super(key: key);
@@ -15,10 +17,10 @@ class _InfoInputPageState extends State<InfoInputPage> {
   TextEditingController _dateEditingController = TextEditingController();
   int _maxLength = 80; //签名长度
   bool _aviableNext = false; //是否填写完毕
-  Map _infoPackage = {
+  Map<String, Object> _infoPackage = {
     "nickname": "",
     "birthday": "",
-    "gender": "保密", //性别 女 男 保密
+    "sex": 0, //性别 1 男 2 女
     "signature": "",
   };
 
@@ -26,8 +28,8 @@ class _InfoInputPageState extends State<InfoInputPage> {
   void _checkInfoInput() {
     bool _aviable = true;
     _infoPackage.forEach((key, value) {
-      if (key == "gender") {
-        if (value == "保密") {
+      if (key == "sex") {
+        if (value == 0) {
           _aviable = false;
         }
       } else {
@@ -82,11 +84,21 @@ class _InfoInputPageState extends State<InfoInputPage> {
   //下一步
   void _onConfirm() {
     FocusScope.of(context).requestFocus(FocusNode());
-    Navigator.of(context).push(
-      MaterialPageRoute(builder: (context) {
-        return InputAvatarPage();
-      }),
-    );
+    XsProgressHud.show(context);
+
+    AccountApi.editProfile(_infoPackage, (data, msg) {
+      XsProgressHud.hide();
+      if (data != null) {
+        //下一步上传头像、填写期望（兴趣）
+        Navigator.of(context).push(
+          MaterialPageRoute(builder: (context) {
+            return InputAvatarPage();
+          }),
+        );
+      } else {
+        showToast("$msg", context);
+      }
+    });
   }
 
   @override
@@ -203,7 +215,7 @@ class _InfoInputPageState extends State<InfoInputPage> {
                     onTap: () {
                       FocusScope.of(context).requestFocus(FocusNode());
                       setState(() {
-                        _infoPackage["gender"] = "女";
+                        _infoPackage["sex"] = 2;
                         this._checkInfoInput();
                       });
                     },
@@ -213,7 +225,7 @@ class _InfoInputPageState extends State<InfoInputPage> {
                         focusedBorder: UnderlineInputBorder(
                           borderSide: BorderSide(
                             width: 0.3,
-                            color: _infoPackage["gender"] == "女"
+                            color: _infoPackage["sex"] == 2
                                 ? rgba(254, 52, 91, 1)
                                 : rgba(188, 188, 188, 1),
                           ),
@@ -221,14 +233,14 @@ class _InfoInputPageState extends State<InfoInputPage> {
                         enabledBorder: UnderlineInputBorder(
                           borderSide: BorderSide(
                             width: 0.3,
-                            color: _infoPackage["gender"] == "女"
+                            color: _infoPackage["sex"] == 2
                                 ? rgba(254, 52, 91, 1)
                                 : rgba(188, 188, 188, 1),
                           ),
                         ),
                         hintText: "女生",
                         hintStyle: TextStyle(
-                          color: _infoPackage["gender"] == "女"
+                          color: _infoPackage["sex"] == 2
                               ? rgba(254, 52, 91, 1)
                               : rgba(171, 171, 171, 1),
                           fontSize: 14,
@@ -239,7 +251,7 @@ class _InfoInputPageState extends State<InfoInputPage> {
                             "images/woman_icon@3x.png",
                             width: 18,
                             height: 25,
-                            color: _infoPackage["gender"] == "女"
+                            color: _infoPackage["sex"] == 2
                                 ? rgba(254, 52, 91, 1)
                                 : rgba(171, 171, 171, 1),
                           ),
@@ -257,7 +269,7 @@ class _InfoInputPageState extends State<InfoInputPage> {
                     onTap: () {
                       setState(() {
                         FocusScope.of(context).requestFocus(FocusNode());
-                        _infoPackage["gender"] = "男";
+                        _infoPackage["sex"] = 1;
                         this._checkInfoInput();
                       });
                     },
@@ -267,7 +279,7 @@ class _InfoInputPageState extends State<InfoInputPage> {
                         focusedBorder: UnderlineInputBorder(
                           borderSide: BorderSide(
                             width: 0.3,
-                            color: _infoPackage["gender"] == "男"
+                            color: _infoPackage["sex"] == 1
                                 ? rgba(254, 52, 91, 1)
                                 : rgba(188, 188, 188, 1),
                           ),
@@ -275,14 +287,14 @@ class _InfoInputPageState extends State<InfoInputPage> {
                         enabledBorder: UnderlineInputBorder(
                           borderSide: BorderSide(
                             width: 0.3,
-                            color: _infoPackage["gender"] == "男"
+                            color: _infoPackage["sex"] == 1
                                 ? rgba(254, 52, 91, 1)
                                 : rgba(188, 188, 188, 1),
                           ),
                         ),
                         hintText: "男生",
                         hintStyle: TextStyle(
-                          color: _infoPackage["gender"] == "男"
+                          color: _infoPackage["sex"] == 1
                               ? rgba(254, 52, 91, 1)
                               : rgba(171, 171, 171, 1),
                           fontSize: 14,
@@ -293,7 +305,7 @@ class _InfoInputPageState extends State<InfoInputPage> {
                             "images/man_icon@3x.png",
                             width: 18,
                             height: 25,
-                            color: _infoPackage["gender"] == "男"
+                            color: _infoPackage["sex"] == 1
                                 ? rgba(254, 52, 91, 1)
                                 : rgba(171, 171, 171, 1),
                           ),
@@ -357,7 +369,7 @@ class _InfoInputPageState extends State<InfoInputPage> {
                     height: 4,
                   ),
                   Text(
-                    "${_infoPackage['signature'].length}/$_maxLength",
+                    "${'${_infoPackage['signature']}'.length}/$_maxLength",
                     style: TextStyle(
                       color: rgba(171, 171, 171, 1),
                       fontSize: 12,
