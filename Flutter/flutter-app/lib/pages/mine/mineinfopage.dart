@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:city_pickers/city_pickers.dart';
 import 'package:common_utils/common_utils.dart';
+import 'package:dart_notification_center/dart_notification_center.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:xs_progress_hud/xs_progress_hud.dart';
@@ -69,6 +70,8 @@ class _MineInfoPageState extends State<MineInfoPage> {
             ObjectUtil.isEmpty(_data["drinking_habit"]) == true
                 ? 0
                 : _data["drinking_habit"];
+        _info["emotion"] =
+            ObjectUtil.isEmpty(_data["emotion"]) == true ? 0 : _data["emotion"];
         //省市区
         _info["province"] = ObjectUtil.isEmpty(_data["province"]) == true
             ? 0
@@ -124,6 +127,9 @@ class _MineInfoPageState extends State<MineInfoPage> {
       "location": "位置",
     },
     {
+      "emotion": "情感状态",
+    },
+    {
       "height": "身高",
     },
     {
@@ -164,6 +170,7 @@ class _MineInfoPageState extends State<MineInfoPage> {
     "child_nums": 0, //小孩数量
     "smoking_habit": 0, //抽烟习惯 0：保密 1：从不 2：偶尔 3：经常
     "drinking_habit": 0, //喝酒习惯 0：保密 1：从不 2：偶尔 3：经常
+    "emotion": 0, //情感状态 0：保密 1：单身 2：恋爱中 3：已婚 4：丧偶 5：离婚
 
     "province": 0, //省编码
     "city": 0, //市编码
@@ -180,6 +187,9 @@ class _MineInfoPageState extends State<MineInfoPage> {
     } else if (key == "education") {
       List _educations = ["保密", "小学", "初中", "高中", "专科", "本科", "硕士", "博士"];
       return _educations[_infoPackage["education"]];
+    } else if (key == "emotion") {
+      List _emotions = ["保密", "单身", "恋爱中", "已婚", "丧偶", "离婚"];
+      return _emotions[_infoPackage["emotion"]];
     } else if (key == "living_status") {
       List _livingstatus = ["保密", "一个人", "和家人", "和某人", "和朋友"];
       return _livingstatus[_infoPackage["living_status"]];
@@ -254,6 +264,19 @@ class _MineInfoPageState extends State<MineInfoPage> {
         onConfirm: (data) {
           setState(() {
             _infoPackage["education"] = _educations.indexOf(data);
+          });
+        },
+      );
+    } else if (key == "emotion") {
+      //情感状态 0：保密 1：单身 2：恋爱中 3：已婚 4：丧偶 5：离婚
+      List _educations = ["保密", "单身", "恋爱中", "已婚", "丧偶", "离婚"];
+      DataPicker.showDatePicker(
+        context,
+        datas: _educations,
+        selectedIndex: _infoPackage["emotion"],
+        onConfirm: (data) {
+          setState(() {
+            _infoPackage["emotion"] = _educations.indexOf(data);
           });
         },
       );
@@ -368,6 +391,14 @@ class _MineInfoPageState extends State<MineInfoPage> {
       AccountApi.editProfile(_infoPackage, (data, msg) {
         XsProgressHud.hide();
         if (data != null) {
+          currentAcctount = Map.from(data);
+          //更新用户信息
+          DartNotificationCenter.post(
+              channel: kAccountHandleNotification,
+              options: {
+                "type": 1,
+              });
+
           Navigator.of(context).pop();
         } else {
           showToast("$msg", context);

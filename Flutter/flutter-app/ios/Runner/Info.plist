@@ -19,7 +19,7 @@
 	<key>CFBundleSignature</key>
 	<string>????</string>
 	<key>CFBundleVersion</key>
-	<string>26600621</string>
+	<string>26608810</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NSAppTransportSecurity</key>
@@ -29,6 +29,10 @@
 	</dict>
 	<key>NSCameraUsageDescription</key>
 	<string>App需要您的同意,才能访问本地摄像头</string>
+	<key>NSLocationAlwaysUsageDescription</key>
+	<string>App需要您的同意,才能获取当前位置</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>App需要您的同意,才能获取当前位置</string>
 	<key>NSPhotoLibraryAddUsageDescription</key>
 	<string>App需要您的同意,才能访问本地图片库</string>
 	<key>NSPhotoLibraryUsageDescription</key>

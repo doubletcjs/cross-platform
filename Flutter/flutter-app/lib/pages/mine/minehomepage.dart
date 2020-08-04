@@ -1,5 +1,7 @@
+import 'package:common_utils/common_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:xs_progress_hud/xs_progress_hud.dart';
+import '../../public/public.dart';
 import '../../public/public.dart';
 import 'views/homepage/coverheader.dart';
 import 'views/homepage/infocontent.dart';
@@ -10,10 +12,10 @@ import 'mineinfopage.dart';
 import '../account/api/accountapi.dart';
 
 class MineHomePage extends StatefulWidget {
-  bool isSelf = false; //是否查看本人主页
+  String userid = ""; //是否查看本人主页
   MineHomePage({
     Key key,
-    this.isSelf = false,
+    this.userid = "",
   }) : super(key: key);
 
   @override
@@ -46,8 +48,20 @@ class _MineHomePageState extends State<MineHomePage> {
   //获取用户信息
   Map _account;
   void _refreshAccount() {
-    XsProgressHud.show(context);
     AccountApi.profile((data, msg) {
+      if (data != null) {
+        setState(() {
+          _account = Map.from(data);
+        });
+      } else {
+        showToast(msg, context);
+      }
+    });
+  }
+
+  void _refreshOtherAccount() {
+    XsProgressHud.show(context);
+    AccountApi.otherProfile(this.widget.userid, (data, msg) {
       XsProgressHud.hide();
       if (data != null) {
         setState(() {
@@ -63,11 +77,21 @@ class _MineHomePageState extends State<MineHomePage> {
   void initState() {
     super.initState();
 
-    Future.delayed(Duration(milliseconds: 100), () {
-      if (this.widget.isSelf) {
+    if (ObjectUtil.isEmptyString(this.widget.userid) == true) {
+      setState(() {
+        _account = currentAcctount;
+      });
+
+      Future.delayed(Duration(milliseconds: 400), () {
         this._refreshAccount();
-      }
-    });
+      });
+
+      kLog("当前登录用户信息");
+    } else {
+      Future.delayed(Duration(milliseconds: 400), () {
+        this._refreshOtherAccount();
+      });
+    }
   }
 
   @override
@@ -82,7 +106,7 @@ class _MineHomePageState extends State<MineHomePage> {
                 0,
                 0,
                 0,
-                this.widget.isSelf
+                ObjectUtil.isEmptyString(this.widget.userid) == true
                     ? 0
                     : (94 + MediaQuery.of(context).padding.bottom)),
             children: <Widget>[
@@ -90,14 +114,14 @@ class _MineHomePageState extends State<MineHomePage> {
               _account == null
                   ? Container()
                   : CoverHeader(
-                      isSelf: this.widget.isSelf,
+                      isSelf: ObjectUtil.isEmptyString(this.widget.userid),
                       account: _account,
                     ),
               //账户信息
               _account == null
                   ? Container()
                   : InfoHeader(
-                      isSelf: this.widget.isSelf,
+                      isSelf: ObjectUtil.isEmptyString(this.widget.userid),
                       account: _account,
                     ),
               //用户信息
@@ -136,7 +160,7 @@ class _MineHomePageState extends State<MineHomePage> {
             ),
           ),
           //更多按钮（本人编辑按钮）
-          this.widget.isSelf
+          ObjectUtil.isEmptyString(this.widget.userid)
               ? Positioned(
                   top: MediaQuery.of(context).padding.top,
                   right: 15,
@@ -205,25 +229,7 @@ class _MineHomePageState extends State<MineHomePage> {
                     ),
                   ),
                 ),
-
-          // Positioned(
-          //     right: 4,
-          //     top: 8 + MediaQuery.of(context).padding.top,
-          //     width: 44,
-          //     height: 44,
-          //     child: FlatButton(
-          //       padding: EdgeInsets.zero,
-          //       child: Image.asset(
-          //         "images/Combined Shape@3x.png",
-          //         width: 20.5,
-          //         height: 5,
-          //       ),
-          //       onPressed: () {
-          //         this._reportUser();
-          //       },
-          //     ),
-          //   ),
-          this.widget.isSelf
+          ObjectUtil.isEmptyString(this.widget.userid)
               ? Container()
               : Positioned(
                   left: 0,
@@ -250,7 +256,7 @@ class _MineHomePageState extends State<MineHomePage> {
                       SizedBox(
                         width: 46,
                       ),
-                      //��天
+                      //聊天
                       FlatButton(
                         padding: EdgeInsets.zero,
                         shape: RoundedRectangleBorder(

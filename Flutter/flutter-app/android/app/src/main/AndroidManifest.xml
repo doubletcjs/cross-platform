@@ -49,8 +49,11 @@ xmlns:tools="http://schemas.android.com/tools"
     </application>
 
     <!-- <uses-sdk tools:overrideLibrary="com.leeson.image_pickers, com.luck.picture.lib, com.yalantis.ucrop"/>  -->
+    <uses-sdk tools:overrideLibrary="com.example.video_compress, com.otaliastudios.transcoder, com.otaliastudios.opengl"/>  
     <uses-permission android:name="android.permission.CAMERA"/>
     <uses-permission android:name="android.permission.INTERNET"/>
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
 </manifest>

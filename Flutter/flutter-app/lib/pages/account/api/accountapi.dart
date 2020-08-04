@@ -71,4 +71,34 @@ class AccountApi {
   static profile(finish) {
     Networking.requestBase("/api/v1/user/profile", finish, method: "GET");
   }
+
+  // 获取他人主页资料
+  static otherProfile(userid, finish) {
+    Networking.requestBase("/api/v1/user/other", finish,
+        method: "GET",
+        params: {
+          "id": userid,
+        });
+  }
+
+  // 修改手机号
+  /*
+  mobile	string 手机号  
+  code	string 短信验证码
+  */
+  static modifyMobile(mobile, code, finish) {
+    Networking.requestBase("/api/v1/user/mobile", finish,
+        method: "PUT",
+        params: {
+          "mobile": mobile,
+          "code": code,
+        });
+  }
+
+  //视频认证
+  static authenticate(videoPath, finish) {
+    Networking.requestBase("/api/v1/authenticate/video", finish, params: {
+      "video": videoPath,
+    });
+  }
 }

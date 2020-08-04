@@ -1,13 +1,15 @@
+import 'package:amap_location_flutter_plugin/amap_location_flutter_plugin.dart';
 import 'package:common_utils/common_utils.dart';
 import 'package:dart_notification_center/dart_notification_center.dart';
 import 'package:flutter/material.dart';
-import 'package:yue_mei/pages/account/infoinput.dart';
-import 'package:yue_mei/pages/account/inputavatar.dart';
+import 'pages/account/infoinput.dart';
+import 'pages/account/inputavatar.dart';
 import 'pages/account/accountmain.dart';
 import 'pages/message/message_tab.dart';
 import 'pages/mine/mine_tab.dart';
 import 'pages/near/near_tab.dart';
 import 'public/public.dart';
+import 'pages/account/api/accountapi.dart';
 
 void main() {
   runApp(MyApp());
@@ -135,8 +137,26 @@ class _MyAppState extends State<MyApp> {
     ];
   }
 
+  //全局刷新用户信息
+  void _refreshAccount() {
+    AccountApi.profile((data, msg) {
+      if (data != null) {
+        kLog("刷新用户信息");
+        currentAcctount = Map.from(data);
+
+        DartNotificationCenter.post(
+            channel: kAccountHandleNotification,
+            options: {
+              "type": 3,
+            });
+      }
+    });
+  }
+
   @override
   void initState() {
+    AmapLocationFlutterPlugin.setApiKey("", "feb57d4f2537ca2f1206efdb2c674db0");
+
     super.initState();
 
     var _userID = "";
@@ -157,7 +177,7 @@ class _MyAppState extends State<MyApp> {
       channel: kAccountHandleNotification,
       observer: this,
       onNotification: (option) {
-        //type 0 登录 1 账号信息刷新 2 登出
+        //type 0 登录 1 请求账号信息刷新 2 登出 3 请求账号信息结束，刷新本地记录用户信息
         if (option["type"] == 0) {
           setState(() {
             _pageStatus = 1;
@@ -167,6 +187,8 @@ class _MyAppState extends State<MyApp> {
             setState(() {
               _pageStatus = 0;
             });
+          } else if (option["type"] == 1) {
+            this._refreshAccount();
           }
         }
       },

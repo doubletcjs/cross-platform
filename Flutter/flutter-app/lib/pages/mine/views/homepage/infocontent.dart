@@ -29,6 +29,36 @@ class _InfoContentState extends State<InfoContent> {
     "偶尔",
     "经常",
   ]; //抽烟习惯 0：保密 1：从不 2：偶尔 3：经常
+  List _emotions = [
+    "保密",
+    "单身",
+    "恋爱中",
+    "已婚",
+    "丧偶",
+    "离婚",
+  ]; //情感状态 0：保密 1：单身 2：恋爱中 3：已婚 4：丧偶 5：离婚
+
+  //居住状态、小孩数、吸烟
+  String _combination() {
+    List _list = [];
+    if (this.widget.account['living_status'] != null) {
+      _list.add(_livingstatus[this.widget.account['living_status']]);
+    }
+
+    if (this.widget.account['child_nums'] != null) {
+      _list.add(this.widget.account['child_nums'] +
+                  this.widget.account['child_nums'] ==
+              0
+          ? "无小孩"
+          : "个小孩");
+    }
+
+    if (this.widget.account['smoking_habit'] != null) {
+      _list.add(_smokinghabit[this.widget.account['smoking_habit']]);
+    }
+
+    return _list.join("，");
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -51,7 +81,9 @@ class _InfoContentState extends State<InfoContent> {
           ),
           //个性签名
           Text(
-            "${this.widget.account["signature"]}",
+            this.widget.account["signature"] == null
+                ? ""
+                : "${this.widget.account['signature']}",
             style: TextStyle(
               color: rgba(51, 51, 51, 1),
               fontSize: 16,
@@ -93,12 +125,14 @@ class _InfoContentState extends State<InfoContent> {
                     Expanded(
                       child: Text(
                         index == 0
-                            ? "单身"
+                            ? this.widget.account["emotion"] == null
+                                ? ""
+                                : "${_emotions[this.widget.account['emotion']]}"
                             : index == 1
-                                ? "${this.widget.account["height"]}" + "cm"
-                                : index == 2
-                                    ? "${_livingstatus[this.widget.account["living_status"]]}，${this.widget.account["child_nums"]}个小孩，${_smokinghabit[this.widget.account["smoking_habit"]]}"
-                                    : "",
+                                ? this.widget.account["height"] == null
+                                    ? ""
+                                    : "${this.widget.account['height']}" + "cm"
+                                : index == 2 ? _combination() : "",
                         style: TextStyle(
                           color: rgba(51, 51, 51, 1),
                           fontSize: 15,

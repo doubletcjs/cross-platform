@@ -1,6 +1,9 @@
+import 'package:dart_notification_center/dart_notification_center.dart';
 import 'package:flutter/material.dart';
+import 'package:xs_progress_hud/xs_progress_hud.dart';
 import '../../public/public.dart';
 import 'rechargerecord.dart';
+import 'api/walletapi.dart';
 
 class WalletPage extends StatefulWidget {
   WalletPage({Key key}) : super(key: key);
@@ -10,6 +13,7 @@ class WalletPage extends StatefulWidget {
 }
 
 class _WalletPageState extends State<WalletPage> {
+  List _payList = [];
   //充值记录
   void _rechargeRecord() {
     Navigator.of(context).push(
@@ -17,6 +21,64 @@ class _WalletPageState extends State<WalletPage> {
         return RechargeRecord();
       }),
     );
+  }
+
+  //获取金币充值金额列表
+  void _applePayList() {
+    XsProgressHud.show(context);
+    WalletApi.applePayList(2, (data, msg) {
+      if (data != null) {
+        setState(() {
+          _payList = data;
+
+          Future.delayed(Duration(milliseconds: 400), () {
+            XsProgressHud.hide();
+          });
+        });
+      } else {
+        XsProgressHud.hide();
+        showToast(msg, context);
+      }
+    });
+  }
+
+  Map _account = {};
+  //获取用户信息
+  void _refreshAccount() {
+    setState(() {
+      _account = currentAcctount;
+    });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+
+    Future.delayed(Duration(milliseconds: 200), () {
+      this._applePayList();
+    });
+
+    DartNotificationCenter.subscribe(
+      channel: kAccountHandleNotification,
+      observer: this,
+      onNotification: (option) {
+        //type 0 登录 1 请求账号信息刷新 2 登出 3 请求账号信息结束，刷新本地记录用户信息
+        if (option["type"] == 3) {
+          this._refreshAccount();
+        }
+      },
+    );
+
+    setState(() {
+      _account = currentAcctount;
+    });
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+
+    DartNotificationCenter.unsubscribe(observer: this);
   }
 
   @override
@@ -66,7 +128,7 @@ class _WalletPageState extends State<WalletPage> {
                   children: <Widget>[
                     //金币数
                     Text(
-                      "1300",
+                      "${_account['number_of_balance']}",
                       style: TextStyle(
                         fontSize: 31,
                         color: rgba(53, 33, 0, 1),
@@ -109,7 +171,7 @@ class _WalletPageState extends State<WalletPage> {
               mainAxisSize: MainAxisSize.max,
               children: <Widget>[
                 Column(
-                  children: ["30", "100", "200", "300"].map((coin) {
+                  children: _payList.map((info) {
                     return Container(
                       height: 63.5,
                       decoration: BoxDecoration(
@@ -136,33 +198,12 @@ class _WalletPageState extends State<WalletPage> {
                                   width: 10,
                                 ),
                                 Expanded(
-                                  child: Row(
-                                    crossAxisAlignment: CrossAxisAlignment.end,
-                                    children: <Widget>[
-                                      //金币数
-                                      Text(
-                                        "$coin" + "金币",
-                                        style: TextStyle(
-                                          color: rgba(51, 51, 51, 1),
-                                          fontSize: 15,
-                                        ),
-                                      ),
-                                      SizedBox(
-                                        width: 8,
-                                      ),
-                                      //优惠信息
-                                      Expanded(
-                                        child: Text(
-                                          "节省18元",
-                                          overflow: TextOverflow.ellipsis,
-                                          style: TextStyle(
-                                            color: rgba(255, 45, 85, 1),
-                                            fontSize: 12,
-                                            fontWeight: FontWeight.bold,
-                                          ),
-                                        ),
-                                      ),
-                                    ],
+                                  child: Text(
+                                    "${info['name']}",
+                                    style: TextStyle(
+                                      color: rgba(51, 51, 51, 1),
+                                      fontSize: 15,
+                                    ),
                                   ),
                                 ),
                               ],
@@ -179,7 +220,7 @@ class _WalletPageState extends State<WalletPage> {
                                 Container(
                                   padding: EdgeInsets.fromLTRB(18, 3, 18, 2),
                                   child: Text(
-                                    "128元",
+                                    "${info['info']['price']}元",
                                     style: TextStyle(
                                       color: rgba(255, 255, 255, 1),
                                       fontSize: 14,

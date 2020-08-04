@@ -1,6 +1,11 @@
+import 'package:amap_location_flutter_plugin/amap_location_flutter_plugin.dart';
+import 'package:amap_location_flutter_plugin/amap_location_option.dart';
+import 'package:dart_notification_center/dart_notification_center.dart';
 import 'package:flutter/material.dart';
-import 'nearlist.dart';
+import 'package:xs_progress_hud/xs_progress_hud.dart';
 import '../../public/public.dart';
+import 'nearlist.dart';
+import '../account/api/accountapi.dart';
 
 class NearPage extends StatefulWidget {
   NearPage({Key key}) : super(key: key);
@@ -9,7 +14,125 @@ class NearPage extends StatefulWidget {
   _NearPageState createState() => _NearPageState();
 }
 
-class _NearPageState extends State<NearPage> {
+class _NearPageState extends State<NearPage>
+    with SingleTickerProviderStateMixin {
+  List<String> _tabs = [
+    "附近",
+    "在线",
+    "新人",
+    "认证",
+    "推荐",
+  ];
+
+  TabController _tabController;
+  bool _firstLoading = true;
+
+  //定位相关
+  Map<String, Object> _locationData;
+  AmapLocationFlutterPlugin _locationPlugin;
+
+  //发送切换刷新数据通知
+  void _switchReloadData() {
+    if (_locationData == null) {
+      XsProgressHud.show(context);
+      this._refreshLocationService();
+    } else {
+      DartNotificationCenter.post(channel: "kNearTabSwitch", options: {
+        "index": _tabController.index,
+        "longitude": "${_locationData['longitude']}",
+        "latitude": "${_locationData['latitude']}",
+      });
+    }
+  }
+
+  //定位权限
+  void _refreshLocationService() async {
+    if (_locationPlugin == null) {
+      _locationPlugin = AmapLocationFlutterPlugin();
+      //配置
+      _locationPlugin.setLocationOption(
+        AMapLocationOption(
+          needAddress: false,
+          onceLocation: true,
+        ),
+      );
+      //监听
+      _locationPlugin.onLocationChanged().listen((Map<String, Object> result) {
+        setState(() {
+          _firstLoading = false;
+        });
+
+        if (result != null) {
+          setState(() {
+            _locationData = result;
+            kLog("定位信息:$_locationData");
+            Future.delayed(Duration(milliseconds: 400), () {
+              XsProgressHud.hide();
+              this._switchReloadData();
+              //停止定位
+              _locationPlugin.stopLocation();
+            });
+          });
+        } else {
+          XsProgressHud.hide();
+          showToast("无法获取当前位置！", context);
+        }
+      });
+    }
+
+    bool _serviceEnabled = await _locationPlugin.requestLocationPermission();
+    if (!_serviceEnabled) {
+      XsProgressHud.hide();
+      showToast("无法开启定位服务", context);
+      return;
+    }
+
+    //开始定位
+    _locationPlugin.startLocation();
+  }
+
+  //刷新用户信息
+  void _refreshAccount() {
+    XsProgressHud.show(context);
+    AccountApi.profile((data, msg) {
+      XsProgressHud.hide();
+      if (data != null) {
+        kLog("刷新用户信息");
+        currentAcctount = Map.from(data);
+        DartNotificationCenter.post(
+            channel: kAccountHandleNotification,
+            options: {
+              "type": 3,
+            });
+      }
+
+      this._switchReloadData();
+    });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+
+    _tabController = TabController(length: _tabs.length, vsync: this);
+    _tabController.addListener(() {
+      this._switchReloadData();
+    });
+
+    Future.delayed(Duration(milliseconds: 100), () {
+      this._refreshAccount();
+    });
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+
+    if (_locationPlugin != null) {
+      _locationPlugin.destroy();
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -19,148 +142,120 @@ class _NearPageState extends State<NearPage> {
           transparentAppBar(
             brightness: Brightness.light,
           ),
-          NearTabView(),
-        ],
-      ),
-    );
-  }
-}
-
-class NearTabView extends StatefulWidget {
-  NearTabView({Key key}) : super(key: key);
-
-  @override
-  _NearTabViewState createState() => _NearTabViewState();
-}
-
-class _NearTabViewState extends State<NearTabView>
-    with SingleTickerProviderStateMixin {
-  List<String> _tabs = [
-    "附近",
-    "在线",
-    "新人",
-    "认证",
-    "推荐",
-  ];
-  TabController _tabController;
-
-  @override
-  void initState() {
-    super.initState();
-
-    _tabController = TabController(length: _tabs.length, vsync: this);
-    _tabController.addListener(() {
-      setState(() {});
-    });
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      padding:
-          EdgeInsets.fromLTRB(0, MediaQuery.of(context).padding.top + 8, 0, 0),
-      width: MediaQuery.of(context).size.width,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-          TabBar(
-            controller: _tabController,
-            indicator: RoundUnderlineTabIndicator(
-              borderSide: BorderSide(
-                width: 3,
-                color: rgba(18, 18, 18, 1),
-              ),
-            ),
-            tabs: _tabs.map(
-              (tab) {
-                return Tab(
-                  text: tab,
-                );
-              },
-            ).toList(),
-            indicatorSize: TabBarIndicatorSize.label,
-            indicatorWeight: 3,
-            labelColor: rgba(18, 18, 18, 1),
-            isScrollable: true,
-            unselectedLabelColor: rgba(153, 153, 153, 1),
-            labelStyle: TextStyle(
-              fontSize: 23,
-              fontWeight: FontWeight.bold,
-            ),
-            unselectedLabelStyle: TextStyle(
-              fontSize: 15,
-              fontWeight: FontWeight.normal,
-            ),
-          ),
-          /*
           Container(
-            padding: EdgeInsets.fromLTRB(17.5, 0, 17.5, 0),
-            height: 35.5,
-            child: ListView.builder(
-              scrollDirection: Axis.horizontal,
-              itemBuilder: (context, index) {
-                return Container(
-                  padding: EdgeInsets.only(right: 26),
-                  child: InkWell(
-                    onTap: () {
-                      setState(() {
-                        _tabController.index = index;
-                      });
-                    },
-                    child: Stack(
-                      children: <Widget>[
-                        Container(
-                          height: 32.5,
-                          alignment: Alignment.bottomCenter,
-                          child: Text(
-                            _tabs[index],
-                            style: TextStyle(
-                              fontSize: index == _tabController.index ? 23 : 15,
-                              color: index == _tabController.index
-                                  ? rgba(18, 18, 18, 1)
-                                  : rgba(153, 153, 153, 1),
-                              fontWeight: index == _tabController.index
-                                  ? FontWeight.bold
-                                  : FontWeight.normal,
-                            ),
-                          ),
-                        ),
-                        Positioned(
-                          left: 0,
-                          bottom: 0,
-                          right: 0,
-                          child: Center(
-                            child: Container(
-                              width: 6,
-                              height: 3,
-                              decoration: BoxDecoration(
-                                color: index == _tabController.index
-                                    ? rgba(18, 18, 18, 1)
-                                    : null,
-                                borderRadius: BorderRadius.circular(1.5),
-                              ),
-                            ),
-                          ),
-                        ),
-                      ],
+            padding: EdgeInsets.fromLTRB(
+                0, MediaQuery.of(context).padding.top + 8, 0, 0),
+            width: MediaQuery.of(context).size.width,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                TabBar(
+                  controller: _tabController,
+                  indicator: RoundUnderlineTabIndicator(
+                    borderSide: BorderSide(
+                      width: 3,
+                      color: rgba(18, 18, 18, 1),
                     ),
                   ),
-                );
-              },
-              itemCount: _tabs.length,
-            ),
-          ),
-          */
-          Expanded(
-            child: TabBarView(
-              // physics: NeverScrollableScrollPhysics(),
-              controller: _tabController,
-              children: _tabs.map((tab) {
-                int index = _tabs.indexOf(tab);
-                return NearList(
-                  listType: index,
-                );
-              }).toList(),
+                  tabs: _tabs.map(
+                    (tab) {
+                      return Tab(
+                        text: tab,
+                      );
+                    },
+                  ).toList(),
+                  indicatorSize: TabBarIndicatorSize.label,
+                  indicatorWeight: 3,
+                  labelColor: rgba(18, 18, 18, 1),
+                  isScrollable: true,
+                  unselectedLabelColor: rgba(153, 153, 153, 1),
+                  labelStyle: TextStyle(
+                    fontSize: 23,
+                    fontWeight: FontWeight.bold,
+                  ),
+                  unselectedLabelStyle: TextStyle(
+                    fontSize: 15,
+                    fontWeight: FontWeight.normal,
+                  ),
+                ),
+                Expanded(
+                  child: _firstLoading == true
+                      ? Container()
+                      : _locationData == null
+                          ? Center(
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: <Widget>[
+                                  //未开启定位权限
+                                  Text(
+                                    "未开启定位权限",
+                                    style: TextStyle(
+                                      fontSize: 22,
+                                      color: rgba(16, 16, 16, 1),
+                                    ),
+                                  ),
+                                  SizedBox(
+                                    height: 17.5,
+                                  ),
+                                  //启用定位以查看附近的人
+                                  Text(
+                                    "启用定位以查看附近的人",
+                                    style: TextStyle(
+                                      fontSize: 15,
+                                      color: rgba(153, 153, 153, 1),
+                                    ),
+                                  ),
+                                  SizedBox(
+                                    height: 27.5,
+                                  ),
+                                  //启用定位
+                                  Container(
+                                    width: 121,
+                                    height: 44,
+                                    child: FlatButton(
+                                      padding: EdgeInsets.zero,
+                                      onPressed: () {
+                                        XsProgressHud.show(context);
+                                        this._refreshLocationService();
+                                      },
+                                      child: Text(
+                                        "启用定位",
+                                        style: TextStyle(
+                                          fontSize: 17,
+                                          color: rgba(255, 255, 255, 1),
+                                        ),
+                                      ),
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius:
+                                            BorderRadius.circular(44 / 2),
+                                      ),
+                                    ),
+                                    decoration: BoxDecoration(
+                                      gradient: LinearGradient(
+                                        colors: [
+                                          rgba(255, 44, 96, 1),
+                                          rgba(255, 114, 81, 1),
+                                        ],
+                                        begin: Alignment.centerLeft,
+                                        end: Alignment.centerRight,
+                                      ),
+                                      borderRadius:
+                                          BorderRadius.circular(44 / 2),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            )
+                          : TabBarView(
+                              // physics: NeverScrollableScrollPhysics(),
+                              controller: _tabController,
+                              children: _tabs.map((tab) {
+                                int index = _tabs.indexOf(tab);
+                                return NearList(listType: index);
+                              }).toList(),
+                            ),
+                ),
+              ],
             ),
           ),
         ],
@@ -169,6 +264,7 @@ class _NearTabViewState extends State<NearTabView>
   }
 }
 
+//定制 TabIndicator
 class RoundUnderlineTabIndicator extends Decoration {
   /// Create an underline style selected tab indicator.
   ///

@@ -43,8 +43,18 @@ class _AccountFunctionCellState extends State<AccountFunctionCell> {
                   InkWell(
                     child: ClipRRect(
                       child: CachedNetworkImage(
-                        imageUrl:
-                            "https://upload.jianshu.io/users/upload_avatars/14072228/980d845b-ffda-4a82-8d4e-67ffe82ad13b?imageMogr2/auto-orient/strip|imageView2/1/w/96/h/96",
+                        placeholder: (context, url) {
+                          return Image.asset(
+                            "images/placeholder_mini@3x.png",
+                            width: 67,
+                            height: 67,
+                            fit: BoxFit.cover,
+                          );
+                        },
+                        imageUrl: (this.widget.account != null &&
+                                this.widget.account["avatar"] != null)
+                            ? this.widget.account["avatar"]
+                            : "",
                         width: 67,
                         height: 67,
                         fit: BoxFit.cover,
@@ -54,22 +64,27 @@ class _AccountFunctionCellState extends State<AccountFunctionCell> {
                     onTap: () {
                       Navigator.of(context).push(
                         MaterialPageRoute(builder: (context) {
-                          return MineHomePage();
+                          return MineHomePage(
+                            userid: "${this.widget.account['id']}",
+                          );
                         }),
                       );
                     },
                     borderRadius: BorderRadius.circular(67 / 2),
                   ),
                   //认证标志
-                  Positioned(
-                    bottom: 0,
-                    right: 0,
-                    child: Image.asset(
-                      "images/renzheng_icon@3x.png",
-                      width: 16,
-                      height: 16,
-                    ),
-                  ),
+                  (this.widget.account != null &&
+                          this.widget.account["audit_status"] == 3)
+                      ? Positioned(
+                          bottom: 0,
+                          right: 0,
+                          child: Image.asset(
+                            "images/renzheng_icon@3x.png",
+                            width: 16,
+                            height: 16,
+                          ),
+                        )
+                      : Container(),
                 ],
               ),
               SizedBox(
@@ -94,7 +109,11 @@ class _AccountFunctionCellState extends State<AccountFunctionCell> {
                               //用户名
                               Expanded(
                                 child: Text(
-                                  "用户名",
+                                  (this.widget.account != null &&
+                                          this.widget.account["nickname"] !=
+                                              null)
+                                      ? this.widget.account["nickname"]
+                                      : "",
                                   overflow: TextOverflow.ellipsis,
                                   style: TextStyle(
                                     fontSize: 15,
@@ -109,25 +128,34 @@ class _AccountFunctionCellState extends State<AccountFunctionCell> {
                               Row(
                                 children: <Widget>[
                                   Text(
-                                    "21.45km" + " . " + "在线",
+                                    (this.widget.account["distance"] != null
+                                            ? "${NumUtil.getNumByValueDouble(this.widget.account['distance'], 2).toStringAsFixed(2)}km"
+                                            : "") +
+                                        (this.widget.account["is_active"] == 1
+                                            ? " . 在线"
+                                            : ""),
                                     style: TextStyle(
                                       fontSize: 11,
                                       color: rgba(170, 170, 170, 1),
                                     ),
                                   ),
                                   SizedBox(
-                                    width: 4,
+                                    width: this.widget.account["is_active"] == 1
+                                        ? 4
+                                        : 0,
                                   ),
                                   //是否在线
-                                  Container(
-                                    width: 5,
-                                    height: 5,
-                                    decoration: BoxDecoration(
-                                      color: rgba(29, 211, 110, 1),
-                                      borderRadius:
-                                          BorderRadius.circular(5 / 2),
-                                    ),
-                                  ),
+                                  this.widget.account["is_active"] == 1
+                                      ? Container(
+                                          width: 5,
+                                          height: 5,
+                                          decoration: BoxDecoration(
+                                            color: rgba(29, 211, 110, 1),
+                                            borderRadius:
+                                                BorderRadius.circular(5 / 2),
+                                          ),
+                                        )
+                                      : Container(),
                                 ],
                               ),
                             ],
@@ -156,7 +184,9 @@ class _AccountFunctionCellState extends State<AccountFunctionCell> {
                                       children: <Widget>[
                                         //性别图标
                                         Image.asset(
-                                          "images/woman@3x.png",
+                                          this.widget.account["sex"] == 1
+                                              ? "images/man@3x.png"
+                                              : "images/woman@3x.png",
                                           width: 5,
                                           height: 7.5,
                                         ),
@@ -164,7 +194,11 @@ class _AccountFunctionCellState extends State<AccountFunctionCell> {
                                           width: 3,
                                         ),
                                         Text(
-                                          "30",
+                                          (this.widget.account != null &&
+                                                  this.widget.account["age"] !=
+                                                      null)
+                                              ? "${this.widget.account["age"]}"
+                                              : "0",
                                           style: TextStyle(
                                             fontSize: 9,
                                             color: rgba(255, 255, 255, 1),
@@ -177,32 +211,40 @@ class _AccountFunctionCellState extends State<AccountFunctionCell> {
                                     width: 5,
                                   ),
                                   //是否会员
-                                  Image.asset(
-                                    "images/member@3x.png",
-                                    width: 16,
-                                    height: 16,
-                                  ),
+                                  this.widget.account["vip_type"] == 1
+                                      ? Image.asset(
+                                          "images/member@3x.png",
+                                          width: 16,
+                                          height: 16,
+                                        )
+                                      : Container(),
                                 ],
                               ),
                               //绑定平台
                               Row(
                                 children: <Widget>[
-                                  Container(
-                                    padding: EdgeInsets.fromLTRB(5, 0, 0, 0),
-                                    child: Image.asset(
-                                      "images/WECHAT@3x.png",
-                                      width: 14,
-                                      height: 14,
-                                    ),
-                                  ),
-                                  Container(
-                                    padding: EdgeInsets.fromLTRB(5, 0, 0, 0),
-                                    child: Image.asset(
-                                      "images/QQ@3x.png",
-                                      width: 14,
-                                      height: 14,
-                                    ),
-                                  ),
+                                  this.widget.account["has_wechat"] == true
+                                      ? Container(
+                                          padding:
+                                              EdgeInsets.fromLTRB(5, 0, 0, 0),
+                                          child: Image.asset(
+                                            "images/WECHAT@3x.png",
+                                            width: 14,
+                                            height: 14,
+                                          ),
+                                        )
+                                      : Container(),
+                                  this.widget.account["has_qq"] == true
+                                      ? Container(
+                                          padding:
+                                              EdgeInsets.fromLTRB(5, 0, 0, 0),
+                                          child: Image.asset(
+                                            "images/QQ@3x.png",
+                                            width: 14,
+                                            height: 14,
+                                          ),
+                                        )
+                                      : Container(),
                                 ],
                               ),
                             ],
@@ -211,7 +253,10 @@ class _AccountFunctionCellState extends State<AccountFunctionCell> {
                       ),
                       Text(
                         ObjectUtil.isEmptyString(this.widget.custom) == true
-                            ? "个性签名"
+                            ? (this.widget.account != null &&
+                                    this.widget.account["signature"] != null)
+                                ? this.widget.account["signature"]
+                                : ""
                             : this.widget.custom,
                         overflow: TextOverflow.ellipsis,
                         style: TextStyle(

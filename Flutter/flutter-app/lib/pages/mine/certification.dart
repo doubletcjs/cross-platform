@@ -1,9 +1,13 @@
-import 'dart:io';
+import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'package:multi_image_picker/multi_image_picker.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:video_compress/video_compress.dart';
 import 'package:xs_progress_hud/xs_progress_hud.dart';
+import '../function/basevideoplayer.dart';
 import '../../public/public.dart';
+import '../../public/networking.dart';
+import '../account/api/accountapi.dart';
 
 class CertificationPage extends StatefulWidget {
   CertificationPage({Key key}) : super(key: key);
@@ -13,33 +17,47 @@ class CertificationPage extends StatefulWidget {
 }
 
 class _CertificationPageState extends State<CertificationPage> {
-  var _avatar;
+  var _image;
+  var _video;
+  String _videoPath;
 
   //删除视频
   void _deleteAction() {
     setState(() {
-      _avatar = null;
+      _image = null;
+      _video = null;
+      _videoPath = null;
     });
   }
 
-  //选择图片
+  //选择视频
   void _selectAction() {
-    MultiImagePicker.pickImages(
-      maxImages: 1,
-      enableCamera: true,
-    ).then((assets) {
-      if (assets.length > 0) {
+    ImagePicker()
+        .getVideo(
+      source: ImageSource.camera,
+      preferredCameraDevice: CameraDevice.rear,
+      maxDuration: Duration(seconds: 8),
+    )
+        .then((file) {
+      if (file != null) {
         Future.delayed(Duration(milliseconds: 0), () {
           XsProgressHud.show(context);
         });
 
-        Asset _asset = assets.first;
-        _asset.getByteData().then((byteData) {
-          List<int> _imageData = byteData.buffer.asUint8List();
+        file.readAsBytes().then((value) {
+          List<int> _videoData = value;
           setState(() {
-            _avatar = _imageData;
-            Future.delayed(Duration(milliseconds: 100), () {
-              XsProgressHud.hide();
+            _video = _videoData;
+
+            VideoCompress.getByteThumbnail(file.path).then((value) {
+              List<int> _imageData = value;
+              setState(() {
+                _image = _imageData;
+                _videoPath = file.path;
+                Future.delayed(Duration(milliseconds: 100), () {
+                  XsProgressHud.hide();
+                });
+              });
             });
           });
         });
@@ -48,7 +66,44 @@ class _CertificationPageState extends State<CertificationPage> {
   }
 
   //播放
-  void _playAction() {}
+  void _playAction() {
+    Navigator.of(context).push(
+      MaterialPageRoute(builder: (context) {
+        return BaseVideoPlayer(
+          videoPath: _videoPath,
+        );
+      }),
+    );
+  }
+
+  //提交
+  void _onConfirm() {
+    //上传视频
+    XsProgressHud.show(context);
+    Networking.uploadFiles("/api/v1/upload", [_video], (data, msg) {
+      if (data != null) {
+        List urls = data;
+        if (urls.length > 0) {
+          AccountApi.authenticate(
+              JsonDecoder().convert(JsonEncoder().convert(urls)), (data, msg) {
+            XsProgressHud.hide();
+            if (data != null) {
+              showToast("认证提交成功!", context);
+              Navigator.of(context).pop();
+            } else {
+              showToast("$msg", context);
+            }
+          });
+        } else {
+          XsProgressHud.hide();
+          showToast("视频文件上传失败！请稍后重试。", context);
+        }
+      } else {
+        XsProgressHud.hide();
+        showToast("视频文件上传失败！请稍后重试。", context);
+      }
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -81,7 +136,7 @@ class _CertificationPageState extends State<CertificationPage> {
                             borderRadius: BorderRadius.circular(3),
                           ),
                           //添加按钮
-                          child: _avatar == null
+                          child: _image == null
                               ? FlatButton(
                                   padding: EdgeInsets.zero,
                                   onPressed: () {
@@ -100,7 +155,7 @@ class _CertificationPageState extends State<CertificationPage> {
                                   children: <Widget>[
                                     ClipRRect(
                                       child: Image.memory(
-                                        _avatar,
+                                        _image,
                                         fit: BoxFit.cover,
                                         width: 87,
                                         height: 87,
@@ -133,7 +188,7 @@ class _CertificationPageState extends State<CertificationPage> {
                                 ),
                         ),
                       ),
-                      _avatar == null
+                      _image == null
                           ? Container()
                           : //关闭按钮
                           Positioned(
@@ -207,9 +262,9 @@ class _CertificationPageState extends State<CertificationPage> {
             height: 44,
             width: MediaQuery.of(context).size.width,
             decoration: BoxDecoration(
-              color: _avatar == null ? rgba(216, 216, 216, 1) : null,
+              color: _image == null ? rgba(216, 216, 216, 1) : null,
               borderRadius: BorderRadius.circular(44 / 2),
-              gradient: _avatar == null
+              gradient: _image == null
                   ? null
                   : LinearGradient(
                       colors: [
@@ -222,7 +277,11 @@ class _CertificationPageState extends State<CertificationPage> {
             ),
             child: FlatButton(
               padding: EdgeInsets.zero,
-              onPressed: _avatar == null ? null : () {},
+              onPressed: _image == null
+                  ? null
+                  : () {
+                      this._onConfirm();
+                    },
               child: Text(
                 "提交",
                 style: TextStyle(

@@ -3,8 +3,11 @@ import 'dart:async';
 import 'package:common_utils/common_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:xs_progress_hud/xs_progress_hud.dart';
 import '../../public/public.dart';
 import 'views/settingsectioncell.dart';
+import '../account/api/accountapi.dart';
+import '../function/datapicker.dart';
 
 class ResetPhonePage extends StatefulWidget {
   ResetPhonePage({Key key}) : super(key: key);
@@ -20,6 +23,56 @@ class _ResetPhonePageState extends State<ResetPhonePage> {
   String _verifyString = "获取验证码";
   int _countDownSecond = 0;
   Timer _countdownTimer;
+  String _areaCode = "86"; //国家区号
+  List _areaCodeList = [];
+
+  //获取国家区号
+  void _getCountryCode(kVoidFunctionBlock finish) {
+    XsProgressHud.show(context);
+    AccountApi.countryCode((data, msg) {
+      if (data != null) {
+        var _list = List.from(data);
+        setState(() {
+          XsProgressHud.hide();
+          _areaCodeList = _list;
+          if (finish != null) {
+            finish();
+          }
+        });
+      } else {
+        XsProgressHud.hide();
+        showToast(msg, context);
+      }
+    });
+  }
+
+  //选择国家区号
+  void _selectCountryCode() {
+    void _showing() {
+      List _list = _areaCodeList.map((e) {
+        return e["area_code"];
+      }).toList();
+
+      DataPicker.showDatePicker(
+        context,
+        datas: _list,
+        selectedIndex: _list.indexOf(_areaCode),
+        onConfirm: (data) {
+          setState(() {
+            _areaCode = data;
+          });
+        },
+      );
+    }
+
+    if (_areaCodeList.length == 0) {
+      this._getCountryCode(() {
+        _showing();
+      });
+    } else {
+      _showing();
+    }
+  }
 
   //开启倒计时
   void _startCountDown() {
@@ -62,6 +115,18 @@ class _ResetPhonePageState extends State<ResetPhonePage> {
     }
 
     FocusScope.of(context).requestFocus(FocusNode());
+    XsProgressHud.show(context);
+
+    AccountApi.verifyCode(
+        _phoneEditingController.text, "modify_mobile", _areaCode, (data, msg) {
+      XsProgressHud.hide();
+      if (data != null) {
+        // 开始倒计时
+        this._startCountDown();
+      } else {
+        showToast(msg, context);
+      }
+    });
   }
 
   //输入框
@@ -71,6 +136,8 @@ class _ResetPhonePageState extends State<ResetPhonePage> {
     int maxLength = 0,
     String suffix = "",
     TextStyle suffixStyle,
+    String prefix = "",
+    TextStyle prefixStyle,
     TextEditingController controller,
   }) {
     List<TextInputFormatter> _inputFormatters = [];
@@ -87,12 +154,58 @@ class _ResetPhonePageState extends State<ResetPhonePage> {
       );
     }
 
+    if (prefixStyle == null) {
+      prefixStyle = TextStyle(
+        fontSize: 12,
+        color: rgba(51, 51, 51, 1),
+      );
+    }
+
     return Container(
       padding: EdgeInsets.fromLTRB(16, 0, suffix.length > 0 ? 11 : 24, 0),
       color: Colors.white,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: <Widget>[
+          prefix.length > 0
+              ? Material(
+                  color: Colors.white,
+                  child: InkWell(
+                    onTap: () {
+                      this._selectCountryCode();
+                    },
+                    child: Container(
+                      padding: EdgeInsets.all(10),
+                      child: Row(
+                        children: <Widget>[
+                          Text(
+                            _areaCode,
+                            style: TextStyle(
+                              color: rgba(51, 51, 51, 1),
+                              fontSize: 12,
+                            ),
+                          ),
+                          SizedBox(
+                            width: 5,
+                          ),
+                          Image.asset(
+                            "images/Arrow down@3x.png",
+                            width: 11,
+                            height: 7.5,
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                )
+              : Container(),
+          prefix.length > 0
+              ? SizedBox(
+                  width: 8,
+                )
+              : SizedBox(
+                  width: 0,
+                ),
           Expanded(
             child: TextField(
               scrollPadding: EdgeInsets.zero,
@@ -135,7 +248,30 @@ class _ResetPhonePageState extends State<ResetPhonePage> {
 
   //提交
   void _onConfirm() {
+    if (ObjectUtil.isEmptyString(_phoneEditingController.text) == true) {
+      showToast("请输入手机号！", context);
+      return;
+    }
+
+    if (ObjectUtil.isEmptyString(_verifycodeEditingController.text) == true) {
+      showToast("请输入验证码！", context);
+      return;
+    }
+
     FocusScope.of(context).requestFocus(FocusNode());
+    XsProgressHud.show(context);
+
+    AccountApi.modifyMobile(
+        _phoneEditingController.text, _verifycodeEditingController.text,
+        (data, msg) {
+      XsProgressHud.hide();
+      if (data != null) {
+        showToast("更改手机号成功!", context);
+        Navigator.of(context).pop();
+      } else {
+        showToast("$msg", context);
+      }
+    });
   }
 
   @override
@@ -169,6 +305,7 @@ class _ResetPhonePageState extends State<ResetPhonePage> {
               maxLength: 11,
               suffix: _verifyString,
               controller: _phoneEditingController,
+              prefix: _areaCode,
             ),
             Container(
               color: Colors.white,

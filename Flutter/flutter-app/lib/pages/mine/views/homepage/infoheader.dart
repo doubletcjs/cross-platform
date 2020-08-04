@@ -1,3 +1,4 @@
+import 'package:common_utils/common_utils.dart';
 import 'package:flutter/material.dart';
 import '../../../../public/public.dart';
 
@@ -50,17 +51,17 @@ class _InfoHeaderState extends State<InfoHeader> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
                 Row(
-                  crossAxisAlignment: CrossAxisAlignment.end,
+                  // crossAxisAlignment: CrossAxisAlignment.end,
                   mainAxisAlignment: MainAxisAlignment.start,
                   mainAxisSize: MainAxisSize.min,
                   children: <Widget>[
                     //用户名
                     Container(
                       width:
-                          _fetchNameSize("${this.widget.account["nickname"]}")
+                          _fetchNameSize("${this.widget.account['nickname']}")
                               .width,
                       child: Text(
-                        "${this.widget.account["nickname"]}",
+                        "${this.widget.account['nickname']}",
                         overflow: TextOverflow.ellipsis,
                         style: TextStyle(
                           fontSize: 22,
@@ -73,25 +74,30 @@ class _InfoHeaderState extends State<InfoHeader> {
                     ),
                     this.widget.isSelf
                         ? Container()
-                        : Row(
-                            mainAxisSize: MainAxisSize.min,
-                            children: <Widget>[
-                              //是否认证
-                              Image.asset(
-                                "images/renzheng_icon@3x.png",
-                                width: 16,
-                                height: 16,
-                              ),
-                              SizedBox(
-                                width: 4,
-                              ),
-                              //是否会员
-                              Image.asset(
-                                "images/member@3x.png",
-                                width: 16,
-                                height: 16,
-                              ),
-                            ],
+                        : Container(
+                            padding: EdgeInsets.fromLTRB(0, 2, 0, 0),
+                            child: Row(
+                              mainAxisSize: MainAxisSize.min,
+                              children: <Widget>[
+                                //是否认证 V
+                                // Image.asset(
+                                //   "images/renzheng_icon@3x.png",
+                                //   width: 16,
+                                //   height: 16,
+                                // ),
+                                SizedBox(
+                                  width: 4,
+                                ),
+                                //是否VIP 皇冠
+                                this.widget.account["vip_type"] == 1
+                                    ? Image.asset(
+                                        "images/member@3x.png",
+                                        width: 16,
+                                        height: 16,
+                                      )
+                                    : Container(),
+                              ],
+                            ),
                           ),
                   ],
                 ),
@@ -105,24 +111,32 @@ class _InfoHeaderState extends State<InfoHeader> {
                     : Row(
                         children: <Widget>[
                           Text(
-                            "21.45km" + " . " + "在线",
+                            (this.widget.account["distance"] != null
+                                    ? "${NumUtil.getNumByValueDouble(this.widget.account['distance'], 2).toStringAsFixed(2)}km"
+                                    : "") +
+                                (this.widget.account["is_active"] == 1
+                                    ? " . 在线"
+                                    : ""),
                             style: TextStyle(
                               fontSize: 11,
                               color: rgba(170, 170, 170, 1),
                             ),
                           ),
                           SizedBox(
-                            width: 4,
+                            width:
+                                this.widget.account["is_active"] == 1 ? 4 : 0,
                           ),
                           //是否在线
-                          Container(
-                            width: 5,
-                            height: 5,
-                            decoration: BoxDecoration(
-                              color: rgba(29, 211, 110, 1),
-                              borderRadius: BorderRadius.circular(5 / 2),
-                            ),
-                          ),
+                          this.widget.account["is_active"] == 1
+                              ? Container(
+                                  width: 5,
+                                  height: 5,
+                                  decoration: BoxDecoration(
+                                    color: rgba(29, 211, 110, 1),
+                                    borderRadius: BorderRadius.circular(5 / 2),
+                                  ),
+                                )
+                              : Container(),
                         ],
                       ),
                 SizedBox(
@@ -169,42 +183,49 @@ class _InfoHeaderState extends State<InfoHeader> {
           ),
           this.widget.isSelf
               ? Container()
-              : Column(
-                  crossAxisAlignment: CrossAxisAlignment.end,
-                  children: <Widget>[
-                    Text(
-                      "查看联系信息",
-                      style: TextStyle(
-                        fontSize: 13,
-                        color: rgba(59, 59, 59, 1),
-                      ),
-                    ),
-                    SizedBox(
-                      height: 7,
-                    ),
-                    //绑定平台
-                    Row(
+              : (this.widget.account["has_wechat"] == true ||
+                      this.widget.account["has_qq"] == true)
+                  ? Column(
+                      crossAxisAlignment: CrossAxisAlignment.end,
                       children: <Widget>[
-                        Container(
-                          padding: EdgeInsets.fromLTRB(5, 0, 0, 0),
-                          child: Image.asset(
-                            "images/WECHAT@3x.png",
-                            width: 14,
-                            height: 14,
+                        Text(
+                          "查看联系信息",
+                          style: TextStyle(
+                            fontSize: 13,
+                            color: rgba(59, 59, 59, 1),
                           ),
                         ),
-                        Container(
-                          padding: EdgeInsets.fromLTRB(5, 0, 0, 0),
-                          child: Image.asset(
-                            "images/QQ@3x.png",
-                            width: 14,
-                            height: 14,
-                          ),
+                        SizedBox(
+                          height: 7,
+                        ),
+                        //绑定平台
+                        Row(
+                          children: <Widget>[
+                            this.widget.account["has_wechat"] == true
+                                ? Container(
+                                    padding: EdgeInsets.fromLTRB(5, 0, 0, 0),
+                                    child: Image.asset(
+                                      "images/WECHAT@3x.png",
+                                      width: 14,
+                                      height: 14,
+                                    ),
+                                  )
+                                : Container(),
+                            this.widget.account["has_qq"] == true
+                                ? Container(
+                                    padding: EdgeInsets.fromLTRB(5, 0, 0, 0),
+                                    child: Image.asset(
+                                      "images/QQ@3x.png",
+                                      width: 14,
+                                      height: 14,
+                                    ),
+                                  )
+                                : Container(),
+                          ],
                         ),
                       ],
-                    ),
-                  ],
-                ),
+                    )
+                  : Container(),
         ],
       ),
     );

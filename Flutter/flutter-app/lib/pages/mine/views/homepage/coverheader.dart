@@ -56,12 +56,6 @@ class _CoverHeaderState extends State<CoverHeader> {
           height: 375,
           fit: BoxFit.cover,
         ),
-        // Image.asset(
-        //   "images/placeholder@3x.png",
-        //   fit: BoxFit.cover,
-        //   width: MediaQuery.of(context).size.width,
-        //   height: 375,
-        // ),
         //封面列表
         Positioned(
           left: 0,

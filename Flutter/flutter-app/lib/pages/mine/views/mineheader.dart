@@ -1,8 +1,8 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:dart_notification_center/dart_notification_center.dart';
 import 'package:flutter/material.dart';
 import '../../mine/minehomepage.dart';
 import '../../../public/public.dart';
-import '../../account/api/accountapi.dart';
 
 class MineHeader extends StatefulWidget {
   MineHeader({Key key}) : super(key: key);
@@ -15,14 +15,8 @@ class _MineHeaderState extends State<MineHeader> {
   Map _account = {};
   //获取用户信息
   void _refreshAccount() {
-    AccountApi.profile((data, msg) {
-      if (data != null) {
-        setState(() {
-          _account = Map.from(data);
-        });
-      } else {
-        showToast(msg, context);
-      }
+    setState(() {
+      _account = currentAcctount;
     });
   }
 
@@ -30,9 +24,27 @@ class _MineHeaderState extends State<MineHeader> {
   void initState() {
     super.initState();
 
-    Future.delayed(Duration(milliseconds: 10), () {
-      this._refreshAccount();
+    DartNotificationCenter.subscribe(
+      channel: kAccountHandleNotification,
+      observer: this,
+      onNotification: (option) {
+        //type 0 登录 1 请求账号信息刷新 2 登出 3 请求账号信息结束，刷新本地记录用户信息
+        if (option["type"] == 3) {
+          this._refreshAccount();
+        }
+      },
+    );
+
+    setState(() {
+      _account = currentAcctount;
     });
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+
+    DartNotificationCenter.unsubscribe(observer: this);
   }
 
   @override
@@ -109,9 +121,7 @@ class _MineHeaderState extends State<MineHeader> {
                 onTap: () {
                   Navigator.of(context).push(
                     MaterialPageRoute(builder: (context) {
-                      return MineHomePage(
-                        isSelf: true,
-                      );
+                      return MineHomePage();
                     }),
                   );
                 },
