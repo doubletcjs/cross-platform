@@ -2,14 +2,16 @@ import 'package:amap_location_flutter_plugin/amap_location_flutter_plugin.dart';
 import 'package:common_utils/common_utils.dart';
 import 'package:dart_notification_center/dart_notification_center.dart';
 import 'package:flutter/material.dart';
-import 'pages/account/infoinput.dart';
-import 'pages/account/inputavatar.dart';
-import 'pages/account/accountmain.dart';
+import 'package:tencent_im_plugin/tencent_im_plugin.dart';
+import 'pages/account/info_input.dart';
+import 'pages/account/input_avatar.dart';
+import 'pages/account/account_main.dart';
 import 'pages/message/message_tab.dart';
 import 'pages/mine/mine_tab.dart';
 import 'pages/near/near_tab.dart';
 import 'public/public.dart';
-import 'pages/account/api/accountapi.dart';
+import 'pages/account/api/account_api.dart';
+import 'package:umeng_analytics_plugin/umeng_analytics_plugin.dart';
 
 void main() {
   runApp(MyApp());
@@ -142,7 +144,7 @@ class _MyAppState extends State<MyApp> {
     AccountApi.profile((data, msg) {
       if (data != null) {
         kLog("刷新用户信息");
-        currentAcctount = Map.from(data);
+        currentAccount = Map.from(data);
 
         DartNotificationCenter.post(
             channel: kAccountHandleNotification,
@@ -155,20 +157,18 @@ class _MyAppState extends State<MyApp> {
 
   @override
   void initState() {
-    AmapLocationFlutterPlugin.setApiKey("", "feb57d4f2537ca2f1206efdb2c674db0");
-
     super.initState();
 
-    var _userID = "";
     userID((userID) {
       if (ObjectUtil.isEmptyString(userID) == false) {
-        _userID = userID;
         setState(() {
           _pageStatus = 1;
+          _currentIndex = 0;
         });
       } else {
         setState(() {
           _pageStatus = 0;
+          _currentIndex = 0;
         });
       }
     });
@@ -181,15 +181,15 @@ class _MyAppState extends State<MyApp> {
         if (option["type"] == 0) {
           setState(() {
             _pageStatus = 1;
+            _currentIndex = 0;
           });
         } else if (option["type"] == 2) {
-          if (ObjectUtil.isEmptyString(_userID) == false) {
-            setState(() {
-              _pageStatus = 0;
-            });
-          } else if (option["type"] == 1) {
-            this._refreshAccount();
-          }
+          setState(() {
+            _pageStatus = 0;
+            _currentIndex = 0;
+          });
+        } else if (option["type"] == 1) {
+          this._refreshAccount();
         }
       },
     );
@@ -218,6 +218,27 @@ class _MyAppState extends State<MyApp> {
         }
       },
     );
+
+    //高德地图
+    AmapLocationFlutterPlugin.setApiKey(
+        AMAP_CONFIG["androidKey"], AMAP_CONFIG["iosKey"]);
+
+    //友盟统计
+    initUmengAnalysis();
+
+    //初始化腾讯im聊天
+    TencentImPlugin.init(appid: TENCENTIM_APPID);
+  }
+
+  void initUmengAnalysis() async {
+    var res = await UmengAnalyticsPlugin.init(
+      androidKey: UMENG_CONFIG['androidKey'],
+      iosKey: UMENG_CONFIG['iosKey'],
+    );
+
+    if (res) {
+      kLog("友盟统计配置成功！");
+    }
   }
 
   @override

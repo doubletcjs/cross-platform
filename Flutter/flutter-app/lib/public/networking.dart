@@ -4,11 +4,105 @@ import 'package:dio/dio.dart';
 import 'public.dart';
 import 'package:http_parser/http_parser.dart';
 
-final Map<String, Object> _baseHeaders = {
-  "charset": "utf-8",
-};
+final Map<String, Object> _baseHeaders = {};
 
 final String kServerURL = "https://sj1-api.test.qiawei.com";
+
+class AppInterceptors extends InterceptorsWrapper {
+  @override
+  Future onRequest(RequestOptions options) async {
+    kLog("请求url: ${options.uri}");
+    kLog("请求method: ${options.method}");
+    kLog("请求头: ${options.headers}");
+
+    if (options.queryParameters != null) {
+      kLog("请求参数 queryParameters: ${options.queryParameters}");
+    }
+    if (options.data != null) {
+      kLog("请求参数 data: ${options.data}");
+    }
+
+    return options;
+  }
+
+  Future onResponse(Response response) async {
+    kLog("请求成功");
+    kLog("原始数据（测试环境可见）:${response.data}");
+    return response;
+  }
+
+  Future onError(DioError e) async {
+    if (e.response != null) {
+      kLog("errror:${e.response}");
+    } else {
+      kLog("errror:$e");
+    }
+    return e;
+  }
+}
+
+class DioManager {
+  static final DioManager _shared = DioManager._internal();
+
+  factory DioManager() => _shared;
+
+  Dio dio;
+
+  DioManager._internal() {
+    if (dio == null) {
+      BaseOptions options = BaseOptions(
+        baseUrl: kServerURL,
+        headers: _baseHeaders,
+        contentType: Headers.jsonContentType,
+        responseType: ResponseType.json,
+        connectTimeout: 15000,
+      );
+      dio = Dio(options);
+      dio..interceptors.add(AppInterceptors());
+    }
+  }
+
+  Future request(path, {queryParameters, data, options}) {
+    return dio.request(path,
+        queryParameters: queryParameters, data: data, options: options);
+  }
+
+  Future get(path, {queryParameters, options}) {
+    return dio.get(
+      path,
+      queryParameters: queryParameters,
+      options: options,
+    );
+  }
+
+  Future post(path, {queryParameters, data, options, onSendProgress}) {
+    return dio.post(
+      path,
+      queryParameters: queryParameters,
+      data: data,
+      options: options,
+      onSendProgress: onSendProgress,
+    );
+  }
+
+  Future put(path, {queryParameters, data, options}) {
+    return dio.put(
+      path,
+      queryParameters: queryParameters,
+      data: data,
+      options: options,
+    );
+  }
+
+  Future delete(path, {queryParameters, data, options}) {
+    return dio.delete(
+      path,
+      queryParameters: queryParameters,
+      data: data,
+      options: options,
+    );
+  }
+}
 
 class Networking {
   // 文件上传
@@ -46,7 +140,7 @@ class Networking {
       List<int> _imageData = files[idx].buffer.asUint8List();
       MultipartFile multipartFile = MultipartFile.fromBytes(
         _imageData,
-        filename: "file",
+        filename: "file.jpg",
         contentType: MediaType("image", "jpg"),
       );
 
@@ -58,7 +152,7 @@ class Networking {
     formData.files.addAll(mFiles);
 
     //处理请求头
-    Map<String, Object> _reqestHeaders = {"charset": "utf-8"};
+    Map<String, Object> _reqestHeaders = {};
     if (headers != null) {
       _reqestHeaders.addAll(headers);
     }
@@ -69,14 +163,10 @@ class Networking {
       Options options = Options(method: "POST");
       options.headers = _reqestHeaders;
 
-      kLog("上传 请求url: " + kServerURL + "$api");
-      kLog("上传 请求参数: " + "$_reqestHeaders");
-      kLog("上传 额外参数: " + "$params");
-
       //开始请求
       try {
-        Response _response = await Dio().post(
-          kServerURL + api,
+        Response _response = await DioManager().post(
+          api,
           data: formData,
           options: options,
           onSendProgress: (count, total) {
@@ -90,8 +180,6 @@ class Networking {
 
         if (_response.statusCode == 200) {
           Map data = _response.data;
-          kLog("请求成功");
-          kLog("原始数据（测试环境可见）:$data");
           if (ObjectUtil.isEmpty(data) == false) {
             String code = "${data['code']}";
             if (code == "0") {
@@ -113,7 +201,6 @@ class Networking {
                     }
                   }
                 });
-                kLog("原始数据:$data");
               }
             }
           } else {
@@ -131,17 +218,26 @@ class Networking {
           });
         }
       } on DioError catch (error) {
-        kLog("errror:${error.response}");
-        Future.delayed(Duration(milliseconds: 100), () {
-          if (finish != null) {
-            Map data = error.response.data;
-            if (ObjectUtil.isEmpty(data["message"]) == false) {
-              finish(null, "${data['message']}");
-            } else {
+        if (error.response != null) {
+          kLog("errror:${error.response}");
+          Future.delayed(Duration(milliseconds: 100), () {
+            if (finish != null) {
+              Map data = error.response.data;
+              if (ObjectUtil.isEmpty(data["message"]) == false) {
+                finish(null, "${data['message']}");
+              } else {
+                finish(null, error.toString() + "\n" + api);
+              }
+            }
+          });
+        } else {
+          kLog("errror:$error");
+          Future.delayed(Duration(milliseconds: 100), () {
+            if (finish != null) {
               finish(null, error.toString() + "\n" + api);
             }
-          }
-        });
+          });
+        }
       }
     }
 
@@ -181,30 +277,25 @@ class Networking {
     //开始请求
     void _startRequest() async {
       Response _reqFuture;
-      Options _options = Options(method: method);
-      _options.headers = _reqestHeaders;
-
-      kLog("请求url: " + kServerURL + api);
-      kLog("请求method: " + _options.method);
-      kLog("请求头: " + _options.headers.toString());
-
-      if (params != null) {
-        kLog("请求参数: " + params.toString());
-      }
+      Options _options = Options(method: method, headers: _reqestHeaders);
 
       try {
         if (_options.method == "GET") {
-          _reqFuture = await Dio().get(kServerURL + api,
+          _reqFuture = await DioManager().get(kServerURL + api,
               queryParameters: params, options: _options);
+        } else if (_options.method == "PUT") {
+          _reqFuture = await DioManager()
+              .put(kServerURL + api, data: params, options: _options);
+        } else if (_options.method == "DELETE") {
+          _reqFuture = await DioManager()
+              .delete(kServerURL + api, data: params, options: _options);
         } else {
-          _reqFuture = await Dio()
+          _reqFuture = await DioManager()
               .post(kServerURL + api, data: params, options: _options);
         }
 
         if (_reqFuture.statusCode == 200) {
           Map data = _reqFuture.data;
-          kLog("请求成功");
-          kLog("原始数据（测试环境可见）:$data");
           if (ObjectUtil.isEmpty(data) == false) {
             String code = "${data['code']}";
             if (code == "0") {
@@ -226,7 +317,6 @@ class Networking {
                     }
                   }
                 });
-                kLog("原始数据:$data");
               }
             }
           } else {
@@ -244,21 +334,16 @@ class Networking {
           });
         }
       } on DioError catch (error) {
-        kLog("errror:${error.response}");
-
-        _requestHandleStatusCode(
-            error.response.statusCode, error.response.data, finish);
-
-        Future.delayed(Duration(milliseconds: 100), () {
-          if (finish != null) {
-            Map data = error.response.data;
-            if (ObjectUtil.isEmpty(data["message"]) == false) {
-              finish(null, "${data['message']}");
-            } else {
+        if (error.response != null) {
+          _requestHandleStatusCode(
+              error.response.statusCode, error.response.data, finish);
+        } else {
+          Future.delayed(Duration(milliseconds: 100), () {
+            if (finish != null) {
               finish(null, error.toString() + "\n" + api);
             }
-          }
-        });
+          });
+        }
       }
     }
 

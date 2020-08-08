@@ -1,6 +1,9 @@
+import 'package:common_utils/common_utils.dart';
 import 'package:flutter/material.dart';
+import 'package:xs_progress_hud/xs_progress_hud.dart';
 import '../../public/public.dart';
-import 'views/settingsectioncell.dart';
+import 'views/setting_section_cell.dart';
+import 'api/setting_api.dart';
 
 class FeedBackPage extends StatefulWidget {
   FeedBackPage({Key key}) : super(key: key);
@@ -10,8 +13,40 @@ class FeedBackPage extends StatefulWidget {
 }
 
 class _FeedBackPageState extends State<FeedBackPage> {
+  TextEditingController _contentEditingController = TextEditingController();
+  TextEditingController _contactEditingController = TextEditingController();
+
   //提交
-  void _onConfirm() {}
+  void _onConfirm() {
+    if (ObjectUtil.isEmptyString(_contentEditingController.text)) {
+      showToast("意见内容不能为空！", context);
+      return;
+    }
+
+    if (ObjectUtil.isEmptyString(_contactEditingController.text)) {
+      showToast("联系方式不能为空！", context);
+      return;
+    }
+
+    FocusScope.of(context).requestFocus(FocusNode());
+    XsProgressHud.show(context);
+
+    SettingApi.feedback({
+      "content": _contentEditingController.text,
+      "mobile": _contactEditingController.text,
+      "type": "2",
+    }, (data, msg) {
+      if (data != null) {
+        Future.delayed(Duration(milliseconds: 800), () {
+          XsProgressHud.hide();
+          Navigator.of(context).pop();
+        });
+      } else {
+        XsProgressHud.hide();
+        showToast("$msg", context);
+      }
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -39,6 +74,7 @@ class _FeedBackPageState extends State<FeedBackPage> {
                   fontSize: 14,
                 ),
                 textInputAction: TextInputAction.done,
+                controller: _contentEditingController,
                 decoration: InputDecoration(
                   enabledBorder: InputBorder.none,
                   focusedBorder: InputBorder.none,
@@ -68,6 +104,7 @@ class _FeedBackPageState extends State<FeedBackPage> {
                   fontSize: 14,
                 ),
                 textInputAction: TextInputAction.done,
+                controller: _contactEditingController,
                 decoration: InputDecoration(
                   enabledBorder: InputBorder.none,
                   focusedBorder: InputBorder.none,

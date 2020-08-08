@@ -22,7 +22,28 @@ final Color kTabSelectedColor = rgba(249, 88, 98, 1);
 final Color kTabUnselectedColor = rgba(51, 51, 51, 1);
 
 // 当前登录用户信息
-Map currentAcctount = {};
+Map currentAccount = {};
+
+// 友盟的配置信息
+// ignore: non_constant_identifier_names
+final Map<String, String> UMENG_CONFIG = {
+  "androidKey": "5f2bb55cd30932215475860c",
+  "iosKey": "5dfc5c034ca35748d1000c4c"
+};
+
+// 高德地图的配置信息
+// ignore: non_constant_identifier_names
+final Map<String, String> AMAP_CONFIG = {
+  "androidKey": "d541c84d2f90faa0b4b2e7971d130d1c",
+  "iosKey": "feb57d4f2537ca2f1206efdb2c674db0"
+};
+
+// 腾讯im配置信息
+// ignore: non_constant_identifier_names
+final TENCENTIM_APPID = "1400398568";
+// ignore: non_constant_identifier_names
+// final TENCENTIM_SECRETKEY =
+//     "f5e763808b3bad873c79809d319208fcc9950b9c1842b4a01946fbd5e7ebe648";
 
 ///打印日志
 void kLog(Object any) {
@@ -118,10 +139,10 @@ Widget transparentAppBar({Brightness brightness = Brightness.dark}) {
 void userID(kObjectFunctionBlock complete) {
   _preferencesFuture.then((preferences) {
     if (complete != null) {
-      if (ObjectUtil.isEmpty(preferences.get("userid"))) {
+      if (ObjectUtil.isEmpty(preferences.get("userId"))) {
         complete("");
       } else {
-        complete("${preferences.get('userid')}");
+        complete("${preferences.get('userId')}");
       }
     }
   }).catchError((error) {
@@ -139,11 +160,11 @@ void userID(kObjectFunctionBlock complete) {
   });
 }
 
-void recordUserID(userID) {
+void recordUserID(userId) {
   _preferencesFuture.then((preferences) {
     preferences.setString(
-      "userid",
-      "$userID",
+      "userId",
+      "$userId",
     );
     kLog("recordUserID");
   }).catchError((error) {
@@ -183,6 +204,30 @@ void recordToken(token) {
       "$token",
     );
     kLog("recordToken");
+  }).catchError((error) {
+    kLog("error:$error");
+  });
+}
+
+///请求userSig，存储、读取userSig
+Future<String> readUserSig() async {
+  SharedPreferences preferences = await SharedPreferences.getInstance();
+  String _userSig = preferences.get("userSig");
+
+  if (ObjectUtil.isEmpty(_userSig)) {
+    return "";
+  } else {
+    return _userSig;
+  }
+}
+
+void recordUserSig(userSig) {
+  _preferencesFuture.then((preferences) {
+    preferences.setString(
+      "userSig",
+      "$userSig",
+    );
+    kLog("recordUserSig");
   }).catchError((error) {
     kLog("error:$error");
   });
@@ -246,18 +291,18 @@ Widget functionRefresher(
   bool enableRefresh = true,
   bool enableLoadMore = false,
   List<Widget> slivers,
+  var header,
 }) {
   return slivers == null
       ? SmartRefresher(
           controller: controller,
           enablePullDown: enableRefresh,
           enablePullUp: enableLoadMore,
-          header: WaterDropMaterialHeader(),
+          header: header ?? WaterDropMaterialHeader(),
           footer: functionFooter(enable: enableLoadMore),
           onRefresh: onRefresh,
           onLoading: onLoadMore,
-          child: child,
-        )
+          child: child)
       : SmartRefresher.builder(
           controller: controller,
           enablePullDown: enableRefresh,

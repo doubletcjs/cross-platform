@@ -4,10 +4,10 @@ import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:video_compress/video_compress.dart';
 import 'package:xs_progress_hud/xs_progress_hud.dart';
-import '../function/basevideoplayer.dart';
+import '../function/base_video_player.dart';
 import '../../public/public.dart';
 import '../../public/networking.dart';
-import '../account/api/accountapi.dart';
+import '../account/api/account_api.dart';
 
 class CertificationPage extends StatefulWidget {
   CertificationPage({Key key}) : super(key: key);

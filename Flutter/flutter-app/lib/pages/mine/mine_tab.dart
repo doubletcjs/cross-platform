@@ -1,11 +1,12 @@
+import 'package:dart_notification_center/dart_notification_center.dart';
 import 'package:flutter/material.dart';
-import 'views/minecell.dart';
-import 'views/mineheader.dart';
+import 'views/mine_cell.dart';
+import 'views/mine_header.dart';
 import '../../public/public.dart';
 import 'certification.dart';
-import '../wallet/walletpage.dart';
-import '../setting/settingpage.dart';
-import 'views/homepage/upgradealert.dart';
+import '../wallet/wallet_page.dart';
+import '../setting/setting_page.dart';
+import 'views/homepage/upgrade_alert.dart';
 
 class MinePage extends StatefulWidget {
   MinePage({Key key}) : super(key: key);
@@ -15,6 +16,41 @@ class MinePage extends StatefulWidget {
 }
 
 class _MinePageState extends State<MinePage> {
+  Map _account = {};
+  //获取用户信息
+  void _refreshAccount() {
+    setState(() {
+      _account = currentAccount;
+    });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+
+    DartNotificationCenter.subscribe(
+      channel: kAccountHandleNotification,
+      observer: this,
+      onNotification: (option) {
+        //type 0 登录 1 请求账号信息刷新 2 登出 3 请求账号信息结束，刷新本地记录用户信息
+        if (option["type"] == 3) {
+          this._refreshAccount();
+        }
+      },
+    );
+
+    setState(() {
+      _account = currentAccount;
+    });
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+
+    DartNotificationCenter.unsubscribe(observer: this);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -37,7 +73,12 @@ class _MinePageState extends State<MinePage> {
                         icon: "images/vip@3x.png",
                         text: "会员",
                         tapHandle: () {
-                          UpgradeAlert().show(context);
+                          int vipType = _account["vip_type"];
+                          if (vipType == 0) {
+                            UpgradeAlert().show(context);
+                          } else {
+                            showToast("您已开通会员！", context);
+                          }
                         },
                       ),
                       MineCell(
@@ -55,11 +96,18 @@ class _MinePageState extends State<MinePage> {
                         icon: "images/renzheng@3x.png",
                         text: "认证",
                         tapHandle: () {
-                          Navigator.of(context).push(
-                            MaterialPageRoute(builder: (context) {
-                              return CertificationPage();
-                            }),
-                          );
+                          int auditStatus = _account["audit_status"];
+                          if (auditStatus == 3) {
+                            showToast("已认证！", context);
+                          } else if (auditStatus == 1) {
+                            showToast("审核中！", context);
+                          } else {
+                            Navigator.of(context).push(
+                              MaterialPageRoute(builder: (context) {
+                                return CertificationPage();
+                              }),
+                            );
+                          }
                         },
                       ),
                       MineCell(

@@ -1,11 +1,14 @@
+import 'dart:async';
+
 import 'package:amap_location_flutter_plugin/amap_location_flutter_plugin.dart';
 import 'package:amap_location_flutter_plugin/amap_location_option.dart';
 import 'package:dart_notification_center/dart_notification_center.dart';
 import 'package:flutter/material.dart';
 import 'package:xs_progress_hud/xs_progress_hud.dart';
 import '../../public/public.dart';
-import 'nearlist.dart';
-import '../account/api/accountapi.dart';
+import 'near_list.dart';
+import '../account/api/account_api.dart';
+import 'package:yue_mei/public/scale_tabbar.dart';
 
 class NearPage extends StatefulWidget {
   NearPage({Key key}) : super(key: key);
@@ -30,6 +33,7 @@ class _NearPageState extends State<NearPage>
   //定位相关
   Map<String, Object> _locationData;
   AmapLocationFlutterPlugin _locationPlugin;
+  Timer _locationTimer;
 
   //发送切换刷新数据通知
   void _switchReloadData() {
@@ -45,6 +49,33 @@ class _NearPageState extends State<NearPage>
     }
   }
 
+  //定位超时
+  void _closeLocationTimer() {
+    if (_locationTimer != null) {
+      _locationTimer.cancel();
+      _locationTimer = null;
+      kLog("关闭倒计时");
+    }
+  }
+
+  void _startLocationTimer() {
+    this._closeLocationTimer();
+    _locationTimer = Timer.periodic(Duration(seconds: 15), (timer) {
+      this._closeLocationTimer();
+      setState(() {
+        XsProgressHud.hide();
+        _firstLoading = false;
+        //停止定位
+        _locationPlugin.stopLocation();
+        _locationData = null;
+        if (_locationPlugin != null) {
+          _locationPlugin.destroy();
+          _locationPlugin = null;
+        }
+      });
+    });
+  }
+
   //定位权限
   void _refreshLocationService() async {
     if (_locationPlugin == null) {
@@ -53,7 +84,7 @@ class _NearPageState extends State<NearPage>
       _locationPlugin.setLocationOption(
         AMapLocationOption(
           needAddress: false,
-          onceLocation: true,
+          // onceLocation: true,
         ),
       );
       //监听
@@ -63,16 +94,19 @@ class _NearPageState extends State<NearPage>
         });
 
         if (result != null) {
-          setState(() {
-            _locationData = result;
-            kLog("定位信息:$_locationData");
-            Future.delayed(Duration(milliseconds: 400), () {
-              XsProgressHud.hide();
-              this._switchReloadData();
-              //停止定位
-              _locationPlugin.stopLocation();
+          if (result["errorCode"] == null && _locationData == null) {
+            this._closeLocationTimer();
+            setState(() {
+              _locationData = result;
+              kLog("定位信息:$_locationData");
+              Future.delayed(Duration(milliseconds: 100), () {
+                XsProgressHud.hide();
+                this._switchReloadData();
+                //停止定位
+                _locationPlugin.stopLocation();
+              });
             });
-          });
+          }
         } else {
           XsProgressHud.hide();
           showToast("无法获取当前位置！", context);
@@ -88,25 +122,40 @@ class _NearPageState extends State<NearPage>
     }
 
     //开始定位
+    this._startLocationTimer();
     _locationPlugin.startLocation();
+  }
+
+  //重新定位
+  void _reLocation() {
+    setState(() {
+      _firstLoading = true;
+    });
+
+    _locationData = null;
+    if (_locationPlugin != null) {
+      _locationPlugin.destroy();
+      _locationPlugin = null;
+    }
+    XsProgressHud.show(context);
+    this._refreshLocationService();
   }
 
   //刷新用户信息
   void _refreshAccount() {
     XsProgressHud.show(context);
+    this._switchReloadData();
+
     AccountApi.profile((data, msg) {
-      XsProgressHud.hide();
       if (data != null) {
         kLog("刷新用户信息");
-        currentAcctount = Map.from(data);
+        currentAccount = Map.from(data);
         DartNotificationCenter.post(
             channel: kAccountHandleNotification,
             options: {
               "type": 3,
             });
       }
-
-      this._switchReloadData();
     });
   }
 
@@ -130,7 +179,9 @@ class _NearPageState extends State<NearPage>
 
     if (_locationPlugin != null) {
       _locationPlugin.destroy();
+      _locationPlugin = null;
     }
+    _tabController.dispose();
   }
 
   @override
@@ -149,7 +200,7 @@ class _NearPageState extends State<NearPage>
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                TabBar(
+                ScaleTabBar(
                   controller: _tabController,
                   indicator: RoundUnderlineTabIndicator(
                     borderSide: BorderSide(
@@ -215,8 +266,7 @@ class _NearPageState extends State<NearPage>
                                     child: FlatButton(
                                       padding: EdgeInsets.zero,
                                       onPressed: () {
-                                        XsProgressHud.show(context);
-                                        this._refreshLocationService();
+                                        this._reLocation();
                                       },
                                       child: Text(
                                         "启用定位",
