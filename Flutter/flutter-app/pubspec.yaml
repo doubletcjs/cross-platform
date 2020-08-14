@@ -47,9 +47,14 @@ dependencies:
   amap_location_flutter_plugin:
     path: plugins/amap-location-flutter
   flutter_swiper: any
-  # country_list_pick: any
+  country_list_pick: any
   umeng_analytics_plugin: ^1.0.3
   flutter_gifimage: ^1.0.1
+  crypto: ^2.1.5
+  photo_view: any
+  webview_flutter_plus: any
+  jpush_flutter: any
+  flutter_slidable: any
 
 dev_dependencies:
   flutter_test:

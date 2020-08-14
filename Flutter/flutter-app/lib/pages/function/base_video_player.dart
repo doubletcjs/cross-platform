@@ -55,10 +55,24 @@ class _BaseVideoPlayerState extends State<BaseVideoPlayer> {
         this._getContact();
       });
     } else {
-      _controller = VideoPlayerController.file(File(this.widget.videoPath))
-        ..initialize().then((_) {
-          setState(() {});
-        });
+      if (ObjectUtil.isEmptyString(this.widget.videoPath) == false) {
+        if (this.widget.videoPath.contains("http")) {
+          _controller = VideoPlayerController.network(this.widget.videoPath)
+            ..initialize().then((_) {
+              setState(() {});
+            });
+        } else {
+          _controller = VideoPlayerController.file(File(this.widget.videoPath))
+            ..initialize().then((_) {
+              setState(() {});
+            });
+        }
+      } else {
+        _controller = VideoPlayerController.file(File(this.widget.videoPath))
+          ..initialize().then((_) {
+            setState(() {});
+          });
+      }
     }
   }
 
@@ -75,16 +89,18 @@ class _BaseVideoPlayerState extends State<BaseVideoPlayer> {
         title: "播放视频",
       ),
       body: (_controller != null && _controller.value.initialized)
-          ? Container(
-              padding: EdgeInsets.fromLTRB(
-                  0,
-                  0,
-                  0,
-                  MediaQuery.of(context).padding.bottom +
-                      AppBar().preferredSize.height),
-              child: AspectRatio(
-                aspectRatio: _controller.value.aspectRatio,
-                child: VideoPlayer(_controller),
+          ? Center(
+              child: Container(
+                padding: EdgeInsets.fromLTRB(
+                    0,
+                    0,
+                    0,
+                    MediaQuery.of(context).padding.bottom +
+                        AppBar().preferredSize.height),
+                child: AspectRatio(
+                  aspectRatio: _controller.value.aspectRatio,
+                  child: VideoPlayer(_controller),
+                ),
               ),
             )
           : Container(),

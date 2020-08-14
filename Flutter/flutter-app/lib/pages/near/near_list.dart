@@ -1,71 +1,9 @@
 import 'package:dart_notification_center/dart_notification_center.dart';
-import 'package:flutter/material.dart'
-    hide RefreshIndicator, RefreshIndicatorState;
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 import '../account/views/account_function_cell.dart';
 import '../../public/public.dart';
 import 'api/near_api.dart';
 import 'package:flutter/widgets.dart';
-import 'package:flutter_gifimage/flutter_gifimage.dart';
-
-class GifHeader extends RefreshIndicator {
-  GifHeader() : super(height: 80.0, refreshStyle: RefreshStyle.Follow);
-
-  @override
-  GifHeaderState createState() => GifHeaderState();
-}
-
-class GifHeaderState extends RefreshIndicatorState<GifHeader>
-    with SingleTickerProviderStateMixin {
-  GifController _gifController;
-
-  @override
-  void initState() {
-    _gifController = GifController(
-      vsync: this,
-      value: 0,
-    );
-    super.initState();
-  }
-
-  @override
-  void onModeChange(RefreshStatus mode) {
-    if (mode == RefreshStatus.refreshing) {
-      _gifController.repeat(
-          min: 0, max: 5, period: Duration(milliseconds: 500));
-    }
-    super.onModeChange(mode);
-  }
-
-  @override
-  Future<void> endRefresh() {
-    _gifController.value = 3;
-    return _gifController.animateTo(5, duration: Duration(milliseconds: 500));
-  }
-
-  @override
-  void resetValue() {
-    _gifController.value = 0;
-    super.resetValue();
-  }
-
-  @override
-  Widget buildContent(BuildContext context, RefreshStatus mode) {
-    // 该 gif 图只有 5 帧
-    return GifImage(
-      image: AssetImage("images/refresh.gif"),
-      controller: _gifController,
-      height: 36,
-      width: 36,
-    );
-  }
-
-  @override
-  void dispose() {
-    _gifController.dispose();
-    super.dispose();
-  }
-}
 
 class NearList extends StatefulWidget {
   int listType = 0; //0 "附近" 1 "在线" 2 "新人" 3 "认证" 4 "推荐"
@@ -210,19 +148,23 @@ class _NearListState extends State<NearList>
   // ignore: must_call_super
   Widget build(BuildContext context) {
     return functionRefresher(
-        _refreshController,
-        ListView.builder(
-          padding: EdgeInsets.zero,
-          itemBuilder: (context, index) {
-            return AccountFunctionCell(
-              account: _dataList[index],
-            );
-          },
-          itemCount: _dataList.length,
-        ), onRefresh: () {
-      this._refreshData();
-    }, onLoadMore: () {
-      this._loadMoreData();
-    }, enableLoadMore: _showLoadMore, header: GifHeader());
+      _refreshController,
+      ListView.builder(
+        padding: EdgeInsets.zero,
+        itemBuilder: (context, index) {
+          return AccountFunctionCell(
+            account: _dataList[index],
+          );
+        },
+        itemCount: _dataList.length,
+      ),
+      onRefresh: () {
+        this._refreshData();
+      },
+      onLoadMore: () {
+        this._loadMoreData();
+      },
+      enableLoadMore: _showLoadMore,
+    );
   }
 }

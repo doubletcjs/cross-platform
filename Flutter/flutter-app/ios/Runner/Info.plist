@@ -11,7 +11,7 @@
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
 	<key>CFBundleName</key>
-	<string>yue_mei</string>
+	<string>尓蒙</string>
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
@@ -19,7 +19,7 @@
 	<key>CFBundleSignature</key>
 	<string>????</string>
 	<key>CFBundleVersion</key>
-	<string>26614594</string>
+	<string>26621351</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NSAppTransportSecurity</key>
@@ -28,30 +28,32 @@
 		<true/>
 	</dict>
 	<key>NSAppleMusicUsageDescription</key>
-	<string>App需要您的同意,才能访问媒体资料库</string>
+	<string>App需要您的同意，才能访问媒体资料库</string>
 	<key>NSCalendarsUsageDescription</key>
-	<string>App需要您的同意,才能访问日历</string>
+	<string>App需要您的同意，才能访问日历</string>
 	<key>NSCameraUsageDescription</key>
-	<string>App需要您的同意,才能访问本地摄像头</string>
+	<string>App需要您的同意，才能访问本地摄像头进行拍摄照片上传、发布信息、进行视频认证，如禁止将无法上传选择照片上传、发布信息、进行视频认证等</string>
 	<key>NSContactsUsageDescription</key>
-	<string>App需要您的同意,才能访问本地通讯录</string>
+	<string>App需要您的同意，才能访问本地通讯录</string>
 	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
-	<string>App需要您的同意,才能获取当前位置</string>
+	<string>App需要您的同意，才能访问定位位置展示附近信息，如禁止将无法展示附近信息</string>
 	<key>NSLocationAlwaysUsageDescription</key>
-	<string>App需要您的同意,才能获取当前位置</string>
+	<string>App需要您的同意，才能访问定位位置展示附近信息，如禁止将无法展示附近信息</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>App需要您的同意,才能获取当前位置</string>
+	<string>App需要您的同意，才能访问定位位置展示附近信息，如禁止将无法展示附近信息</string>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>App需要您的同意，才能访问本地麦克风进行视频拍摄，进行视频认证，如禁止将无法进行视频认证</string>
 	<key>NSMotionUsageDescription</key>
-	<string>App需要您的同意,才能访问运动与健身记录</string>
+	<string>App需要您的同意，才能访问运动与健身记录</string>
 	<key>NSPhotoLibraryAddUsageDescription</key>
-	<string>App需要您的同意,才能访问本地图片库</string>
+	<string>App需要您的同意，才能访问相册进行选择照片上传、发布信息，如禁止将无法上传选择照片上传、发布信息</string>
 	<key>NSPhotoLibraryUsageDescription</key>
-	<string>App需要您的同意,才能访问本地图片库</string>
+	<string>App需要您的同意，才能访问相册进行选择照片上传、发布信息，如禁止将无法上传选择照片上传、发布信息</string>
 	<key>NSSpeechRecognitionUsageDescription</key>
-	<string>App需要您的同意,才能访问语音识别</string>
+	<string>App需要您的同意，才能访问语音识别</string>
 	<key>UIBackgroundModes</key>
 	<array>
-		<string>location</string>
+		<string>remote-notification</string>
 	</array>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
@@ -70,5 +72,7 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
+	<key>io.flutter.embedded_views_preview</key>
+	<true/>
 </dict>
 </plist>

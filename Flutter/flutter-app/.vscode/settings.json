@@ -3,18 +3,24 @@
         "AMAP",
         "APPID",
         "Cupertino",
+        "Draggable",
         "Inapp",
         "LTRB",
         "Lable",
         "RGBO",
+        "Readed",
         "Relayout",
         "SECRETKEY",
+        "SSID",
         "Scrollable",
         "TENCENTIM",
         "UMENG",
         "autoplay",
+        "bussid",
         "douyin",
+        "elems",
         "gifimage",
+        "jpush",
         "nums",
         "rgba",
         "swiper",
@@ -22,6 +28,7 @@
         "unfocus",
         "verifycode",
         "vsync",
-        "wechat"
+        "wechat",
+        "yuemei"
     ]
 }

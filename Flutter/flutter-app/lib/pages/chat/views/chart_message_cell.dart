@@ -3,6 +3,7 @@ import 'package:common_utils/common_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:tencent_im_plugin/entity/message_entity.dart';
 import 'package:tencent_im_plugin/enums/message_node_type.dart';
+import 'package:tencent_im_plugin/enums/message_status_enum.dart';
 import 'package:tencent_im_plugin/message_node/message_node.dart';
 import 'package:tencent_im_plugin/message_node/text_message_node.dart';
 import '../../../public/public.dart';
@@ -72,13 +73,18 @@ class ChartMessageCell extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
                 //时间
-                message.timestamp > 0
+                (message.timestamp > 0 &&
+                        DateUtil.getNowDateMs() - message.timestamp * 1000 >
+                            60 * 5 * 1000)
                     ? Container(
                         margin: EdgeInsets.fromLTRB(0, 0, 0, 16.5),
                         alignment: Alignment.center,
                         child: Text(
-                          DateUtil.formatDateMs(message.timestamp * 1000,
-                              format: "yyyy-MM-dd HH:mm"),
+                          TimelineUtil.format(
+                            message.timestamp * 1000,
+                            locale: "zh",
+                            dayFormat: DayFormat.Common,
+                          ),
                           style: TextStyle(
                             fontSize: 11,
                             color: rgba(172, 172, 172, 1),
@@ -114,6 +120,30 @@ class ChartMessageCell extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.end,
                           crossAxisAlignment: CrossAxisAlignment.end,
                           children: <Widget>[
+                            //发送状态
+                            message.status == MessageStatusEnum.Sending
+                                ? Container(
+                                    width: 10,
+                                    height: 10,
+                                    margin: EdgeInsets.fromLTRB(0, 0, 0, 10),
+                                    child: CircularProgressIndicator(
+                                      strokeWidth: 1,
+                                    ),
+                                  )
+                                : message.status == MessageStatusEnum.SendFail
+                                    ? Container(
+                                        margin:
+                                            EdgeInsets.fromLTRB(0, 0, 0, 10),
+                                        child: Image.asset(
+                                          "images/tishi@3x.png",
+                                          width: 12,
+                                          height: 12,
+                                        ),
+                                      )
+                                    : Container(),
+                            SizedBox(
+                              width: 10,
+                            ),
                             //本人消息内容
                             Container(
                               constraints: BoxConstraints(
@@ -144,10 +174,10 @@ class ChartMessageCell extends StatelessWidget {
                             SizedBox(
                               width: 10,
                             ),
-                            //消息读取状态 chat_message_readed@3x.png
+                            //消息读取状态 chat_message_readed@3x.png chat_message_unreaded@3x.png
                             Image.asset(
                               message.peerReaded == true
-                                  ? "images/chat_message_readed@3x.png"
+                                  ? "images/chat_message_unreaded@3x.png"
                                   : "images/chat_message_unread@3x.png",
                               width: 15,
                               height: 15,

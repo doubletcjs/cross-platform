@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import '../../public/networking.dart';
 import '../../public/public.dart';
 import 'login_register.dart';
+import '../function/base_webview.dart';
 
 class AccountMainPage extends StatefulWidget {
   AccountMainPage({Key key}) : super(key: key);
@@ -10,6 +12,20 @@ class AccountMainPage extends StatefulWidget {
 }
 
 class _AccountMainPageState extends State<AccountMainPage> {
+  //web浏览器
+  void _showWebView(int type) {
+    Navigator.of(context).push(
+      MaterialPageRoute(
+        builder: (context) {
+          return BaseWebView(
+            url: "${kServerURL + "/page/" + "$type"}",
+            title: type == 1 ? "隐私政策" : "用户协议",
+          );
+        },
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -28,19 +44,24 @@ class _AccountMainPageState extends State<AccountMainPage> {
                   ),
                   Column(
                     children: <Widget>[
-                      Text(
-                        "Yue Mei",
-                        style: TextStyle(
-                          fontSize: 54,
-                          color: rgba(255, 255, 255, 1),
-                          fontWeight: FontWeight.bold,
-                        ),
+                      Image.asset(
+                        "images/login_logo@3x.png",
+                        width: 136,
+                        height: 98,
                       ),
+                      // Text(
+                      //   "尓蒙",
+                      //   style: TextStyle(
+                      //     fontSize: 54,
+                      //     color: rgba(255, 255, 255, 1),
+                      //     fontWeight: FontWeight.bold,
+                      //   ),
+                      // ),
                       SizedBox(
                         height: 12.5,
                       ),
                       Text(
-                        "Welcome to Yue Mei and start your mysterious journey.",
+                        "欢迎来到尓蒙、释放你的荷尔蒙！",
                         textAlign: TextAlign.center,
                         style: TextStyle(
                           fontSize: 17,
@@ -140,9 +161,31 @@ class _AccountMainPageState extends State<AccountMainPage> {
                               ),
                             ),
                             InkWell(
-                              onTap: () {},
+                              onTap: () {
+                                this._showWebView(6);
+                              },
                               child: Text(
-                                "用户协议和隐私政策",
+                                "用户协议",
+                                style: TextStyle(
+                                  fontSize: 13,
+                                  color: rgba(204, 204, 204, 1),
+                                  decoration: TextDecoration.underline,
+                                ),
+                              ),
+                            ),
+                            Text(
+                              "和",
+                              style: TextStyle(
+                                fontSize: 13,
+                                color: rgba(204, 204, 204, 1),
+                              ),
+                            ),
+                            InkWell(
+                              onTap: () {
+                                this._showWebView(1);
+                              },
+                              child: Text(
+                                "隐私政策",
                                 style: TextStyle(
                                   fontSize: 13,
                                   color: rgba(204, 204, 204, 1),

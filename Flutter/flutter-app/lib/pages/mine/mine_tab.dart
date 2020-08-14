@@ -72,13 +72,21 @@ class _MinePageState extends State<MinePage> {
                       MineCell(
                         icon: "images/vip@3x.png",
                         text: "会员",
+                        valueWidget: (_account["vip_type"] != null &&
+                                _account["vip_type"] == 1)
+                            ? Container(
+                                padding: EdgeInsets.fromLTRB(0, 0, 13, 0),
+                                child: Text(
+                                  "${_account['vip_validity']} 到期",
+                                  style: TextStyle(
+                                    fontSize: 14,
+                                    color: rgba(166, 166, 166, 1),
+                                  ),
+                                ),
+                              )
+                            : Container(), //vip类型 0非会员 1普通会员 2暗瘾会员
                         tapHandle: () {
-                          int vipType = _account["vip_type"];
-                          if (vipType == 0) {
-                            UpgradeAlert().show(context);
-                          } else {
-                            showToast("您已开通会员！", context);
-                          }
+                          UpgradeAlert().show(context);
                         },
                       ),
                       MineCell(
@@ -95,19 +103,27 @@ class _MinePageState extends State<MinePage> {
                       MineCell(
                         icon: "images/renzheng@3x.png",
                         text: "认证",
+                        valueWidget: (_account["audit_status"] != null &&
+                                _account["audit_status"] != 0)
+                            ? Container(
+                                padding: EdgeInsets.fromLTRB(0, 0, 13, 0),
+                                child: Text(
+                                  "${_account['audit_status'] == 1 ? '审核中' : _account['audit_status'] == 3 ? '已认证' : '认证失败'}",
+                                  style: TextStyle(
+                                    fontSize: 14,
+                                    color: _account["audit_status"] == 2
+                                        ? rgba(254, 53, 92, 1)
+                                        : rgba(166, 166, 166, 1),
+                                  ),
+                                ),
+                              )
+                            : Container(), //audit_status	0:未认证 1：审核中 2：认证失败 3：认证成功
                         tapHandle: () {
-                          int auditStatus = _account["audit_status"];
-                          if (auditStatus == 3) {
-                            showToast("已认证！", context);
-                          } else if (auditStatus == 1) {
-                            showToast("审核中！", context);
-                          } else {
-                            Navigator.of(context).push(
-                              MaterialPageRoute(builder: (context) {
-                                return CertificationPage();
-                              }),
-                            );
-                          }
+                          Navigator.of(context).push(
+                            MaterialPageRoute(builder: (context) {
+                              return CertificationPage();
+                            }),
+                          );
                         },
                       ),
                       MineCell(

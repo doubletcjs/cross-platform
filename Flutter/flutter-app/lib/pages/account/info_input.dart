@@ -52,19 +52,15 @@ class _InfoInputPageState extends State<InfoInputPage> {
       _date = DateTime.parse(_infoPackage["birthday"]);
     } else {
       setState(() {
-        String _dataStr = DateUtil.formatDate(_date, format: "yyyy-MM-dd");
-        _infoPackage["birthday"] = _dataStr;
-        _dateEditingController.text = _dataStr;
+        String _dateString = DateUtil.formatDate(_date, format: "yyyy-MM-dd");
+        _infoPackage["birthday"] = _dateString;
+        _dateEditingController.text = _dateString;
       });
     }
 
     final picker = CupertinoDatePicker(
       onDateTimeChanged: (date) {
-        setState(() {
-          String _dataStr = DateUtil.formatDate(date, format: "yyyy-MM-dd");
-          _infoPackage["birthday"] = _dataStr;
-          _dateEditingController.text = _dataStr;
-        });
+        _date = date;
       },
       initialDateTime: _date,
       mode: CupertinoDatePickerMode.date,
@@ -73,10 +69,47 @@ class _InfoInputPageState extends State<InfoInputPage> {
     showCupertinoModalPopup(
         context: context,
         builder: (context) {
-          return Container(
-            color: Colors.white,
-            height: 216,
-            child: picker,
+          return Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Container(
+                color: Colors.white,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    FlatButton(
+                      padding: EdgeInsets.zero,
+                      onPressed: () {
+                        Navigator.of(context).pop();
+                      },
+                      child: Text(
+                        "取消",
+                      ),
+                    ),
+                    FlatButton(
+                      padding: EdgeInsets.zero,
+                      onPressed: () {
+                        setState(() {
+                          String _dateString =
+                              DateUtil.formatDate(_date, format: "yyyy-MM-dd");
+                          _infoPackage["birthday"] = _dateString;
+                          _dateEditingController.text = _dateString;
+                        });
+                        Navigator.of(context).pop();
+                      },
+                      child: Text(
+                        "确定",
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              Container(
+                color: Colors.white,
+                height: 216,
+                child: picker,
+              ),
+            ],
           );
         });
   }
@@ -238,6 +271,14 @@ class _InfoInputPageState extends State<InfoInputPage> {
                                 : rgba(188, 188, 188, 1),
                           ),
                         ),
+                        disabledBorder: UnderlineInputBorder(
+                          borderSide: BorderSide(
+                            width: 0.3,
+                            color: _infoPackage["sex"] == 2
+                                ? rgba(254, 52, 91, 1)
+                                : rgba(188, 188, 188, 1),
+                          ),
+                        ),
                         hintText: "女生",
                         hintStyle: TextStyle(
                           color: _infoPackage["sex"] == 2
@@ -280,7 +321,7 @@ class _InfoInputPageState extends State<InfoInputPage> {
                           borderSide: BorderSide(
                             width: 0.3,
                             color: _infoPackage["sex"] == 1
-                                ? rgba(254, 52, 91, 1)
+                                ? Colors.blue
                                 : rgba(188, 188, 188, 1),
                           ),
                         ),
@@ -288,14 +329,22 @@ class _InfoInputPageState extends State<InfoInputPage> {
                           borderSide: BorderSide(
                             width: 0.3,
                             color: _infoPackage["sex"] == 1
-                                ? rgba(254, 52, 91, 1)
+                                ? Colors.blue
+                                : rgba(188, 188, 188, 1),
+                          ),
+                        ),
+                        disabledBorder: UnderlineInputBorder(
+                          borderSide: BorderSide(
+                            width: 0.3,
+                            color: _infoPackage["sex"] == 1
+                                ? Colors.blue
                                 : rgba(188, 188, 188, 1),
                           ),
                         ),
                         hintText: "男生",
                         hintStyle: TextStyle(
                           color: _infoPackage["sex"] == 1
-                              ? rgba(254, 52, 91, 1)
+                              ? Colors.blue
                               : rgba(171, 171, 171, 1),
                           fontSize: 14,
                         ),
@@ -306,7 +355,7 @@ class _InfoInputPageState extends State<InfoInputPage> {
                             width: 18,
                             height: 25,
                             color: _infoPackage["sex"] == 1
-                                ? rgba(254, 52, 91, 1)
+                                ? Colors.blue
                                 : rgba(171, 171, 171, 1),
                           ),
                         ),

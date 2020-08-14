@@ -176,7 +176,10 @@ class _InfoHeaderState extends State<InfoHeader> {
                 Container(
                   padding: EdgeInsets.fromLTRB(5, 1, 5, 1),
                   decoration: BoxDecoration(
-                    color: rgba(255, 95, 125, 1),
+                    color: this.widget.account != null &&
+                            this.widget.account["sex"] == 1
+                        ? rgba(0, 199, 245, 1)
+                        : rgba(255, 95, 125, 1),
                     borderRadius: BorderRadius.circular(14 / 2),
                   ),
                   child: Row(
@@ -214,7 +217,9 @@ class _InfoHeaderState extends State<InfoHeader> {
           this.widget.isSelf
               ? Container()
               : (this.widget.account["has_wechat"] == true ||
-                      this.widget.account["has_qq"] == true)
+                  this.widget.account["has_qq"] == true ||
+                  this.widget.account["has_tel"] == true ||
+                  this.widget.account["has_douyin"] == true)
                   ? InkWell(
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.end,
@@ -232,6 +237,16 @@ class _InfoHeaderState extends State<InfoHeader> {
                           //绑定平台
                           Row(
                             children: <Widget>[
+                              this.widget.account["has_tel"] == true
+                                  ? Container(
+                                      padding: EdgeInsets.fromLTRB(5, 0, 0, 0),
+                                      child: Image.asset(
+                                        "images/contact_mobile@3x.png",
+                                        width: 14,
+                                        height: 14,
+                                      ),
+                                    )
+                                  : Container(),
                               this.widget.account["has_wechat"] == true
                                   ? Container(
                                       padding: EdgeInsets.fromLTRB(5, 0, 0, 0),
@@ -247,6 +262,16 @@ class _InfoHeaderState extends State<InfoHeader> {
                                       padding: EdgeInsets.fromLTRB(5, 0, 0, 0),
                                       child: Image.asset(
                                         "images/QQ@3x.png",
+                                        width: 14,
+                                        height: 14,
+                                      ),
+                                    )
+                                  : Container(),
+                              this.widget.account["has_douyin"] == true
+                                  ? Container(
+                                      padding: EdgeInsets.fromLTRB(5, 0, 0, 0),
+                                      child: Image.asset(
+                                        "images/contact_douyin@3x.png",
                                         width: 14,
                                         height: 14,
                                       ),

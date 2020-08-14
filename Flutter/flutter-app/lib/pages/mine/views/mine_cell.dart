@@ -1,9 +1,11 @@
+import 'package:common_utils/common_utils.dart';
 import 'package:flutter/material.dart';
 import '../../../public/public.dart';
 
 class MineCell extends StatelessWidget {
   String icon = "";
   String text = "";
+  Widget valueWidget;
   bool showLine = true;
   kVoidFunctionBlock tapHandle;
 
@@ -12,6 +14,7 @@ class MineCell extends StatelessWidget {
     this.showLine = true,
     this.icon = "",
     this.text = "",
+    this.valueWidget,
     this.tapHandle,
   }) : super(key: key);
 
@@ -60,10 +63,16 @@ class MineCell extends StatelessWidget {
                   ),
                 ],
               ),
-              Image.asset(
-                "images/Shape@3x.png",
-                width: 8,
-                height: 12,
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  valueWidget != null ? valueWidget : Container(),
+                  Image.asset(
+                    "images/Shape@3x.png",
+                    width: 8,
+                    height: 12,
+                  ),
+                ],
               ),
             ],
           ),

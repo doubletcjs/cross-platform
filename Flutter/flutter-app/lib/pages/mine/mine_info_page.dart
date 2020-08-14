@@ -225,20 +225,20 @@ class _MineInfoPageState extends State<MineInfoPage> {
           ? _infoPackage["emotion"]
           : 0];
     } else if (key == "living_status") {
-      List _livingstatus = ["保密", "一个人", "和家人", "和某人", "和朋友"];
-      return _livingstatus[
+      List _livingStatus = ["保密", "一个人", "和家人", "和某人", "和朋友"];
+      return _livingStatus[
           ObjectUtil.isEmpty(_infoPackage["living_status"]) == false
               ? _infoPackage["living_status"]
               : 0];
     } else if (key == "drinking_habit") {
-      List _drinkinghabit = ["保密", "从不", "偶尔", "经常"];
-      return _drinkinghabit[
+      List _drinkingHabit = ["保密", "从不", "偶尔", "经常"];
+      return _drinkingHabit[
           ObjectUtil.isEmpty(_infoPackage["drinking_habit"]) == false
               ? _infoPackage["drinking_habit"]
               : 0];
     } else if (key == "smoking_habit") {
-      List _smokinghabit = ["保密", "从不", "偶尔", "经常"];
-      return _smokinghabit[
+      List _smokingHabit = ["保密", "从不", "偶尔", "经常"];
+      return _smokingHabit[
           ObjectUtil.isEmpty(_infoPackage["smoking_habit"]) == false
               ? _infoPackage["smoking_habit"]
               : 0];
@@ -282,10 +282,7 @@ class _MineInfoPageState extends State<MineInfoPage> {
 
       final picker = CupertinoDatePicker(
         onDateTimeChanged: (date) {
-          setState(() {
-            String _dataStr = DateUtil.formatDate(date, format: "yyyy-MM-dd");
-            _infoPackage["birthday"] = _dataStr;
-          });
+          _date = date;
         },
         initialDateTime: _date,
         mode: CupertinoDatePickerMode.date,
@@ -294,10 +291,46 @@ class _MineInfoPageState extends State<MineInfoPage> {
       showCupertinoModalPopup(
           context: context,
           builder: (context) {
-            return Container(
-              color: Colors.white,
-              height: 216,
-              child: picker,
+            return Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Container(
+                  color: Colors.white,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      FlatButton(
+                        padding: EdgeInsets.zero,
+                        onPressed: () {
+                          Navigator.of(context).pop();
+                        },
+                        child: Text(
+                          "取消",
+                        ),
+                      ),
+                      FlatButton(
+                        padding: EdgeInsets.zero,
+                        onPressed: () {
+                          setState(() {
+                            String _dateString = DateUtil.formatDate(_date,
+                                format: "yyyy-MM-dd");
+                            _infoPackage["birthday"] = _dateString;
+                          });
+                          Navigator.of(context).pop();
+                        },
+                        child: Text(
+                          "确定",
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                Container(
+                  color: Colors.white,
+                  height: 216,
+                  child: picker,
+                ),
+              ],
             );
           });
     } else if (key == "education") {
@@ -494,9 +527,11 @@ class _MineInfoPageState extends State<MineInfoPage> {
 
                 _uploadCovers();
               } else {
+                XsProgressHud.hide();
                 showToast("部分图片上传失败！请稍后重试。", context);
               }
             } else {
+              XsProgressHud.hide();
               showToast("部分图片上传失败！请稍后重试。", context);
             }
           });
@@ -622,7 +657,7 @@ class _MineInfoPageState extends State<MineInfoPage> {
                         ),
                         Expanded(
                           child: Text(
-                            "温馨提醒：尊敬的用户，Yue Mie是一个真实的交友平台，杜绝虚假请自拍正脸视频证明照片是本人头像和视频一直才能通过审核",
+                            "温馨提醒：尊敬的用户，如果头像不符合要求，将被屏蔽。请严格遵守相关规定，避免违规。",
                             style: TextStyle(
                               fontSize: 12,
                               color: rgba(51, 51, 51, 1),

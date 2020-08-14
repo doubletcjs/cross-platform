@@ -11,9 +11,11 @@ class InfoContent extends StatefulWidget {
 
 class _InfoContentState extends State<InfoContent> {
   List _infoIcons = [
+    "images/id.png",
     "images/dadanshen@3x.png",
     "images/sehngao@3x.png",
     "images/geren@3x.png",
+    "images/dingwei.png",
   ];
 
   List _livingStatus = [
@@ -58,6 +60,23 @@ class _InfoContentState extends State<InfoContent> {
     }
 
     return _list.join("，");
+  }
+
+  String _getText (int index) {
+    switch (index) {
+      case 0:
+        return this.widget.account['id'].toString() ?? "";
+      case 1:
+        return _emotions[this.widget.account['emotion']] ?? "";
+      case 2:
+        return "${this.widget.account['height'] ?? ''}cm";
+      case 3:
+        return _combination() ?? "";
+      case 4:
+        return "${this.widget.account['province_name'] ?? ''} ${this.widget.account['city_name'] ?? ''}";
+    }
+
+    return "";
   }
 
   @override
@@ -105,7 +124,9 @@ class _InfoContentState extends State<InfoContent> {
           ),
           Column(
             children: _infoIcons.map((icon) {
+              kLog(icon);
               int index = _infoIcons.indexOf(icon);
+              kLog(index);
               return Container(
                 padding: EdgeInsets.fromLTRB(2, 0, 2, 24),
                 child: Row(
@@ -124,15 +145,7 @@ class _InfoContentState extends State<InfoContent> {
                     ),
                     Expanded(
                       child: Text(
-                        index == 0
-                            ? this.widget.account["emotion"] == null
-                                ? ""
-                                : "${_emotions[this.widget.account['emotion']]}"
-                            : index == 1
-                                ? this.widget.account["height"] == null
-                                    ? ""
-                                    : "${this.widget.account['height']}" + "cm"
-                                : index == 2 ? _combination() : "",
+                        _getText(index),
                         style: TextStyle(
                           color: rgba(51, 51, 51, 1),
                           fontSize: 15,

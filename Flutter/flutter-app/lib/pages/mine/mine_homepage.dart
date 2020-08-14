@@ -75,22 +75,45 @@ class _MineHomePageState extends State<MineHomePage> {
 
   //聊天
   void _goChart() {
-    //是否开通会员或已认证
-    if (_loginAccount["vip_type"] == 1 || _loginAccount["audit_status"] == 3) {
-      //聊天
-      if (ObjectUtil.isEmpty(_account["id"]) == false) {
-        Navigator.of(context).push(
-          MaterialPageRoute(builder: (context) {
-            return ChatMainPage(
-              sessionId: "${_account["id"]}",
-            );
-          }),
-        );
+    //男会员只提示开通会员
+    if (_loginAccount["sex"] == 1) {
+      if (_loginAccount["vip_type"] == 1) {
+        //聊天
+        if (ObjectUtil.isEmpty(_account["id"]) == false) {
+          Navigator.of(context).push(
+            MaterialPageRoute(builder: (context) {
+              return ChatMainPage(
+                sessionId: "${_account["id"]}",
+              );
+            }),
+          );
+        } else {
+          showToast("用户id不能为空！", context);
+        }
       } else {
-        showToast("用户id不能为空！", context);
+        MemberAlert(
+          manCustom: true,
+        ).show(context);
       }
     } else {
-      MemberAlert().show(context);
+      //是否开通会员或已认证
+      if (_loginAccount["vip_type"] == 1 ||
+          _loginAccount["audit_status"] == 3) {
+        //聊天
+        if (ObjectUtil.isEmpty(_account["id"]) == false) {
+          Navigator.of(context).push(
+            MaterialPageRoute(builder: (context) {
+              return ChatMainPage(
+                sessionId: "${_account["id"]}",
+              );
+            }),
+          );
+        } else {
+          showToast("用户id不能为空！", context);
+        }
+      } else {
+        MemberAlert().show(context);
+      }
     }
   }
 
@@ -241,7 +264,12 @@ class _MineHomePageState extends State<MineHomePage> {
   void _refreshAccount() {
     setState(() {
       if (ObjectUtil.isEmptyString(this.widget.userId) == true) {
-        _account = currentAccount;
+        _account = null;
+        Future.delayed(Duration(milliseconds: 300), () {
+          setState(() {
+            _account = currentAccount;
+          });
+        });
       } else {
         _loginAccount = currentAccount;
       }

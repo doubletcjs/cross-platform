@@ -5,7 +5,11 @@ import '../../../function/general_dialog.dart';
 import 'upgrade_alert.dart';
 
 class MemberAlert extends StatelessWidget {
-  const MemberAlert({Key key}) : super(key: key);
+  bool manCustom = false; //男性用户提示样式
+  MemberAlert({
+    Key key,
+    this.manCustom = false,
+  }) : super(key: key);
 
   show(BuildContext context) {
     GeneralDialog().show(
@@ -56,7 +60,9 @@ class MemberAlert extends StatelessWidget {
           ),
           //内容
           Text(
-            "视频认证后即可免费聊天\n如果不想认证，开通会员特权，无限畅聊。",
+            manCustom == true
+                ? "开通会员特权，无限畅聊"
+                : "视频认证后即可免费聊天\n如果不想认证，开通会员特权，无限畅聊。",
             textAlign: TextAlign.center,
             style: TextStyle(
               color: rgba(51, 51, 51, 1),
@@ -66,90 +72,127 @@ class MemberAlert extends StatelessWidget {
           SizedBox(
             height: 42,
           ),
-          Row(
-            children: <Widget>[
-              //开通会员
-              Expanded(
-                child: Container(
-                  height: 44,
-                  decoration: BoxDecoration(
-                    gradient: LinearGradient(
-                      colors: [
-                        rgba(255, 44, 96, 1),
-                        rgba(255, 114, 81, 1),
-                      ],
-                      begin: Alignment.centerLeft,
-                      end: Alignment.centerRight,
-                    ),
-                    borderRadius: BorderRadius.circular(44 / 2),
-                  ),
-                  child: FlatButton(
-                    padding: EdgeInsets.zero,
-                    onPressed: () {
-                      this._goUpgrade(context);
-                    },
-                    child: Column(
-                      mainAxisSize: MainAxisSize.min,
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: <Widget>[
-                        Text(
-                          "开通会员",
-                          style: TextStyle(
-                            color: rgba(255, 255, 255, 1),
-                            fontSize: 17,
+          manCustom == true
+              ? Row(
+                  children: <Widget>[
+                    Expanded(
+                      child: Container(
+                        height: 44,
+                        decoration: BoxDecoration(
+                          gradient: LinearGradient(
+                            colors: [
+                              rgba(255, 44, 96, 1),
+                              rgba(255, 114, 81, 1),
+                            ],
+                            begin: Alignment.centerLeft,
+                            end: Alignment.centerRight,
+                          ),
+                          borderRadius: BorderRadius.circular(44 / 2),
+                        ),
+                        child: FlatButton(
+                          padding: EdgeInsets.zero,
+                          onPressed: () {
+                            this._goUpgrade(context);
+                          },
+                          child: Text(
+                            "开通会员",
+                            style: TextStyle(
+                              color: rgba(255, 255, 255, 1),
+                              fontSize: 17,
+                            ),
+                          ),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(44 / 2),
                           ),
                         ),
-                        Text(
-                          "免认证",
-                          style: TextStyle(
-                            color: rgba(255, 255, 255, 1),
-                            fontSize: 11,
-                          ),
-                        ),
-                      ],
-                    ),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(44 / 2),
-                    ),
-                  ),
-                ),
-              ),
-              SizedBox(
-                width: 17.5,
-              ),
-              //认证
-              Expanded(
-                child: Container(
-                  height: 44,
-                  decoration: BoxDecoration(
-                    border: Border.all(
-                      width: 1,
-                      color: rgba(255, 45, 85, 1),
-                    ),
-                    borderRadius: BorderRadius.circular(44 / 2),
-                  ),
-                  child: FlatButton(
-                    padding: EdgeInsets.zero,
-                    onPressed: () {
-                      this._goCertification(context);
-                    },
-                    child: Text(
-                      "去认证",
-                      style: TextStyle(
-                        color: rgba(255, 45, 85, 1),
-                        fontSize: 17,
                       ),
                     ),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(44 / 2),
+                  ],
+                )
+              : Row(
+                  children: <Widget>[
+                    //开通会员
+                    Expanded(
+                      child: Container(
+                        height: 44,
+                        decoration: BoxDecoration(
+                          gradient: LinearGradient(
+                            colors: [
+                              rgba(255, 44, 96, 1),
+                              rgba(255, 114, 81, 1),
+                            ],
+                            begin: Alignment.centerLeft,
+                            end: Alignment.centerRight,
+                          ),
+                          borderRadius: BorderRadius.circular(44 / 2),
+                        ),
+                        child: FlatButton(
+                          padding: EdgeInsets.zero,
+                          onPressed: () {
+                            this._goUpgrade(context);
+                          },
+                          child: Column(
+                            mainAxisSize: MainAxisSize.min,
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: <Widget>[
+                              Text(
+                                "开通会员",
+                                style: TextStyle(
+                                  color: rgba(255, 255, 255, 1),
+                                  fontSize: 17,
+                                ),
+                              ),
+                              Text(
+                                "免认证",
+                                style: TextStyle(
+                                  color: rgba(255, 255, 255, 1),
+                                  fontSize: 11,
+                                ),
+                              ),
+                            ],
+                          ),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(44 / 2),
+                          ),
+                        ),
+                      ),
                     ),
-                  ),
+                    SizedBox(
+                      width: 17.5,
+                    ),
+                    //认证
+                    Expanded(
+                      child: Container(
+                        height: 44,
+                        decoration: BoxDecoration(
+                          border: Border.all(
+                            width: 1,
+                            color: rgba(255, 45, 85, 1),
+                          ),
+                          borderRadius: BorderRadius.circular(44 / 2),
+                        ),
+                        child: FlatButton(
+                          padding: EdgeInsets.zero,
+                          onPressed: () {
+                            this._goCertification(context);
+                          },
+                          child: Text(
+                            "去认证",
+                            style: TextStyle(
+                              color: rgba(255, 45, 85, 1),
+                              fontSize: 17,
+                            ),
+                          ),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(44 / 2),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
-              ),
-            ],
-          ),
           SizedBox(
-            height: 39.5,
+            height: manCustom == true ? 18 : 39.5,
           ),
           InkWell(
             onTap: () {

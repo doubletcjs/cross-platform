@@ -8,7 +8,7 @@ xmlns:tools="http://schemas.android.com/tools"
          FlutterApplication and put your custom class here. -->
     <application
         android:name="io.flutter.app.FlutterApplication"
-        android:label="yue_mei"
+        android:label="尓蒙"
         android:icon="@mipmap/ic_launcher"
         tools:replace="android:label">
         <activity
@@ -32,10 +32,20 @@ xmlns:tools="http://schemas.android.com/tools"
                  screen fades out. A splash screen is useful to avoid any visual
                  gap between the end of Android's launch screen and the painting of
                  Flutter's first frame. -->
-            <meta-data
+            <!-- <meta-data
               android:name="io.flutter.embedding.android.SplashScreenDrawable"
               android:resource="@drawable/launch_background"
-              />
+              /> -->
+             <meta-data
+                android:name="io.flutter.app.android.SplashScreenUntilFirstFrame"
+                android:value="true" />
+
+            <!--加入开始--> 
+            <meta-data
+                android:name="io.flutter.embedding.android.SplashScreenDrawable"
+                android:resource="@drawable/launch_background" />
+            <!--加入结束-->
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
                 <category android:name="android.intent.category.LAUNCHER"/>
@@ -49,7 +59,7 @@ xmlns:tools="http://schemas.android.com/tools"
     </application>
 
     <!-- <uses-sdk tools:overrideLibrary="com.leeson.image_pickers, com.luck.picture.lib, com.yalantis.ucrop"/>  -->
-    <uses-sdk tools:overrideLibrary="com.example.video_compress, com.otaliastudios.transcoder, com.otaliastudios.opengl, tech.jitao.umeng_analytics_plugin"/>  
+    <uses-sdk tools:overrideLibrary="com.example.video_compress, com.otaliastudios.transcoder, com.otaliastudios.opengl, tech.jitao.umeng_analytics_plugin, com.jiguang.jpush"/>  
     <uses-permission android:name="android.permission.CAMERA"/>
     <uses-permission android:name="android.permission.INTERNET"/>
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>

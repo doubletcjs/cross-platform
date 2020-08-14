@@ -36,6 +36,7 @@ class _RechargeRecordState extends State<RechargeRecord> {
 
   //请求
   void _requestData() {
+    kLog("_requestData");
     WalletApi.consumptionList(this._page, this._perPage, (data, msg) {
       if (data != null) {
         Map pagination = data["pagination"];
@@ -188,13 +189,25 @@ class _RechargeRecordState extends State<RechargeRecord> {
               },
               enableLoadMore: _showLoadMore,
             )
-          : Container(
-              child: Center(
-                child: Text(
-                  "暂无充值记录",
-                  style: TextStyle(fontSize: 16),
-                ),
-              ),
+          : functionRefresher(
+              _refreshController,
+              _refreshController.headerStatus != RefreshStatus.completed
+                  ? Container()
+                  : Container(
+                      child: Center(
+                        child: Text(
+                          "暂无充值记录",
+                          style: TextStyle(fontSize: 16),
+                        ),
+                      ),
+                    ),
+              onRefresh: () {
+                this._refreshData();
+              },
+              onLoadMore: () {
+                this._loadMoreData();
+              },
+              enableLoadMore: false,
             ),
     );
   }

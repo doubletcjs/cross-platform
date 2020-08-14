@@ -105,15 +105,33 @@ class _MineHeaderState extends State<MineHeader> {
                 height: 18.5,
               ),
               //昵称
-              Text(
-                _account["nickname"] != null ? _account["nickname"] : "用户名",
-                maxLines: 2,
-                overflow: TextOverflow.ellipsis,
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                  fontSize: 19,
-                  color: rgba(51, 51, 51, 1),
-                ),
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    _account["nickname"] != null ? _account["nickname"] : "用户名",
+                    maxLines: 2,
+                    overflow: TextOverflow.ellipsis,
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      fontSize: 19,
+                      color: rgba(51, 51, 51, 1),
+                    ),
+                  ),
+                  SizedBox(
+                    width:
+                        (_account != null && _account["vip_type"] == 1) ? 5 : 0,
+                  ),
+                  //是否会员
+                  (_account != null && _account["vip_type"] == 1)
+                      ? Image.asset(
+                          "images/member@3x.png",
+                          width: 16,
+                          height: 16,
+                        )
+                      : Container()
+                ],
               ),
               SizedBox(
                 height: 7,

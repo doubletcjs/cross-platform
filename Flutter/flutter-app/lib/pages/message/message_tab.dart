@@ -1,7 +1,10 @@
+import 'dart:io';
+
 import 'package:common_utils/common_utils.dart';
 import 'package:dart_notification_center/dart_notification_center.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:tencent_im_plugin/entity/session_entity.dart';
 import 'package:tencent_im_plugin/tencent_im_plugin.dart';
 import '../function/general_alert.dart';
@@ -19,16 +22,19 @@ class MessagePage extends StatefulWidget {
 }
 
 class _MessagePageState extends State<MessagePage> {
+  RefreshController _refreshController =
+      RefreshController(initialRefresh: true);
   Map _account = {};
   //获取用户信息
   void _refreshAccount() {
     setState(() {
       _account = currentAccount;
+      this._fetchUnreadCount();
     });
   }
 
   List<SessionEntity> _conversationList = []; //会话列表
-  int _imLoggingStatus = 0; //im登录状态 0 登录中 1 成功 2 失败
+  int _imLoginStatus = 0; //im登录状态 0 登录中 1 成功 2 失败
   //腾讯聊天生成userSig。调用原生
   /*
      通道名称： samples.flutter.dev/generate_userSig
@@ -47,9 +53,10 @@ class _MessagePageState extends State<MessagePage> {
     print("type:" + "$type");
     print("params:" + "$params");
     // 新消息时更新会话列表最近的聊天记录
-    if (type == ListenerTypeEnum.RefreshConversation) {
-      this.setState(() {
-        for (var item in params) {
+    if (type == ListenerTypeEnum.RefreshConversation ||
+        type == ListenerTypeEnum.Refresh) {
+      setState(() {
+        for (SessionEntity item in params) {
           bool exist = false;
           for (var i = 0; i < _conversationList.length; i++) {
             if (_conversationList[i].id == item.id) {
@@ -85,30 +92,48 @@ class _MessagePageState extends State<MessagePage> {
           //     "secretKey": TENCENTIM_SECRETKEY,
           //   },
           // );
-
-          TencentImPlugin.login(identifier: userId, userSig: userSig).then((_) {
+          kLog("登录IM");
+          TencentImPlugin.login(identifier: userId, userSig: userSig)
+              .then((_) async {
             if (ObjectUtil.isEmptyString(userId) == false) {
               kLog("登录成功");
               //登录成功
-              TencentImPlugin.initStorage(identifier: userId);
-              //信息监听
-              TencentImPlugin.addListener(_messageListener);
+
               setState(() {
-                _imLoggingStatus = 1;
+                _imLoginStatus = 1;
                 this._getConversationList();
+                _refreshController.refreshCompleted();
               });
+              kLog("开始上传token");
+              //上传deviceToken
+              if (Platform.isIOS) {
+                readDeviceToken().then((value) {
+                  kLog("获取token上传");
+                  if (ObjectUtil.isEmpty(value) == false) {
+                    kLog("上传token");
+                    TencentImPlugin.setOfflinePushToken(
+                      bussid: TENCENTIM_BUSSID,
+                      token: value,
+                    );
+                  }
+                });
+              }
+
+              await TencentImPlugin.initStorage(identifier: userId);
             } else {
               //登录失败
               kLog("登录失败");
               setState(() {
-                _imLoggingStatus = 2;
+                _imLoginStatus = 2;
+                _refreshController.refreshCompleted();
               });
             }
           }).catchError((error) {
             kLog("error:$error");
             //登录失败
             setState(() {
-              _imLoggingStatus = 2;
+              _imLoginStatus = 2;
+              _refreshController.refreshCompleted();
             });
           });
         }
@@ -123,8 +148,9 @@ class _MessagePageState extends State<MessagePage> {
             //已登录
             kLog("已登录");
             setState(() {
-              _imLoggingStatus = 1;
+              _imLoginStatus = 1;
               this._getConversationList();
+              _refreshController.refreshCompleted();
             });
             await TencentImPlugin.initStorage(identifier: imUserId);
           }
@@ -132,21 +158,22 @@ class _MessagePageState extends State<MessagePage> {
           //未登录
           _imLogin();
         }
+      } else {
+        setState(() {
+          _imLoginStatus = 2;
+          _refreshController.refreshCompleted();
+        });
       }
     });
   }
 
   //获取聊天会话
   void _getConversationList() {
+    kLog("获取聊天会话");
     TencentImPlugin.getConversationList().then(
       (value) {
-        this.setState(
-          () {
-            _conversationList = List.from(value);
-            this._sortConversation();
-            kLog("会话数:${_conversationList.length}");
-          },
-        );
+        _conversationList = List.from(value);
+        this._sortConversation();
       },
     );
   }
@@ -161,7 +188,35 @@ class _MessagePageState extends State<MessagePage> {
               : i2.message.timestamp.compareTo(i1.message.timestamp),
     );
 
-    setState(() {});
+    //不显示空昵称会话
+    List<SessionEntity> _list = [];
+    _conversationList.forEach((element) {
+      if (ObjectUtil.isEmpty(element.userProfile) == false &&
+          ObjectUtil.isEmpty(element.userProfile.nickName) == false) {
+        if (_list.indexOf(element) < 0) {
+          _list.add(element);
+        }
+      }
+    });
+
+    setState(() {
+      _conversationList = _list;
+      _refreshController.refreshCompleted();
+      this._fetchUnreadCount();
+      kLog("会话数:${_conversationList.length}");
+    });
+  }
+
+  //刷新聊天会话
+  void _refreshImAction() {
+    if (_imLoginStatus == 1) {
+      this._getConversationList();
+    } else {
+      setState(() {
+        _imLoginStatus = 0;
+        this._checkImStatus();
+      });
+    }
   }
 
   //看过我widget
@@ -240,6 +295,26 @@ class _MessagePageState extends State<MessagePage> {
     );
   }
 
+  //未读消息数
+  void _fetchUnreadCount() {
+    int _unReadCount = 0;
+    _conversationList.forEach((element) {
+      _unReadCount += element.unreadMessageNum;
+    });
+
+    _unReadCount += (_account != null && _account["visitor_count"] != null
+        ? _account["visitor_count"]
+        : 0);
+
+    _unReadCount += (_account != null && _account["love_count"] != null
+        ? _account["love_count"]
+        : 0);
+
+    DartNotificationCenter.post(channel: "kTabUnreadCount", options: {
+      "count": _unReadCount,
+    });
+  }
+
   @override
   void initState() {
     super.initState();
@@ -255,7 +330,8 @@ class _MessagePageState extends State<MessagePage> {
       },
     );
 
-    this._checkImStatus();
+    //信息监听
+    TencentImPlugin.addListener(_messageListener);
   }
 
   @override
@@ -287,86 +363,94 @@ class _MessagePageState extends State<MessagePage> {
                   title: "消息",
                 ),
                 Expanded(
-                  child: ListView.builder(
-                    padding: EdgeInsets.only(
-                      top: 0,
-                    ),
-                    itemBuilder: (context, index) {
-                      if (index == 0) {
-                        //访客
-                        return _visitorWidget();
-                      } else if (index == 1) {
-                        //喜欢我的
-                        return _loveMeWidget();
-                      } else if (index == 2) {
-                        //分割线
-                        return Container(
-                          height: 1,
-                          padding: EdgeInsets.fromLTRB(13.5, 0, 0, 0),
-                          color: Colors.white,
-                          child: Divider(
-                            height: 1,
-                            color: rgba(231, 231, 231, 1),
-                          ),
-                        );
-                      } else {
-                        if (_conversationList.length == 0) {
-                          //聊天登录中
+                  child: functionRefresher(
+                    _refreshController,
+                    ListView.builder(
+                      padding: EdgeInsets.only(
+                        top: 0,
+                      ),
+                      itemBuilder: (context, index) {
+                        if (index == 0) {
+                          //访客
+                          return _visitorWidget();
+                        } else if (index == 1) {
+                          //喜欢我的
+                          return _loveMeWidget();
+                        } else if (index == 2) {
+                          //分割线
                           return Container(
-                            width: MediaQuery.of(context).size.width,
-                            height: 44,
-                            child:
-                                (_imLoggingStatus == 0 || _imLoggingStatus == 2)
-                                    ? FlatButton(
-                                        padding: EdgeInsets.zero,
-                                        onPressed: _imLoggingStatus == 0
-                                            ? null
-                                            : () {
-                                                setState(() {
-                                                  _imLoggingStatus = 0;
-                                                });
-                                                this._checkImStatus();
-                                              },
-                                        child: Text(_imLoggingStatus == 0
-                                            ? "聊天系统登录中..."
-                                            : "再次登录聊天系统"),
-                                      )
-                                    : Container(),
+                            height: 1,
+                            padding: EdgeInsets.fromLTRB(13.5, 0, 0, 0),
+                            color: Colors.white,
+                            child: Divider(
+                              height: 1,
+                              color: rgba(231, 231, 231, 1),
+                            ),
                           );
                         } else {
-                          int idx = index - 3;
-                          SessionEntity element = _conversationList[idx];
-                          return MessageCell(
-                            padding: EdgeInsets.fromLTRB(13.5, 10, 14.5, 10),
-                            redCount: element.unreadMessageNum,
-                            title: element.type == SessionType.System
-                                ? "系统账号"
-                                : (ObjectUtil.isEmpty(
-                                        element.userProfile.nickName)
-                                    ? "未注册用户"
-                                    : element.userProfile.nickName),
-                            content: element.message.note,
-                            subContent: TimelineUtil.format(
+                          if (_conversationList.length == 0) {
+                            //聊天登录中
+                            return Container(
+                              width: MediaQuery.of(context).size.width,
+                              height: 44,
+                              child:
+                                  (_imLoginStatus == 0 || _imLoginStatus == 2)
+                                      ? FlatButton(
+                                          padding: EdgeInsets.zero,
+                                          onPressed: _imLoginStatus == 0
+                                              ? null
+                                              : () {
+                                                  _refreshController
+                                                      .requestRefresh();
+                                                },
+                                          child: Text(_imLoginStatus == 0
+                                              ? "聊天系统登录中..."
+                                              : "再次登录聊天系统"),
+                                        )
+                                      : Container(),
+                            );
+                          } else {
+                            int idx = index - 3;
+                            SessionEntity element = _conversationList[idx];
+                            return MessageCell(
+                              padding: EdgeInsets.fromLTRB(13.5, 10, 14.5, 10),
+                              redCount: element.unreadMessageNum,
+                              title: element.type == SessionType.System
+                                  ? "系统账号"
+                                  : element.userProfile.nickName,
+                              content: element.message.note,
+                              subContent: TimelineUtil.format(
                                 element.message.timestamp * 1000,
-                                locale: "zh"),
-                            icon: element.faceUrl,
-                            tapHandle: () {
-                              Navigator.of(context).push(
-                                MaterialPageRoute(builder: (context) {
-                                  return ChatMainPage(
+                                locale: "zh",
+                                dayFormat: DayFormat.Full,
+                              ),
+                              icon: element.faceUrl,
+                              tapHandle: () {
+                                Navigator.of(context).push(
+                                  MaterialPageRoute(builder: (context) {
+                                    return ChatMainPage(
+                                      sessionId: element.id,
+                                    );
+                                  }),
+                                );
+
+                                TencentImPlugin.setRead(
                                     sessionId: element.id,
-                                  );
-                                }),
-                              );
-                            },
-                          );
+                                    sessionType: element.type);
+                              },
+                            );
+                          }
                         }
-                      }
+                      },
+                      itemCount: 3 +
+                          (_conversationList.length == 0
+                              ? 1
+                              : _conversationList.length),
+                    ),
+                    onRefresh: () {
+                      this._refreshImAction();
                     },
-                    itemCount: 3 +
-                        (_conversationList.length == 0
-                            ? 1
-                            : _conversationList.length),
+                    enableLoadMore: false,
                   ),
                 ),
               ],

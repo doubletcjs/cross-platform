@@ -32,13 +32,20 @@ class RecordListApi {
   page integer 分页
   per_page integer 每页记录条数 默认15
   */
-  static blockList(page, size, finish) {
+  static shieldList(page, size, finish) {
     Networking.requestBase("/api/v1/user/shield/list", finish,
         method: "GET",
         params: {
           "page": page,
           "per_page": size,
         });
+  }
+
+  //删除黑名单的人
+  static shieldDelete(userId, finish) {
+    Networking.requestBase("/api/v1/user/shield/delete", finish, params: {
+      "id": userId,
+    });
   }
 
   //清除访客

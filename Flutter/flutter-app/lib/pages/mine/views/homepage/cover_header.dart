@@ -2,6 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
 import '../../../../public/public.dart';
+import '../../../function/photo_gallery.dart';
 
 class CoverHeader extends StatefulWidget {
   bool isSelf = false; //是否查看本人主页
@@ -25,7 +26,10 @@ class _CoverHeaderState extends State<CoverHeader> {
   @override
   void dispose() {
     super.dispose();
-    _swiperController.dispose();
+
+    if (_swiperController != null) {
+      _swiperController.dispose();
+    }
   }
 
   @override
@@ -40,19 +44,35 @@ class _CoverHeaderState extends State<CoverHeader> {
             children: this.widget.account != null &&
                     this.widget.account["photo"] != null
                 ? List.from(this.widget.account["photo"]).map((photo) {
-                    return CachedNetworkImage(
-                      placeholder: (context, url) {
-                        return Image.asset(
-                          "images/placeholder_mini@3x.png",
-                          width: MediaQuery.of(context).size.width,
-                          height: 375,
-                          fit: BoxFit.cover,
+                    List _list = List.from(this.widget.account["photo"]);
+                    int _index = _list.indexOf(photo);
+                    return InkWell(
+                      onTap: () {
+                        //FadeRoute是自定义的切换过度动画（渐隐渐现） 如果不需要 可以使用默认的MaterialPageRoute
+                        Navigator.of(context).push(
+                          FadeRoute(
+                            page: PhotoViewGalleryScreen(
+                              images: _list, //传入图片list
+                              index: _index, //传入当前点击的图片的index
+                              // heroTag: img, //传入当前点击的图片的hero tag （可选）
+                            ),
+                          ),
                         );
                       },
-                      imageUrl: photo,
-                      width: MediaQuery.of(context).size.width,
-                      height: 375,
-                      fit: BoxFit.cover,
+                      child: CachedNetworkImage(
+                        placeholder: (context, url) {
+                          return Image.asset(
+                            "images/placeholder_mini@3x.png",
+                            width: MediaQuery.of(context).size.width,
+                            height: 375,
+                            fit: BoxFit.cover,
+                          );
+                        },
+                        imageUrl: photo,
+                        width: MediaQuery.of(context).size.width,
+                        height: 375,
+                        fit: BoxFit.cover,
+                      ),
                     );
                   }).toList()
                 : [],
@@ -97,7 +117,7 @@ class _CoverHeaderState extends State<CoverHeader> {
                             child: CachedNetworkImage(
                               placeholder: (context, url) {
                                 return Image.asset(
-                                  "images/placeholder_mini@3x.png",
+                                  "images/placeholder_mini_grey@3x.png",
                                   width: 37,
                                   height: 37,
                                   fit: BoxFit.cover,

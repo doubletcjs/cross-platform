@@ -36,7 +36,14 @@ class _WalletPageState extends State<WalletPage> {
       if (data != null) {
         setState(() {
           _payList = data;
-          this._handleOnlineProducts();
+
+          if (Platform.isIOS) {
+            this._handleOnlineProducts();
+          } else {
+            Future.delayed(Duration(milliseconds: 200), () {
+              XsProgressHud.hide();
+            });
+          }
         });
       } else {
         XsProgressHud.hide();
@@ -150,7 +157,8 @@ class _WalletPageState extends State<WalletPage> {
 
   //上传支付凭证
   void _uploadPayCredentials(PurchasedItem item) {
-    WalletApi.applePay(item.purchaseToken, (data, msg) {
+    XsProgressHud.show(context);
+    WalletApi.applePay("${item.transactionReceipt}", (data, msg) {
       if (data != null) {
         //更新用户信息
         DartNotificationCenter.post(
@@ -159,9 +167,8 @@ class _WalletPageState extends State<WalletPage> {
               "type": 1,
             });
 
-        Future.delayed(Duration(milliseconds: 800), () {
+        Future.delayed(Duration(milliseconds: 400), () {
           XsProgressHud.hide();
-          Navigator.of(context).pop();
         });
       } else {
         XsProgressHud.hide();
@@ -415,7 +422,7 @@ class _WalletPageState extends State<WalletPage> {
           Container(
             padding: EdgeInsets.fromLTRB(15, 0, 15, 0),
             child: Text(
-              "1.金币可以用于查看认真视频。（对方喜欢你免费查看）\n2.金币可以用于查看联系方式。（对方喜欢你免费查看）\n3.如果对方喜欢你，查看联系方式和认证视频、信使服务、聊天等等所有功能都是自由使用。",
+              "1.金币可以用于查看认证视频。\n2.金币可以用于查看联系方式。",
               style: TextStyle(
                 color: rgba(153, 153, 153, 1),
                 fontSize: 12,

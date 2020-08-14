@@ -9,6 +9,8 @@ import 'package:xs_progress_hud/xs_progress_hud.dart';
 import '../../../function/general_dialog.dart';
 import '../../../../public/public.dart';
 import '../../../wallet/api/wallet_api.dart';
+import '../../../function/base_webview.dart';
+import '../../../../public/networking.dart';
 
 class UpgradeAlert extends StatefulWidget {
   UpgradeAlert({Key key}) : super(key: key);
@@ -73,7 +75,14 @@ class _UpgradeAlertState extends State<UpgradeAlert> {
       if (data != null) {
         setState(() {
           _memberList = data;
-          this._handleOnlineProducts();
+
+          if (Platform.isIOS) {
+            this._handleOnlineProducts();
+          } else {
+            Future.delayed(Duration(milliseconds: 200), () {
+              XsProgressHud.hide();
+            });
+          }
         });
       } else {
         XsProgressHud.hide();
@@ -197,6 +206,7 @@ class _UpgradeAlertState extends State<UpgradeAlert> {
 
   //上传支付凭证
   void _uploadPayCredentials(PurchasedItem item) {
+    XsProgressHud.show(context);
     WalletApi.applePay("${item.transactionReceipt}", (data, msg) {
       if (data != null) {
         //更新用户信息
@@ -206,7 +216,7 @@ class _UpgradeAlertState extends State<UpgradeAlert> {
               "type": 1,
             });
 
-        Future.delayed(Duration(milliseconds: 800), () {
+        Future.delayed(Duration(milliseconds: 1000), () {
           XsProgressHud.hide();
           Navigator.of(context).pop();
         });
@@ -579,6 +589,17 @@ class _UpgradeAlertState extends State<UpgradeAlert> {
                     onTap: () {
                       if (item == "恢复购买") {
                         this._restoredPay();
+                      } else if (item == "隐私政策") {
+                        Navigator.of(context).push(
+                          MaterialPageRoute(
+                            builder: (context) {
+                              return BaseWebView(
+                                url: "${kServerURL + "/page/" + "1"}",
+                                title: "隐私政策",
+                              );
+                            },
+                          ),
+                        );
                       }
                     },
                     child: Text(

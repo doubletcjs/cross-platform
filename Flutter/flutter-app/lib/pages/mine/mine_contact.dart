@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:xs_progress_hud/xs_progress_hud.dart';
 import '../../public/public.dart';
 import 'api/member_api.dart';
@@ -19,10 +20,7 @@ class _MineContactState extends State<MineContact> {
     "images/contact_douyin@3x.png",
   ];
 
-  String _wechat = "";
-  String _tel = "";
-  String _qq = "";
-  String _douyin = "";
+  List<String> _contactValues = List<String>.generate(4, (int index) => "");
 
   //获取联系方式
   void _getContact() {
@@ -30,10 +28,10 @@ class _MineContactState extends State<MineContact> {
     MemberApi.getContact(this.widget.account["id"], (data, msg) {
       if (data != null) {
         setState(() {
-          _wechat = data["wechat"] != null ? data["wechat"] : "";
-          _tel = data["tel"] != null ? data["tel"] : "";
-          _qq = data["qq"] != null ? data["qq"] : "";
-          _douyin = data["douyin"] != null ? data["douyin"] : "";
+          _contactValues[0] = data["wechat"] ?? "";
+          _contactValues[1] = data["tel"] ?? "";
+          _contactValues[2] = data["qq"] ?? "";
+          _contactValues[3] = data["douyin"] ?? "";
         });
         Future.delayed(Duration(milliseconds: 600), () {
           XsProgressHud.hide();
@@ -78,17 +76,29 @@ class _MineContactState extends State<MineContact> {
                   width: 9,
                 ),
                 Expanded(
-                  child: Text(
-                    index == 0
-                        ? _tel
-                        : index == 1
-                            ? _wechat
-                            : index == 2 ? _qq : index == 3 ? _douyin : "",
-                    overflow: TextOverflow.ellipsis,
+                  child: SelectableText(
+                    _contactValues[index],
                     style: TextStyle(
                       color: rgba(0, 0, 0, 1),
                       fontSize: 14,
                     ),
+                  ),
+                ),
+                InkWell(
+                  onTap: () {
+                    Clipboard.setData(ClipboardData(text: _contactValues[index]));
+                    showToast("复制成功", context);
+                  },
+                  child: Row(
+                    children: [
+                      Image.asset(
+                        "images/fuzhi.png",
+                        width: 20,
+                        height: 20,
+                      ),
+                      SizedBox(width: 4,),
+                      Text("复制", style: TextStyle(color: rgba(166, 166, 166, 1), fontSize: 12)),
+                    ],
                   ),
                 ),
               ],

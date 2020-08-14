@@ -102,7 +102,13 @@ class _InputAvatarPageState extends State<InputAvatarPage> {
         });
 
         Asset _asset = assets.first;
-        _asset.getThumbByteData(750, 750).then((byteData) {
+        _asset
+            .getThumbByteData(
+          750,
+          750,
+          quality: 80,
+        )
+            .then((byteData) {
           List<int> _imageData = byteData.buffer.asUint8List();
           setState(() {
             _avatar = _imageData;

@@ -35,6 +35,7 @@ class CoverGridView extends StatefulWidget {
 class _CoverGridViewState extends State<CoverGridView> {
   double _itemWH = 0;
   List _coverList = [];
+  var _movingValue; // 记录正在移动的数据
 
   @override
   void initState() {
@@ -96,6 +97,8 @@ class _CoverGridViewState extends State<CoverGridView> {
     List<Widget> _list = [];
     _coverList.forEach((element) {
       _list.add(
+        this._draggableItem(element),
+        /*
         this._coverFrame(
           child: Stack(
             children: <Widget>[
@@ -153,6 +156,7 @@ class _CoverGridViewState extends State<CoverGridView> {
             ],
           ),
         ),
+      */
       );
     });
 
@@ -161,6 +165,127 @@ class _CoverGridViewState extends State<CoverGridView> {
     }
 
     return _list;
+  }
+
+  // 基础展示的item 此处设置width,height对GridView 无效，主要是偷懒给feedback用
+  Widget _baseMoveItem(element) {
+    if (element == _movingValue) {
+      return Container();
+    }
+
+    return this._coverFrame(
+      child: Stack(
+        children: <Widget>[
+          ClipRRect(
+            child: (element is String)
+                ? CachedNetworkImage(
+                    placeholder: (context, url) {
+                      return Image.asset(
+                        "images/placeholder_mini@3x.png",
+                        width: _itemWH,
+                        height: _itemWH,
+                        fit: BoxFit.cover,
+                      );
+                    },
+                    imageUrl: element != null ? "$element" : "",
+                    width: _itemWH,
+                    height: _itemWH,
+                    fit: BoxFit.cover,
+                  )
+                : Image.memory(
+                    element,
+                    width: _itemWH,
+                    height: _itemWH,
+                    fit: BoxFit.cover,
+                  ),
+            borderRadius: BorderRadius.circular(3),
+          ),
+          Positioned(
+            right: 0,
+            top: 0,
+            child: Container(
+              width: 17,
+              height: 17,
+              child: FlatButton(
+                padding: EdgeInsets.zero,
+                child: Image.asset(
+                  "images/certification_close@3x.png",
+                  width: 17,
+                  height: 17,
+                ),
+                onPressed: () {
+                  setState(() {
+                    _coverList.remove(element);
+                    if (this.widget.updateHandle != null) {
+                      this.widget.updateHandle(_coverList);
+                    }
+                  });
+                },
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(17 / 2),
+                ),
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  // 重新排序
+  void _exchangeMoveItem(moveData, toData, onAccept) {
+    setState(() {
+      var toIndex = _coverList.indexOf(toData);
+
+      _coverList.remove(moveData);
+      _coverList.insert(toIndex, moveData);
+
+      if (this.widget.updateHandle != null) {
+        this.widget.updateHandle(_coverList);
+      }
+
+      if (onAccept) {
+        _movingValue = null;
+      }
+    });
+  }
+
+  // 生成可拖动的item
+  Widget _draggableItem(element) {
+    return Draggable(
+      data: element,
+      child: DragTarget(
+        builder: (context, candidateData, rejectedData) {
+          return this._baseMoveItem(element);
+        },
+        onWillAccept: (moveData) {
+          print('=== onWillAccept ===');
+
+          var accept = moveData != null;
+          if (accept) {
+            this._exchangeMoveItem(moveData, element, false);
+          }
+          return accept;
+        },
+        onAccept: (moveData) {
+          print('=== onAccept: ===');
+          this._exchangeMoveItem(moveData, element, true);
+        },
+        onLeave: (moveData) {
+          print('=== onLeave ===');
+        },
+      ),
+      feedback: this._baseMoveItem(element),
+      onDraggableCanceled: (Velocity velocity, Offset offset) {
+        print('=== onDraggableCanceled ===');
+        setState(() {
+          _movingValue = null; //清空标记进行重绘
+        });
+      },
+      onDragCompleted: () {
+        print('=== onDragCompleted ===');
+      },
+    );
   }
 
   //添加图片
@@ -177,7 +302,18 @@ class _CoverGridViewState extends State<CoverGridView> {
         List _tempCoverList = _coverList;
         var index = 0;
         assets.forEach((element) {
-          element.getThumbByteData(750, 750).then((byteData) {
+          //w / h = 750 / x
+          double originalHeight = element.originalHeight.toDouble();
+          double originalWidth = element.originalWidth.toDouble();
+          int height = (750.0 * originalHeight) ~/ originalWidth;
+
+          element
+              .getThumbByteData(
+            750,
+            height,
+            quality: 80,
+          )
+              .then((byteData) {
             List<int> _imageData = byteData.buffer.asUint8List();
             _tempCoverList.add(_imageData);
             if (index == assets.length - 1) {

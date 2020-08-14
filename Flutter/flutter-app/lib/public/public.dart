@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:toast/toast.dart';
+import 'gif_refresh_header.dart';
 
 // 用户登录状态变化 type 0 登录 1 请求账号信息刷新 2 登出 3 请求账号信息结束，刷新本地记录用户信息
 final String kAccountHandleNotification = "AccountHandleNotification";
@@ -28,7 +29,7 @@ Map currentAccount = {};
 // ignore: non_constant_identifier_names
 final Map<String, String> UMENG_CONFIG = {
   "androidKey": "5f2bb55cd30932215475860c",
-  "iosKey": "5dfc5c034ca35748d1000c4c"
+  "iosKey": "5f2bb576b4b08b653e91ca95"
 };
 
 // 高德地图的配置信息
@@ -40,10 +41,17 @@ final Map<String, String> AMAP_CONFIG = {
 
 // 腾讯im配置信息
 // ignore: non_constant_identifier_names
-final TENCENTIM_APPID = "1400398568";
+final TENCENTIM_APPID = (kDebug() == true) ? "1400398568" : "1400409186";
+// ignore: non_constant_identifier_names
+final TENCENTIM_BUSSID = (kDebug() == true) ? 21456 : 21455; //开发 //正式
 // ignore: non_constant_identifier_names
 // final TENCENTIM_SECRETKEY =
 //     "f5e763808b3bad873c79809d319208fcc9950b9c1842b4a01946fbd5e7ebe648";
+
+// 用于接口加密认证
+final String privateKey = "yuemei";
+
+final String loadingGifPath = "images/loading.gif";
 
 ///打印日志
 void kLog(Object any) {
@@ -139,10 +147,10 @@ Widget transparentAppBar({Brightness brightness = Brightness.dark}) {
 void userID(kObjectFunctionBlock complete) {
   _preferencesFuture.then((preferences) {
     if (complete != null) {
-      if (ObjectUtil.isEmpty(preferences.get("userId"))) {
+      if (ObjectUtil.isEmpty(preferences.getString("userId"))) {
         complete("");
       } else {
-        complete("${preferences.get('userId')}");
+        complete("${preferences.getString('userId')}");
       }
     }
   }).catchError((error) {
@@ -175,11 +183,12 @@ void recordUserID(userId) {
 ///请求token，存储、读取。token
 void token(kObjectFunctionBlock complete) {
   _preferencesFuture.then((preferences) {
+    String _token = preferences.getString("token");
     if (complete != null) {
-      if (ObjectUtil.isEmpty(preferences.get("token"))) {
+      if (ObjectUtil.isEmptyString(_token) == true) {
         complete("");
       } else {
-        complete("${preferences.get('token')}");
+        complete("$_token");
       }
     }
   }).catchError((error) {
@@ -212,7 +221,7 @@ void recordToken(token) {
 ///请求userSig，存储、读取userSig
 Future<String> readUserSig() async {
   SharedPreferences preferences = await SharedPreferences.getInstance();
-  String _userSig = preferences.get("userSig");
+  String _userSig = preferences.getString("userSig");
 
   if (ObjectUtil.isEmpty(_userSig)) {
     return "";
@@ -228,6 +237,31 @@ void recordUserSig(userSig) {
       "$userSig",
     );
     kLog("recordUserSig");
+  }).catchError((error) {
+    kLog("error:$error");
+  });
+}
+
+///存储、读取deviceToken
+Future<String> readDeviceToken() async {
+  SharedPreferences preferences = await SharedPreferences.getInstance();
+  String _deviceToken = preferences.getString("deviceToken");
+
+  if (ObjectUtil.isEmpty(_deviceToken) || _deviceToken == "无法获取deviceToken") {
+    return "";
+  } else {
+    return _deviceToken;
+  }
+}
+
+void recordDeviceToken(deviceToken) {
+  _preferencesFuture.then((preferences) {
+    preferences.setString(
+      "deviceToken",
+      "$deviceToken",
+    );
+
+    kLog("deviceToken");
   }).catchError((error) {
     kLog("error:$error");
   });
@@ -293,12 +327,13 @@ Widget functionRefresher(
   List<Widget> slivers,
   var header,
 }) {
+//WaterDropMaterialHeader()
   return slivers == null
       ? SmartRefresher(
           controller: controller,
           enablePullDown: enableRefresh,
           enablePullUp: enableLoadMore,
-          header: header ?? WaterDropMaterialHeader(),
+          header: header == null ? GifHeader() : header,
           footer: functionFooter(enable: enableLoadMore),
           onRefresh: onRefresh,
           onLoading: onLoadMore,

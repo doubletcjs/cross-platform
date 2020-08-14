@@ -27,7 +27,15 @@ class _AccountFunctionCellState extends State<AccountFunctionCell> {
       color: rgba(255, 255, 255, 1),
       child: InkWell(
         onTap: this.widget.tapHandle == null
-            ? null
+            ? () {
+                Navigator.of(context).push(
+                  MaterialPageRoute(builder: (context) {
+                    return MineHomePage(
+                      userId: "${this.widget.account['id']}",
+                    );
+                  }),
+                );
+              }
             : () {
                 this.widget.tapHandle();
               },
@@ -40,36 +48,24 @@ class _AccountFunctionCellState extends State<AccountFunctionCell> {
               Stack(
                 children: <Widget>[
                   //头像
-                  InkWell(
-                    child: ClipRRect(
-                      child: CachedNetworkImage(
-                        placeholder: (context, url) {
-                          return Image.asset(
-                            "images/placeholder_mini@3x.png",
-                            width: 67,
-                            height: 67,
-                            fit: BoxFit.cover,
-                          );
-                        },
-                        imageUrl: (this.widget.account != null &&
-                                this.widget.account["avatar"] != null)
-                            ? this.widget.account["avatar"]
-                            : "",
-                        width: 67,
-                        height: 67,
-                        fit: BoxFit.cover,
-                      ),
-                      borderRadius: BorderRadius.circular(67 / 2),
+                  ClipRRect(
+                    child: CachedNetworkImage(
+                      placeholder: (context, url) {
+                        return Image.asset(
+                          "images/placeholder_mini@3x.png",
+                          width: 67,
+                          height: 67,
+                          fit: BoxFit.cover,
+                        );
+                      },
+                      imageUrl: (this.widget.account != null &&
+                              this.widget.account["avatar"] != null)
+                          ? this.widget.account["avatar"]
+                          : "",
+                      width: 67,
+                      height: 67,
+                      fit: BoxFit.cover,
                     ),
-                    onTap: () {
-                      Navigator.of(context).push(
-                        MaterialPageRoute(builder: (context) {
-                          return MineHomePage(
-                            userId: "${this.widget.account['id']}",
-                          );
-                        }),
-                      );
-                    },
                     borderRadius: BorderRadius.circular(67 / 2),
                   ),
                   //认证标志
@@ -200,7 +196,10 @@ class _AccountFunctionCellState extends State<AccountFunctionCell> {
                                   Container(
                                     padding: EdgeInsets.fromLTRB(5, 1, 5, 1),
                                     decoration: BoxDecoration(
-                                      color: rgba(255, 95, 125, 1),
+                                      color: this.widget.account != null &&
+                                              this.widget.account["sex"] == 1
+                                          ? rgba(0, 199, 245, 1)
+                                          : rgba(255, 95, 125, 1),
                                       borderRadius:
                                           BorderRadius.circular(14 / 2),
                                     ),
@@ -255,6 +254,18 @@ class _AccountFunctionCellState extends State<AccountFunctionCell> {
                               Row(
                                 children: <Widget>[
                                   this.widget.account != null &&
+                                          this.widget.account["has_tel"] == true
+                                      ? Container(
+                                          padding:
+                                              EdgeInsets.fromLTRB(5, 0, 0, 0),
+                                          child: Image.asset(
+                                            "images/contact_mobile@3x.png",
+                                            width: 14,
+                                            height: 14,
+                                          ),
+                                        )
+                                      : Container(),
+                                  this.widget.account != null &&
                                           this.widget.account["has_wechat"] ==
                                               true
                                       ? Container(
@@ -274,6 +285,19 @@ class _AccountFunctionCellState extends State<AccountFunctionCell> {
                                               EdgeInsets.fromLTRB(5, 0, 0, 0),
                                           child: Image.asset(
                                             "images/QQ@3x.png",
+                                            width: 14,
+                                            height: 14,
+                                          ),
+                                        )
+                                      : Container(),
+                                  this.widget.account != null &&
+                                          this.widget.account["has_douyin"] ==
+                                              true
+                                      ? Container(
+                                          padding:
+                                              EdgeInsets.fromLTRB(5, 0, 0, 0),
+                                          child: Image.asset(
+                                            "images/contact_douyin@3x.png",
                                             width: 14,
                                             height: 14,
                                           ),

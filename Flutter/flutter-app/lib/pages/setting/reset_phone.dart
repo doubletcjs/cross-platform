@@ -1,13 +1,13 @@
 import 'dart:async';
 
 import 'package:common_utils/common_utils.dart';
+import 'package:country_list_pick/country_list_pick.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:xs_progress_hud/xs_progress_hud.dart';
 import '../../public/public.dart';
 import 'views/setting_section_cell.dart';
 import '../account/api/account_api.dart';
-import '../function/data_picker.dart';
 
 class ResetPhonePage extends StatefulWidget {
   ResetPhonePage({Key key}) : super(key: key);
@@ -24,55 +24,6 @@ class _ResetPhonePageState extends State<ResetPhonePage> {
   int _countDownSecond = 0;
   Timer _countdownTimer;
   String _areaCode = "86"; //国家区号
-  List _areaCodeList = [];
-
-  //获取国家区号
-  void _getCountryCode(kVoidFunctionBlock finish) {
-    XsProgressHud.show(context);
-    AccountApi.countryCode((data, msg) {
-      if (data != null) {
-        var _list = List.from(data);
-        setState(() {
-          XsProgressHud.hide();
-          _areaCodeList = _list;
-          if (finish != null) {
-            finish();
-          }
-        });
-      } else {
-        XsProgressHud.hide();
-        showToast(msg, context);
-      }
-    });
-  }
-
-  //选择国家区号
-  void _selectCountryCode() {
-    void _showing() {
-      List _list = _areaCodeList.map((e) {
-        return e["area_code"];
-      }).toList();
-
-      DataPicker.showDatePicker(
-        context,
-        dataList: _list,
-        selectedIndex: _list.indexOf(_areaCode),
-        onConfirm: (data) {
-          setState(() {
-            _areaCode = data;
-          });
-        },
-      );
-    }
-
-    if (_areaCodeList.length == 0) {
-      this._getCountryCode(() {
-        _showing();
-      });
-    } else {
-      _showing();
-    }
-  }
 
   //开启倒计时
   void _startCountDown() {
@@ -168,35 +119,18 @@ class _ResetPhonePageState extends State<ResetPhonePage> {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: <Widget>[
           prefix.length > 0
-              ? Material(
-                  color: Colors.white,
-                  child: InkWell(
-                    onTap: () {
-                      this._selectCountryCode();
-                    },
-                    child: Container(
-                      padding: EdgeInsets.all(10),
-                      child: Row(
-                        children: <Widget>[
-                          Text(
-                            _areaCode,
-                            style: TextStyle(
-                              color: rgba(51, 51, 51, 1),
-                              fontSize: 12,
-                            ),
-                          ),
-                          SizedBox(
-                            width: 5,
-                          ),
-                          Image.asset(
-                            "images/Arrow down@3x.png",
-                            width: 11,
-                            height: 7.5,
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
+              ? CountryListPick(
+                  isShowFlag: false,
+                  isShowTitle: false,
+                  isShowCode: true,
+                  isDownIcon: true,
+                  initialSelection: "+" + _areaCode,
+                  showEnglishName: true,
+                  onChanged: (CountryCode code) {
+                    setState(() {
+                      _areaCode = code.dialCode.replaceAll("+", "");
+                    });
+                  },
                 )
               : Container(),
           prefix.length > 0

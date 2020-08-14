@@ -1,7 +1,6 @@
 import 'dart:async';
 
 import 'package:amap_location_flutter_plugin/amap_location_flutter_plugin.dart';
-import 'package:amap_location_flutter_plugin/amap_location_option.dart';
 import 'package:dart_notification_center/dart_notification_center.dart';
 import 'package:flutter/material.dart';
 import 'package:xs_progress_hud/xs_progress_hud.dart';
@@ -77,75 +76,97 @@ class _NearPageState extends State<NearPage>
   }
 
   //定位权限
-  void _refreshLocationService() async {
+  void _initLocationPlugin() {
     if (_locationPlugin == null) {
       _locationPlugin = AmapLocationFlutterPlugin();
       //配置
-      _locationPlugin.setLocationOption(
-        AMapLocationOption(
-          needAddress: false,
-          // onceLocation: true,
-        ),
-      );
+      // _locationPlugin.setLocationOption(
+      //   AMapLocationOption(
+      //       // needAddress: false,
+      //       // onceLocation: true,
+      //       ),
+      // );
       //监听
       _locationPlugin.onLocationChanged().listen((Map<String, Object> result) {
-        setState(() {
-          _firstLoading = false;
-        });
-
         if (result != null) {
           if (result["errorCode"] == null && _locationData == null) {
             this._closeLocationTimer();
+            //停止定位
+            _locationPlugin.stopLocation();
+            kLog("停止定位");
+
             setState(() {
               _locationData = result;
+              _firstLoading = false;
               kLog("定位信息:$_locationData");
-              Future.delayed(Duration(milliseconds: 100), () {
-                XsProgressHud.hide();
+
+              XsProgressHud.hide();
+              Future.delayed(Duration(milliseconds: 200), () {
                 this._switchReloadData();
-                //停止定位
-                _locationPlugin.stopLocation();
+
+                Future.delayed(Duration(milliseconds: 1400), () {
+                  this._refreshAccount();
+                });
               });
             });
           }
         } else {
           XsProgressHud.hide();
           showToast("无法获取当前位置！", context);
+
+          setState(() {
+            _firstLoading = false;
+            this._refreshAccount();
+          });
         }
       });
     }
+  }
 
-    bool _serviceEnabled = await _locationPlugin.requestLocationPermission();
-    if (!_serviceEnabled) {
-      XsProgressHud.hide();
+  void _refreshLocationService() {
+    kLog("获取定位授权");
+    _locationPlugin.requestLocationPermission().then((enabled) {
+      if (enabled) {
+        //开始定位
+        kLog("开始定位");
+        this._startLocationTimer();
+        _locationPlugin.startLocation();
+      } else {
+        showToast("无法开启定位服务", context);
+        XsProgressHud.hide();
+
+        setState(() {
+          _firstLoading = false;
+          _locationData = null;
+          this._refreshAccount();
+        });
+      }
+    }).catchError((error) {
+      kLog("无法开启定位服务:$error");
       showToast("无法开启定位服务", context);
-      return;
-    }
+      XsProgressHud.hide();
 
-    //开始定位
-    this._startLocationTimer();
-    _locationPlugin.startLocation();
+      setState(() {
+        _firstLoading = false;
+        _locationData = null;
+        this._refreshAccount();
+      });
+    });
   }
 
   //重新定位
   void _reLocation() {
     setState(() {
-      _firstLoading = true;
+      _firstLoading = false;
+      _locationData = null;
     });
 
-    _locationData = null;
-    if (_locationPlugin != null) {
-      _locationPlugin.destroy();
-      _locationPlugin = null;
-    }
     XsProgressHud.show(context);
     this._refreshLocationService();
   }
 
   //刷新用户信息
-  void _refreshAccount() {
-    XsProgressHud.show(context);
-    this._switchReloadData();
-
+  void _refreshAccount() async {
     AccountApi.profile((data, msg) {
       if (data != null) {
         kLog("刷新用户信息");
@@ -161,6 +182,9 @@ class _NearPageState extends State<NearPage>
 
   @override
   void initState() {
+    //初始化定位插件
+    this._initLocationPlugin();
+
     super.initState();
 
     _tabController = TabController(length: _tabs.length, vsync: this);
@@ -169,7 +193,7 @@ class _NearPageState extends State<NearPage>
     });
 
     Future.delayed(Duration(milliseconds: 100), () {
-      this._refreshAccount();
+      this._switchReloadData();
     });
   }
 
@@ -207,6 +231,7 @@ class _NearPageState extends State<NearPage>
                       width: 3,
                       color: rgba(18, 18, 18, 1),
                     ),
+                    insets: EdgeInsets.fromLTRB(0, 0, 0, 5),
                   ),
                   tabs: _tabs.map(
                     (tab) {

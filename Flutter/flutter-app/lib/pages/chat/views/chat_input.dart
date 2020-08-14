@@ -31,6 +31,10 @@ class ChatInput extends StatefulWidget {
   void sendHandle(_kChatInputBlock handle) {
     _state._inputHandle = handle;
   }
+
+  void focusHandle(kVoidFunctionBlock handle) {
+    _state._focusHandle = handle;
+  }
 }
 
 class _ChatInputState extends State<ChatInput> {
@@ -42,6 +46,7 @@ class _ChatInputState extends State<ChatInput> {
   int _maxColumn = 6; //每行6个表情
   List _emojiPages = []; //表情分页
   _kChatInputBlock _inputHandle;
+  kVoidFunctionBlock _focusHandle;
 
   //关闭输入框
   void _closeChatInput() {
@@ -107,8 +112,10 @@ class _ChatInputState extends State<ChatInput> {
       _inputHandle(_textEditingController.text);
 
       Future.delayed(Duration(milliseconds: 200), () {
-        _textEditingController.text = "";
-        // this._closeChatInput();
+        setState(() {
+          _textEditingController.text = "";
+          // this._closeChatInput();
+        });
       });
     }
   }
@@ -169,6 +176,10 @@ class _ChatInputState extends State<ChatInput> {
                       setState(() {
                         _showEmoji = false;
                       });
+
+                      if (_focusHandle != null) {
+                        _focusHandle();
+                      }
                     },
                   ),
                 ),
@@ -197,6 +208,10 @@ class _ChatInputState extends State<ChatInput> {
 
                               // 获取焦点
                               FocusScope.of(context).requestFocus(_focusNode);
+                            }
+
+                            if (_focusHandle != null) {
+                              _focusHandle();
                             }
                           },
                           child: Image.asset(
