@@ -1,0 +1,65 @@
+.i-modal-mask {
+	position: fixed;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	z-index: 1000;
+	transition: all 0.2s ease-in-out;
+	opacity: 0;
+	visibility: hidden;
+	width: 100%;
+	height: 100%;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center; 
+}
+
+.i-modal-mask-show {
+	opacity: 1;
+	visibility: visible;
+}
+
+.menu-content-mask {
+	width: 100%;
+	height: 100%;
+	
+	background-color: rgba(255, 255, 255, 0.4);
+	position: relative;
+}
+
+.menu-content { 
+	padding-left: 32rpx;
+	padding-right: 32rpx;
+	padding-top: 25rpx;
+	padding-bottom: 25rpx;
+	
+	background-color: rgba(255, 255, 255, 1);
+	border-radius: 8rpx;
+	box-shadow: 0px 6px 18px rgba(0, 0, 0, 0.16);
+	
+	position: fixed;
+}
+
+.menu-item-cell {
+	height: 96rpx;
+	
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: center;
+}
+
+.menu-item-cell-text {
+	color: rgba(50, 50, 50, 1);
+	font-size: 32rpx;
+	
+	max-width: 400rpx;
+	isplay: -webkit-box;
+	-webkit-line-clamp: 1;
+	-webkit-box-orient: vertical;
+	white-space: normal !important;
+	overflow: hidden;
+	text-overflow: ellipsis; 
+}

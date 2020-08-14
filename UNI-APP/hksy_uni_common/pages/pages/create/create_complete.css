@@ -1,0 +1,38 @@
+.create-complete-content {
+	padding-left: 149rpx;
+	padding-right: 149rpx;
+
+	margin-top: var(--status-bar-height);
+	padding-top: 144rpx; 
+	
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+.create-complete-logo {
+	width: 254rpx;
+	height: 254rpx;
+	margin-top: 61rpx;
+	
+	background-color: rgba(247, 246, 245, 1);
+	border-radius: 127rpx;
+}
+
+.create-complete-tip {
+	margin-top: 56rpx;
+	font-size: 32rpx;
+	color: rgba(50, 50, 50, 1);
+	text-align: center;
+}
+
+.create-complete-back {
+	margin-top: 32rpx;
+	
+	font-size: 32rpx;
+	color: rgba(255, 255, 255, 1);
+	background-color: rgba(235, 102, 91, 1);
+	border-radius: 8rpx;
+	
+	padding: 12rpx 45rpx 12rpx 45rpx;
+}

@@ -1,0 +1,88 @@
+.detail-item-cell-section {
+	padding-top: 16rpx;
+	padding-bottom: 16rpx;
+
+	background-color: rgba(255, 255, 255, 1);
+	border-bottom: solid 24rpx rgba(247, 246, 245, 1);
+
+	display: flex;
+	flex-direction: column;
+}
+
+.detail-item-cell {
+	padding-left: 32rpx;
+	padding-right: 32rpx;
+	padding-top: 26rpx;
+	padding-bottom: 26rpx;
+
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	align-items: center;
+}
+
+.detail-item-cell-name {
+	font-size: 32rpx;
+	color: rgba(50, 50, 50, 1);
+}
+
+.detail-item-cell-row {
+	display: flex;
+	flex-direction: row;
+	justify-content: flex-end;
+	align-items: center;
+	
+	width: 75%; 
+}
+
+.detail-item-cell-arrow {
+	width: 13rpx;
+	height: 20rpx;
+	margin-left: 40rpx;
+}
+
+.detail-item-cell-value {
+	font-size: 32rpx;
+	color: rgba(153, 153, 153, 1);
+	
+	max-width: 86%; 
+	display: -webkit-box;
+	-webkit-line-clamp: 1;
+	-webkit-box-orient: vertical;
+	white-space: normal !important;
+	overflow: hidden;
+	text-overflow: ellipsis; 
+}
+
+.detail-item-cell-number-red { 
+	padding-left: 17rpx;
+	padding-right: 17rpx;
+	padding-top: 5rpx; 
+	padding-bottom: 5rpx; 
+	background: rgba(235, 102, 91, 1);
+	border-radius: 28rpx;
+	opacity: 1;
+	
+	font-size: 24rpx;
+	color: rgba(255, 255, 255, 1);
+	text-align: center;
+}
+
+.detail-item-cell-member-content {
+    /* display: flex;
+    flex-direction: row; */
+
+	max-width: 200rpx;
+    overflow: scroll;
+    white-space: nowrap;
+    align-self: center;
+	
+	margin-right: 16rpx; 
+}
+
+.detail-item-cell-member {
+    width: 56rpx;
+    height: 56rpx;
+ 
+    border-radius: 28rpx; 
+}

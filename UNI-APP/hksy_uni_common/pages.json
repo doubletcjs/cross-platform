@@ -1,0 +1,150 @@
+{
+	"pages": [ //pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages
+		{
+			"path": "pages/tabs/home/home_tab",
+			"style": {
+				"navigationBarTitleText": "角落",
+				"navigationStyle": "custom"
+			}
+		}, {
+			"path": "pages/tabs/discover/discover_tab",
+			"style": {
+				"navigationBarTitleText": "发现"
+			}
+		}, {
+			"path": "pages/tabs/message/message_tab",
+			"style": {
+				"navigationBarTitleText": "消息"
+			}
+		}, {
+			"path": "pages/tabs/mine/mine_tab",
+			"style": {
+				"navigationBarTitleText": "我"
+			}
+		}, {
+			"path": "pages/pages/mine/wallet/withdraw",
+			"style": {
+				"navigationBarTitleText": "金币提现"
+			}
+		}, {
+			"path": "pages/pages/mine/wallet/withdrawSuccess",
+			"style": {
+				"navigationBarTitleText": "提现成功"
+			}
+		}, {
+			"path": "pages/pages/mine/wallet/bank/bankCardList",
+			"style": {
+				"navigationBarTitleText": "银行卡"
+			}
+		}, {
+			"path": "pages/pages/create/create_base",
+			"style": {
+				"navigationStyle": "custom"
+			}
+		}, {
+			"path": "pages/pages/create/create_classify",
+			"style": {
+				"navigationStyle": "custom"
+			}
+		}, {
+			"path": "pages/pages/create/create_rule",
+			"style": {
+				"navigationBarTitleText": "街角落主规则"
+			}
+		}, {
+			"path": "pages/pages/create/create_complete",
+			"style": {
+				"navigationStyle": "custom"
+			}
+		}, {
+			"path": "pages/pages/detail/detail_page",
+			"style": {
+				"navigationStyle": "custom"
+			}
+		}, {
+			"path": "pages/pages/detail/edit/detail_edit",
+			"style": {
+				"navigationBarTitleText": "资料编辑"
+			}
+		}, {
+			"path": "pages/pages/detail/edit/detail_edit_input",
+			"style": {
+				"navigationStyle": "custom"
+			}
+		}, {
+			"path": "pages/pages/detail/member/detail_member",
+			"style": {
+				"navigationBarTitleText": "街角成员"
+			}
+		}, {
+			"path": "pages/pages/detail/apply/detail_apply",
+			"style": {
+				"navigationBarTitleText": "新的申请"
+			}
+		}, {
+			"path": "pages/pages/detail/apply/detail_apply_action",
+			"style": {
+				"navigationBarTitleText": ""
+			}
+		}, {
+			"path": "pages/pages/homepage/home_page",
+			"style": {
+				"navigationStyle": "custom"
+			}
+		}, {
+			"path": "pages/pages/homepage/store/home_page_store_detail",
+			"style": {
+				"navigationBarTitleText": "商店详情"
+			}
+		}, {
+			"path": "pages/pages/homepage/store/home_page_store_classify",
+			"style": {
+				"navigationBarTitleText": "分类"
+			}
+		}, {
+			"path": "pages/pages/homepage/store/home_page_store_search",
+			"style": {
+				"navigationStyle": "custom"
+			}
+		}
+	],
+	"tabBar": {
+		"color": "rgba(27, 27, 27, 1)",
+		"selectedColor": "rgba(235, 102, 91, 1)",
+		"backgroundColor": "rgba(255, 255, 255, 1)",
+		"borderStyle": "white",
+		"fontSize": "11px",
+		"list": [{
+				"pagePath": "pages/tabs/home/home_tab",
+				"text": "角落",
+				"iconPath": "static/images/home_tab@3x.png",
+				"selectedIconPath": "static/images/home_tab@3x.png"
+			},
+			{
+				"pagePath": "pages/tabs/discover/discover_tab",
+				"text": "发现",
+				"iconPath": "static/images/discover_tab@3x.png",
+				"selectedIconPath": "static/images/discover_tab@3x.png"
+			},
+			{
+				"pagePath": "pages/tabs/message/message_tab",
+				"text": "消息",
+				"iconPath": "static/images/message_tab@3x.png",
+				"selectedIconPath": "static/images/message_tab@3x.png"
+			},
+			{
+				"pagePath": "pages/tabs/mine/mine_tab",
+				"text": "我",
+				"iconPath": "static/images/mine_tab@3x.png",
+				"selectedIconPath": "static/images/mine_tab@3x.png"
+			}
+		]
+	},
+	"globalStyle": {
+		"navigationBarTextStyle": "black",
+		"titleSize": "36rpx",
+		"navigationBarTitleText": "uni-app",
+		"navigationBarBackgroundColor": "#FFFFFF",
+		"backgroundColor": "#F8F8F8"
+	}
+}

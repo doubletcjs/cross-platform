@@ -1,0 +1,52 @@
+.home-recommend-cell {
+	padding-left: 32rpx;
+	padding-right: 32rpx;
+	padding-top: 12rpx;
+	padding-bottom: 12rpx;
+	
+	display: flex;
+	flex-direction: row; 
+}
+
+.home-recommend-cell-cover {
+	width:101rpx;
+	height: 101rpx;
+	
+	border-radius: 8rpx;
+	
+	background-color: #007AFF;
+}
+
+.home-recommend-cell-colum { 
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	 
+	margin-left: 16rpx;
+	width: 78%;
+}
+
+.home-recommend-cell-title {
+	font-size: 32rpx;
+	color: rgba(50, 50, 50, 1);
+	
+	display: -webkit-box;
+	-webkit-line-clamp: 1;
+	-webkit-box-orient: vertical;
+	white-space: normal !important;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+
+.home-recommend-cell-preview {
+	font-size: 26rpx;
+	color: rgba(153, 153, 153, 1);
+	margin-top: 8rpx;
+	
+	display: -webkit-box;
+	-webkit-line-clamp: 1;
+	-webkit-box-orient: vertical;
+	white-space: normal !important;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}

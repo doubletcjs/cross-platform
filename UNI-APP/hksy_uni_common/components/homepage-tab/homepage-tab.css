@@ -1,0 +1,42 @@
+.hksy-uni-tab-wapper {
+	width: 100%;
+	height: 88rpx; 
+	
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	align-items: center;
+	align-content: center;
+	
+	/* position: fixed; */
+	background-color: #FFF;  
+}
+
+.hksy-uni-tab-content-wapper { 
+	height: 100%;
+	
+	padding-left: 55rpx;
+	padding-right: 55rpx;
+	
+	display: flex;
+	flex-direction: column; 
+	justify-content: flex-end;
+	align-items: center;
+	align-content: center;  
+}
+
+.hksy-uni-tab-text {
+	font-size: 30rpx;
+	color: #999;
+	
+	margin-bottom: 23rpx;
+}
+
+.hksy-uni-tab-line {
+	width: 100%;
+	height: 3rpx;
+	
+	margin-bottom: 0rpx;
+	
+	background-color: rgba(21, 25, 54, 1);
+}

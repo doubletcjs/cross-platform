@@ -1,0 +1,19 @@
+.edit-input-content {
+	margin-top: var(--status-bar-height);
+	padding-top: 168rpx;
+	margin-left: 32rpx;
+	margin-right: 32rpx;  
+	padding-bottom: 16rpx;  
+	
+	border-bottom: solid 1rpx rgba(0, 0, 0, 0.1);
+}
+
+.edit-input { 
+	font-size: 32rpx;
+	color: rgba(27, 27, 27, 1);
+}
+ 
+.edit-input-placeholder { 
+	font-size: 32rpx;
+	color: rgba(153, 153, 153, 1);
+}

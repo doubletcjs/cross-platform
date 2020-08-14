@@ -1,0 +1,169 @@
+.i-modal-mask {
+	position: fixed;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	z-index: 1000;
+	transition: all 0.2s ease-in-out;
+	opacity: 0;
+	visibility: hidden;
+	width: 100%;
+	height: 100%;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	
+	background-color: rgba(0, 0, 0, 0.4);
+}
+
+.i-modal-mask-show {
+	opacity: 1;
+	visibility: visible;
+}
+
+.selectBank-content {
+	position: fixed;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	
+	display: flex;
+	flex-direction: column;
+	
+	background-color: rgba(255, 255, 255, 1); 
+	border-radius: 16rpx 16rpx 0rpx 0rpx;
+	
+	/** 页面统一字体 */
+	color: #323232;
+	font-size: 32rpx;
+}
+
+/** 标题 */
+.title_wrapper {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	align-items: center;
+	height: 128rpx;
+	padding-left: 32rpx;
+	padding-right: 32rpx;
+	
+}
+
+.close_wrapper {
+	height: 128rpx;
+	width: 48rpx;
+	color: #707070;
+	font-size: 46rpx;
+	line-height: 128rpx;
+	text-align: right;
+}
+
+/* .close_text {
+	width:48rpx;
+	height:48rpx;
+	color: #707070;
+	text-align: right;
+	background:rgba(136,136,136,1);
+	border:1rpx solid rgba(112,112,112,1);
+} */
+
+/* .bank_list_wrapper {
+	display: flex;
+	flex-direction: column;
+} */
+
+/** 银行列表 */
+.bank_list_wrapper {
+	max-height: 384rpx;
+}
+
+.bank_wrapper {
+	display: flex;
+	flex-direction: row;
+	justify-content: start;
+	align-items: center;
+	height: 128rpx;
+
+	padding-left: 32rpx;
+	padding-right: 32rpx;
+	
+	/* border-bottom: #eee 1rpx solid; */
+}
+
+.bank_logo {
+	height: 56rpx;
+	width: 56rpx;
+}
+
+.bank_name {
+	width:100%;
+	margin-left: 16rpx;
+	height:45rpx;
+	font-size:32rpx;
+	line-height:45rpx;
+	color:rgba(50,50,50,1);
+}
+
+.select_image {
+	width: 48rpx;
+	height: 48rpx;
+	visibility: visible;
+}
+
+.select_image_none {
+	visibility: hidden;
+}
+
+/** 使用新卡提现 */
+.use_newBank_wrapper {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	align-items: center;
+	height: 112rpx;
+	margin-left: 32rpx;
+	margin-right: 32rpx;
+
+}
+
+.use_newBank_text {
+		
+}
+
+/* .use_newBank_back_wrapper {
+	width: 72rpx;
+	height: 56rpx;
+	text-align: right;
+	background-color: #007AFF;
+} */
+
+.newBank_back_image {
+	width: 13rpx;
+	height: 24rpx;
+}
+
+/** 取消 */
+.selectBank-cancel {
+	border-top: 16rpx #F2F2F2 solid;
+	height: 112rpx;
+	text-align: center;
+	line-height: 112rpx;
+}
+
+.selectBank_bottom {
+	height: 68rpx;
+	display: flex;
+	justify-content: center;
+}
+
+.selectBank_bottom_black {
+	width:268rpx;
+	height:10rpx;
+	margin-top: 40rpx;
+	margin-bottom: 18rpx;
+	background:rgba(0,0,0,1);
+	border-radius:100rpx;
+}

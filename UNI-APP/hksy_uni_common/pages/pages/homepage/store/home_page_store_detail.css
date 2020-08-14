@@ -1,0 +1,92 @@
+.store-info {
+	background-color: rgba(255, 255, 255, 1);
+	padding: 24rpx 43rpx 24rpx 43rpx;
+	
+	border-top: solid 24rpx rgba(247, 246, 245, 1);
+	border-bottom: solid 24rpx rgba(247, 246, 245, 1);
+	
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+}
+
+.store-info-cover {
+	width: 80rpx;
+	height: 80rpx;
+	border-radius: 40rpx;
+	
+	background-color: rgba(153, 153, 153, 0.3);
+}
+
+.store-info-name {
+	margin-left: 26rpx;
+	 
+	width: 86%;
+	font-size: 36rpx;
+	color: rgba(50, 50, 50, 1);
+	
+	display: -webkit-box;
+	-webkit-line-clamp: 1;
+	-webkit-box-orient: vertical;
+	white-space: normal !important;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+
+.store-introduction {
+	background-color: rgba(255, 255, 255, 1);
+	padding: 56rpx 32rpx 39rpx 32rpx;
+	 
+	border-bottom: solid 24rpx rgba(247, 246, 245, 1);
+	
+	display: flex;
+	flex-direction: column; 
+	
+	font-size: 28rpx;
+	color: rgba(50, 50, 50, 1);
+}
+ 
+.store-introduction-content {
+	font-size: 28rpx;
+	color: rgba(153, 153, 153, 1);
+	
+	margin-top: 24rpx; 
+}
+
+.store-base-row {
+	display: flex;
+	flex-direction: row;  
+	align-items: center;
+}
+
+.store-base-cell {
+	display: flex;
+	flex-direction: row; 
+	justify-content: space-between;
+	align-items: center;
+	
+	background-color: rgba(255, 255, 255, 1);
+	padding: 28rpx 32rpx 28rpx 32rpx;
+}
+
+.store-base-cell-name {
+	font-size: 28rpx;
+	color: rgba(153, 153, 153, 1);
+}
+
+.store-base-cell-value {
+	font-size: 28rpx;
+	color: rgba(50, 50, 50, 1);
+}
+
+.store-base-cell-qrcode {
+	width: 40rpx;
+	height: 40rpx;
+}
+
+.store-base-cell-arrow {
+	width: 11rpx;
+	height: 20rpx;
+	
+	margin-left: 50rpx;
+}

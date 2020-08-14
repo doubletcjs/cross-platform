@@ -1,0 +1,75 @@
+.detail-info-content {
+	background-color: rgba(255, 255, 255, 1);
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+
+	padding-top: 60rpx;
+	padding-bottom: 40rpx;  
+	
+	border-bottom: solid 24rpx rgba(247, 246, 245, 1);
+}
+
+.detail-info-logo {
+	width: 101rpx;
+	height: 101rpx;
+
+	border-radius: 8px;
+	background-color: rgba(255, 255, 255, 1);
+	background-color: #2C405A;
+}
+
+.detail-info-name {
+	margin-top: 24rpx;
+	font-weight: bold;
+	font-size: 40rpx;
+	color: rgba(50, 50, 50, 1);
+}
+
+.detail-info-row {
+	margin-top: 8rpx;
+
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+}
+
+.detail-info-id {
+	font-size: 24rpx;
+	color: rgba(50, 50, 50, 1);
+}
+
+.detail-info-classify {
+	margin-left: 16rpx;
+	font-size: 24rpx;
+	color: rgba(235, 102, 91, 1);
+	text-align: center;
+
+	padding-left: 16rpx;
+	padding-right: 16rpx;
+	border-radius: 18rpx;
+	border: solid 1rpx rgba(235, 102, 91, 1);
+}
+
+.detail-introduction-row {
+	margin-top: 44rpx;
+	width: 100%; 
+
+	display: flex;
+	flex-direction: row;
+	align-items: flex-start;
+	align-content: flex-start;
+}
+
+.detail-introduction-tip {
+	margin-left: 32rpx;
+	font-size: 32rpx;
+	color: rgba(50, 50, 50, 1);
+}
+
+.detail-introduction {
+	width: 76%;
+	margin-left: 53rpx;
+	font-size: 32rpx;
+	color: rgba(153, 153, 153, 1); 
+}

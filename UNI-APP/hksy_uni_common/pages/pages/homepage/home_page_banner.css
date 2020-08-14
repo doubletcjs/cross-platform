@@ -1,0 +1,10 @@
+.banner {
+	padding: 24rpx 32rpx 24rpx 32rpx;
+	background-color: rgba(247, 246, 245, 1);
+}
+
+.banner-item {
+	height: 100%;
+	border-radius: 16rpx;
+	background-color: rgba(254, 198, 43, 1);
+}

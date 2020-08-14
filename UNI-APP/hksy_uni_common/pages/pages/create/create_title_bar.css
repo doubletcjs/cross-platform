@@ -1,0 +1,60 @@
+.create-title-bar {
+	height: 88rpx;
+	background-color: rgba(255, 255, 255, 1);
+
+	position: fixed;
+	top: 0;
+	left: 0;
+	right: 0;
+	z-index: 1000;
+
+	padding-top: var(--status-bar-height);
+	padding-left: 32rpx;
+	padding-right: 32rpx;
+
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	align-items: center;
+
+	/* position: relative; */
+}
+
+.create-title-back-row {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+}
+
+.create-title-back {
+	font-size: 32rpx;
+	color: rgba(51, 51, 51, 1);
+}
+
+.create-title-arrow {
+	width: 22rpx;
+	height: 40rpx;
+}
+
+.create-title-next {
+	background-color: rgba(235, 102, 91, 1);
+	border-radius: 8rpx;
+
+	padding-left: 30rpx;
+	padding-right: 30rpx;
+	padding-top: 8rpx;
+	padding-bottom: 8rpx;
+
+	font-size: 28rpx;
+	color: rgba(241, 241, 241, 1);
+}
+
+.create-title {
+	font-size: 36rpx;
+	color: rgba(51, 51, 51, 1);
+	 
+	position: absolute;  
+	left: 25%;
+	right: 25%;
+	text-align: center; 
+}
