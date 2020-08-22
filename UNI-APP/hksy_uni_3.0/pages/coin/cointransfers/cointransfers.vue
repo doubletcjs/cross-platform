@@ -160,8 +160,8 @@
 					params['balance'] = this.balanceValue;
 
 					coinapi.transfer(params, (data, msg) => {
-						if (data != null) {
-							uni.$emit(me.kAccountRefresh, null);
+						if (data) {
+							uni.$emit(me.kcoinRefresh, null);
 
 							setTimeout(() => {
 								uni.hideLoading();

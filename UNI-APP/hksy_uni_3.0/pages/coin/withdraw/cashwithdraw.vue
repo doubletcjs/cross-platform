@@ -83,7 +83,7 @@
 				uni.hideKeyboard()
 				if (this.util.emptyObject(this.util.userInfo().paymentCode) == true) {
 					uni.navigateTo({
-						url: "../../paycodefunction/paycodefunction"
+						url: "../../account/paycodefunction/paycodefunction"
 					})
 				} else {
 					this.$refs.paycodepopup.open()
@@ -96,12 +96,11 @@
 				setTimeout(() => {
 					uni.showLoading({
 
-					})
-
+					}) 
 					var me = this
 					coinapi.withdrawCash(this.util.userID(), this.inputCoin, val, (data, msg) => {
-						if (data != null) {
-							uni.$emit(me.kAccountRefresh, null)
+						if (data) {
+							uni.$emit(me.kcoinRefresh, null)
 
 							setTimeout(() => {
 								me.coin = me.util.userInfo().coin
@@ -132,7 +131,7 @@
 				var me = this
 				accountapi.getPersonalInfo(this.util.userID(), (data, msg) => {
 					uni.hideLoading()
-					if (data != null) {
+					if (data) {
 						me.bankName = data.bankName
 					} else {
 						uni.showToast({

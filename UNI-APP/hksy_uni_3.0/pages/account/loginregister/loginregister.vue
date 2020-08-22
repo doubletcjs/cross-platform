@@ -122,18 +122,25 @@
 
 					uni.hideKeyboard()
 					var me = this
-					accountapi.sendMessage(this.phone, (data) => {
-						if (data.sessionId == null || data.sessionId.length == 0) {
+					accountapi.sendMessage(this.phone, (data, msg) => {
+						if (data) {  
+							if (data.sessionId == null || data.sessionId.length == 0) {
+								uni.showToast({
+									title: "获取验证码失败!",
+									icon: "none"
+								})
+							} else {
+								me.sessionId = data.sessionId
+								me.util.recordAppDownload(data.appDownload)
+								// 开始倒计时
+								me.startCountDown()
+								me.countingDown = true
+							}
+						} else {
 							uni.showToast({
 								title: "获取验证码失败!",
 								icon: "none"
 							})
-						} else {
-							me.sessionId = data.sessionId
-							me.util.recordAppDownload(data.appDownload)
-							// 开始倒计时
-							me.startCountDown()
-							me.countingDown = true
 						}
 					})
 				}
@@ -176,7 +183,7 @@
 					url: "../agreement/agreement"
 				})
 			},
-			loginRegisterAction() {
+			loginRegisterAction() { 
 				if (this.util.validateMobile(this.phone) == false) {
 					uni.showToast({
 						title: "请输入正确的手机号",
@@ -238,7 +245,7 @@
 
 					params["invitationCode"] = this.inviteCode
 					accountapi.register(params, (data, msg) => {
-						if (data != null) {
+						if (data) {
 							uni.showToast({
 								title: "注册成功!",
 								duration: 1800,
@@ -258,8 +265,9 @@
 				} else {
 					accountapi.login(params, (data, msg) => {
 						uni.hideLoading()
-						if (data != null) {
+						if (data) {
 							me.util.recordUserInfo(data)
+							me.util.recordLoginTime()
 							uni.showToast({
 								title: "登录成功!",
 								duration: 1800,

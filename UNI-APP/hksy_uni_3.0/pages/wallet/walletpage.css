@@ -1,0 +1,77 @@
+.wallet-main-content-wapper {
+	margin-left: 24rpx;
+	margin-right: 24rpx;
+
+	border-radius: 15rpx;
+	background-color: rgba(28, 35, 63, 1);
+}
+
+.wallet-main-detail-title {
+	font-size: 36rpx;
+	color: rgba(255, 255, 255, 1);
+	margin-left: 40rpx;
+	margin-right: 40rpx;
+	margin-top: 70rpx;
+	margin-bottom: 10rpx;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+
+.right_arrow{
+	width: 36rpx;
+	height: 36rpx;
+}
+
+.right_arrow_box{
+	display: flex;
+	align-items: center;
+}
+
+.wallet-main-cell-wapper {
+	height: 169rpx;
+
+	margin-left: 40rpx;
+	margin-right: 40rpx;
+
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	align-items: center;
+	align-content: center;
+}
+
+.wallet-main-no_record {
+	color: #9198AD;
+	height: 400rpx;
+	margin-top: 180rpx;
+	font-size: 26rpx;
+	text-align: center;
+}
+
+.wallet-base-column {
+	display: flex;
+	flex-direction: column;
+}
+
+.wallet-base-row {
+	display: flex;
+	flex-direction: row;
+}
+
+.wallet-status-text {
+	font-size: 30rpx;
+	color: rgba(255, 255, 255, 1);
+}
+
+.wallet-date-text {
+	font-size: 22rpx;
+	color: rgba(145, 152, 173, 1);
+}
+
+.wallet-time-text {
+	font-size: 22rpx;
+	color: rgba(145, 152, 173, 1);
+	
+	margin-left: 22rpx;
+}

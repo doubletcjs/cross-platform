@@ -109,7 +109,7 @@ export default {
 				uni.showLoading({});
 				coinapi.giftCoinTransfer(me.util.userID(), me.balanceValue, (data, msg) => {
 					uni.hideLoading();
-					if (data != null) {
+					if (data) {
 						uni.showToast({
 							title: '划转成功!',
 							icon: 'none'
@@ -139,7 +139,7 @@ export default {
 				coinapi.vipgiftCoinTransfer(me.util.userID(), me.balanceValue, (data, msg) => {
 					this.closeTransfersPopup()
 					uni.hideLoading();
-					if (data != null) {
+					if (data) {
 						uni.showToast({
 							title: '划转成功!',
 							icon: 'none'

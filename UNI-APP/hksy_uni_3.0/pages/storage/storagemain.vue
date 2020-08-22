@@ -93,7 +93,7 @@
 			},
 			getPerformanceDatas() {
 				storageapi.getPerformanceDatas(this.util.userID(), (data, msg) => {
-					if (data != null) {
+					if (data) {
 						this.performance = data
 						this.refreshData()
 					} else {
@@ -109,7 +109,7 @@
 			requestData() {
 				if (this.isVip == true) {
 					storageapi.vipminerInfo(this.util.userID(), this.page, this.limit, (data, msg) => {
-						if (data != null) {
+						if (data) {
 							var dataList = []
 							dataList = dataList.concat(data.pageObj.records)
 							if (this.page == 1) {
@@ -140,7 +140,7 @@
 					})
 				} else {
 					storageapi.getPerformanceDatasList(this.util.userID(), this.page, this.limit, (data, msg) => {
-						if (data != null) {
+						if (data) {
 							var dataList = []
 							dataList = dataList.concat(data.records)
 							if (this.page == 1) {

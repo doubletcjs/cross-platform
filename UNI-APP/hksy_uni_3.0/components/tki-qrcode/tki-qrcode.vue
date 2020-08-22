@@ -132,6 +132,7 @@ export default {
 		},
 		_result(res) {
 			this.result = res;
+			// console.log("----" +  this.result);
 			this.$emit('result', res)
 		},
 		_empty(v) {

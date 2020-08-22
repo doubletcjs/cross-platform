@@ -59,23 +59,23 @@
 			getPersonalInfo() {
 				var me = this
 				accountapi.getPersonalInfo(this.util.userID(), (data, msg) => {
-					if (data != null) {
+					if (data) {
 						me.aInfo[0] = data.realName
-						me.aInfo[1] = this.util.validateIDCardNumber(data.idcard) == true ? "身份证" : "其他证件"
-						me.aInfo[2] = data.idcard.substr(0, 1) + "**************" + data.idcard.substr(data.idcard.length - 1)
+						me.aInfo[1] = this.util.validateIDCardNumber(data.idcardNo) == true ? "身份证" : "其他证件"
+						me.aInfo[2] = data.idcardNo.substr(0, 1) + "**************" + data.idcardNo.substr(data.idcardNo.length - 1)
 						me.aInfo[3] = data.phone.substr(0, 3) + "****" + data.phone.substr(7)
-						me.aInfo[4] = data.bankCard.substr(0, 4) + " ************** " + data.bankCard.substr(data.idcard.length - 6)
+						me.aInfo[4] = data.bankCard.substr(0, 4) + " ************** " + data.bankCard.substring(data.bankCard.length - 4)
 						me.aInfo[5] = data.bankName
 						me.aInfo[6] = data.bankOfDeposit
-
+						
 						me.items = ["姓名", "证件类型", "证件号码", "实名手机号", "银行卡号", "持卡银行", "开户支行"]
 					} else {
 						uni.showToast({
 							title: msg,
 							icon: "none"
 						})
-					}
-
+					} 
+					
 					uni.stopPullDownRefresh()
 				})
 			},

@@ -9,6 +9,8 @@ Vue.prototype.networking = Networking
 import VueClipboard from 'vue-clipboard2'
 
 Vue.prototype.kAccountRefresh = "AccountRefresh"
+Vue.prototype.kcoinRefresh = "kcoinRefresh"
+
 Vue.prototype.kMainColor = "rgba(21, 25, 54, 1)"
 
 App.mpType = 'app';

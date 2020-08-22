@@ -31,7 +31,7 @@
 					</view>
 					<view class="earnings-detail-header-item-value" v-else-if="index==2">
 						{{parseFloat(earningsForUser.yesterdayEarnings).toFixed(2)}}
-					</view> 
+					</view>
 				</view>
 				<view class="earnings-detail-header-item">
 					{{item}}
@@ -49,8 +49,8 @@
 				items: ["剩余转出额度", "今日收益", "昨日收益"]
 			}
 		},
-		methods: { 
-			
+		methods: {
+
 		},
 		props: {
 			earningsForUser: null,

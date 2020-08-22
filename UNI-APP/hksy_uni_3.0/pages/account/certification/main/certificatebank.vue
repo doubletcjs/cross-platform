@@ -105,7 +105,7 @@
 				var me = this
 				accountapi.getBankName(this.bankNumber, (data, msg) => {
 					uni.hideLoading()
-					if (data != null) {
+					if (data) {
 						me.bankName = data
 					} else {
 						uni.showToast({

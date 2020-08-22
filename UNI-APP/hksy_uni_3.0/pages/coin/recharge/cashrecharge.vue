@@ -147,8 +147,8 @@ export default {
 			var me = this;
 			coinapi.offlineRecharge(this.util.userID(), urls, this.coinValue, (data, msg) => {
 				uni.hideLoading();
-				if (data != null) {
-					uni.$emit(me.kAccountRefresh, null);
+				if (data) {
+					uni.$emit(me.kcoinRefresh, null);
 					setTimeout(() => {
 						uni.hideLoading();
 						me.emptyRechargeInfo();

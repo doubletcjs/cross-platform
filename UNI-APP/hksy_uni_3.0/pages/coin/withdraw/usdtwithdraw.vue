@@ -134,13 +134,14 @@
 				coinapi.submitUSDTWithdraw(this.util.userID(), this.inputCoin, this.usdtCount, this.poundage, this.inputUsdtAddress,
 					this.coinValue, (data, msg) => {
 						uni.hideLoading()
-						if (data != null) {
+						if (data) {
 							// 提现成功
 							uni.redirectTo({
+								
 								url: "../recharge/rechargecomplete"
 							})
 
-							uni.$emit(this.kAccountRefresh, null)
+							uni.$emit(this.kcoinRefresh, null)
 							me.emptyWithdrawInfo()
 						} else {
 							uni.showToast({

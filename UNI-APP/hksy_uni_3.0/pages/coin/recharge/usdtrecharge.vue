@@ -50,7 +50,7 @@ export default {
 		};
 	},
 	methods: {
-		onCopyResult(res) {
+		onCopyResult(res) { 
 			if (res = 'success') {
 				uni.showToast({
 					title: '复制成功',

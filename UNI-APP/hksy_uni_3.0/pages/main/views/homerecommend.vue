@@ -39,7 +39,7 @@
 		methods: {
 			productSelect(res) {
 				var index = res.currentTarget.dataset.index
-				var productId = this.hotProducts[index].id  
+				var productId = this.hotProducts[index].guid  
 				
 				uni.navigateTo({
 					url: "../store/productdetail?productId="+productId

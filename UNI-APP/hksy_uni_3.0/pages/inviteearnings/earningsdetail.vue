@@ -65,7 +65,7 @@
 		methods: {
 			getEarningsForUser() {
 				inviteearningsapi.getEarningsForUser(this.util.userID(), (data, msg) => {
-					if (data != null) {
+					if (data) {
 						this.earningsForUser = data
 						this.refreshData()
 					} else {
@@ -80,7 +80,7 @@
 			},
 			requestData() {
 				inviteearningsapi.getEarningsDetailForUser(this.util.userID(), this.page, this.limit, (data, msg) => {
-					if (data != null) {
+					if (data) {
 						var dataList = []
 						dataList = dataList.concat(data.records)
 						if (this.page == 1) {
@@ -142,7 +142,7 @@
 				let rolloutValue = 0
 				// let rolloutValue = giftcoin > limitcoin ? limitcoin : giftcoin
 				console.log(giftcoin - limitcoin > 0);
-				if(giftcoin - limitcoin > 0) {
+				if (giftcoin - limitcoin > 0) {
 					rolloutValue = limitcoin
 				} else {
 					rolloutValue = giftcoin
@@ -182,7 +182,7 @@
 		},
 		onLoad() {
 			let me = this;
-			uni.$on('rollout',function(){
+			uni.$on('rollout', function() {
 				me.rolloutAction()
 			})
 		}

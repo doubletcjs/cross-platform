@@ -69,7 +69,7 @@
 			},
 			requestData() {
 				coinapi.queryOfflinePayDetail(this.util.userID(), this.page, this.limit, (data, msg) => {
-					if (data != null) {
+					if (data) {
 						var dataList = []
 						dataList = dataList.concat(data.records)
 						if (this.page == 1) {

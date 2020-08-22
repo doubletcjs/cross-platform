@@ -106,6 +106,9 @@
 				} else if (index == 0) {
 					if (this.account.personalStatus == 1) {
 						this.$refs.feimaalert.open()
+						// uni.navigateTo({
+						// 	url: "../wallet/walletpage"
+						// })
 					} else {
 						this.$refs.certificationalert.open()
 					}

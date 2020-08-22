@@ -218,10 +218,10 @@
 				return new Promise((reslove, reject) => {
 					_this.networking.functionRequest('/queryGoldExchange', null, {
 						userId: _this.util.userID(),
-						page: _this.page,
-						limit: _this.limit
+						current: _this.page,
+						size: _this.limit
 					}, null, (data) => {
-						if (data != null) {
+						if (data) {
 							var dataList = []
 							dataList = dataList.concat(data.records)
 							if (_this.page == 1) {
@@ -293,10 +293,10 @@
 				return new Promise((reslove, reject) => {
 					_this.networking.functionRequest('/queryTbWithdrawadLog', null, {
 						userId: _this.util.userID(),
-						page: _this.page,
-						limit: _this.limit
+						current: _this.page,
+						size: _this.limit
 					}, null, (data) => {
-						if (data != null) {
+						if (data) {
 							var dataList = []
 							dataList = dataList.concat(data.records)
 							dataList.forEach(function(value, index, dataList) {
@@ -371,7 +371,7 @@
 				let _this = this;
 				return new Promise((reslove, reject) => {
 					coinapi.queryOfflinePayDetail(_this.util.userID(), _this.page, _this.limit, (data, msg) => {
-						if (data != null) {
+						if (data) {
 							var dataList = []
 							dataList = dataList.concat(data.records)
 							dataList.forEach(function(value, index, dataList) {

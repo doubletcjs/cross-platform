@@ -11,8 +11,8 @@ function createContract(userId, completion) {
 function getContractDetail(userId, page, limit, completion) {
 	networking.functionRequest("/getContractDetail", null, {
 		"userId": userId,
-		"page": page,
-		"limit": limit
+		"current": page,
+		"size": limit
 	}, null, completion)
 }
 

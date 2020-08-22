@@ -1,25 +1,23 @@
 import util from "./public.js"
 
 // 版本号，用于h5
-const currentVersion = "2.5.3"
+const currentVersion = "2.8.3"
 
- // 测试
-// const isTest = true; // true 测试环境 用于aboutus查看版本号和地址，只针对android app.hkicloud.com  39.100.54.18  
-// const kServerURL = "http://39.100.54.18/tbr"  
-// const kQrcodeURL = "http://39.100.54.18"
-// const kServerURL = "http://app.hkicloud.com/tbr"  
-// const kQrcodeURL = "http://app.hkicloud.com"
+// 测试
+const isTest = true; // true 测试环境 用于aboutus查看版本号和地址，只针对android app.hkicloud.com  39.100.54.18  
+const kServerURL = "http://39.100.54.18:4008/tbr"  
+const kQrcodeURL = "http://39.100.54.18:4008"
+// 开发
+// const kServerURL = "http://192.168.2.165:4008/tbr"
+// const kQrcodeURL = "http://192.168.2.165:4008"
+
 
 // 正式
-const isTest = false;
-// const kServerURL = "http://47.75.87.108/tbr"
+// const isTest = false;
+// const kServerURL = "http://app.hkicloud.com/tbr"   // 迁移后的地址
+// const kQrcodeURL = "http://app.hkicloud.com"
+// const kServerURL = "http://47.75.87.108/tbr" // 迁移前的地址
 // const kQrcodeURL = "http://47.75.87.108" 
-const kServerURL = "http://app.hkicloud.com/tbr"  
-const kQrcodeURL = "http://app.hkicloud.com"
-
-// const kServerURL = "http://192.168.2.165:8080/tbr"
-// const kQrcodeURL = "http://192.168.2.165:8080" 
-
 
 function _emptyObject(obj) {
 	if (obj == undefined || obj == null || obj == "" || obj.length == 0) {
@@ -29,16 +27,16 @@ function _emptyObject(obj) {
 	}
 }
 
-
-function functionRequest(api = "", method = null, params = null, header = null, completion) {
+// isShow 是否显示showToast，默认是true  showTime showToast显示时间
+function functionRequest(api = "", method = null, params = null, header = null, completion, isShow = true, showTime = 1500) {
 	if (_emptyObject(api) == true) {
 		if (completion != null) {
 			completion(null, "接口名称不能为空")
 		}
-		
+
 		return
 	}
-	
+	// console.log(" isShow " + isShow);
 	var reqHeader = {
 		"charset": "utf-8",
 		"Content-Type": "application/x-www-form-urlencoded"
@@ -47,7 +45,7 @@ function functionRequest(api = "", method = null, params = null, header = null, 
 	if (_emptyObject(method) == true) {
 		method = "POST"
 	}
-	
+
 	if (_emptyObject(params) == true) {
 		params = {}
 	}
@@ -60,22 +58,22 @@ function functionRequest(api = "", method = null, params = null, header = null, 
 		var value = header[key]
 		reqHeader[key] = value
 	}
-	
+
 	if (_emptyObject(reqHeader["token"]) == true && _emptyObject(util.token()) == false) {
 		reqHeader["token"] = util.token()
 	}
-	
+
 	uni.request({
 		url: kServerURL + api,
 		method: method,
 		header: reqHeader,
 		data: params,
-		success(res) {
+		success(res) { 
 			var data = res.data
 			var code = _emptyObject(data.state) == false ? data.state : ""
 			if (_emptyObject(data.code) == false) {
 				code = data.code
-			} 
+			}
 
 			if (code == "200") {
 				if (typeof data == "string") {
@@ -104,7 +102,7 @@ function functionRequest(api = "", method = null, params = null, header = null, 
 				console.log("method:" + method)
 				console.log("url:" + kServerURL + api)
 				console.log("code:" + code)
-				console.log("原始数据:" + JSON.stringify(data))
+				// console.log("原始数据:" + JSON.stringify(data))
 
 				if (_emptyObject(code) == true) {
 					if (completion != null) {
@@ -113,20 +111,26 @@ function functionRequest(api = "", method = null, params = null, header = null, 
 					uni.showToast({
 						title: "未知状态码"
 					})
+				} else if (code == "1") {
+					//token过期，强制退出，重新登录
+					util.logout()
 				} else {
 					var msg = data.msg
 					if (_emptyObject(msg) == true) {
 						msg = "未知错误"
 					}
-					
+
 					if (completion != null) {
 						completion(null, msg)
 					}
 
-					uni.showToast({
-						title: msg,
-						icon: "none"
-					})
+					if(isShow) {
+						uni.showToast({
+							title: msg,
+							icon: "none",
+							duration: showTime
+						})
+					}
 				}
 			}
 		},
@@ -190,9 +194,9 @@ function functionUpload(filePath, params, completion) {
 	}
 
 	var reqHeader = {
-		"charset": "utf-8", 
+		"charset": "utf-8",
 	}
-	
+
 	if (_emptyObject(util.token()) == false) {
 		reqHeader["token"] = util.token()
 	}
@@ -200,7 +204,7 @@ function functionUpload(filePath, params, completion) {
 	if (_emptyObject(params) == true) {
 		params = {}
 	}
-	
+
 	const uploadTask = uni.uploadFile({
 		url: kServerURL + "/uploadImg",
 		name: "file",
@@ -209,8 +213,12 @@ function functionUpload(filePath, params, completion) {
 		header: reqHeader,
 		success: (res) => {
 			var data = JSON.parse(res.data)
-			if (data.state == "200") {
-				var url = data.msg
+			var code = _emptyObject(data.state) == false ? data.state : ""
+			if (_emptyObject(data.code) == false) {
+				code = data.code
+			}
+			if (code == "200") { 
+				var url = data.data
 				if (_emptyObject(url) == false) {
 					if (completion != null) {
 						completion(url, null)
@@ -224,7 +232,7 @@ function functionUpload(filePath, params, completion) {
 				if (completion != null) {
 					completion(null, "返回url为空！")
 				}
-				
+
 				console.log("filePath:" + filePath)
 				console.log("header:" + JSON.stringify(reqHeader))
 				console.log("params:" + JSON.stringify(params))
@@ -237,7 +245,7 @@ function functionUpload(filePath, params, completion) {
 				title: error.errMsg,
 				icon: "none"
 			})
-			
+
 			if (completion != null) {
 				completion(null, error.errMsg)
 			}
@@ -269,11 +277,11 @@ function request_class(url, data, cb) {
 			"content-type": "application/x-www-form-urlencoded",
 			"token": token
 		}, // 设置请求的 header
-		success: function(res) {
+		success: function (res) {
 			// uni.hideLoading();
 			cb(res, null);
 		},
-		fail: function(error) {
+		fail: function (error) {
 			// uni.hideLoading();
 			uni.showToast({
 				title: '请求失败',

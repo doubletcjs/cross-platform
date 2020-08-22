@@ -18,7 +18,7 @@
 				<image src="../../static/images/ico_home_notice@3x.png" mode="aspectFit" class="home-notice-logo-wapper"></image>
 				<swiper vertical="true" :autoplay="true" :interval="6000" :duration="1000" class="home-notice-swiper-wapper">
 					<swiper-item v-for="(notice, index) in notices" :key="index" class="home-notice-swiper-item">
-						<view v-if="notice.dicId == 11" class="home-notice-swiper-item-title">
+						<view v-if="notice.dicType == 11" class="home-notice-swiper-item-title">
 							<text v-html="ClearBr(notice.content)" space="emsp"></text>
 						</view>
 						<view v-else class="home-notice-swiper-item-title">

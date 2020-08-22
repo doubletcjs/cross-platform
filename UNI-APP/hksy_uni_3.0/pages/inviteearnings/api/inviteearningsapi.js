@@ -15,8 +15,8 @@ function getEarningsForUser(userId, completion) {
 function getEarningsDetailForUser(userId, page, limit, completion) {
 	networking.functionRequest("/getEarningsDetailForUser", null, {
 		"userId": userId,
-		"page": page,
-		"limit": limit
+		"current": page,
+		"size": limit
 	}, null, completion)
 }
 
@@ -24,8 +24,8 @@ function getEarningsDetailForUser(userId, page, limit, completion) {
 function getMyFriend(userId, page, limit, completion) {
 	networking.functionRequest("/getMyFriend", null, {
 		"userId": userId,
-		"page": page,
-		"limit": limit
+		"current": page,
+		"size": limit
 	}, null, completion)
 }
 

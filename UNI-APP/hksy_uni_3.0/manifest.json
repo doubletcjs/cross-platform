@@ -1,15 +1,14 @@
 {
-    "name" : "华科闪云3.0",
+    "name" : "华科闪云2.8",
     "appid" : "",
     "description" : "",
-    "versionName" : "2.5.3",
-    "versionCode" : 33,
+    "versionName" : "2.8.3",
+    "versionCode" : 38,
     "transformPx" : false,
     /* 5+App特有相关 */
     "app-plus" : {
         "usingComponents" : true,
         "nvueCompiler" : "uni-app",
-        "compilerVersion" : 3,
         "splashscreen" : {
             "alwaysShowBeforeRender" : false,
             "waiting" : false,
@@ -96,7 +95,8 @@
         "nvueLaunchMode" : "fast",
         "uniStatistics" : {
             "enable" : false
-        }
+        },
+        "compilerVersion" : 3
     },
     /* 快应用特有相关 */
     "quickapp" : {},

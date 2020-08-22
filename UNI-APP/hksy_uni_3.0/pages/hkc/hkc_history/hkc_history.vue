@@ -42,8 +42,11 @@
 				nodata:false
 			}
 		},
-		onLoad() {
+		onReady() {
 			this.getUserHkcDetail(this.page)
+		},
+		onLoad() {
+			// this.getUserHkcDetail(this.page)
 		},
 		onNavigationBarButtonTap(e) { // 右侧顶部导航按钮
 		   uni.navigateTo({
@@ -70,8 +73,8 @@
 			getUserHkcDetail(page){
 				let param = {
 					userId : publicAPI.userID(),
-					page:page,
-					limit:this.limit
+					current:page,
+					size:this.limit
 				}
 				networking.functionRequest("/getUserHkcDetail", null, param, null, (res)=>{
 					// console.log(res)

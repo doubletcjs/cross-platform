@@ -37,6 +37,19 @@
 		},
 		methods: {
 			loginStatusCheck() { 
+				
+				// 一定时间强制用户退出
+				let lastTime = this.util.getLoginTime()
+				console.log("lastTime " + lastTime)
+				if(lastTime) { // 如果登录过
+					let currentTime = new Date().getTime()
+					console.log("lastTime " + lastTime + " currentTime " + currentTime);
+					console.log("difftime " + (currentTime - lastTime));
+					if((currentTime - lastTime) > 1000 * 60 * 60 * 24 * 7) { // 一周时间
+						this.util.logout()
+					}
+				}	
+				
 				let currentVersion = this.networking.currentVersion // h5的版本要手动更改
 				console.log("app currentVersion " + currentVersion);
 				// #ifndef H5

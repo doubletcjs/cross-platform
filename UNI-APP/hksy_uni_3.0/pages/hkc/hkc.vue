@@ -348,7 +348,7 @@
 
 			},
 			chargerHkc(pao_item) {
-				let hkcId = pao_item.id;
+				let hkcId = pao_item.guid;
 				// console.log(hkcId)
 				
 				let param = {

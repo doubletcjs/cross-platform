@@ -1,0 +1,104 @@
+.wallet-header-header-wapper { 
+	margin-left: 24rpx;
+	margin-right: 24rpx; 
+	margin-bottom: 70rpx;
+	
+	border-radius: 15rpx;
+	background-color: rgba(23, 96, 255, 1);
+}
+
+.wallet-header-header-title {
+	font-size: 30rpx;
+	color: rgba(255, 255, 255, 1);
+	
+	margin-left: 40rpx;
+	margin-right: 40rpx;
+	margin-top: 48rpx;
+}
+
+.wallet-header-header-content-wapper {
+	margin-left: 40rpx;
+	margin-right: 35rpx;
+	margin-top: 33rpx;
+	
+	display: flex;
+	flex-direction: row; 
+	justify-content: space-between;
+	align-items: center;
+	align-content: center;
+}
+
+.wallet-header-header-rollout-wapper {  
+	height: 64rpx;
+	
+	display: flex;
+	flex-direction: row; 
+	justify-content: center;
+	align-items: center;
+	align-content: center;
+	
+	border-radius: 32rpx;
+	background-color: rgba(59, 121, 255, 1);
+}
+ 
+.wallet-header-header-rollout {
+	font-size: 30rpx;
+	color: rgba(255, 255, 255, 1);
+	
+	margin-left: 51rpx;
+}
+
+.wallet-header-header-rollout-arrow {
+	width: 36rpx;
+	height: 36rpx;
+	color: white;
+	
+	margin-left: 11rpx;
+	margin-right: 32rpx;
+}
+
+.wallet-header-header-assets {
+	font-size: 60rpx;
+	color: rgba(255, 255, 255, 1);
+}
+
+.wallet-header-header-item-wapper {
+	white-space: nowrap;
+	
+	margin-left: 20rpx;
+	margin-right: 20rpx;
+	margin-top: 52rpx;
+	margin-bottom: 35rpx;
+	
+	display: flex;
+	flex-direction: row;  
+	align-items: center;
+	align-content: center;
+	justify-content: space-around;
+}
+
+.wallet-header-header-item-value-wapper {
+	
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	align-content: center;
+	margin-right: 23rpx;
+}
+
+.wallet-header-header-item {
+	
+	margin-top: 15rpx;
+	font-size: 26rpx;
+	color: rgba(255, 255, 255, 1);
+	text-align: center;
+}
+
+.wallet-header-header-item-value {
+	font-size: 26rpx;
+	color: rgba(255, 255, 255, 1);
+	
+	margin-left: 15rpx;
+	text-align: center;
+}

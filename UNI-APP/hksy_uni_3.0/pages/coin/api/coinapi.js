@@ -4,8 +4,8 @@ import networking from "../../../public/networking.js"
 function queryBalance(userId, page, limit, completion) {
 	networking.functionRequest("/queryBalance", null, {
 		"userId": userId,
-		"page": page,
-		"limit": limit
+		"current": page,
+		"size": limit
 	}, null, completion)
 }
 
@@ -27,8 +27,8 @@ function offlineRecharge(userId, voucherPath, balance, completion) {
 function queryOfflinePayDetail(userId, page, limit, completion) {
 	networking.functionRequest("/queryOfflinePayDetail", null, {
 		"userId": userId,
-		"page": page,
-		"limit": limit
+		"current": page,
+		"size": limit
 	}, null, completion)
 }
 

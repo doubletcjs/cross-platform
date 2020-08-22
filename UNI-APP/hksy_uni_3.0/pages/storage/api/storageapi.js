@@ -11,8 +11,8 @@ function getPerformanceDatas(userId, completion) {
 function getPerformanceDatasList(userId, page, limit, completion) {
 	networking.functionRequest("/getPerformanceDatasList", null, {
 		"userId": userId,
-		"page": page,
-		"limit": limit
+		"current": page,
+		"size": limit
 	}, null, completion)
 }
 
@@ -20,8 +20,8 @@ function getPerformanceDatasList(userId, page, limit, completion) {
 function vipminerInfo(userId, page, limit, completion) {
 	networking.functionRequest("/vipminerInfo", null, {
 		"userId": userId,
-		"page": page,
-		"limit": limit
+		"current": page,
+		"size": limit
 	}, null, completion)
 }
 

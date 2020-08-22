@@ -53,12 +53,12 @@
 			"style": {
 				"navigationBarTitleText": "个人信息"
 			}
-		},{
+		}, {
 			"path": "pages/account/modifyname/modifyname",
 			"style": {
 				"navigationBarTitleText": "修改昵称"
 			}
-		},{
+		}, {
 			"path": "pages/account/certification/certificationcenter",
 			"style": {
 				"navigationBarTitleText": "身份管理中心"
@@ -94,6 +94,11 @@
 			"style": {
 				"navigationBarTitleText": "邀请收益",
 				"enablePullDownRefresh": true
+			}
+		}, {
+			"path": "pages/wallet/walletpage",
+			"style": {
+				"navigationBarTitleText": "我的钱包"
 			}
 		}, {
 			"path": "pages/hkc/hkc",
@@ -275,6 +280,11 @@
 			"style": {
 				"navigationBarTitleText": "HKC兑转明细",
 				"enablePullDownRefresh": true
+			}
+		}, {
+			"path": "pages/wallet/walletrollout",
+			"style": {
+				"navigationBarTitleText": "FIL币转出"
 			}
 		}
 	],

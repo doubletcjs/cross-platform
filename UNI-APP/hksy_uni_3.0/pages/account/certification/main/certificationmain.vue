@@ -130,7 +130,7 @@
 
 					accountapi.authentication(this.uploadModel, (data, msg) => {
 						uni.hideLoading()
-						if (data != null) {
+						if (data) {
 							uni.showToast({
 								title: "认证提交成功",
 								icon: "none"

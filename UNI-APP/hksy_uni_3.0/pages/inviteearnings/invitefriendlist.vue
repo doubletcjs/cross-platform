@@ -22,7 +22,7 @@
 					<!-- <view class="invite-friend-list-member">
 						会员
 					</view> -->
-					<view class="invite-friend-list-notmember" v-if="friend.dicId == 1">
+					<view class="invite-friend-list-notmember" v-if="friend.userLevel == 1">
 						非会员
 					</view>
 					<view class="invite-friend-list-member" v-else>
@@ -68,15 +68,21 @@
 		methods: {
 			requestData() {
 				inviteearningsapi.getMyFriend(this.util.userID(), this.page, this.limit, (data, msg) => {
-					if (data != null) {
+					// console.log(JSON.stringify(data));
+					if (data) {
 						var dataList = []
 						dataList = dataList.concat(data.records)
+						
 						if (this.page == 1) {
 							this.friendList = dataList
 						} else {
 							this.friendList = this.friendList.concat(dataList)
 						}
-
+						// console.log(JSON.stringify(" == " + this.friendList))
+						// console.log(" == " + this.friendList.length);
+						// console.log(" == " + this.friendList);
+						// console.log(this.friendList.length > 1);
+						// console.log(" == " + (Array.isArray(this.friendList)));
 						if (dataList.length == 0 && this.page > 1) {
 							this.page -= 1
 						}

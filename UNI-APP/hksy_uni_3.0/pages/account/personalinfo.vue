@@ -83,7 +83,7 @@
 									"",
 									url,
 									(data, msg) => {
-										if (data != null) {
+										if (data) {
 											uni.$emit(me.kAccountRefresh, null)
 											me.account.avater = url
 											setTimeout(() => {
@@ -97,7 +97,7 @@
 											})
 										}
 									}
-								)
+									)
 							} else {
 								uni.hideLoading()
 								uni.showToast({

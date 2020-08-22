@@ -113,7 +113,7 @@ export default {
 			if (this.util.emptyObject(this.util.userID()) == false) {
 				var me = this;
 				accountapi.getUserInfo(this.util.userID(), (data, msg) => {
-					if (data != null) {
+					if (data) {
 						me.util.recordUserInfo(data);
 						me.headerCoin = me.util.formatNumber(me.util.userInfo().coin);
 						console.log('更新用户信息');
@@ -124,7 +124,7 @@ export default {
 		requestData() {
 			this.refreshUserInfo();
 			coinapi.queryBalance(this.util.userID(), this.page, this.limit, (data, msg) => {
-				if (data != null) {
+				if (data) {
 					var dataList = [];
 					dataList = dataList.concat(data.records);
 					if (this.page == 1) {
@@ -199,7 +199,7 @@ export default {
 			uni.startPullDownRefresh({});
 		});
 
-		uni.$on(this.kAccountRefresh, () => {
+		uni.$on(this.kcoinRefresh, () => {
 			this.refreshData();
 		});
 	},
@@ -208,6 +208,10 @@ export default {
 		if (this.detailList.length == 0) {
 			uni.startPullDownRefresh({});
 		}
+	},
+	onHide(){
+		// window.removeEventListener(this.kAccountRefresh)
+		// uni.$off(this.kAccountRefresh);
 	}
 };
 </script>

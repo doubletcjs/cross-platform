@@ -281,7 +281,7 @@
 					params["passWord"] = this.verifyPassword
 
 					accountapi.changePaymentCode(params, (data, msg) => {
-						if (data != null) {
+						if (data) {
 							uni.$emit(me.kAccountRefresh, null)
 
 							setTimeout(() => {
@@ -303,8 +303,8 @@
 					params["paymentCode"] = this.verifyPassword
 
 					accountapi.setPaymentCode(params, (data, msg) => {
-						if (data != null) {
-							me.$emit(me.kAccountRefresh, null)
+						if (data) { 
+							uni.$emit(me.kAccountRefresh, null)
 
 							setTimeout(() => {
 								uni.hideLoading()

@@ -10,8 +10,8 @@ function getProductDetail(productId, completion) {
 // 商品列表(分页) 
 function getProductList(page, limit, completion) {
 	networking.functionRequest("/getProductList", null, {
-		"page": page,
-		"limit": limit
+		"size": limit,
+		"current": page
 	}, null, completion)
 }
 
@@ -21,11 +21,11 @@ function buyProduct(userId, productId, paymentCode, completion) {
 		"userId": userId,
 		"productId": productId,
 		"paymentCode": paymentCode
-	}, null, completion)
-} 
+	}, null, completion, false, 1500)
+}
 
 module.exports = {
 	getProductDetail: getProductDetail,
-	getProductList: getProductList,  
+	getProductList: getProductList,
 	buyProduct: buyProduct
 }

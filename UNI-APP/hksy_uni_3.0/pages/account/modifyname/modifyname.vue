@@ -56,7 +56,7 @@ export default {
 					me.nickname,
 					"",
 					(data, msg) => {
-						if (data != null) {
+						if (data) {
 							uni.hideKeyboard();
 							uni.$emit(me.kAccountRefresh, null)
 							uni.showToast({

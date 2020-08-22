@@ -7,6 +7,8 @@ const kCurrentAppVersion = "CurrentAppVersion"
 
 const kAppVsersionInfo = "AppVsersionInfo"
 
+const kLoginTime = "loginTime"
+
 const moreContentText = {
 	contentdown: "点击加载更多",
 	contentrefresh: "正在加载...",
@@ -18,7 +20,6 @@ function appVersionInfo() {
 }
 
 function recordAppVersionInfo(info) {
-	console.log("info:"+info)
 	uni.setStorageSync(kAppVsersionInfo, info)
 }
 
@@ -44,10 +45,11 @@ function token() {
 }
 
 function recordToken(token) {
+	console.log("记录token")
 	uni.setStorageSync(kLoginUserToken, token)
 }
 
-function userID() {
+function userID() { 
 	return uni.getStorageSync(kLoginUserID)
 	// return "3805"
 }
@@ -58,11 +60,27 @@ function recordUserID(userID) {
 
 function recordUserInfo(info) {
 	if (info != null && emptyObject(userID()) == true) {
-		recordUserID(info["id"])
+		recordUserID(info["guid"])
 	}
 
 	uni.setStorageSync(kLoginUserInfo, info)
 }
+
+// 保存用户登录时间
+function recordLoginTime() {
+	var time = new Date().getTime();
+	uni.setStorageSync(kLoginTime, time)	
+}
+
+// 得到用户登录时间
+function getLoginTime() {
+	return uni.getStorageSync(kLoginTime)
+}
+
+function clearLoginTime() {
+	uni.setStorageSync(kLoginTime, '')
+}
+
 
 function userInfo() {
 	return uni.getStorageSync(kLoginUserInfo)
@@ -214,6 +232,7 @@ function logout() {
 	recordToken(null)
 	recordUserID(null)
 	recordUserInfo(null)
+	clearLoginTime()
 
 	uni.reLaunch({
 		url: "/pages/account/loginregister/loginregister"
@@ -301,24 +320,24 @@ function getIntVersionName2(serverAppVerson, localAppVerson) {
 	let serverArray = serverAppVerson.split(".")
 	let localArray = localAppVerson.split(".")
 	
-	console.log(serverArray[0] + " " + serverArray[1] + " " + serverArray[2])
-	console.log(localArray[0] + " " + localArray[1] + " " + localArray[2])
+	// console.log(serverArray[0] + " " + serverArray[1] + " " + serverArray[2])
+	// console.log(localArray[0] + " " + localArray[1] + " " + localArray[2])
 	
 	if(parseInt(serverArray[0]) > parseInt(localArray[0])) {
-		console.log(parseInt(serverArray[0]) + " 111 " + parseInt(localArray[0]))
-		console.log(parseInt(serverArray[0]) > parseInt(localArray[0]));
+		// console.log(parseInt(serverArray[0]) + " 111 " + parseInt(localArray[0]))
+		// console.log(parseInt(serverArray[0]) > parseInt(localArray[0]));
 		return true
 	} 
 	
 	if(parseInt(serverArray[1]) > parseInt(localArray[1])) {
-		console.log(parseInt(serverArray[1]) + " 222 " + parseInt(localArray[1]));
-		console.log(parseInt(serverArray[1]) > parseInt(localArray[1]));
+		// console.log(parseInt(serverArray[1]) + " 222 " + parseInt(localArray[1]));
+		// console.log(parseInt(serverArray[1]) > parseInt(localArray[1]));
 		return true
 	} 
 	
 	if(parseInt(serverArray[2]) > parseInt(localArray[2])) {
-		console.log(parseInt(serverArray[2]) + " 333 " + parseInt(localArray[2]));
-		console.log(parseInt(serverArray[2]) > parseInt(localArray[2]));
+		// console.log(parseInt(serverArray[2]) + " 333 " + parseInt(localArray[2]));
+		// console.log(parseInt(serverArray[2]) > parseInt(localArray[2]));
 		return true
 	}
 	
@@ -351,5 +370,7 @@ module.exports = {
 	getIntVersionName: getIntVersionName,
 	getIntVersionName2: getIntVersionName2,
 	appVersionInfo: appVersionInfo,
-	recordAppVersionInfo: recordAppVersionInfo
+	recordAppVersionInfo: recordAppVersionInfo,
+	recordLoginTime: recordLoginTime,
+	getLoginTime: getLoginTime
 }

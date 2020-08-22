@@ -19,7 +19,7 @@
 			</view>
 
 			<view class="nodata" v-else>
-				<nodata v-show="show" msg="暂无合同" msg2="若已购买存储器，请稍后重试~"></nodata>
+				<nodata v-show="show" msg="暂无合同" msg2=""></nodata>
 			</view>
 		</view>
 	</view>
@@ -58,7 +58,7 @@
 				uni.startPullDownRefresh({
 
 				})
-			}, 100)
+			}, 100) 
 		},
 		methods: {
 			createContract() { // 生成合同
@@ -66,7 +66,7 @@
 				serviceapi.createContract(this.util.userID(), (data, msg) => {
 					me.isInit = false
 
-					if (data != null) {
+					if (data) {
 						me.requestData()
 					} else {
 						uni.showToast({
@@ -89,7 +89,7 @@
 				var me = this
 				// 合同列表(分页)
 				serviceapi.getContractDetail(this.util.userID(), this.page, this.limit, (data, mag) => {
-					if (data != null) {
+					if (data) {
 						var dataList = []
 						dataList = dataList.concat(data.records)
 						if (me.page == 1) {
@@ -128,7 +128,8 @@
 			functionItemAction(res) {
 				var index = res.currentTarget.dataset.index
 				var item = this.contractList[index]
-				var fileUrl = this.networking.kQrcodeURL + "/" + item.contractAddress
+				var fileUrl = this.networking.kQrcodeURL.replace(/4008/g, "808") + "/" + item.contractAddress
+				console.log(fileUrl)
 
 				// #ifdef APP-PLUS
 				uni.showLoading({

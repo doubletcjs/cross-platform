@@ -3,7 +3,7 @@ import networking from "../../../public/networking.js"
 // 轮播广告
 function getBanners(completion) {
 	networking.functionRequest("/getBanners", null, null, null, completion)
-} 
+}
 
 // 通知消息
 function getNotice(completion) {
