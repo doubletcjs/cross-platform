@@ -78,13 +78,9 @@ class _CertificationPageState extends State<CertificationPage> {
 
   //播放
   void _playAction() {
-    Navigator.of(context).push(
-      MaterialPageRoute(builder: (context) {
-        return BaseVideoPlayer(
-          videoPath: _videoPath,
-        );
-      }),
-    );
+    BaseVideoPlayer(
+      videoPath: _videoPath,
+    ).animatedPush(context);
   }
 
   //提交

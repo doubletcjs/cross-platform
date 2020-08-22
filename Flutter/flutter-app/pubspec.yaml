@@ -46,6 +46,8 @@ dependencies:
   pull_to_refresh: any 
   amap_location_flutter_plugin:
     path: plugins/amap-location-flutter
+  # flutter_inapp_purchase:
+  #   path: plugins/flutter_inapp_purchase
   flutter_swiper: any
   country_list_pick: any
   umeng_analytics_plugin: ^1.0.3

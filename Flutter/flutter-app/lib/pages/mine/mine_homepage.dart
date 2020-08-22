@@ -4,6 +4,7 @@ import 'package:common_utils/common_utils.dart';
 import 'package:dart_notification_center/dart_notification_center.dart';
 import 'package:flutter/material.dart';
 import 'package:xs_progress_hud/xs_progress_hud.dart';
+import 'package:yue_mei/pages/mine/views/homepage/gifts_dialog.dart';
 import '../chat/chat_main_page.dart';
 import '../../public/public.dart';
 import 'views/homepage/cover_header.dart';
@@ -18,6 +19,7 @@ import 'api/member_api.dart';
 import '../account/report_account.dart';
 import '../function/general_alert.dart';
 import '../function/base_video_player.dart';
+import 'views/homepage/gifts_dialog.dart' show GiftsDialog;
 
 class MineHomePage extends StatefulWidget {
   String userId = ""; //是否查看本人主页
@@ -232,13 +234,9 @@ class _MineHomePageState extends State<MineHomePage> {
       confirm: "查看视频",
       confirmHandle: () {
         Future.delayed(Duration(milliseconds: 400), () {
-          Navigator.of(context).push(
-            MaterialPageRoute(builder: (context) {
-              return BaseVideoPlayer(
-                account: _account,
-              );
-            }),
-          );
+          BaseVideoPlayer(
+            account: _account,
+          ).animatedPush(context);
         });
       },
     ).show(context);
@@ -356,6 +354,12 @@ class _MineHomePageState extends State<MineHomePage> {
                   : InfoContent(
                       account: _account,
                     ),
+              // 收到的礼物
+//              _account == null
+//                  ? Container()
+//                  : ReceivedGifts(
+//                    account: _account,
+//                  ),
             ],
           ),
           //返回按钮
@@ -481,10 +485,10 @@ class _MineHomePageState extends State<MineHomePage> {
                           this._likeAction();
                         },
                       ),
-                      SizedBox(
-                        width: 46,
-                      ),
                       //聊天
+                      SizedBox(
+                        width: 16,
+                      ),
                       FlatButton(
                         padding: EdgeInsets.zero,
                         shape: RoundedRectangleBorder(
@@ -497,6 +501,31 @@ class _MineHomePageState extends State<MineHomePage> {
                         ),
                         onPressed: () {
                           this._goChart();
+                        },
+                      ),
+                      SizedBox(
+                        width: 16,
+                      ),
+                      // 送礼
+                      FlatButton(
+                        padding: EdgeInsets.zero,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(94 / 2),
+                        ),
+                        child: Image.asset(
+                          "images/Follow Button@3x.png",
+                          width: 94,
+                          height: 94,
+                        ),
+                        onPressed: () {
+                          showDialog(
+                              context: context,
+                              child: GiftsDialog(
+                                receiveUserId: _account["id"],
+                                onNavigationClickEvent: () {
+                                  Navigator.of(context).pop();
+                                },
+                              ));
                         },
                       ),
                     ],

@@ -165,39 +165,39 @@ class _SettingPageState extends State<SettingPage> {
             },
           ),
           // 新消息提醒
-          SettingBaseSection(
-            title: "新消息提醒",
-          ),
-          SettingBaseCell(
-            name: "声音",
-            valueWidget: CupertinoSwitch(
-              activeColor: rgba(255, 45, 85, 1),
-              value: true,
-              onChanged: (isOn) {},
-            ),
-          ),
-          SettingBaseCell(
-            name: "震动",
-            hideLine: true,
-            valueWidget: CupertinoSwitch(
-              activeColor: rgba(255, 45, 85, 1),
-              value: true,
-              onChanged: (isOn) {},
-            ),
-          ),
+          // SettingBaseSection(
+          //   title: "新消息提醒",
+          // ),
+          // SettingBaseCell(
+          //   name: "声音",
+          //   valueWidget: CupertinoSwitch(
+          //     activeColor: rgba(255, 45, 85, 1),
+          //     value: true,
+          //     onChanged: (isOn) {},
+          //   ),
+          // ),
+          // SettingBaseCell(
+          //   name: "震动",
+          //   hideLine: true,
+          //   valueWidget: CupertinoSwitch(
+          //     activeColor: rgba(255, 45, 85, 1),
+          //     value: true,
+          //     onChanged: (isOn) {},
+          //   ),
+          // ),
           // 隐私
-          SettingBaseSection(
-            title: "隐私",
-          ),
-          SettingBaseCell(
-            name: "不再出现“附件的人”",
-            hideLine: true,
-            valueWidget: CupertinoSwitch(
-              activeColor: rgba(255, 45, 85, 1),
-              value: false,
-              onChanged: (isOn) {},
-            ),
-          ),
+          // SettingBaseSection(
+          //   title: "隐私",
+          // ),
+          // SettingBaseCell(
+          //   name: "不再出现“附件的人”",
+          //   hideLine: true,
+          //   valueWidget: CupertinoSwitch(
+          //     activeColor: rgba(255, 45, 85, 1),
+          //     value: false,
+          //     onChanged: (isOn) {},
+          //   ),
+          // ),
           // 账号与安全
           SettingBaseSection(
             title: "账号与安全",

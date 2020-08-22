@@ -104,4 +104,9 @@ class AccountApi {
   static getUserSig(finish) {
     Networking.requestBase("/api/v1/getUserSig", finish, method: "GET");
   }
+
+  // 获取用户个人资料
+  static Future getProfile() {
+    return DioManager().get("/api/v1/user/profile");
+  }
 }

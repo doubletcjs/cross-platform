@@ -67,7 +67,6 @@ class _UpgradeAlertState extends State<UpgradeAlert> {
   ];
 
   //获取会员金额列表
-  List<IAPItem> _onLineIAPItems = [];
   List _memberList = [];
   void _appleMemberPayList() {
     XsProgressHud.show(context);
@@ -76,13 +75,9 @@ class _UpgradeAlertState extends State<UpgradeAlert> {
         setState(() {
           _memberList = data;
 
-          if (Platform.isIOS) {
-            this._handleOnlineProducts();
-          } else {
-            Future.delayed(Duration(milliseconds: 200), () {
-              XsProgressHud.hide();
-            });
-          }
+          Future.delayed(Duration(milliseconds: 200), () {
+            XsProgressHud.hide();
+          });
         });
       } else {
         XsProgressHud.hide();
@@ -91,44 +86,36 @@ class _UpgradeAlertState extends State<UpgradeAlert> {
     });
   }
 
-  //获取商品
-  Future _handleOnlineProducts() async {
-    final List<String> _productLists = [];
-    _memberList.forEach((info) {
-      _productLists.add("${info['id']}");
-    });
-    List<IAPItem> items =
-        await FlutterInappPurchase.instance.getProducts(_productLists);
-
-    setState(() {
-      _onLineIAPItems = items;
-      kLog("${_onLineIAPItems.toString()}");
-      Future.delayed(Duration(milliseconds: 200), () {
-        XsProgressHud.hide();
-      });
-    });
-  }
-
   //开通会员
   void _buyMember() {
-    if (_onLineIAPItems != null && _onLineIAPItems.length > 0) {
-      if (Platform.isIOS) {
-        XsProgressHud.show(context);
-        var info = _memberList[_currentIndex];
+    if (Platform.isIOS) {
+      XsProgressHud.show(context);
+      var info = _memberList[_currentIndex];
+      FlutterInappPurchase.instance
+          .getProducts(["${info['id']}"]).then((items) {
+        kLog("items:$items");
+        if (items != null && items.length > 0) {
+          Map<String, dynamic> json = {
+            "price": "${info['info']['price']}",
+            "productId": "${info['id']}",
+          };
 
-        Map<String, dynamic> json = {
-          "price": "${info['info']['price']}",
-          "productId": "${info['id']}",
-        };
-
-        kLog("json:$json");
-        IAPItem item = IAPItem.fromJSON(json);
-        FlutterInappPurchase.instance.requestPurchase(item.productId);
-      } else {
-        showToast("暂时只支持iOS支付", context);
-      }
+          kLog("json:$json");
+          IAPItem item = IAPItem.fromJSON(json);
+          FlutterInappPurchase.instance.requestPurchase(item.productId);
+        } else {
+          XsProgressHud.hide();
+          showToast("苹果服务异常，请稍后重试！", context);
+        }
+      }).catchError((error) {
+        XsProgressHud.hide();
+        showToast("$error", context);
+      }).timeout(Duration(seconds: 30), onTimeout: () {
+        XsProgressHud.hide();
+        showToast("苹果服务超时，请稍后重试！", context);
+      });
     } else {
-      showToast("苹果服务异常，请稍后重试！", context);
+      showToast("暂时只支持iOS支付", context);
     }
   }
 
@@ -182,7 +169,7 @@ class _UpgradeAlertState extends State<UpgradeAlert> {
           showToast("已经购买过该商品！", context);
         } else if (_state == TransactionState.purchasing) {
           kLog("商品添加进列表");
-        }
+        } else {}
       }
       kLog("purchase-updated: ${productItem.toString()}");
     });

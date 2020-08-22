@@ -122,10 +122,8 @@ class _RechargeRecordState extends State<RechargeRecord> {
                                 children: <Widget>[
                                   //金币充值
                                   Text(
-                                    _data["type"] != null
-                                        ? (_data["type"] == 1
-                                            ? "金币使用"
-                                            : _data["type"] == 2 ? "金币充值" : "")
+                                    _data["content"] != null
+                                        ? _data["content"]
                                         : "",
                                     style: TextStyle(
                                       color: rgba(51, 51, 51, 1),
@@ -156,10 +154,15 @@ class _RechargeRecordState extends State<RechargeRecord> {
                         //充值金额
                         Text(
                           _data["total_price"] != null
-                              ? "${_data['total_price']}"
+                              ? ((_data["type"] == 2
+                                      ? "+"
+                                      : _data["type"] == 1 ? "-" : "") +
+                                  "${_data['total_price']}")
                               : "",
                           style: TextStyle(
-                            color: rgba(255, 45, 85, 1),
+                            color: _data["type"] == 2
+                                ? rgba(0, 186, 83, 1)
+                                : rgba(255, 45, 85, 1),
                             fontSize: 19.5,
                             fontWeight: FontWeight.bold,
                           ),

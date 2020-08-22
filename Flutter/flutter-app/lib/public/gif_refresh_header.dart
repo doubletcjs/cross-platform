@@ -5,7 +5,7 @@ import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'public.dart' show loadingGifPath;
 
 class GifHeader extends RefreshIndicator {
-  GifHeader() : super(height: 80.0, refreshStyle: RefreshStyle.Follow);
+  GifHeader() : super(height: 56, refreshStyle: RefreshStyle.Follow);
 
   @override
   GifHeaderState createState() => GifHeaderState();

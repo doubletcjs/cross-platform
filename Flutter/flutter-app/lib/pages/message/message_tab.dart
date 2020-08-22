@@ -188,11 +188,12 @@ class _MessagePageState extends State<MessagePage> {
               : i2.message.timestamp.compareTo(i1.message.timestamp),
     );
 
-    //不显示空昵称会话
+    //不显示空昵称、空消息会话
     List<SessionEntity> _list = [];
     _conversationList.forEach((element) {
       if (ObjectUtil.isEmpty(element.userProfile) == false &&
-          ObjectUtil.isEmpty(element.userProfile.nickName) == false) {
+          ObjectUtil.isEmpty(element.userProfile.nickName) == false &&
+          ObjectUtil.isEmpty(element.message) == false) {
         if (_list.indexOf(element) < 0) {
           _list.add(element);
         }
@@ -418,12 +419,18 @@ class _MessagePageState extends State<MessagePage> {
                               title: element.type == SessionType.System
                                   ? "系统账号"
                                   : element.userProfile.nickName,
-                              content: element.message.note,
-                              subContent: TimelineUtil.format(
-                                element.message.timestamp * 1000,
-                                locale: "zh",
-                                dayFormat: DayFormat.Full,
-                              ),
+                              content:
+                                  ObjectUtil.isEmpty(element.message) == true
+                                      ? ""
+                                      : element.message.note,
+                              subContent:
+                                  ObjectUtil.isEmpty(element.message) == false
+                                      ? TimelineUtil.format(
+                                          element.message.timestamp * 1000,
+                                          locale: "zh",
+                                          dayFormat: DayFormat.Full,
+                                        )
+                                      : "",
                               icon: element.faceUrl,
                               tapHandle: () {
                                 Navigator.of(context).push(

@@ -83,7 +83,7 @@ class _InfoContentState extends State<InfoContent> {
   Widget build(BuildContext context) {
     return Container(
       margin: EdgeInsets.fromLTRB(15, 0, 15, 0),
-      padding: EdgeInsets.fromLTRB(0, 30.5, 0, 13.5),
+      padding: EdgeInsets.fromLTRB(0, 30.5, 0, 0),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[

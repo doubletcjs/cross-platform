@@ -35,9 +35,12 @@ class _NearPageState extends State<NearPage>
   Timer _locationTimer;
 
   //发送切换刷新数据通知
-  void _switchReloadData() {
+  void _switchReloadData({bool showHud = false}) {
     if (_locationData == null) {
-      XsProgressHud.show(context);
+      if (showHud) {
+        XsProgressHud.show(context);
+      }
+
       this._refreshLocationService();
     } else {
       DartNotificationCenter.post(channel: "kNearTabSwitch", options: {
@@ -100,13 +103,9 @@ class _NearPageState extends State<NearPage>
               _firstLoading = false;
               kLog("定位信息:$_locationData");
 
-              XsProgressHud.hide();
-              Future.delayed(Duration(milliseconds: 200), () {
+              Future.delayed(Duration(milliseconds: 400), () {
+                XsProgressHud.hide();
                 this._switchReloadData();
-
-                Future.delayed(Duration(milliseconds: 1400), () {
-                  this._refreshAccount();
-                });
               });
             });
           }
@@ -116,7 +115,6 @@ class _NearPageState extends State<NearPage>
 
           setState(() {
             _firstLoading = false;
-            this._refreshAccount();
           });
         }
       });
@@ -138,7 +136,6 @@ class _NearPageState extends State<NearPage>
         setState(() {
           _firstLoading = false;
           _locationData = null;
-          this._refreshAccount();
         });
       }
     }).catchError((error) {
@@ -149,7 +146,14 @@ class _NearPageState extends State<NearPage>
       setState(() {
         _firstLoading = false;
         _locationData = null;
-        this._refreshAccount();
+      });
+    }).timeout(Duration(seconds: 10), onTimeout: () {
+      showToast("无法开启定位服务", context);
+      XsProgressHud.hide();
+
+      setState(() {
+        _firstLoading = false;
+        _locationData = null;
       });
     });
   }
@@ -167,16 +171,22 @@ class _NearPageState extends State<NearPage>
 
   //刷新用户信息
   void _refreshAccount() async {
+    XsProgressHud.show(context);
     AccountApi.profile((data, msg) {
+      this._switchReloadData();
+
       if (data != null) {
-        kLog("刷新用户信息");
         currentAccount = Map.from(data);
+        kLog("首页刷新用户信息");
+      }
+
+      Future.delayed(Duration(milliseconds: 100), () {
         DartNotificationCenter.post(
             channel: kAccountHandleNotification,
             options: {
               "type": 3,
             });
-      }
+      });
     });
   }
 
@@ -189,11 +199,11 @@ class _NearPageState extends State<NearPage>
 
     _tabController = TabController(length: _tabs.length, vsync: this);
     _tabController.addListener(() {
-      this._switchReloadData();
+      this._switchReloadData(showHud: true);
     });
 
     Future.delayed(Duration(milliseconds: 100), () {
-      this._switchReloadData();
+      this._refreshAccount();
     });
   }
 

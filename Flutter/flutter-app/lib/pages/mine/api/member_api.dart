@@ -1,3 +1,5 @@
+import 'package:dio/dio.dart';
+
 import '../../../public/networking.dart';
 
 class MemberApi {
@@ -73,5 +75,15 @@ class MemberApi {
     Networking.requestBase("/api/v1/get/video", finish, params: {
       "id": userId,
     });
+  }
+
+  static Future getGifts () {
+    return DioManager().get("/api/v1/gift/lists");
+  }
+
+  static Future postGift (Map data) {
+    return DioManager().post("/api/v1/send/gift", data: data, options: Options(extra: {
+      "loading": true
+    }));
   }
 }
