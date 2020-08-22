@@ -19,7 +19,7 @@
 		}, {
 			"path": "pages/tabs/mine/mine_tab",
 			"style": {
-				"navigationBarTitleText": "我"
+				"navigationStyle": "custom"
 			}
 		}, {
 			"path": "pages/pages/mine/wallet/withdraw",
@@ -35,6 +35,66 @@
 			"path": "pages/pages/mine/wallet/bank/bankCardList",
 			"style": {
 				"navigationBarTitleText": "银行卡"
+			}
+		}, {
+			"path": "pages/pages/mine/wallet/bank/addBank_one",
+			"style": {
+				"navigationBarTitleText": ""
+			}
+		}, {
+			"path": "pages/pages/mine/wallet/bank/addBank_two",
+			"style": {
+				"navigationBarTitleText": ""
+			}
+		}, {
+			"path": "pages/pages/mine/wallet/bank/payPassword",
+			"style": {
+				"navigationBarTitleText": ""
+			}
+		}, {
+			"path": "pages/pages/mine/wallet/recharge",
+			"style": {
+				"navigationBarTitleText": "金币充值"
+			}
+		}, {
+			"path": "pages/pages/mine/wallet/rechargeSuccess",
+			"style": {
+				"navigationBarTitleText": "充值成功"
+			}
+		}, {
+			"path": "pages/pages/mine/wallet/bill/coinBill",
+			"style": {
+				"navigationBarTitleText": "金币账单"
+			}
+		}, {
+			"path": "pages/pages/mine/edit/edit",
+			"style": {
+				"navigationBarTitleText": "编辑资料"
+			}
+		}, {
+			"path": "pages/pages/mine/edit/editIntro",
+			"style": {
+				"navigationBarTitleText": "个人简介"
+			}
+		}, {
+			"path": "pages/pages/mine/edit/editNickname",
+			"style": {
+				"navigationBarTitleText": "昵称"
+			}
+		}, {
+			"path": "pages/pages/mine/contact/contact",
+			"style": {
+				"navigationBarTitleText": "常见问题"
+			}
+		}, {
+			"path": "pages/pages/mine/contact/questionDetail",
+			"style": {
+				"navigationBarTitleText": "常见问题"
+			}
+		}, {
+			"path": "pages/pages/mine/contact/feedback",
+			"style": {
+				"navigationBarTitleText": "意见反馈"
 			}
 		}, {
 			"path": "pages/pages/create/create_base",
@@ -106,6 +166,17 @@
 			"style": {
 				"navigationStyle": "custom"
 			}
+		}, {
+			"path": "pages/pages/mine/minepage/mine_page",
+			"style": {
+				"navigationStyle": "custom",
+				"navigationBarTitleText": ""
+			}
+		}, {
+			"path": "pages/pages/mine/minepage/mine_page_list",
+			"style": {
+				"navigationBarTitleText": "ta的角落"
+			}
 		}
 	],
 	"tabBar": {
@@ -143,7 +214,7 @@
 	"globalStyle": {
 		"navigationBarTextStyle": "black",
 		"titleSize": "36rpx",
-		"navigationBarTitleText": "uni-app",
+		"navigationBarTitleText": "角落",
 		"navigationBarBackgroundColor": "#FFFFFF",
 		"backgroundColor": "#F8F8F8"
 	}

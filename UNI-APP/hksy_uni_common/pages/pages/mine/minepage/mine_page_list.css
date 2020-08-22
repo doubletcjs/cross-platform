@@ -1,0 +1,66 @@
+.page-list-cell {
+	padding: 24rpx 32rpx 24rpx 32rpx;
+	background-color: rgba(255, 255, 255, 1);
+	
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	align-items: center;
+}
+
+.page-list-cell-row {
+	display: flex;
+	flex-direction: row; 
+	align-items: center;
+	
+	width: 80%; 
+}
+
+.page-list-cell-column {
+	display: flex;
+	flex-direction: column; 
+	justify-content: center;
+	
+	margin-left: 16rpx;
+	width: 75%;  
+}
+
+.page-list-cell-name {
+	font-size: 32rpx;
+	color: rgba(50, 50, 50, 1);
+}
+
+.page-list-cell-introduce {
+	font-size: 28rpx;
+	color: rgba(153, 153, 153, 1);
+	margin-top: 8rpx;
+	
+	display: -webkit-box;
+	-webkit-line-clamp: 1;
+	-webkit-box-orient: vertical;
+	white-space: normal !important;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+
+.page-list-cell-cover {
+	width: 101rpx;
+	height: 101rpx;
+	border-radius: 8rpx;
+	background-color: rgba(153, 153, 153, 0.3);
+}
+
+.page-list-cell-join {
+	font-size: 32rpx;
+	color: rgba(235, 102, 91, 1);
+	
+	
+	display: flex;
+	flex-direction: row; 
+	align-items: center;
+	justify-content: center;
+	
+	background-color: rgba(247, 246, 245, 1);
+	border-radius: 8rpx;
+	padding: 6rpx 30rpx 6rpx 30rpx;
+}

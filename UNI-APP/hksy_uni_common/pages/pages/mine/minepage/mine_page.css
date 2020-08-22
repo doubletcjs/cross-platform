@@ -1,0 +1,128 @@
+.list-content {
+	width: 100%;
+	margin-top: 192rpx;
+	position: relative;
+	z-index: 1;
+
+	display: flex;
+	flex-direction: column;
+	justify-content: flex-start;
+}
+
+/* tab */
+.tab-bar-mask {
+	width: 100%;
+	
+	display: flex;
+	flex-direction: column; 
+	background-color: #FFFFFF; 
+	 
+	position: relative; 
+}
+
+.tab-bar-mask-sticky {
+	position: fixed;
+	/* top: 0; */ 
+	z-index: 1000;
+	top: 0;
+}
+
+.tab-bar {
+	width: 100%;
+	height: 88rpx;
+
+	background-color: #FFFFFF; 
+
+	display: flex;
+	flex-direction: row; 
+	align-items: center;
+	align-content: center; 
+}
+
+.tab-bar-title {
+	color: rgba(153, 153, 153, 1);
+	font-size: 28rpx;
+
+	padding: 10rpx 0rpx 10rpx 0rpx;
+	text-align: center; 
+	width: 33.3333333%;   
+}
+
+.tab-bar-title-select {
+	color: rgba(50, 50, 50, 1);
+	font-weight: bold;
+	font-size: 32rpx; 
+}
+
+.tab-bar-indicator-mask {
+	width: 33.3333333%; 
+	height: 6rpx; 
+	
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	align-content: center;
+	 
+	position: absolute;
+	bottom: 0;  
+}
+
+.tab-bar-indicator {
+	width: 32rpx; 
+	height: 6rpx;
+	border-radius: 6rpx; 
+}
+
+/* top bar */
+.top-bar { 
+	height: 88rpx;
+	background-color: rgba(255, 255, 255, 1);
+	
+	padding-left: 32rpx;
+	padding-right: 32rpx;
+	
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	align-items: center; 
+	
+	position: relative;
+}
+
+.top-bar-icon {
+	width: 56rpx;
+	height: 56rpx;
+} 
+
+.top-bar-row {
+	display: flex;
+	flex-direction: row; 
+	align-items: center; 
+	justify-content: center;
+	 
+	position: absolute;
+	left: 128rpx;
+	right: 128rpx; 
+}
+
+.top-bar-avatar {
+	width: 48rpx;
+	height: 48rpx;
+	
+	background-color: rgba(153, 153, 153, 0.3);
+	border-radius: 24rpx;
+}
+
+.top-bar-name {
+	color: rgba(50, 50, 50, 1); 
+	font-size: 36rpx; 
+	margin-left: 16rpx;
+	
+	max-width: 85%;
+	display: -webkit-box;
+	-webkit-line-clamp: 1;
+	-webkit-box-orient: vertical;
+	white-space: normal !important;
+	overflow: hidden;
+	text-overflow: ellipsis; 
+}

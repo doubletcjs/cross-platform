@@ -52,13 +52,66 @@
 			emptyAction() {},
 			//分享点击
 			itemTap(res) {
-				var _list = this.baseList.concat(this.otherList) 
+				var _list = this.baseList.concat(this.otherList)
 				this.closeAction()
 				var me = this
-				setTimeout(function() {  
+				setTimeout(function() {
 					me.itemTapAction(_list[res]["mark"])
 				}, 100)
-			}
+			},
+			//初始化数据
+			initDataList() { 
+				if (this.baseList == null || this.baseList.length == 0) {
+					this.baseList = [{
+							icon: "/static/images/share_wechat_icon@3x.png",
+							title: "分享给\n微信好友",
+							mark: "wechat"
+						},
+						{
+							icon: "/static/images/share_wechatzone_icon@3x.png",
+							title: "分享到\n朋友圈",
+							mark: "wechazone"
+						},
+						{
+							icon: "/static/images/share_weibo_icon@3x.png",
+							title: "分享到\n微博",
+							mark: "weibo"
+						},
+						{
+							icon: "/static/images/share_qq_icon@3x.png",
+							title: "分享给\nQQ好友",
+							mark: "qq"
+						},
+						{
+							icon: "/static/images/copy_link_icon@3x.png",
+							title: "分享链接",
+							mark: "sharelink"
+						},
+					]
+				}
+
+				if (this.otherList == null || this.otherList.length == 0) {
+					this.otherList = [{
+						icon: "/static/images/report_icon@3x.png",
+						title: "投诉",
+						mark: "report"
+					}, {
+						icon: "/static/images/report_icon@3x.png",
+						title: "删除",
+						mark: "delete"
+					}, ]
+				}
+			}, 
+			//数据更新
+			updateList(baseShareItems, otherShareItems) {
+				if (baseShareItems != null) {
+					this.baseList = baseShareItems
+				}
+				
+				if (otherShareItems != null) {
+					this.otherList = otherShareItems 
+				}
+			},
 		},
 		props: {
 			//是否弹出显示
@@ -68,16 +121,8 @@
 			},
 			closeAction: Function,
 			itemTapAction: Function,
-			baseShareItems: {
-				type: Array,
-				default: () => []
-			},
-			otherShareItems: {
-				type: Array,
-				default: () => []
-			},
 		},
-		mounted() {
+		mounted() { 
 			/*
 			[
 				"wechat",
@@ -89,50 +134,7 @@
 				"delete",
 			]
 			*/
-			if (this.baseShareItems == null || this.baseShareItems.length == 0) {
-				this.baseList = [{
-						icon: "/static/images/share_wechat_icon@3x.png",
-						title: "分享给\n微信好友",
-						mark: "wechat"
-					},
-					{
-						icon: "/static/images/share_wechatzone_icon@3x.png",
-						title: "分享到\n朋友圈",
-						mark: "wechazone"
-					},
-					{
-						icon: "/static/images/share_weibo_icon@3x.png",
-						title: "分享到\n微博",
-						mark: "weibo"
-					},
-					{
-						icon: "/static/images/share_qq_icon@3x.png",
-						title: "分享给\nQQ好友",
-						mark: "qq"
-					},
-					{
-						icon: "/static/images/copy_link_icon@3x.png",
-						title: "分享链接",
-						mark: "sharelink"
-					},
-				]
-			} else {
-				this.baseList = this.baseShareItems
-			}
-
-			if (this.otherShareItems == null || this.otherShareItems.length == 0) {
-				this.otherList = [{
-					icon: "/static/images/report_icon@3x.png",
-					title: "投诉",
-					mark: "report"
-				}, {
-					icon: "/static/images/report_icon@3x.png",
-					title: "删除",
-					mark: "delete"
-				}, ]
-			} else {
-				this.otherList = this.otherShareItems
-			}
+			this.initDataList()
 		}
 	}
 </script>

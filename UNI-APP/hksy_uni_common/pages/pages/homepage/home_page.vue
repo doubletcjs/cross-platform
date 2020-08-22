@@ -1,13 +1,6 @@
 <template>
 	<view>
-		<!-- 购物车 -->
-		<view class="shopping-cart" v-if="tabIndex == 1 && scrollTop > 250">
-			<image src="/static/images/store_shopping_cart@3x.png" mode="" class="shopping-cart-image"></image>
-			<view class="shopping-cart-number">
-				1
-			</view>
-		</view>
-		<top :moreAction="moreAction" :searchAction="searchAction"></top>
+		<top :moreAction="shareAction" :searchAction="searchAction"></top>
 		<view class="list-content">
 			<!-- 基本信息 -->
 			<info></info>
@@ -15,47 +8,48 @@
 			<live></live>
 			<!-- banner -->
 			<banner></banner>
-			<!-- tabbar -->
-			<view :class="tabSticky == true ? 'tab-bar tab-bar-sticky' : 'tab-bar'">
-				<view v-for="(item, index) in tabs" :key="index" :class="tabIndex == index ? 'tab-bar-title tab-bar-title-select' : 'tab-bar-title'"
-				 :data-index="index" @click="tabSelectAction">
-					{{item}}
-
-					<!-- indicator -->
-					<view class="tab-bar-indicator-mask">
-						<view class="tab-bar-indicator" :style="tabIndex == index ? 'background-color: rgba(235, 102, 91, 1);' : ''"></view>
+			<!-- tab -->
+			<view :class="tabSticky == true ? 'tab-bar-mask tab-bar-mask-sticky' : 'tab-bar-mask'">
+				<view class="top-actions" style="position: relative; overflow: hidden; height: calc(var(--status-bar-height) + 88rpx);"
+				 v-if="tabSticky == true">
+					<image src="/static/images/homepages_default_bg.png" mode="widthFix" style="position: absolute; top: -200rpx; left: 0; width: 100%; z-index: 0;"></image>
+					<view class="top-mask" style="width: 100%; left: 0; z-index: 0;"></view>
+					<!-- 返回 -->
+					<view class="top-action-row" @click="backAction" style="background-color: green; width: 70%; margin-top: calc(var(--status-bar-height));">
+						<image src="/static/images/base_back_white@3x.png" mode="" class="top-action-back" style="padding-top: 10rpx; padding-bottom: 10rpx;"></image>
+						<view class="top-info-title" style="margin-left: 54rpx; position: absolute;">
+							每日一食记
+						</view>
+					</view>
+					<!-- 更多、搜索 -->
+					<view class="top-action-row" style="margin-top: calc(var(--status-bar-height));">
+						<image src="/static/images/homepage_search@3x.png" mode="" class="top-action-image" @click="searchAction"></image>
+						<image src="/static/images/homepage_menu@3x.png" mode="" class="top-action-image" style="margin-left: 32rpx;"
+						 @click="shareAction"></image>
+					</view>
+				</view>
+				<!-- tabbar -->
+				<view class="tab-bar">
+					<view v-for="(item, index) in tabs" :key="index" :class="tabIndex == index ? 'tab-bar-title tab-bar-title-select' : 'tab-bar-title'"
+					 :data-index="index" @click="tabSelectAction">
+						{{item}}
+						<!-- indicator -->
+						<view class="tab-bar-indicator-mask">
+							<view class="tab-bar-indicator" :style="tabIndex == index ? 'background-color: rgba(235, 102, 91, 1);' : ''"></view>
+						</view>
 					</view>
 				</view>
 			</view>
 			<!-- 列表内容，根据标题tab index 显示不用页面 -->
-			<dynamic v-if="tabIndex == 0"></dynamic>
-			<store v-else-if="tabIndex == 1"></store>
-			<discuss v-else-if="tabIndex == 2"></discuss>
-		</view>
-		<!-- 顶部栏 -->
-		<view class="top-actions" style="position: fixed; top: 0rpx; left: 0; right: 0; height: calc(var(--status-bar-height) + 128rpx); overflow: hidden; z-index: 1500;"
-		 v-if="tabSticky == true">
-			<image src="/static/images/homepages_default_bg.png" mode="widthFix" style="position: absolute; top: -200rpx; left: 0; width: 100%; z-index: 0;"></image>
-			<view class="top-mask" style="width: 100%; left: 0; z-index: 0;"></view>
-			<!-- 返回 -->
-			<view class="top-action-row" @click="backAction" style="background-color: green; width: 70%; margin-top: calc(var(--status-bar-height));">
-				<image src="/static/images/base_back_white@3x.png" mode="" class="top-action-back" style="padding-top: 10rpx; padding-bottom: 10rpx;"></image>
-				<view class="top-info-title" style="margin-left: 54rpx; position: absolute;">
-					每日一食记
-				</view>
-			</view>
-			<!-- 更多、搜索 -->
-			<view class="top-action-row" style="margin-top: calc(var(--status-bar-height));">
-				<image src="/static/images/homepage_search@3x.png" mode="" class="top-action-image"></image>
-				<image src="/static/images/homepage_menu@3x.png" mode="" class="top-action-image" style="margin-left: 32rpx;"
-				 @click="moreAction"></image>
-			</view>
+			<dynamic :scrollTop="scrollTop" v-if="tabIndex == 0"></dynamic>
+			<store :scrollTop="scrollTop" v-else-if="tabIndex == 1"></store>
+			<discuss :scrollTop="scrollTop" v-else-if="tabIndex == 2"></discuss>
 		</view>
 		<!-- 分享 -->
-		<share :visible="sharevisible" :closeAction="moreAction" :itemTapAction="shareItemAction"></share> 
+		<share :visible="sharevisible" :closeAction="shareAction" :itemTapAction="shareItemAction" ref="share"></share>
 		<!-- 举报 -->
 		<report :visible="reportvisible" :closeAction="reportAction"></report>
-	</view> 
+	</view>
 </template>
 
 <script>
@@ -82,7 +76,7 @@
 				],
 				scrollTop: 0,
 				sharevisible: false, //分享
-				reportvisible: false, //举报
+				reportvisible: false, //举报 
 			}
 		},
 		methods: {
@@ -97,8 +91,26 @@
 				var index = res.currentTarget.dataset.index
 				this.tabIndex = index
 			},
-			//更多
-			moreAction() {
+			//分享
+			shareAction() {
+				//博主
+				// this.shareOtherList = [{
+				// 	icon: "/static/images/report_icon@3x.png",
+				// 	title: "投诉",
+				// 	mark: "report"
+				// }, {
+				// 	icon: "/static/images/report_icon@3x.png",
+				// 	title: "删除",
+				// 	mark: "delete"
+				// }, ]
+
+				var shareOtherList = [{
+					icon: "/static/images/report_icon@3x.png",
+					title: "投诉",
+					mark: "report"
+				}]
+
+				this.$refs.share.updateList(null, shareOtherList)
 				this.sharevisible = !this.sharevisible
 			},
 			shareItemAction(res) {
@@ -119,7 +131,7 @@
 				uni.navigateTo({
 					url: "./store/home_page_store_search"
 				})
-			}  
+			}
 		},
 		components: {
 			top,
@@ -132,9 +144,9 @@
 			share,
 			report
 		},
-		onPageScroll(res) {
+		onPageScroll(res) { 
 			this.scrollTop = res.scrollTop
-			if (this.tabTop - res.scrollTop <= 128 / 2) {
+			if (this.tabTop - res.scrollTop <= 40 + uni.getSystemInfoSync().statusBarHeight) {
 				this.tabSticky = true
 			} else {
 				this.tabSticky = false
@@ -145,9 +157,15 @@
 			let selector = uni.createSelectorQuery().select('.tab-bar');
 			selector.boundingClientRect(function(data) {
 				me.tabTop = data.top
+				if (me.tabTop < 0) {
+					me.tabTop = -(me.tabTop)
+				}
 			}).exec(function() {
 
 			})
+		},
+		onLoad() {
+
 		}
 	}
 </script>

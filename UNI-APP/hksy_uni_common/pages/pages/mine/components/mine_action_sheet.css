@@ -1,0 +1,65 @@
+.i-modal-mask {
+	position: fixed;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	z-index: 10000;
+	transition: all 0.2s ease-in-out;
+	opacity: 0;
+	visibility: hidden; 
+	width: 100%;
+	height: 100%;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	
+	background-color: rgba(0, 0, 0, 0.4);
+}
+
+.i-modal-mask-show {
+	opacity: 1;
+	visibility: visible;
+}
+
+.action-sheet-content {
+	position: fixed; 
+	bottom: 0;
+	left: 0;
+	right: 0;  
+
+	display: flex;
+	flex-direction: column;
+
+	background-color: rgba(255, 255, 255, 1);  
+	border-top-left-radius: 12rpx;
+	border-top-right-radius: 12rpx;
+}
+
+.action-sheet-cancel {
+	font-size: 32rpx;
+	color: rgba(0, 0, 0, 1);
+	height: 112rpx;
+	
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	align-items: center;
+	
+	background-color: rgba(255, 255, 255, 1);
+	border-top: solid 16rpx rgba(242, 242, 242, 1);
+}
+
+.action-sheet-cell {
+	font-size: 32rpx;
+	color: rgba(50, 50, 50, 1);
+	height: 112rpx;
+	
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	align-items: center;
+	
+	background-color: rgba(255, 255, 255, 1);
+}

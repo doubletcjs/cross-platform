@@ -4,8 +4,7 @@
 	padding-top: 24rpx;
 	padding-bottom: 24rpx;
 	
-	background-color: #FFFFFF; 
-	border-bottom: solid 16rpx rgba(247, 246, 245, 1); 
+	background-color: #FFFFFF;  
 	
 	display: flex;
 	flex-direction: row;
@@ -23,4 +22,196 @@
 	
 	font-size: 26rpx; 
 	margin-right: 16rpx;
+}
+
+.dynamic-cell { 
+	background-color: rgba(255, 255, 255, 1);
+	padding: 40rpx 32rpx 24rpx 32rpx; 
+	
+	border-top: solid 16rpx rgba(247, 246, 245, 1);
+	
+	display: flex;
+	flex-direction: column; 
+}
+
+.dynamic-cell-avatar {
+	width: 80rpx;
+	height: 80rpx;
+	
+	border-radius: 40rpx;
+	background-color: rgba(153, 153, 153, 0.3);
+}
+
+.dynamic-cell-base-column {
+	display: flex;
+	flex-direction: column; 
+}
+
+.dynamic-cell-base-row {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+}
+
+.dynamic-cell-more {
+	width: 40rpx;
+	height: 40rpx;  
+}
+
+
+.dynamic-cell-name {
+	font-size: 32rpx;
+	color: rgba(50, 50, 50, 1);
+	 
+	display: -webkit-box;
+	-webkit-line-clamp: 1;
+	-webkit-box-orient: vertical;
+	white-space: normal !important;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+
+.dynamic-cell-blogger {
+	font-size: 24rpx;
+	color: rgba(255, 255, 255, 1);
+	
+	margin-left: 12rpx;
+	padding: 0rpx 16rpx 2rpx 16rpx;
+	background-color: rgba(235, 102, 91, 1);
+	height: 34rpx;
+	border-radius: 16rpx;
+}
+
+.dynamic-cell-date {
+	font-size: 20rpx;
+	color: rgba(153, 153, 153, 1);
+	margin-top: 4rpx;
+}
+
+.dynamic-cell-content {
+	margin-top: 24rpx;
+	font-size: 32rpx;
+	color: rgba(50, 50, 50, 1);
+}
+
+.dynamic-cell-subContent {
+	margin-top: 24rpx;
+	font-size: 28rpx;
+	color: rgba(153, 153, 153, 1);
+	
+	display: -webkit-box;
+	-webkit-line-clamp: 2;
+	-webkit-box-orient: vertical;
+	white-space: normal !important;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+
+.dynamic-cell-subContent-all { 
+	font-size: 28rpx;
+	color: rgba(80, 111, 176, 1);
+}
+
+.dynamic-cell-subContent-arrow {
+	width: 12rpx;
+	height: 20rpx;
+	margin-left: 16rpx;
+}
+
+.dynamic-cell-actions {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: flex-end;
+	
+	height: 40rpx;
+	
+	margin-top: 56rpx; 
+}
+
+.dynamic-cell-actions-icon {
+	width: 40rpx;
+	height: 40rpx;
+}
+
+.dynamic-cell-actions-text {
+	font-size: 26rpx;
+	color: rgba(50, 50, 50, 1);
+	margin-left: 8rpx;
+}
+
+.dynamic-cell-comment {
+	margin-top: 24rpx;
+	
+	padding: 24rpx 16rpx 24rpx 16rpx;
+	background-color: rgba(247, 246, 245, 1);
+	border-radius: 16rpx;
+}
+
+.dynamic-cell-comment-row {
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;   
+}
+
+.dynamic-cell-comment-name {
+	font-size: 28rpx;
+	color: rgba(50, 50, 50, 1);
+}
+
+.dynamic-cell-comment-content {
+	font-size: 28rpx;
+	color: rgba(153, 153, 153, 1);
+}
+
+.dynamic-cell-video {
+	background-color: rgba(247, 246, 245, 1);
+	
+	margin-top: 56rpx;
+	position: relative;  
+}
+
+.dynamic-cell-video-muted {
+	width: 56rpx;
+	height: 56rpx;
+	
+	position: absolute;
+	right: 24rpx;
+	bottom: 18rpx;
+}
+ 
+.dynamic-cell-image { 
+	margin-top: 56rpx;
+	position: relative;
+}
+
+.dynamic-cell-image-count {
+	font-size: 28rpx;
+	color: rgba(255, 255, 255, 1);
+	padding: 0rpx 29rpx 0rpx 29rpx;
+	height: 47rpx;
+	background-color: rgba(0, 0, 0, 0.4);
+	border-radius: 24rpx;
+	
+	position: absolute;
+	right: 24rpx;
+	top: 24rpx;
+	
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+}
+
+.dynamic-post {
+	width: 168rpx;
+	height: 168rpx;
+	
+	position: fixed;
+	right: 32rpx;
+	bottom: 48rpx; 
+}
+
+.dynamic-post-image {
+	width: 100%;
+	height: 100%;
 }

@@ -2,7 +2,7 @@
 	<view class="top">
 		<image class="top-image" src="/static/images/homepages_default_bg.png" mode="aspectFill"></image>
 		<view class="top-mask">
-			<view class="top-actions" :style="topActionsStyle">
+			<view class="top-actions" style="margin-top: var(--status-bar-height);">
 				<!-- 返回 -->
 				<view class="top-action-row" @click="backAction">
 					<image src="/static/images/base_back_white@3x.png" mode="" class="top-action-back" style="padding-top: 10rpx; padding-bottom: 10rpx; padding-right: 40rpx;"></image>
@@ -34,8 +34,7 @@
 <script>
 	export default {
 		data() {
-			return {
-				topActionsStyle: "margin-top: calc(var(--status-bar-height) + 40rpx);"
+			return { 
 			}
 		},
 		methods: {
@@ -44,15 +43,7 @@
 					delta: 1
 				})
 			}
-		},
-		created() {
-			var info = uni.getSystemInfoSync()
-			if (info.statusBarHeight > 0) {
-				this.topActionsStyle = "margin-top: var(--status-bar-height);"
-			} else {
-				this.topActionsStyle = "margin-top: calc(var(--status-bar-height) + 40rpx);"
-			}
-		},
+		}, 
 		props: {
 			searchAction: Function,
 			moreAction: Function

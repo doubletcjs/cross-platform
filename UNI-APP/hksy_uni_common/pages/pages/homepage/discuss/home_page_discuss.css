@@ -69,16 +69,16 @@
 	flex-direction: column;
 }
 
-.discuss-cell-date {
-	font-size: 20rpx;
-	color: rgba(153, 153, 153, 1);
-	margin-top: 4rpx;
-}
-
 .discuss-cell-base-row {
 	display: flex;
 	flex-direction: row;
 	align-items: center;
+}
+
+.discuss-cell-date {
+	font-size: 20rpx;
+	color: rgba(153, 153, 153, 1);
+	margin-top: 4rpx;
 }
 
 .discuss-cell-name {

@@ -20,10 +20,10 @@
 				</view>
 			</scroll-view>
 			
-			<view class="use_newBank_wrapper">
+			<view class="use_newBank_wrapper" @click="addBankCard">
 				<view class="use_newBank_text">使用新卡提现</view>
 				<view class="use_newBank_back_wrapper">
-					<image class="newBank_back_image" src="../../../../../static/images/arrows_left@2x.png" mode="aspectFit" @click="userNewCard"></image>
+					<image class="newBank_back_image" src="../../../../../static/images/arrows_left@2x.png" mode="aspectFit" ></image>
 				</view>
 			</view>
 			
@@ -73,11 +73,14 @@
 					let bankName = me.backList[me.selecIndex]
 					me.itemTapAction(bankName)
 				}, 100)
-				this.closeAction()
+				this.closePopup()
 				
 			},
-			userNewCard() {
-				
+			addBankCard() {
+				this.closePopup()
+				uni.navigateTo({
+					url: "bank/bankCardList"
+				})
 			}
 		},
 		props: {

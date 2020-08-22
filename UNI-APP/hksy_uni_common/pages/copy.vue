@@ -20,4 +20,5 @@ export default {
 </script>
 
 <style>
+	@import url("copy.css");
 </style>

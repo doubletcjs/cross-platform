@@ -25,5 +25,10 @@
 		width: 100%;
 		height: 100%;
 		position: absolute;
-	} 
+	}
+	.main_offset {
+		margin-left: 32rpx;
+		margin-right: 32rpx;
+	}
+	
 </style>

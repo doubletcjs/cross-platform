@@ -1,0 +1,101 @@
+.i-modal-mask {
+	position: fixed;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	z-index: 10000;
+	transition: all 0.2s ease-in-out;
+	opacity: 0;
+	visibility: hidden;
+	width: 100%;
+	height: 100%;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+
+	background-color: rgba(0, 0, 0, 0.4);
+}
+
+.i-modal-mask-show {
+	opacity: 1;
+	visibility: visible;
+}
+
+.discuss-input-bar {
+	height: 96rpx;
+
+	position: fixed;
+	left: 32rpx;
+	right: 32rpx;
+	bottom: 24rpx;
+	z-index: 2000;
+
+	padding-left: 47rpx;
+	padding-right: 45rpx;
+
+	border-radius: 16rpx;
+	background-color: rgba(255, 255, 255, 1);
+	box-shadow: 0rpx 0rpx 20rpx rgba(0, 0, 0, 0.16);
+
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	align-items: center;
+}
+
+.discuss-input-bar-placeholder {
+	font-size: 32rpx;
+	color: rgba(153, 153, 153, 1);
+}
+
+.discuss-input-bar-icon {
+	width: 56rpx;
+	height: 56rpx;
+}
+
+.discuss-input-mask {
+	position: fixed;
+	bottom: 0;
+	left: 0;
+	right: 0;
+
+	background-color: rgba(255, 255, 255, 1);
+	padding-left: 32rpx;
+	padding-right: 32rpx;
+	padding-top: 57rpx;
+	padding-bottom: 31rpx;
+
+	display: flex;
+	flex-direction: column;
+}
+
+.discuss-input-row {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	align-items: flex-start; 
+}
+
+.discuss-input-expression {
+	width: 54rpx;
+	height: 54rpx;
+
+	margin-top: 60rpx;
+}
+
+.discuss-input-send {
+	width: 60rpx;
+	height: 60rpx;
+}
+
+.discuss-input {
+	font-size: 28rpx;
+	color: rgba(50, 50, 50, 1);
+}
+
+.discuss-input-placeholder {
+	font-size: 28rpx;
+	color: rgba(153, 153, 153, 1)
+}

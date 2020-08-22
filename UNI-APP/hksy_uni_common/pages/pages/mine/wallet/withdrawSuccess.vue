@@ -1,6 +1,6 @@
-<!-- 我的钱包=>银行=>银行卡列表界面 -->
+<!-- 我的钱包=>金币提现成功界面  -->
 <template>
-	<view class="main-body">
+	<view class="main-body-two">
 	</view>
 </template>
 

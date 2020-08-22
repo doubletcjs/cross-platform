@@ -87,6 +87,13 @@
 				</view>
 			</view>
 		</view>
+		<!-- 购物车 -->
+		<view class="shopping-cart" v-if="scrollTop > 250">
+			<image src="/static/images/store_shopping_cart@3x.png" mode="" class="shopping-cart-image"></image>
+			<view class="shopping-cart-number">
+				1
+			</view>
+		</view>
 	</view>
 </template>
 
@@ -133,7 +140,7 @@
 					},
 				],
 				leftProducts: [],
-				rightProducts: [],
+				rightProducts: [], 
 			}
 		},
 		methods: {
@@ -169,6 +176,9 @@
 		},
 		created() {
 			this.fetchWaterfall()
+		},
+		props: {
+			scrollTop: 0
 		}
 	}
 </script>

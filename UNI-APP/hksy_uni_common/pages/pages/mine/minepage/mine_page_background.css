@@ -1,0 +1,47 @@
+.background {
+	width: 100%;
+	height: calc(var(--status-bar-height) + 480rpx);
+	
+	position: fixed;
+	top: 0;
+	z-index: 0; 
+	overflow: hidden; 
+}
+
+.background-image {
+	width: 100%;  
+	height: 100%; 
+	
+	background-color: rgba(230, 92, 84, 1);
+} 
+
+.background-button-bar {
+	height: 88rpx;
+	padding-left: 32rpx;
+	padding-right: 32rpx;
+	
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	align-items: center; 
+	
+	position: absolute;
+	top: var(--status-bar-height);  
+	left: 0;
+	right: 0;
+}
+
+.background-setting {
+	width: 56rpx;
+	height: 56rpx;
+}
+
+.background-share {
+	width: 56rpx;
+	height: 56rpx;
+}
+
+.background-back {
+	width: 22rpx;
+	height: 40rpx;
+}

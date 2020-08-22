@@ -1,4 +1,4 @@
-<!-- 我的钱包=>金币提币 -->
+<!-- 我的钱包=>金币提现 -->
 <template>
 	<view class="main-body-two">
 		<view class="withdraw_wrapper">
@@ -30,7 +30,7 @@
 
 <script>
 import selectBankDialog from './components/selectBankDialog.vue';
-import dititalKeyboard from './components/dititalKeyboard.vue';
+import dititalKeyboard from '../../../../components/passwordInput/dititalKeyboard.vue';
 export default {
 	data() {
 		return {

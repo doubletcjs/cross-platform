@@ -1,0 +1,108 @@
+.account {
+	background-color: rgba(255, 255, 255, 1);
+	border-top-left-radius: 32rpx;
+	border-top-right-radius: 32rpx;
+	
+	padding-left: 32rpx;
+	padding-right: 32rpx;
+	padding-bottom: 16rpx; 
+	
+	position: relative;
+	border-bottom: solid 20rpx rgba(247, 246, 245, 1);
+}
+
+.account-avatar {
+	width: 144rpx;
+	height: 144rpx;
+	border-radius: 72rpx;
+	background-color: rgba(255, 255, 255, 1);
+	border: solid 4rpx rgba(255, 255, 255, 1);
+	
+	position: absolute;
+	top: -28rpx;
+	left: 32rpx;
+}
+
+.account-buttons {
+	display: flex;
+	flex-direction: row;
+	justify-content: flex-end;
+	align-items: center; 
+	
+	margin-top: 32rpx; 
+}
+
+.account-setting {
+	width: 56rpx;
+	height: 56rpx;
+	
+	margin-right: 16rpx;
+}
+
+.account-button-content { 
+	height: 56rpx;
+	padding-left: 32rpx;
+	padding-right: 32rpx;
+	background-color: rgba(247, 246, 245, 1);
+	border-radius: 8rpx;
+	
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	align-items: center;
+	
+	font-size: 28rpx;
+	color: rgba(235, 102, 91, 1);
+}
+
+.account-name {
+	font-size: 40rpx;
+	color: rgba(27, 27, 27, 1);
+	
+	margin-top: 64rpx;
+}
+
+.account-userid {
+	font-size: 24rpx;
+	color: rgba(153, 153, 153, 1);
+	
+	margin-top: 4rpx;
+}
+
+.account-introduction {
+	font-size: 28rpx;
+	color: rgba(50, 50, 50, 1);
+	padding-left: 14rpx;
+	padding-right: 14rpx;
+	
+	margin-top: 24rpx;
+}
+
+.account-item-content {
+	margin-top: 44rpx; 
+	
+	display: flex;
+	flex-direction: row;
+	justify-content: flex-start;
+	align-items: center; 
+}
+
+.account-item {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	
+	width: 218rpx;
+	margin-right: 16rpx;  
+}
+
+.account-item-count {
+	font-size: 36rpx;
+	color: rgba(50, 50, 50, 1);
+}
+
+.account-item-name {
+	margin-top: 8rpx;
+	font-size: 24rpx;
+	color: rgba(153, 153, 153, 1);
+}
