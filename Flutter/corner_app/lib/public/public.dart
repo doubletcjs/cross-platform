@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
@@ -60,5 +61,40 @@ Widget transparentAppBar({Brightness brightness = Brightness.dark}) {
     backgroundColor: Colors.transparent,
     brightness: brightness,
     leftItem: Container(),
+  );
+}
+
+///带占位图网络图片
+Widget networkImage(
+  String imageUrl,
+  Size size,
+  BorderRadius borderRadius, {
+  String placeholder,
+}) {
+  return ClipRRect(
+    child: (imageUrl != null &&
+            imageUrl.length > 0 &&
+            imageUrl.contains("http"))
+        ? CachedNetworkImage(
+            placeholder: (context, url) {
+              return Image.asset(
+                placeholder != null ? placeholder : "images/placeholder@3x.png",
+                width: size.width,
+                height: size.height,
+                fit: BoxFit.cover,
+              );
+            },
+            imageUrl: imageUrl,
+            width: size.width,
+            height: size.height,
+            fit: BoxFit.cover,
+          )
+        : Image.asset(
+            placeholder != null ? placeholder : "images/placeholder@3x.png",
+            width: size.width,
+            height: size.height,
+            fit: BoxFit.cover,
+          ),
+    borderRadius: borderRadius,
   );
 }
