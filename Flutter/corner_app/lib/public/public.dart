@@ -29,26 +29,81 @@ AppBar customAppBar({
   String title,
   Widget titleView,
   double fontSize = 18,
-  Widget leftItem,
+  List<Widget> leftItems,
   List<Widget> rightItems,
   Brightness brightness = Brightness.light,
   Color backgroundColor = Colors.white,
   Color color = Colors.black,
   double elevation = 0.0,
+  bool defaultBack,
 }) {
+  if (leftItems == null) {
+    leftItems = [];
+  }
+
+  if (rightItems == null) {
+    rightItems = [];
+  }
+
+  if (defaultBack == null) {
+    defaultBack = false;
+  }
+
+  if (defaultBack == true) {
+    return AppBar(
+      title: title != null
+          ? Text(
+              title,
+              style: TextStyle(fontSize: fontSize, color: color),
+            )
+          : titleView != null ? titleView : Container(),
+      actions: rightItems,
+      brightness: brightness,
+      backgroundColor: backgroundColor,
+      iconTheme: IconThemeData(color: color),
+      elevation: elevation,
+    );
+  }
+
   return AppBar(
-    title: title != null
-        ? Text(
-            title,
-            style: TextStyle(fontSize: fontSize, color: color),
-          )
-        : titleView != null ? titleView : Container(),
-    leading: leftItem != null
-        ? Builder(builder: (context) {
-            return leftItem;
-          })
-        : null,
-    actions: rightItems,
+    automaticallyImplyLeading: false,
+    titleSpacing: 0,
+    title: Container(
+      height: AppBar().preferredSize.height,
+      padding: EdgeInsets.fromLTRB(16, 0, 16, 0),
+      child: Stack(
+        alignment: Alignment.center,
+        children: [
+          Container(
+            constraints: (leftItems.length > 0 || rightItems.length > 0)
+                ? BoxConstraints(
+                    maxWidth: 200,
+                  )
+                : BoxConstraints(),
+            child: title != null
+                ? Text(
+                    title,
+                    style: TextStyle(fontSize: fontSize, color: color),
+                  )
+                : titleView != null ? titleView : Container(),
+          ),
+          Positioned(
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Row(
+                  children: leftItems,
+                ),
+                Row(
+                  children: rightItems,
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
+    ),
     brightness: brightness,
     backgroundColor: backgroundColor,
     elevation: elevation,
@@ -60,7 +115,6 @@ Widget transparentAppBar({Brightness brightness = Brightness.dark}) {
   return customAppBar(
     backgroundColor: Colors.transparent,
     brightness: brightness,
-    leftItem: Container(),
   );
 }
 
