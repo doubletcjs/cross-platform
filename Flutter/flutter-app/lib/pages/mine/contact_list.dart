@@ -170,9 +170,7 @@ class _ContactListPageState extends State<ContactListPage> {
                                 ),
                                 keyboardType: index == 0
                                     ? TextInputType.phone
-                                    : (index == 1 || index == 2)
-                                        ? TextInputType.number
-                                        : TextInputType.text,
+                                    : TextInputType.text,
                                 textInputAction: TextInputAction.done,
                                 inputFormatters: [
                                   WhitelistingTextInputFormatter.digitsOnly,

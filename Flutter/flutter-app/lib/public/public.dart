@@ -25,6 +25,9 @@ final Color kTabUnselectedColor = rgba(51, 51, 51, 1);
 // 当前登录用户信息
 Map currentAccount = {};
 
+// 金币消费标准
+List priceList = [];
+
 // 友盟的配置信息
 // ignore: non_constant_identifier_names
 final Map<String, String> UMENG_CONFIG = {
@@ -43,7 +46,7 @@ final Map<String, String> AMAP_CONFIG = {
 // ignore: non_constant_identifier_names
 final TENCENTIM_APPID = (kDebug() == true) ? "1400398568" : "1400409186";
 // ignore: non_constant_identifier_names
-final TENCENTIM_BUSSID = (kDebug() == true) ? 21456 : 21455; //开发 //正式
+final TENCENTIM_BUSSID = (kDebug() == true) ? 21528 : 21455; //开发 //正式
 // ignore: non_constant_identifier_names
 // final TENCENTIM_SECRETKEY =
 //     "f5e763808b3bad873c79809d319208fcc9950b9c1842b4a01946fbd5e7ebe648";

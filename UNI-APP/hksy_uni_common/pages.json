@@ -177,6 +177,17 @@
 			"style": {
 				"navigationBarTitleText": "ta的角落"
 			}
+		}, {
+			"path": "pages/pages/mine/wallet/wallet_page",
+			"style": {
+				"navigationBarTitleText": "钱包",
+				"navigationStyle": "custom"
+			}
+		}, {
+			"path": "pages/pages/mine/wallet/wallet_recharge_detail",
+			"style": {
+				"navigationBarTitleText": "充值提现明细"
+			}
 		}
 	],
 	"tabBar": {

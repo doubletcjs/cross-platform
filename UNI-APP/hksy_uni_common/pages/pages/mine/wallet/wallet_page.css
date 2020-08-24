@@ -1,0 +1,259 @@
+.wallet-background {
+	height: 646rpx;
+
+	position: fixed;
+	top: 0;
+	left: 0;
+	right: 0;
+	z-index: 1; 
+}
+
+.wallet-background-image {
+	width: 100%;
+	position: absolute;
+	top: 0;
+
+	z-index: 0;
+}
+
+.wallet-bar {
+	padding-left: 32rpx;
+	padding-right: 32rpx;
+	height: 88rpx;
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	align-items: center;
+}
+
+.wallet-bar-back {
+	width: 22rpx;
+	height: 42rpx;
+}
+
+.wallet-bar-title {
+	height: 88rpx;
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	align-items: center;
+
+	font-size: 36rpx;
+	color: rgba(247, 246, 245, 1);
+}
+
+.wallet-bar-order {
+	font-size: 36rpx;
+	color: rgba(247, 246, 245, 1);
+}
+
+.wallet-content {
+	padding-left: 32rpx;
+	padding-right: 32rpx;
+	position: absolute;
+	top: 88rpx;
+	left: 0;
+	right: 0;
+}
+
+.wallet-content-title {
+	margin-top: 40rpx;
+	font-size: 28rpx;
+	color: rgba(255, 255, 255, 1);
+}
+
+.wallet-content-row {
+	margin-top: 24rpx;
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	align-items: center;
+}
+
+.wallet-content-amount-row {
+	display: flex;
+	flex-direction: row;
+	align-items: flex-end;
+}
+
+.wallet-content-amount {
+	font-size: 64rpx;
+	font-weight: bolder;
+	color: rgba(255, 255, 255, 1);
+}
+
+.wallet-content-unit {
+	font-size: 24rpx;
+	color: rgba(255, 255, 255, 1);
+
+	margin-bottom: 14rpx;
+}
+
+.wallet-content-recharge {
+	padding-left: 56rpx;
+	padding-right: 56rpx;
+	background-color: rgba(247, 246, 245, 0.81);
+	border-radius: 8rpx;
+	height: 56rpx;
+	margin-top: 35rpx;
+
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	font-size: 32rpx;
+	color: rgba(235, 102, 91, 1);
+}
+
+.wallet-bottom {
+	padding-left: 85rpx;
+	padding-right: 85rpx;
+	padding-top: 32rpx;
+	padding-bottom: 32rpx;
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	right: 0;
+
+	background-color: rgba(255, 255, 255, 1);
+	border-top-left-radius: 32rpx;
+	border-top-right-radius: 32rpx;
+	border-bottom: solid 24rpx rgba(247, 246, 245, 1);
+
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+}
+
+.wallet-bottom-item {
+	width: 50%;
+
+	display: flex;
+	flex-direction: column;
+	align-items: center; 
+}
+
+.wallet-bottom-item-title {
+	font-size: 26rpx;
+	color: rgba(50, 50, 50, 1);
+}
+
+.wallet-bottom-item-row {
+	margin-top: 24rpx;
+	display: flex;
+	flex-direction: row;
+	align-items: flex-end;
+}
+
+.wallet-bottom-item-amount {
+	font-size: 40rpx;
+	color: rgba(50, 50, 50, 1);
+}
+
+.wallet-bottom-item-uitl {
+	font-size: 24rpx;
+	color: rgba(50, 50, 50, 1);
+	margin-bottom: 4rpx;
+}
+
+.wallet-bottom-item-value {
+	width: 239rpx;
+	background-color: rgba(247, 246, 245, 1);
+	border-radius: 8rpx;
+	height: 56rpx;
+	margin-top: 30rpx;
+
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: center;
+	font-size: 32rpx;
+	color: rgba(235, 102, 91, 1); 
+}
+
+.wallet-list { 
+	position: fixed;
+	top: 646rpx;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	overflow: scroll;
+	z-index: 0; 
+	
+	background-color: rgba(255, 255, 255, 1);
+}
+
+.wallet-list-tip {
+	padding-left: 32rpx;
+	padding-right: 32rpx;
+	height: 96rpx;
+	
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	align-items: center;
+}
+
+.wallet-list-tip-left {
+	font-size: 32rpx;
+	color: rgba(50, 50, 50, 1);
+}
+
+.wallet-list-tip-right {
+	font-size: 28rpx;
+	color: rgba(80, 111, 176, 1);
+}
+
+.wallet-list-cell {
+	padding-left: 32rpx;
+	padding-right: 32rpx;
+	height: 146rpx;
+	
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	align-items: center; 
+	
+	position: relative; 
+}
+
+.wallet-list-cell-line {
+	position: absolute;
+	left: 32rpx;
+	right: 0;
+	bottom: 1rpx;
+	
+	height: 1rpx;
+	background-color: rgba(0, 0, 0, 0.1);
+}
+
+.wallet-list-cell-column {
+	display: flex;
+	flex-direction: column;
+	justify-content: center; 
+}
+
+.wallet-list-cell-amount {
+	font-size: 40rpx;
+	color: rgba(50, 50, 50, 1);
+}
+
+.wallet-list-cell-date {
+	font-size: 24rpx;
+	color: rgba(153, 153, 153, 1);
+	margin-top: 8rpx;
+}
+
+.wallet-list-cell-status {
+	font-size: 28rpx;
+	color: rgba(153, 153, 153, 1);  
+}

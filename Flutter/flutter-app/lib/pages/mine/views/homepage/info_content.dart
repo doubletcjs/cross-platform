@@ -1,3 +1,4 @@
+import 'package:common_utils/common_utils.dart';
 import 'package:flutter/material.dart';
 import '../../../../public/public.dart';
 
@@ -10,14 +11,6 @@ class InfoContent extends StatefulWidget {
 }
 
 class _InfoContentState extends State<InfoContent> {
-  List _infoIcons = [
-    "images/id.png",
-    "images/dadanshen@3x.png",
-    "images/sehngao@3x.png",
-    "images/geren@3x.png",
-    "images/dingwei.png",
-  ];
-
   List _livingStatus = [
     "保密",
     "一个人",
@@ -62,22 +55,90 @@ class _InfoContentState extends State<InfoContent> {
     return _list.join("，");
   }
 
-  String _getText (int index) {
-    switch (index) {
-      case 0:
-        return this.widget.account['id'].toString() ?? "";
-      case 1:
-        return _emotions[this.widget.account['emotion']] ?? "";
-      case 2:
-        return "${this.widget.account['height'] ?? ''}cm";
-      case 3:
-        return _combination() ?? "";
-      case 4:
-        return "${this.widget.account['province_name'] ?? ''} ${this.widget.account['city_name'] ?? ''}";
+  List<Widget> _getInfoIcons() {
+    List _infoIcons = [];
+    List _infoValues = [];
+    if (this.widget.account != null) {
+      if (ObjectUtil.isEmpty(this.widget.account["id"]) == false) {
+        _infoIcons.add("images/id.png");
+        _infoValues.add(this.widget.account["id"].toString());
+      }
+
+      if (ObjectUtil.isEmpty(this.widget.account["emotion"]) == false) {
+        _infoIcons.add("images/dadanshen@3x.png");
+        _infoValues.add(_emotions[this.widget.account['emotion']]);
+      }
+
+      if (ObjectUtil.isEmpty(this.widget.account["height"]) == false &&
+          int.parse("${this.widget.account["height"]}") > 0) {
+        _infoIcons.add("images/sehngao@3x.png");
+        _infoValues.add(this.widget.account["height"] + "cm");
+      }
+
+      if (ObjectUtil.isEmptyString(_combination()) == false) {
+        _infoIcons.add("images/geren@3x.png");
+        _infoValues.add(_combination());
+      }
+
+      String _province = "${this.widget.account['province_name'] ?? ''}";
+      String _city = "${this.widget.account['city_name'] ?? ''}";
+      if (ObjectUtil.isEmptyString(_province) == false ||
+          ObjectUtil.isEmptyString(_city) == false) {
+        String _dingwei = "$_province $_city";
+        _infoIcons.add("images/dingwei.png");
+        _infoValues.add(_dingwei);
+      }
     }
 
-    return "";
+    return _infoIcons.map((icon) {
+      int index = _infoIcons.indexOf(icon);
+      return Container(
+        padding: EdgeInsets.fromLTRB(2, 0, 2, 24),
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            Container(
+              padding: EdgeInsets.fromLTRB(0, 3, 0, 0),
+              child: Image.asset(
+                icon,
+                width: 15,
+                height: 15,
+              ),
+            ),
+            SizedBox(
+              width: 13.5,
+            ),
+            Expanded(
+              child: Text(
+                _infoValues[index],
+                style: TextStyle(
+                  color: rgba(51, 51, 51, 1),
+                  fontSize: 15,
+                ),
+              ),
+            ),
+          ],
+        ),
+      );
+    }).toList();
   }
+
+  // String _getText(int index) {
+  //   switch (index) {
+  //     case 0:
+  //       return this.widget.account['id'].toString() ?? "";
+  //     case 1:
+  //       return _emotions[this.widget.account['emotion']] ?? "";
+  //     case 2:
+  //       return "${this.widget.account['height'] ?? ''}cm";
+  //     case 3:
+  //       return _combination() ?? "";
+  //     case 4:
+  //       return "${this.widget.account['province_name'] ?? ''} ${this.widget.account['city_name'] ?? ''}";
+  //   }
+
+  //   return "";
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -123,40 +184,8 @@ class _InfoContentState extends State<InfoContent> {
             height: 23.5,
           ),
           Column(
-            children: _infoIcons.map((icon) {
-              kLog(icon);
-              int index = _infoIcons.indexOf(icon);
-              kLog(index);
-              return Container(
-                padding: EdgeInsets.fromLTRB(2, 0, 2, 24),
-                child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[
-                    Container(
-                      padding: EdgeInsets.fromLTRB(0, 3, 0, 0),
-                      child: Image.asset(
-                        icon,
-                        width: 15,
-                        height: 15,
-                      ),
-                    ),
-                    SizedBox(
-                      width: 13.5,
-                    ),
-                    Expanded(
-                      child: Text(
-                        _getText(index),
-                        style: TextStyle(
-                          color: rgba(51, 51, 51, 1),
-                          fontSize: 15,
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              );
-            }).toList(),
-          )
+            children: this._getInfoIcons(),
+          ),
         ],
       ),
     );

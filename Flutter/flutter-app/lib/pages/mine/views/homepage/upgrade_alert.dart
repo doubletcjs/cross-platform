@@ -587,6 +587,17 @@ class _UpgradeAlertState extends State<UpgradeAlert> {
                             },
                           ),
                         );
+                      } else if (item == "使用条款") {
+                        Navigator.of(context).push(
+                          MaterialPageRoute(
+                            builder: (context) {
+                              return BaseWebView(
+                                url: "${kServerURL + "/page/" + "7"}",
+                                title: "使用条款",
+                              );
+                            },
+                          ),
+                        );
                       }
                     },
                     child: Text(

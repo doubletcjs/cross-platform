@@ -208,7 +208,7 @@ class _MineHomePageState extends State<MineHomePage> {
   void _showContact() {
     GeneralAlert(
       title: "提示",
-      content: "查看联系方式要7金币",
+      content: this._loadPrice("get_contact"),
       cancel: "不看了",
       confirm: "联系方式",
       confirmHandle: () {
@@ -229,7 +229,7 @@ class _MineHomePageState extends State<MineHomePage> {
   void _showCertificationVideo() {
     GeneralAlert(
       title: "提示",
-      content: "查看视频需要花费5金币",
+      content: this._loadPrice("get_video"),
       cancel: "不看了",
       confirm: "查看视频",
       confirmHandle: () {
@@ -240,6 +240,17 @@ class _MineHomePageState extends State<MineHomePage> {
         });
       },
     ).show(context);
+  }
+
+  //获取金币消费标准
+  String _loadPrice(String key) {
+    for (var item in priceList) {
+      if (item["key"] == key) {
+        return item["content"];
+      }
+    }
+
+    return "";
   }
 
   //获取用户信息

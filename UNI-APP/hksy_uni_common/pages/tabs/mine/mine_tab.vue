@@ -116,7 +116,7 @@
 					});
 				} else if (res == '钱包') {
 					uni.navigateTo({
-						url: ''
+						url: '../../pages/mine/wallet/wallet_page'
 					});
 				} else if (res == '联系客服') {
 					uni.navigateTo({

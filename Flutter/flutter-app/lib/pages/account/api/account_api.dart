@@ -105,8 +105,8 @@ class AccountApi {
     Networking.requestBase("/api/v1/getUserSig", finish, method: "GET");
   }
 
-  // 获取用户个人资料
-  static Future getProfile() {
-    return DioManager().get("/api/v1/user/profile");
+  //app内部金币服务价格
+  static priceList(finish) {
+    Networking.requestBase("/api/v1/get/price_list", finish, method: "GET");
   }
 }

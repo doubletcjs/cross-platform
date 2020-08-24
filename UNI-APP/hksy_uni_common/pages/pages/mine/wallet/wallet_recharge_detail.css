@@ -1,0 +1,107 @@
+.detail-header {
+	background-color: rgba(255, 255, 255, 1); 
+	
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	z-index: 1;
+	height: 216rpx;
+	
+	border-bottom: solid 24rpx rgba(247, 246, 245, 1);
+	display: flex;
+	flex-direction: column;
+	
+	padding-left: 32rpx;
+	padding-right: 32rpx;
+}
+
+.detail-header-tip { 
+	margin-top: 32rpx;
+	font-size: 26rpx;
+	color: rgba(50, 50, 50, 1);
+}
+
+.detail-header-row {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	
+	margin-top: 32rpx;
+}
+
+.detail-header-icon {
+	width: 56rpx;
+	height: 56rpx;
+}
+
+.detail-header-amount-row {
+	display: flex;
+	flex-direction: row;
+	align-items: flex-end;
+	margin-left: 16rpx;
+}
+
+.detail-header-amount {
+	font-size: 56rpx;
+	font-weight: bolder;
+	color: rgba(50, 50, 50, 1);
+}
+
+.detail-header-unit {
+	font-size: 24rpx;
+	color: rgba(50, 50, 50, 1);
+
+	margin-bottom: 14rpx;
+}
+/* tab */ 
+.tab-bar {
+	width: 100%; 
+	position: absolute;
+	top: 240rpx;
+	left: 0;
+	right: 0;
+	z-index: 1;
+	height: 88rpx;
+
+	background-color: #FFFFFF;   
+
+	display: flex;
+	flex-direction: row; 
+	align-items: center;
+	align-content: center;  
+}
+
+.tab-bar-title {
+	color: rgba(153, 153, 153, 1);
+	font-size: 28rpx;
+
+	padding: 10rpx 0rpx 10rpx 0rpx;
+	text-align: center; 
+	width: 33.3333333%;   
+}
+
+.tab-bar-title-select {
+	color: rgba(50, 50, 50, 1);
+	font-weight: bold;
+	font-size: 32rpx; 
+}
+
+.tab-bar-indicator-mask {
+	width: 33.3333333%; 
+	height: 6rpx; 
+	
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	align-content: center;
+	 
+	position: absolute;
+	bottom: 0;  
+}
+
+.tab-bar-indicator {
+	width: 32rpx; 
+	height: 6rpx;
+	border-radius: 6rpx; 
+} 

@@ -188,6 +188,14 @@ class _NearPageState extends State<NearPage>
             });
       });
     });
+
+    Future.delayed(Duration(milliseconds: 2000), () {
+      AccountApi.priceList((data, msg) {
+        if (data != null) {
+          priceList = data;
+        }
+      });
+    });
   }
 
   @override
