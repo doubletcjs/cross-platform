@@ -1,13 +1,25 @@
+import 'package:corner_app/pages/store/home/store_page.dart';
 import 'package:corner_app/public/public.dart';
 import 'package:flutter/material.dart';
 
 class HomeCell extends StatelessWidget {
   const HomeCell({Key key}) : super(key: key);
 
+  // 主页
+  void _homePage(BuildContext context) {
+    Navigator.of(context).push(
+      MaterialPageRoute(builder: (context) {
+        return StorePage();
+      }),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: () {},
+      onTap: () {
+        this._homePage(context);
+      },
       child: Container(
         padding: EdgeInsets.fromLTRB(16, 6, 16, 6),
         child: Row(

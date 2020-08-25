@@ -1,4 +1,4 @@
-import 'package:corner_app/pages/home/create_base.dart';
+import 'package:corner_app/pages/store/create/create_base.dart';
 import 'package:corner_app/pages/home/views/home_cell.dart';
 import 'package:corner_app/pages/home/views/home_wrap.dart';
 import 'package:flutter/material.dart';
