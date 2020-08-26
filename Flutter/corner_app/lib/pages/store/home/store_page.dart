@@ -1,3 +1,5 @@
+import 'package:corner_app/pages/store/home/views/store_header.dart';
+import 'package:corner_app/pages/store/home/views/store_live.dart';
 import 'package:corner_app/public/public.dart';
 import 'package:flutter/material.dart';
 
@@ -10,94 +12,112 @@ class StorePage extends StatefulWidget {
 
 class _StorePageState extends State<StorePage>
     with SingleTickerProviderStateMixin {
-  TabController tabController;
+  ScrollController _scrollViewController;
+  TabController _tabController;
+
+  // 头部内容
+  Widget _flexibleHeader() {
+    return Container(
+      color: Colors.yellow,
+      child: Column(
+        children: [
+          StoreHeader(),
+          StoreLive(),
+        ],
+      ),
+    );
+  }
 
   @override
   void initState() {
     super.initState();
-    this.tabController = TabController(length: 2, vsync: this);
+
+    _scrollViewController = ScrollController(initialScrollOffset: 0.0);
+    _tabController = TabController(vsync: this, length: 3);
+    _scrollViewController.addListener(() {});
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    _scrollViewController.dispose();
+    _tabController.dispose();
+  }
+
+  Widget _buildListView(String s) {
+    return ListView.separated(
+        itemCount: 20,
+        separatorBuilder: (BuildContext context, int index) => Divider(
+              color: Colors.grey,
+              height: 1,
+            ),
+        itemBuilder: (BuildContext context, int index) {
+          return Container(
+              color: Colors.white,
+              child: ListTile(title: Text("$s第$index 个条目")));
+        });
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: CustomScrollView(
-        slivers: <Widget>[
-          SliverAppBar(
-            pinned: true,
-            elevation: 0,
-            expandedHeight: 250,
-            automaticallyImplyLeading: false,
-            titleSpacing: 0,
-            backgroundColor: new Color.fromRGBO(0, 0, 0, 0.0),
-            flexibleSpace: FlexibleSpaceBar(
-              collapseMode: CollapseMode.none,
-              // title: Text('Sliver-sticky效果'),
-              title: Container(
-                color: rgba(0, 0, 0, 0.4),
-                height: 250,
+      body: NestedScrollView(
+        controller: _scrollViewController,
+        headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
+          return <Widget>[
+            SliverAppBar(
+              pinned: true,
+              floating: true,
+              primary: false,
+              expandedHeight: -600,
+              elevation: 0,
+              automaticallyImplyLeading: false,
+              titleSpacing: 0,
+              brightness: Brightness.light,
+              //头部
+              flexibleSpace: FlexibleSpaceBar(
+                collapseMode: CollapseMode.none,
+                background: StoreHeader(),
               ),
-              titlePadding: EdgeInsets.zero,
-              background: Stack(
-                children: [
-                  Container(
-                    child: Image.asset(
-                      "images/homepages_default_bg.png",
-                      fit: BoxFit.fitWidth,
-                      width: MediaQuery.of(context).size.width,
-                    ),
+              bottom: PreferredSize(
+                child: Container(
+                  height: 600,
+                  color: Colors.red,
+                  child: Stack(
+                    children: [
+                      Positioned(
+                        left: 0,
+                        right: 0,
+                        bottom: 0,
+                        child: Container(
+                          color: Colors.green,
+                          child: TabBar(
+                            controller: _tabController,
+                            tabs: [
+                              Tab(text: "aaa"),
+                              Tab(text: "bbb"),
+                              Tab(text: "ccc"),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
-                ],
+                ),
+                preferredSize: Size.fromHeight(600),
               ),
             ),
-          ),
-          SliverPersistentHeader(
-            pinned: true,
-            delegate: StickyTabBarDelegate(
-              child: TabBar(
-                labelColor: Colors.black,
-                controller: this.tabController,
-                tabs: <Widget>[
-                  Tab(text: 'Home'),
-                  Tab(text: 'Profile'),
-                ],
-              ),
-            ),
-          ),
-          SliverFillRemaining(
-            child: TabBarView(
-              controller: this.tabController,
-              children: <Widget>[
-                Center(child: Text('Content of Home')),
-                Center(child: Text('Content of Profile')),
-              ],
-            ),
-          ),
-        ],
+          ];
+        },
+        body: TabBarView(
+          controller: _tabController,
+          children: [
+            _buildListView("aaa:"),
+            _buildListView("bbb:"),
+            _buildListView("ccc:"),
+          ],
+        ),
       ),
     );
-  }
-}
-
-class StickyTabBarDelegate extends SliverPersistentHeaderDelegate {
-  final TabBar child;
-
-  StickyTabBarDelegate({@required this.child});
-
-  @override
-  Widget build(
-      BuildContext context, double shrinkOffset, bool overlapsContent) {
-    return this.child;
-  }
-
-  @override
-  double get maxExtent => this.child.preferredSize.height;
-
-  @override
-  double get minExtent => this.child.preferredSize.height;
-
-  @override
-  bool shouldRebuild(SliverPersistentHeaderDelegate oldDelegate) {
-    return true;
   }
 }
