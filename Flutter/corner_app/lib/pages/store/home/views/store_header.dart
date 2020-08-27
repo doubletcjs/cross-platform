@@ -119,7 +119,8 @@ class StoreHeader extends StatelessWidget {
                                 fit: BoxFit.cover,
                               );
                             },
-                            imageUrl: "",
+                            imageUrl:
+                                "https://avatars1.githubusercontent.com/u/17046133?v=4",
                             width: 50.5,
                             height: 50.5,
                             fit: BoxFit.cover,
@@ -161,8 +162,8 @@ class StoreHeader extends StatelessWidget {
               ),
               Image.asset(
                 "images/introduction_header@3x.png",
-                fit: BoxFit.fitWidth,
-                height: 48,
+                fit: BoxFit.contain,
+                // height: 48,
                 width: MediaQuery.of(context).size.width,
               ),
               // 简介
