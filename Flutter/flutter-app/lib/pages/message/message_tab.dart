@@ -4,9 +4,11 @@ import 'package:common_utils/common_utils.dart';
 import 'package:dart_notification_center/dart_notification_center.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:tencent_im_plugin/entity/session_entity.dart';
 import 'package:tencent_im_plugin/tencent_im_plugin.dart';
+import 'package:xs_progress_hud/xs_progress_hud.dart';
 import '../function/general_alert.dart';
 import 'views/message_cell.dart';
 import '../../public/public.dart';
@@ -140,20 +142,23 @@ class _MessagePageState extends State<MessagePage> {
 
         String imUserId = await TencentImPlugin.getLoginUser();
         if (ObjectUtil.isEmptyString(imUserId) == false) {
-          if (imUserId != userId) {
-            await TencentImPlugin.logout();
-            //非当前用户，注销重新登录
-            _imLogin();
-          } else {
-            //已登录
-            kLog("已登录");
-            setState(() {
-              _imLoginStatus = 1;
-              this._getConversationList();
-              _refreshController.refreshCompleted();
-            });
-            await TencentImPlugin.initStorage(identifier: imUserId);
-          }
+          // if (imUserId != userId) {
+          //   await TencentImPlugin.logout();
+          //   //非当前用户，注销重新登录
+          //   _imLogin();
+          // } else {
+          //   //已登录
+          //   kLog("已登录");
+          //   setState(() {
+          //     _imLoginStatus = 1;
+          //     this._getConversationList();
+          //     _refreshController.refreshCompleted();
+          //   });
+          //   await TencentImPlugin.initStorage(identifier: imUserId);
+          // }
+          await TencentImPlugin.logout();
+          //非当前用户，注销重新登录
+          _imLogin();
         } else {
           //未登录
           _imLogin();
@@ -316,6 +321,61 @@ class _MessagePageState extends State<MessagePage> {
     });
   }
 
+  // 删除会话
+  void _deleteConversation(index) {
+    var session = _conversationList[index];
+    XsProgressHud.show(context);
+    TencentImPlugin.deleteConversation(
+      sessionId: session.id,
+      sessionType: session.type,
+      removeCache: true,
+    ).then((value) {
+      XsProgressHud.hide();
+      if (value == true) {
+        setState(() {
+          _conversationList.removeAt(index);
+          this._fetchUnreadCount();
+        });
+      } else {
+        showToast("删除失败！", context);
+      }
+    }).catchError((error) {
+      XsProgressHud.hide();
+      showToast("$error", context);
+    });
+  }
+
+  //删除提示
+  Future<bool> _deleteAlert(index) {
+    return showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: Text("提示"),
+          content: Text("是否删除该会话？"),
+          actions: <Widget>[
+            FlatButton(
+              child: Text("取消"),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+            FlatButton(
+              child: Text("确定"),
+              onPressed: () {
+                Navigator.of(context).pop();
+
+                Future.delayed(Duration(milliseconds: 400), () {
+                  this._deleteConversation(index);
+                });
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
+
   @override
   void initState() {
     super.initState();
@@ -413,38 +473,64 @@ class _MessagePageState extends State<MessagePage> {
                           } else {
                             int idx = index - 3;
                             SessionEntity element = _conversationList[idx];
-                            return MessageCell(
-                              padding: EdgeInsets.fromLTRB(13.5, 10, 14.5, 10),
-                              redCount: element.unreadMessageNum,
-                              title: element.type == SessionType.System
-                                  ? "系统账号"
-                                  : element.userProfile.nickName,
-                              content:
-                                  ObjectUtil.isEmpty(element.message) == true
-                                      ? ""
-                                      : element.message.note,
-                              subContent:
-                                  ObjectUtil.isEmpty(element.message) == false
-                                      ? TimelineUtil.format(
-                                          element.message.timestamp * 1000,
-                                          locale: "zh",
-                                          dayFormat: DayFormat.Full,
-                                        )
-                                      : "",
-                              icon: element.faceUrl,
-                              tapHandle: () {
-                                Navigator.of(context).push(
-                                  MaterialPageRoute(builder: (context) {
-                                    return ChatMainPage(
-                                      sessionId: element.id,
-                                    );
-                                  }),
-                                );
+                            return Slidable(
+                              key: Key("message_$idx"),
+                              child: MessageCell(
+                                padding:
+                                    EdgeInsets.fromLTRB(13.5, 10, 14.5, 10),
+                                redCount: element.unreadMessageNum,
+                                title: element.type == SessionType.System
+                                    ? "系统账号"
+                                    : element.userProfile.nickName,
+                                content:
+                                    ObjectUtil.isEmpty(element.message) == true
+                                        ? ""
+                                        : element.message.note,
+                                subContent:
+                                    ObjectUtil.isEmpty(element.message) == false
+                                        ? TimelineUtil.format(
+                                            element.message.timestamp * 1000,
+                                            locale: "zh",
+                                            dayFormat: DayFormat.Full,
+                                          )
+                                        : "",
+                                icon: element.faceUrl,
+                                tapHandle: () {
+                                  Navigator.of(context).push(
+                                    MaterialPageRoute(builder: (context) {
+                                      return ChatMainPage(
+                                        sessionId: element.id,
+                                      );
+                                    }),
+                                  );
 
-                                TencentImPlugin.setRead(
-                                    sessionId: element.id,
-                                    sessionType: element.type);
-                              },
+                                  TencentImPlugin.setRead(
+                                      sessionId: element.id,
+                                      sessionType: element.type);
+                                },
+                              ),
+                              actionPane: SlidableBehindActionPane(),
+                              secondaryActions: [
+                                SlideAction(
+                                  child: Text(
+                                    "删除",
+                                    style: TextStyle(
+                                      fontSize: 14,
+                                      color: rgba(255, 255, 255, 1),
+                                    ),
+                                  ),
+                                  color: Colors.red,
+                                  onTap: () {
+                                    this._deleteAlert(idx);
+                                  },
+                                ),
+                              ],
+                              dismissal: SlidableDismissal(
+                                child: SlidableDrawerDismissal(),
+                                onWillDismiss: (actionType) {
+                                  return this._deleteAlert(idx);
+                                },
+                              ),
                             );
                           }
                         }

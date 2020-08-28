@@ -1,3 +1,4 @@
+import 'package:common_utils/common_utils.dart';
 import 'package:flutter/material.dart';
 import '../../certification.dart';
 import '../../../../public/public.dart';
@@ -6,9 +7,11 @@ import 'upgrade_alert.dart';
 
 class MemberAlert extends StatelessWidget {
   bool manCustom = false; //男性用户提示样式
+  String customContent = "";
   MemberAlert({
     Key key,
     this.manCustom = false,
+    this.customContent = "",
   }) : super(key: key);
 
   show(BuildContext context) {
@@ -61,7 +64,9 @@ class MemberAlert extends StatelessWidget {
           //内容
           Text(
             manCustom == true
-                ? "开通会员特权，无限畅聊"
+                ? ObjectUtil.isEmptyString(customContent) == true
+                    ? "开通会员特权，无限畅聊"
+                    : customContent
                 : "视频认证后即可免费聊天\n如果不想认证，开通会员特权，无限畅聊。",
             textAlign: TextAlign.center,
             style: TextStyle(
@@ -81,8 +86,8 @@ class MemberAlert extends StatelessWidget {
                         decoration: BoxDecoration(
                           gradient: LinearGradient(
                             colors: [
-                              rgba(255, 44, 96, 1),
                               rgba(255, 114, 81, 1),
+                              rgba(255, 44, 96, 1),
                             ],
                             begin: Alignment.centerLeft,
                             end: Alignment.centerRight,
@@ -118,8 +123,8 @@ class MemberAlert extends StatelessWidget {
                         decoration: BoxDecoration(
                           gradient: LinearGradient(
                             colors: [
-                              rgba(255, 44, 96, 1),
                               rgba(255, 114, 81, 1),
+                              rgba(255, 44, 96, 1),
                             ],
                             begin: Alignment.centerLeft,
                             end: Alignment.centerRight,

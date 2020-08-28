@@ -106,6 +106,14 @@ class _NearPageState extends State<NearPage>
               Future.delayed(Duration(milliseconds: 400), () {
                 XsProgressHud.hide();
                 this._switchReloadData();
+
+                Future.delayed(Duration(milliseconds: 1600), () {
+                  AccountApi.priceList((data, msg) {
+                    if (data != null) {
+                      priceList = data;
+                    }
+                  });
+                });
               });
             });
           }
@@ -186,14 +194,6 @@ class _NearPageState extends State<NearPage>
             options: {
               "type": 3,
             });
-      });
-    });
-
-    Future.delayed(Duration(milliseconds: 2000), () {
-      AccountApi.priceList((data, msg) {
-        if (data != null) {
-          priceList = data;
-        }
       });
     });
   }

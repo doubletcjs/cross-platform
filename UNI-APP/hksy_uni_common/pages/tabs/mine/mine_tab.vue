@@ -8,7 +8,7 @@
 			<!-- tab -->
 			<view :class="tabSticky == true ? 'tab-bar-mask tab-bar-mask-sticky' : 'tab-bar-mask'">
 				<!-- top-bar -->
-				<view class="top-bar" v-if="tabSticky == true">
+				<view class="top-bar" v-if="tabSticky == true" style="margin-top: var(--status-bar-height);">
 					<image src="/static/images/icon_me_more@3x.png" mode="" class="top-bar-icon" @click="menuAction"></image>
 					<image src="/static/images/icon_me_share_grey@3x.png" mode="" class="top-bar-icon" @click="shareAction"></image>
 					<view class="top-bar-row">
@@ -100,19 +100,19 @@
 					});
 				} else if (res == '购物车') {
 					uni.navigateTo({
-						url: ''
+						url: '../../pages/store/shopping_cart/shopping_cart'
 					});
 				} else if (res == '订单') {
 					uni.navigateTo({
-						url: ''
+						url: '../../pages/store/order_list'
 					});
-				} else if (res == '优惠卷') {
+				} else if (res == '优惠券') {
 					uni.navigateTo({
-						url: ''
+						url: '../../pages/store/coupons/store_coupons'
 					});
 				} else if (res == '地址管理') {
 					uni.navigateTo({
-						url: ''
+						url: '../../pages/store/address/address_list'
 					});
 				} else if (res == '钱包') {
 					uni.navigateTo({

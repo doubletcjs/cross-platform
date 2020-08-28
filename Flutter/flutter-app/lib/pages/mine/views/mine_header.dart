@@ -149,7 +149,7 @@ class _MineHeaderState extends State<MineHeader> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
                     Text(
-                      "查看个人资料",
+                      "查看个人主页",
                       style: TextStyle(
                         fontSize: 14,
                         color: rgba(144, 144, 144, 1),

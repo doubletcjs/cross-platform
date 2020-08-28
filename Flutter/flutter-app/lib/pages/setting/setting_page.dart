@@ -1,6 +1,7 @@
 import 'package:dart_notification_center/dart_notification_center.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:tencent_im_plugin/tencent_im_plugin.dart';
 import 'package:xs_progress_hud/xs_progress_hud.dart';
 import 'feedback.dart';
 import 'reset_phone.dart';
@@ -63,6 +64,7 @@ class _SettingPageState extends State<SettingPage> {
     XsProgressHud.show(context);
     recordToken("");
     recordUserID("");
+    TencentImPlugin.logout();
 
     DartNotificationCenter.post(
       channel: kAccountHandleNotification,

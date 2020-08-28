@@ -20,6 +20,7 @@ class StoreHeader extends StatelessWidget {
           padding: EdgeInsets.only(
             top: MediaQuery.of(context).padding.top,
           ),
+          height: 217 + MediaQuery.of(context).padding.top,
           child: Column(
             children: [
               // 顶部栏
@@ -157,48 +158,48 @@ class StoreHeader extends StatelessWidget {
                   ],
                 ),
               ),
-              SizedBox(
-                height: 19.5,
-              ),
-              Image.asset(
-                "images/introduction_header@3x.png",
-                fit: BoxFit.contain,
-                // height: 48,
-                width: MediaQuery.of(context).size.width,
-              ),
+              // SizedBox(
+              //   height: 19.5 + 48,
+              // ),
+              // Image.asset(
+              //   "images/introduction_header@3x.png",
+              //   fit: BoxFit.contain,
+              //   // height: 48,
+              //   width: MediaQuery.of(context).size.width,
+              // ),
               // 简介
-              Container(
-                color: Colors.white,
-                padding: EdgeInsets.only(
-                  left: 16,
-                  right: 16,
-                  bottom: 28,
-                ),
-                child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      "简介",
-                      style: TextStyle(
-                        fontSize: 14,
-                        color: rgba(50, 50, 50, 1),
-                      ),
-                    ),
-                    SizedBox(
-                      width: 8,
-                    ),
-                    Expanded(
-                      child: Text(
-                        "相濡以滋味，相忘于江湖，每一个制造和享用美食的人无不经历江湖夜雨，期待桃李春风。",
-                        style: TextStyle(
-                          fontSize: 14,
-                          color: rgba(153, 153, 153, 1),
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
+              // Container(
+              //   color: Colors.white,
+              //   padding: EdgeInsets.only(
+              //     left: 16,
+              //     right: 16,
+              //     bottom: 28,
+              //   ),
+              //   child: Row(
+              //     crossAxisAlignment: CrossAxisAlignment.start,
+              //     children: [
+              //       Text(
+              //         "简介",
+              //         style: TextStyle(
+              //           fontSize: 14,
+              //           color: rgba(50, 50, 50, 1),
+              //         ),
+              //       ),
+              //       SizedBox(
+              //         width: 8,
+              //       ),
+              //       Expanded(
+              //         child: Text(
+              //           "相濡以滋味，相忘于江湖，每一个制造和享用美食的人无不经历江湖夜雨，期待桃李春风。",
+              //           style: TextStyle(
+              //             fontSize: 14,
+              //             color: rgba(153, 153, 153, 1),
+              //           ),
+              //         ),
+              //       ),
+              //     ],
+              //   ),
+              // ),
             ],
           ),
         ),

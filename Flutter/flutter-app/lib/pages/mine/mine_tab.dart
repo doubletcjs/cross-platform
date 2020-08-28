@@ -1,7 +1,8 @@
 import 'package:dart_notification_center/dart_notification_center.dart';
 import 'package:flutter/material.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
-import '../near/near_matching.dart';
+import '../mine/contact_list.dart';
+import '../mine/mine_info_page.dart';
 import 'views/mine_cell.dart';
 import 'views/mine_header.dart';
 import '../../public/public.dart';
@@ -98,6 +99,30 @@ class _MinePageState extends State<MinePage> {
                     child: Column(
                       mainAxisSize: MainAxisSize.min,
                       children: <Widget>[
+                        MineCell(
+                          icon: "images/personal_info@3x.png",
+                          text: "个人资料",
+                          tapHandle: () {
+                            Navigator.of(context).push(
+                              MaterialPageRoute(builder: (context) {
+                                return MineInfoPage();
+                              }),
+                            );
+                          },
+                        ),
+                        MineCell(
+                          icon: "images/contact_list@3x.png",
+                          text: "联系方式",
+                          tapHandle: () {
+                            Navigator.of(context).push(
+                              MaterialPageRoute(builder: (context) {
+                                return ContactListPage(
+                                  account: _account,
+                                );
+                              }),
+                            );
+                          },
+                        ),
                         MineCell(
                           icon: "images/vip@3x.png",
                           text: "会员",

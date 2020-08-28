@@ -14,62 +14,112 @@
 			<view class="tip_text">不提倡未成年人充值消费</view>
 		</view>
 		<view class="recharge_list">
-			<view class="list_wrapper" v-for="(item, index) in rachargeList" :key="index" :data-index="index" @click="toPay">
+			<view :class="index == selectPayIndex ? 'list_wrapper_select' :'list_wrapper'" v-for="(item, index) in rachargeList" :key="index" :data-index="index" @click="toSelectPayIndex">
 				<view class="list_top">
 					<image class="list_coin_image" src="/../../../../../static/images/icon_money@2x.png" mode="aspectFit"></image>
-					<view class="list_coin_text">{{ item.coin }}</view>
+					<view class="list_coin_text" v-if="item.give == ''">{{ item.coin }}</view>
+					<view class="list_coin_text" v-else>
+					{{ item.coin }} <span class="list_coin_give_text">{{item.give}}</span>
+					</view>
 				</view>
 				<view class="list_rmb">{{ item.rmb }}</view>
 			</view>
 		</view>
-		<view class="tip_bottom_text">充值即代表同意<span style="color: #506FB0; margin-left: 10rpx;">街角充值协议</span></view>
+		<view class="coupon_wrapper">
+			<view class="coupon_text">代金卷</view>
+			<view class="select_coupon_text" @click="OCCouponDialog">{{couponText}}</view>
+			<image class="coupon_image" src="/../../../../../static/images/arrows_left@2x.png" mode="aspectFit"></image>
+		</view>
+		<view class="button" @click="toPay">确认充值</view>
+		<view class="tip_bottom_text">
+			充值即代表同意
+			<span style="color: #506FB0; margin-left: 10rpx;">街角充值协议</span>
+		</view>
+
 		<!-- 支付对话框 -->
-		<payDialog :visible="payDialogVisible" :money="selectMoney" :closeAction="OCPayDialog" :itemTapAction="selectPayTypeAction"></payDialog>
+		<payDialog :visible="payDialogVisible" :money="selectMoney" :discountsText="couponMoney" :closeAction="OCPayDialog" :itemTapAction="selectPayTypeAction"></payDialog>
+		<!-- 优惠券对话框 -->
+		<CouponDialog :visible="couponDialogVisible" title='优惠券' :closeAction="OCCouponDialog" :itemTapAction="selectCouponAction"></CouponDialog>
 		
 	</view>
 </template>
 
 <script>
 import payDialog from './components/payDialog.vue';
+import CouponDialog from './components/selectCouponDialog.vue';
 export default {
 	data() {
 		return {
 			rachargeList: [
-				{ coin: "10", rmb: '￥1.00' },
-				{ coin: "20", rmb: '￥2.00' },
-				{ coin: "50", rmb: '￥5.00' },
-				{ coin: "100", rmb: '￥10.00' },
-				{ coin: "500", rmb: '￥50.00' },
-				{ coin: "1000", rmb: '￥1000.00' },
-				{ coin: "5000", rmb: '￥500.00' },
-				{ coin: "10000", rmb: '￥1000.00' },
-				{ coin: "50000", rmb: '￥5000.00' }
+				{ coin: '60', rmb: '￥6.00', give: '' },
+				{ coin: '300', rmb: '￥30.00', give: '' },
+				{ coin: '1280', rmb: '￥128.00', give: '+68' },
+				{ coin: '3280', rmb: '￥328.00', give: '', give: '+328' },
+				{ coin: '6480', rmb: '￥648.00', give: '+972' },
+				{ coin: '12800', rmb: '￥1280.00', give: '+2560' }
 			],
 			coin: 1234,
 			payDialogVisible: false,
-			selectMoney: ''
+			selectMoney: '',
+			selectPayIndex: -1, // 选中那一个充值金额
+			couponDialogVisible: false,
+			couponText: '请选择代金券',
+			couponMoney: '', // 代金券优惠金额
 		};
 	},
 	methods: {
 		// 打开和关闭选择支付对话框
 		OCPayDialog() {
-			this.payDialogVisible = !this.payDialogVisible
+			this.payDialogVisible = !this.payDialogVisible;
+		},
+		// 打开和关闭选择优惠券对话框
+		OCCouponDialog() {
+			this.couponDialogVisible = !this.couponDialogVisible;
 		},
 		// 回调返回选中银行的名字
 		selectPayTypeAction(res) {
 			console.log(res);
 			uni.navigateTo({
-				url: "rechargeSuccess"
-			})
+				url: 'rechargeSuccess'
+			});
 		},
+		// 回调返回选中优惠券
+		selectCouponAction(res) {
+			
+			if(res == "-1") {
+				this.couponMoney = ""
+				this.couponText = "请选择代金券"
+			} else {
+				this.couponMoney = res
+				this.couponText = "已经优惠" + res + "元"
+			}
+			
+
+		},
+		// 选中那一个充值金额
+		toSelectPayIndex(res) {
+			let index = res.currentTarget.dataset.index;
+			this.selectMoney = this.rachargeList[index].coin;
+			this.selectPayIndex = index;
+			
+			
+		},
+		// 确认充值
 		toPay(res) {
-			let index = res.currentTarget.dataset.index
-			this.selectMoney = this.rachargeList[index].coin
-			this.OCPayDialog()
+			if(this.selectPayIndex == -1) {
+				uni.showToast({
+					icon: 'none',
+					title: '请选择充值金额',
+				})
+			} else {
+				this.OCPayDialog();
+			}
+			
 		}
 	},
 	components: {
-		payDialog
+		payDialog,
+		CouponDialog
 	}
 };
 </script>
@@ -113,7 +163,6 @@ export default {
 	display: flex;
 	flex-direction: row;
 	justify-content: space-between;
-
 }
 
 .recharge_text {
@@ -141,15 +190,32 @@ export default {
 	width: 32%;
 	height: 141rpx;
 	margin-top: 16rpx;
+
+	background: rgba(247, 246, 245, 1);
+	border:1px solid rgba(247, 246, 245, 1);
+	border-radius: 16rpx;
+
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+}
+
+.list_wrapper_select {
 	
-	background:rgba(247,246,245,1);
-	border-radius:16rpx;
+	width: 32%;
+	height: 141rpx;
+	margin-top: 16rpx;
+	
+	background:rgba(255,230,228,1);
+	border:1px solid rgba(235,102,91,1);
+	border-radius: 16rpx;
 	
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
 	align-items: center;
-
+	
 }
 
 .list_top {
@@ -166,22 +232,76 @@ export default {
 }
 
 .list_coin_text {
-	margin-left: 8rpx;
-	font-size:32rpx;
-	font-weight:bold;
-	color:rgba(50,50,50,1);
+	margin-left: 4rpx;
+	font-size: 32rpx;
+	font-weight: bold;
+	color: rgba(50, 50, 50, 1);
+}
+
+.list_coin_give_text {
+	font-size:24rpx;
+	color:rgba(235,102,91,1);
 }
 
 .list_rmb {
 	margin-top: 7rpx;
-	font-size:28rpx;
-	color:rgba(153,153,153,1);
+	font-size: 28rpx;
+	color: rgba(153, 153, 153, 1);
+}
+
+.coupon_wrapper {
+	margin-top: 49rpx;
+	padding-left: 32rpx;
+	padding-right: 32rpx;
+	height: 112rpx;
+	padding-top: 8rpx;
+
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	align-items: center;
+
+	border-top: solid 1rpx rgba(0, 0, 0, 0.05);
+}
+
+.coupon_text {
+	width: 100rpx;
+	font-size: 28rpx;
+	font-weight: bold;
+	color: rgba(50, 50, 50, 1);
+}
+
+.select_coupon_text {
+	width: calc(100% - 100rpx);
+	margin-right: 8rpx;
+	text-align: right;
+	font-size: 28rpx;
+	color: rgba(153, 153, 153, 1);
+}
+
+.coupon_image {
+	width: 15rpx;
+	height: 24rpx;
+}
+
+.button {
+	margin-top: 96rpx;
+	margin-left: 32rpx;
+	margin-right: 32rpx;
+	height: 96rpx;
+	background: rgba(235, 102, 91, 1);
+	border-radius: 8rpx;
+
+	font-size: 32rpx;
+	line-height: 96rpx;
+	text-align: center;
+	color: rgba(255, 255, 255, 1);
 }
 
 .tip_bottom_text {
-	margin: 34rpx 32rpx 0rpx 32rpx;
-	font-size:26rpx;
-	color:#999999;
+	margin: 64rpx 32rpx 88rpx 32rpx;
+	font-size: 26rpx;
+	text-align: center;
+	color: #999999;
 }
-
 </style>

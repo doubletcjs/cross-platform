@@ -157,20 +157,21 @@ class _UpgradeAlertState extends State<UpgradeAlert> {
           kLog("购买完成,向自己的服务器验证");
           //上传凭证
           this._uploadPayCredentials(productItem);
-          //关闭交易事件
-          FlutterInappPurchase.instance.finishTransaction(productItem);
         } else if (_state == TransactionState.failed) {
           FlutterInappPurchase.instance.finishTransaction(productItem);
           showToast("交易失败！", context);
         } else if (_state == TransactionState.restored) {
+          showToast("已经购买过该商品！", context);
           //上传凭证
           this._uploadPayCredentials(productItem);
-          FlutterInappPurchase.instance.finishTransaction(productItem);
-          showToast("已经购买过该商品！", context);
         } else if (_state == TransactionState.purchasing) {
           kLog("商品添加进列表");
-        } else {}
+          FlutterInappPurchase.instance.finishTransaction(productItem);
+        } else {
+          FlutterInappPurchase.instance.finishTransaction(productItem);
+        }
       }
+
       kLog("purchase-updated: ${productItem.toString()}");
     });
     // 购买报错订阅消息
@@ -203,6 +204,8 @@ class _UpgradeAlertState extends State<UpgradeAlert> {
               "type": 1,
             });
 
+        //关闭交易事件
+        FlutterInappPurchase.instance.finishTransaction(item);
         Future.delayed(Duration(milliseconds: 1000), () {
           XsProgressHud.hide();
           Navigator.of(context).pop();

@@ -1,6 +1,6 @@
 <template>
 	<view>
-		<top :moreAction="shareAction" :searchAction="searchAction"></top>
+		<top :moreAction="detailAction" :searchAction="searchAction"></top>
 		<view class="list-content">
 			<!-- 基本信息 -->
 			<info></info>
@@ -25,7 +25,7 @@
 					<view class="top-action-row" style="margin-top: calc(var(--status-bar-height));">
 						<image src="/static/images/homepage_search@3x.png" mode="" class="top-action-image" @click="searchAction"></image>
 						<image src="/static/images/homepage_menu@3x.png" mode="" class="top-action-image" style="margin-left: 32rpx;"
-						 @click="shareAction"></image>
+						 @click="detailAction"></image>
 					</view>
 				</view>
 				<!-- tabbar -->
@@ -44,9 +44,7 @@
 			<dynamic :scrollTop="scrollTop" v-if="tabIndex == 0"></dynamic>
 			<store :scrollTop="scrollTop" v-else-if="tabIndex == 1"></store>
 			<discuss :scrollTop="scrollTop" v-else-if="tabIndex == 2"></discuss>
-		</view>
-		<!-- 分享 -->
-		<share :visible="sharevisible" :closeAction="shareAction" :itemTapAction="shareItemAction" ref="share"></share>
+		</view> 
 		<!-- 举报 -->
 		<report :visible="reportvisible" :closeAction="reportAction"></report>
 	</view>
@@ -59,8 +57,7 @@
 	import banner from "./home_page_banner.vue"
 	import dynamic from "./dynamic/home_page_dynamic.vue"
 	import store from "./store/home_page_store.vue"
-	import discuss from "./discuss/home_page_discuss.vue"
-	import share from "../detail/components/detail_share.vue"
+	import discuss from "./discuss/home_page_discuss.vue" 
 	import report from "../detail/components/detail_report.vue"
 
 	export default {
@@ -74,8 +71,7 @@
 					"商店",
 					"讨论区",
 				],
-				scrollTop: 0,
-				sharevisible: false, //分享
+				scrollTop: 0, 
 				reportvisible: false, //举报 
 			}
 		},
@@ -91,37 +87,12 @@
 				var index = res.currentTarget.dataset.index
 				this.tabIndex = index
 			},
-			//分享
-			shareAction() {
-				//博主
-				// this.shareOtherList = [{
-				// 	icon: "/static/images/report_icon@3x.png",
-				// 	title: "投诉",
-				// 	mark: "report"
-				// }, {
-				// 	icon: "/static/images/report_icon@3x.png",
-				// 	title: "删除",
-				// 	mark: "delete"
-				// }, ]
-
-				var shareOtherList = [{
-					icon: "/static/images/report_icon@3x.png",
-					title: "投诉",
-					mark: "report"
-				}]
-
-				this.$refs.share.updateList(null, shareOtherList)
-				this.sharevisible = !this.sharevisible
-			},
-			shareItemAction(res) {
-				console.log(res)
-				if (res == "report") {
-					var me = this
-					setTimeout(function() {
-						me.reportAction()
-					}, 200)
-				}
-			},
+			//详情
+			detailAction() {  
+				uni.navigateTo({
+					url: "/pages/pages/detail/detail_page",
+				})
+			}, 
 			// 举报
 			reportAction() {
 				this.reportvisible = !this.reportvisible
@@ -140,8 +111,7 @@
 			banner,
 			dynamic,
 			store,
-			discuss,
-			share,
+			discuss, 
 			report
 		},
 		onPageScroll(res) { 

@@ -3,7 +3,7 @@
 		<view class="wallet-background">
 			<!-- 背景 -->
 			<image src="/static/images/wallet_back@3x.png" mode="aspectFill" class="wallet-background-image"></image>
-			<view class="wallet-bar">
+			<view class="wallet-bar">			
 				<!-- 标题 -->
 				<view class="wallet-bar-title">
 					钱包
@@ -11,7 +11,7 @@
 				<!-- 返回 -->
 				<image src="/static/images/base_back_white@3x.png" mode="" class="wallet-bar-back" @click="backAction"></image>
 				<!-- 账单 -->
-				<view class="wallet-bar-order">
+				<view class="wallet-bar-order" @click="toBillAction">
 					账单
 				</view>
 			</view>
@@ -28,7 +28,7 @@
 							金
 						</view>
 					</view>
-					<view class="wallet-content-recharge">
+					<view class="wallet-content-recharge" @click="rechargeAction">
 						充值
 					</view>
 				</view>
@@ -46,7 +46,7 @@
 							5,680
 						</view>
 					</view>
-					<view class="wallet-bottom-item-value">
+					<view class="wallet-bottom-item-value" @click="toWithdraw">
 						提现
 					</view>
 				</view>
@@ -59,7 +59,7 @@
 							1
 						</view>
 					</view>
-					<view class="wallet-bottom-item-value">
+					<view class="wallet-bottom-item-value" @click="bindCardAction">
 						绑定新卡
 					</view>
 				</view>
@@ -122,6 +122,7 @@
 		methods: {
 			// 返回
 			backAction() {
+				console.log("=====");
 				uni.navigateBack({
 					delta: 1
 				})
@@ -132,6 +133,30 @@
 					url: "./wallet_recharge_detail"
 				})
 			},
+			// 充值
+			rechargeAction() {
+				uni.navigateTo({
+					url: "./recharge"
+				})
+			},
+			// 提现
+			toWithdraw() {
+				uni.navigateTo({
+					url: "./withdraw"
+				})
+			},
+			// 绑定新卡
+			bindCardAction() {
+				uni.navigateTo({
+					url: "./bank/bankCardList"
+				})
+			},
+			// 账单
+			toBillAction() {
+				uni.navigateTo({
+					url: "./bill/coinBill"
+				})
+			}
 		}
 	}
 </script>

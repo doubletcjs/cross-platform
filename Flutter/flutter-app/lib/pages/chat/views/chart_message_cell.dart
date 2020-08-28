@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:common_utils/common_utils.dart';
 import 'package:flutter/material.dart';
+import 'package:popup_menu/popup_menu.dart';
 import 'package:tencent_im_plugin/entity/message_entity.dart';
 import 'package:tencent_im_plugin/enums/message_node_type.dart';
 import 'package:tencent_im_plugin/enums/message_status_enum.dart';
@@ -11,10 +12,18 @@ import '../../mine/mine_homepage.dart';
 
 class ChartMessageCell extends StatelessWidget {
   MessageEntity message;
+  kVoidFunctionBlock resendHandle;
+  kVoidFunctionBlock deleteHandle;
+  String messageDate = "";
   ChartMessageCell({
     Key key,
     this.message,
+    this.resendHandle,
+    this.deleteHandle,
+    this.messageDate,
   }) : super(key: key);
+
+  GlobalKey _deleteKey = GlobalKey();
 
   //处理消息内容
   String _handleMessageContent() {
@@ -73,18 +82,12 @@ class ChartMessageCell extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
                 //时间
-                (message.timestamp > 0 &&
-                        DateUtil.getNowDateMs() - message.timestamp * 1000 >
-                            60 * 5 * 1000)
+                ObjectUtil.isEmptyString(messageDate) == false
                     ? Container(
                         margin: EdgeInsets.fromLTRB(0, 0, 0, 16.5),
                         alignment: Alignment.center,
                         child: Text(
-                          TimelineUtil.format(
-                            message.timestamp * 1000,
-                            locale: "zh",
-                            dayFormat: DayFormat.Common,
-                          ),
+                          messageDate,
                           style: TextStyle(
                             fontSize: 11,
                             color: rgba(172, 172, 172, 1),
@@ -134,10 +137,19 @@ class ChartMessageCell extends StatelessWidget {
                                     ? Container(
                                         margin:
                                             EdgeInsets.fromLTRB(0, 0, 0, 10),
-                                        child: Image.asset(
-                                          "images/tishi@3x.png",
-                                          width: 12,
-                                          height: 12,
+                                        child: InkWell(
+                                          onTap: () {
+                                            if (this.resendHandle != null) {
+                                              this.resendHandle();
+                                            }
+                                          },
+                                          borderRadius:
+                                              BorderRadius.circular(12 / 2),
+                                          child: Image.asset(
+                                            "images/tishi@3x.png",
+                                            width: 12,
+                                            height: 12,
+                                          ),
                                         ),
                                       )
                                     : Container(),
@@ -145,30 +157,59 @@ class ChartMessageCell extends StatelessWidget {
                               width: 10,
                             ),
                             //本人消息内容
-                            Container(
-                              constraints: BoxConstraints(
-                                maxWidth: 200,
-                                minHeight: 46,
-                              ),
-                              padding: EdgeInsets.fromLTRB(12, 10, 12, 10),
-                              decoration: BoxDecoration(
-                                color: rgba(255, 233, 146, 1),
-                                borderRadius: BorderRadius.circular(10),
-                              ),
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                mainAxisSize: MainAxisSize.min,
-                                children: <Widget>[
-                                  Flexible(
-                                    child: Text(
-                                      this._handleMessageContent(),
-                                      style: TextStyle(
-                                        fontSize: 15,
-                                        color: rgba(0, 0, 0, 1),
+                            InkWell(
+                              key: _deleteKey,
+                              borderRadius: BorderRadius.circular(10),
+                              onLongPress: () {
+                                PopupMenu menu = PopupMenu(
+                                  items: [
+                                    MenuItem(
+                                      title: "删除",
+                                      image: Icon(
+                                        Icons.delete,
+                                        color: Colors.white,
                                       ),
                                     ),
-                                  ),
-                                ],
+                                  ],
+                                  onClickMenu: (item) {
+                                    if (item.menuTitle == "删除") {
+                                      if (deleteHandle != null) {
+                                        deleteHandle();
+                                      }
+                                    }
+                                  },
+                                );
+
+                                PopupMenu.context = context;
+                                menu.show(
+                                  widgetKey: _deleteKey,
+                                );
+                              },
+                              child: Container(
+                                constraints: BoxConstraints(
+                                  maxWidth: 200,
+                                  minHeight: 46,
+                                ),
+                                padding: EdgeInsets.fromLTRB(12, 10, 12, 10),
+                                decoration: BoxDecoration(
+                                  color: rgba(255, 233, 146, 1),
+                                  borderRadius: BorderRadius.circular(10),
+                                ),
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: <Widget>[
+                                    Flexible(
+                                      child: Text(
+                                        this._handleMessageContent(),
+                                        style: TextStyle(
+                                          fontSize: 15,
+                                          color: rgba(0, 0, 0, 1),
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
                               ),
                             ),
                             SizedBox(

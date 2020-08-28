@@ -1,0 +1,219 @@
+.chatList_wrapper {
+	height: calc(100% - 112rpx);
+	padding-bottom: 100rpx;
+	overflow: scroll;
+}
+
+.chatList_item_wrapper {
+	margin-left: 32rpx;
+	margin-right: 32rpx;
+}
+
+.time_text {
+	margin-top: 40rpx;
+	height: 33rpx;
+	font-size: 24rpx;
+	line-height: 45rpx;
+	color: rgba(153, 153, 153, 1);
+	text-align: center;
+}
+
+.service_wrapper {
+}
+
+.service_chat_wrapper {
+	margin-top: 32rpx;
+	display: flex;
+	flex-direction: row;
+	justify-content: flex-start;
+	align-items: flex-start;
+}
+
+.headImage {
+	width: 101rpx;
+	height: 101rpx;
+}
+
+.service_text {
+	margin-left: 16rpx;
+	width: 452rpx;
+	background: rgba(255, 255, 255, 1);
+	border-radius: 16rpx;
+
+	padding: 20rpx;
+	font-size: 32rpx;
+	line-height: 44rpx;
+	color: rgba(50, 50, 50, 1);
+}
+
+.user_wrapper {
+}
+
+.user_chat_wrapper {
+	margin-top: 32rpx;
+	display: flex;
+	flex-direction: row-reverse;
+	justify-content: flex-start;
+	align-items: flex-start;
+}
+
+.user_text {
+	margin-right: 16rpx;
+	width: 452rpx;
+	background: rgba(235, 102, 91, 1);
+	border-radius: 16rpx;
+
+	padding: 20rpx;
+	font-size: 32rpx;
+	line-height: 44rpx;
+	color: rgba(255, 255, 255, 1);
+}
+
+/* 订单的item样式 */
+.order_wrapper {
+	margin-right: 16rpx;
+	width:452rpx;
+	height:271rpx;
+	background:rgba(255,255,255,1);
+	border-radius:16rpx;
+}
+
+.order_top_wrapper {
+	
+	padding-top: 19rpx;
+	padding-left: 15rpx;
+	padding-right: 40rpx;
+	border-bottom: solid rgba(0, 0, 0, 0.05) 1rpx;
+	
+	height: 187rpx;
+	
+	display: flex;
+	flex-direction: row;
+	justify-content: flex-start;
+	align-items: flex-start;
+	
+}
+
+.goodsImage_view {
+	width: 101rpx;
+	height: 101rpx;
+}
+
+.goodsImage {
+	width: 100%;
+	height: 100%;
+}
+
+.orderInfo_wrapper {
+	margin-left: 16rpx;
+	width: 280rpx;
+}
+
+.order_goodsName_text {
+	font-size:28rpx;
+	font-weight:bold;
+	color:rgba(50,50,50,1);
+	
+	overflow: hidden;
+	text-overflow: ellipsis;
+	display: -webkit-box;
+	-webkit-line-clamp: 2;
+	-webkit-box-orient: vertical;
+}
+
+.order_color_text {
+	margin-top: 8rpx;
+	font-size:24rpx;
+	color:rgba(153,153,153,1);
+}
+
+.orderStatus_text {
+	margin-top: 8rpx;
+	margin-bottom: 25rpx;
+	font-size:24rpx;
+	color:rgba(50,50,50,1);
+}
+
+.orderNo_text {
+	height: 65rpx;
+	line-height: 65rpx;
+	text-align: center|left;
+	margin-left: 16rpx;
+	font-size:24rpx;
+	color:rgba(153,153,153,1);
+}
+
+/* 输入框的样式 */
+.bottom_box_wrapper {
+	
+	position: fixed;
+	width: 100%;
+	height: auto;
+	left: 0;
+	bottom: 0;
+	background:rgba(255,255,255,1);
+	
+}
+
+.bottom_input_wrapper {
+
+	width: 100%;
+	min-height: 112rpx;
+	
+	display: flex;
+	flex-direction: row;
+	justify-content: flex-start;
+	align-items: center;
+}
+
+.input_wrapper {
+	display: flex;
+	flex-direction: row;
+	justify-content: flex-start;
+	align-items: center;
+	
+	margin-top: 20rpx;
+	margin-bottom: 20rpx;
+	margin-left: 32rpx;
+	width:568rpx;
+	min-height:72rpx;
+	background:rgba(247,246,245,1);
+	border-radius:16rpx;
+}
+
+.input_text {
+	
+	padding: 20rpx;
+	
+	width: 100%;
+	min-height:32rpx;
+	font-size:32rpx;
+	line-height:32rpx;
+	color:rgba(50,50,50,1);
+}
+
+.input_text_placeholder {
+	color:rgba(204,204,204,1);
+}
+
+.function_wrapper {
+	
+	flex: 1;
+	
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	align-items: center;
+	
+}
+
+.service_add {
+	width: 56rpx;
+	height: 56rpx;
+}
+
+.send_image {
+	margin-left: 40rpx;
+	width: 56rpx;
+	height: 56rpx;
+}

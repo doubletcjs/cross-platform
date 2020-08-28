@@ -270,7 +270,7 @@ class _MineInfoPageState extends State<MineInfoPage> {
         }),
       );
     } else if (key == "birthday") {
-      DateTime _date = DateTime.now();
+      DateTime _date = DateTime(1995, 1, 1);
       if (ObjectUtil.isEmptyString(_infoPackage["birthday"]) == false) {
         _date = DateTime.parse(_infoPackage["birthday"]);
       } else {
@@ -280,11 +280,16 @@ class _MineInfoPageState extends State<MineInfoPage> {
         });
       }
 
+      if (DateTime(2010, 12, 31).isBefore(_date)) {
+        _date = DateTime(1995, 1, 1);
+      }
+
       final picker = CupertinoDatePicker(
         onDateTimeChanged: (date) {
           _date = date;
         },
         initialDateTime: _date,
+        maximumDate: DateTime(2010, 12, 31),
         mode: CupertinoDatePickerMode.date,
       );
 

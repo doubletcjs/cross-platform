@@ -90,9 +90,7 @@
 			},
 			// 发现角落
 			findAction() {
-				uni.navigateTo({
-					url: "/pages/pages/detail/detail_page",
-				})
+				
 			},
 			//详情
 			detailAction(res) {

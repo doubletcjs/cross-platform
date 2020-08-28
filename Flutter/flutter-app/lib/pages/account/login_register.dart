@@ -338,7 +338,7 @@ class _LoginRegisterPageState extends State<LoginRegisterPage> {
             Container(
               padding: EdgeInsets.fromLTRB(35, 0, 35, 0),
               child: Text(
-                "Hi，欢迎来到尓蒙",
+                "Hi，欢迎来到尔蒙",
                 style: TextStyle(
                   fontSize: 17,
                   color: rgba(153, 153, 153, 1),

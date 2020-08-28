@@ -2,7 +2,7 @@
 <template>
 	<view class="main-body">
 		<view class="top_wrapper">
-			<view class="top_item_wrapper">
+			<view class="top_item_wrapper" @click="toStaffService">
 				<image class="item_image" src="../../../../static/images/staffService@2x.png" mode="aspectFill"></image>
 				<view class="item_text">人工客服</view>
 			</view>
@@ -41,7 +41,7 @@ export default {
 	data() {
 		return {
 			tabIndex: 0,
-			tabs: ['动态问题', '直播问题', '商城问题'],
+			tabs: ['动态问题', '直播问题', '商店问题'],
 			dynamicData: [
 				{ id: '1', question: '1如何发布文章？' },
 				{ id: '2', question: '2如何发布文章？' },
@@ -76,6 +76,11 @@ export default {
 		tabSelectAction(res) {
 			var index = res.currentTarget.dataset.index;
 			this.tabIndex = index;
+		},
+		toStaffService() { // 人工客服
+			uni.navigateTo({
+				url: './staffService'
+			})
 		},
 		toFeedback() { // 意见反馈
 			uni.navigateTo({

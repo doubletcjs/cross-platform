@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:jpush_flutter/jpush_flutter.dart';
 import 'package:tencent_im_plugin/tencent_im_plugin.dart';
+import 'package:zeking_device_info/zeking_device_info.dart';
 import 'pages/account/info_input.dart';
 import 'pages/account/input_avatar.dart';
 import 'pages/account/account_main.dart';
@@ -173,9 +174,21 @@ class _MyAppState extends State<MyApp> {
     });
   }
 
+  // 获取Android和IOS的设备信息
+  void getDeviceInfo() async {
+    var info = await Zekingdeviceinfo.getDevicesInfo("");
+    if (Platform.isIOS) {
+      kDeviceModel = "iOS_" + info.model;
+    } else if (Platform.isAndroid) {
+      kDeviceModel = "Android_" + info.model;
+    }
+  }
+
   @override
   void initState() {
     super.initState();
+
+    this.getDeviceInfo();
 
     userID((userID) {
       if (ObjectUtil.isEmptyString(userID) == false) {

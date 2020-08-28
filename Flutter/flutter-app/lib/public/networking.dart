@@ -70,6 +70,7 @@ class AppInterceptors extends InterceptorsWrapper {
           options.headers["t"].toString() +
           privateKey),
     );
+    options.headers["User-Agent"] = kDeviceModel;
 
     kLog("请求url: ${options.uri}");
     kLog("请求method: ${options.method}");

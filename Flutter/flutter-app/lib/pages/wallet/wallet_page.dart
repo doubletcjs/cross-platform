@@ -82,7 +82,7 @@ class _WalletPageState extends State<WalletPage> {
 
   Map _account = currentAccount;
   //获取用户信息
-  void _refreshAccount() {
+  void _refreshAccount({bool updateCoin = false}) {
     AccountApi.profile((data, msg) {
       if (data != null) {
         kLog("刷新用户信息");
@@ -90,9 +90,22 @@ class _WalletPageState extends State<WalletPage> {
         setState(() {
           _account = currentAccount;
         });
+
+        DartNotificationCenter.post(
+            channel: kAccountHandleNotification,
+            options: {
+              "type": 3,
+            });
       }
 
-      this._applePayList();
+      if (updateCoin == false) {
+        this._applePayList();
+      } else {
+        _refreshController.refreshCompleted();
+        Future.delayed(Duration(milliseconds: 400), () {
+          XsProgressHud.hide();
+        });
+      }
     });
   }
 
@@ -167,18 +180,18 @@ class _WalletPageState extends State<WalletPage> {
           kLog("购买完成,向自己的服务器验证");
           //上传凭证
           this._uploadPayCredentials(productItem);
-          //关闭交易事件
-          FlutterInappPurchase.instance.finishTransaction(productItem);
         } else if (_state == TransactionState.failed) {
           FlutterInappPurchase.instance.finishTransaction(productItem);
           showToast("交易失败！", context);
         } else if (_state == TransactionState.restored) {
+          showToast("已经购买过该商品！", context);
           //上传凭证
           this._uploadPayCredentials(productItem);
-          FlutterInappPurchase.instance.finishTransaction(productItem);
-          showToast("已经购买过该商品！", context);
         } else if (_state == TransactionState.purchasing) {
           kLog("商品添加进列表");
+          FlutterInappPurchase.instance.finishTransaction(productItem);
+        } else {
+          FlutterInappPurchase.instance.finishTransaction(productItem);
         }
       }
       kLog("purchase-updated: ${productItem.toString()}");
@@ -207,15 +220,9 @@ class _WalletPageState extends State<WalletPage> {
     WalletApi.applePay("${item.transactionReceipt}", (data, msg) {
       if (data != null) {
         //更新用户信息
-        DartNotificationCenter.post(
-            channel: kAccountHandleNotification,
-            options: {
-              "type": 1,
-            });
-
-        Future.delayed(Duration(milliseconds: 400), () {
-          XsProgressHud.hide();
-        });
+        this._refreshAccount(updateCoin: true);
+        //关闭交易事件
+        FlutterInappPurchase.instance.finishTransaction(item);
       } else {
         XsProgressHud.hide();
         showToast(msg, context);

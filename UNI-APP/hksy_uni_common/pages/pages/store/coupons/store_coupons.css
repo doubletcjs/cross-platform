@@ -1,0 +1,43 @@
+.coupons-exchange {
+	background-color: rgba(255, 255, 255, 1);
+	height: 112rpx;
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: center;
+	
+	position: fixed;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	
+	font-size: 32rpx;
+	color: rgba(80, 111, 176, 1);
+}
+
+.coupons-list {
+	padding-left: 32rpx;
+	padding-right: 32rpx;
+	padding-top: 56rpx; 
+	
+	position: absolute;
+	left: 0;
+	bottom: 112rpx;
+	right: 0;
+	top: 0;
+	
+	background-color: rgba(247, 246, 245, 1);
+	overflow: scroll;
+}
+
+.coupons-column {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+}
+
+.coupons-full {
+	font-size: 20rpx;
+	color: rgba(235, 102, 91, 1);
+}

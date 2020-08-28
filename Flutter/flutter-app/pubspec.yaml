@@ -56,7 +56,9 @@ dependencies:
   photo_view: any
   webview_flutter_plus: any
   jpush_flutter: any
-  flutter_slidable: any
+  flutter_slidable: any 
+  zeking_device_info: any
+  popup_menu: any 
 
 dev_dependencies:
   flutter_test:

@@ -4,6 +4,7 @@ import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:tencent_im_plugin/entity/message_entity.dart';
 import 'package:tencent_im_plugin/entity/session_entity.dart';
 import 'package:tencent_im_plugin/enums/message_status_enum.dart';
+import 'package:tencent_im_plugin/message_node/message_node.dart';
 import 'package:tencent_im_plugin/message_node/text_message_node.dart';
 import 'package:tencent_im_plugin/tencent_im_plugin.dart';
 import '../../public/public.dart';
@@ -11,6 +12,7 @@ import '../mine/mine_homepage.dart';
 import 'views/chat_input.dart';
 import 'views/chart_message_cell.dart';
 import '../account/api/account_api.dart';
+import '../mine/views/homepage/member_alert.dart';
 
 class ChatMainPage extends StatefulWidget {
   String sessionId = ""; //会话id，对方聊天（用户）id
@@ -151,6 +153,14 @@ class _ChatMainPageState extends State<ChatMainPage> {
           : i2 == null ? -1 : i1.timestamp.compareTo(i2.timestamp),
     );
 
+    for (var i = 0; i < _messageList.length; i++) {
+      MessageEntity item = _messageList[i];
+      if (item.status == MessageStatusEnum.Sending && item.self == true) {
+        item.status = MessageStatusEnum.SendFail;
+        _messageList[i] = item;
+      }
+    }
+
     setState(() {
       kLog("消息数:${_messageList.length}");
       _refreshController.refreshCompleted();
@@ -203,36 +213,111 @@ class _ChatMainPageState extends State<ChatMainPage> {
     }
   }
 
+  // 消息时间
+  String _handleMessageDate(index) {
+    MessageEntity _message = _messageList[index];
+    if (index - 1 > 0) {
+      MessageEntity _lastMessage = _messageList[index - 1];
+      int _timestamp = _message.timestamp;
+      int _lastTimestamp = _lastMessage.timestamp;
+
+      if (_timestamp > 0 &&
+          _lastTimestamp > 0 &&
+          (_timestamp * 1000 - _lastTimestamp * 1000) > 60 * 5 * 1000) {
+        return TimelineUtil.formatA(
+          _timestamp * 1000,
+        );
+      }
+    } else {
+      int _timestamp = _message.timestamp;
+      int _nowTimestamp = DateUtil.getNowDateMs();
+      if (_timestamp > 0 && _nowTimestamp - _timestamp * 1000 > 60 * 5 * 1000) {
+        return TimelineUtil.formatA(
+          _timestamp * 1000,
+        );
+      }
+    }
+
+    return "";
+  }
+
+  // 删除消息
+  void _deleteMessage(index) {
+    MessageEntity _message = _messageList[index];
+    TencentImPlugin.removeMessage(message: _message).then((value) {
+      if (value == true) {
+        setState(() {
+          _messageList.removeAt(index);
+        });
+      } else {
+        showToast("消息删除失败！", context);
+      }
+    }).catchError((error) {
+      showToast("消息删除失败！", context);
+    });
+  }
+
   ///发消息
-  void _sendMessage(content) {
-    double timestamp = DateUtil.getNowDateMs() / 1000;
-    MessageEntity _sendingMessage = MessageEntity(
-      timestamp: timestamp.toInt(),
-      self: true,
-      sessionId: this.widget.sessionId,
-      sessionType: SessionType.C2C,
-      elemList: [
-        TextMessageNode(
-          content: content,
-        ),
-      ],
-    );
+  void _sendMessage(object, {bool resend = false}) {
+    MessageEntity _sendingMessage;
+    MessageEntity _resendMessage;
+    if (resend == true) {
+      int index = object;
+      _sendingMessage = _messageList[index];
+      _resendMessage = _messageList[index];
+      _sendingMessage.status = MessageStatusEnum.Sending;
+      setState(() {
+        _messageList[index] = _sendingMessage;
+      });
+    } else {
+      double timestamp = DateUtil.getNowDateMs() / 1000;
+      _sendingMessage = MessageEntity(
+        timestamp: timestamp.toInt(),
+        self: true,
+        sessionId: this.widget.sessionId,
+        sessionType: SessionType.C2C,
+        elemList: [
+          TextMessageNode(
+            content: object,
+          ),
+        ],
+      );
 
-    _sendingMessage.status = MessageStatusEnum.Sending;
-    setState(() {
-      _messageList.add(_sendingMessage);
-    });
+      _sendingMessage.status = MessageStatusEnum.Sending;
+      setState(() {
+        _messageList.add(_sendingMessage);
+      });
 
-    Future.delayed(Duration(milliseconds: 100), () {
-      _scrollController.jumpTo(_scrollController.position.maxScrollExtent);
-    });
+      Future.delayed(Duration(milliseconds: 100), () {
+        _scrollController.jumpTo(_scrollController.position.maxScrollExtent);
+      });
+    }
+
+    if (_sendingMessage.elemList.length == 0) {
+      setState(() {
+        if (resend == true) {
+          int index = object;
+          _sendingMessage.status = MessageStatusEnum.SendFail;
+          _messageList[index] = _sendingMessage;
+        } else {
+          _messageList.remove(_sendingMessage);
+        }
+      });
+      return;
+    } else {
+      if (resend == true) {
+        TencentImPlugin.removeMessage(message: _resendMessage)
+            .then((value) {})
+            .catchError((error) {
+          kLog("error:$error");
+        });
+      }
+    }
 
     TencentImPlugin.sendMessage(
       sessionId: this.widget.sessionId,
       sessionType: SessionType.C2C,
-      node: TextMessageNode(
-        content: content,
-      ),
+      node: _sendingMessage.elemList.first,
     ).then((res) {
       if (res != null) {
         setState(() {
@@ -241,11 +326,33 @@ class _ChatMainPageState extends State<ChatMainPage> {
         });
       }
     }).catchError((error) {
-      showToast(error.toString(), context);
-      setState(() {
-        int index = _messageList.indexOf(_sendingMessage);
-        _sendingMessage.status = MessageStatusEnum.SendFail;
-        _messageList[index] = _sendingMessage;
+      if (ObjectUtil.isEmpty("${error.code}") == false &&
+          ObjectUtil.isEmpty("${error.message}") == false) {
+        if ("${error.code}" == "120001") {
+          MemberAlert(
+            manCustom: true,
+            customContent: "${error.message}",
+          ).show(context);
+        } else {
+          showToast("服务器异常", context);
+        }
+      } else {
+        showToast("服务器异常", context);
+      }
+
+      TencentImPlugin.getMessages(
+        sessionId: this.widget.sessionId,
+        sessionType: SessionType.C2C,
+        number: 1,
+      ).then((value) {
+        if (value != null && value.length > 0) {
+          MessageEntity _last = value.first;
+          setState(() {
+            int index = _messageList.indexOf(_sendingMessage);
+            _sendingMessage = _last;
+            _messageList[index] = _sendingMessage;
+          });
+        }
       });
     });
   }
@@ -453,6 +560,16 @@ class _ChatMainPageState extends State<ChatMainPage> {
                     itemBuilder: (context, index) {
                       return ChartMessageCell(
                         message: _messageList[index],
+                        resendHandle: () {
+                          this._sendMessage(
+                            index,
+                            resend: true,
+                          );
+                        },
+                        deleteHandle: () {
+                          this._deleteMessage(index);
+                        },
+                        messageDate: _handleMessageDate(index),
                       );
                     },
                     itemCount: _messageList.length,

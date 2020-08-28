@@ -4,7 +4,13 @@
 		<view class="selectPay-content" @click.stop="emptyAction">
 			<!-- 标题 -->
 			<view class="title_wrapper">
-				<view class="title_text">支付金额： <span style="color: #EB665B; font-weight: bold;"> ￥{{ money }}</span></view>
+				<view class="title_text">
+					支付金额：
+					<span style="color: #EB665B; font-weight: bold;">￥{{ money }}</span>
+					
+					<span v-if="discountsText != ''" style="color: #999999; font-size: 24rpx; margin-left: 9rpx;">已优惠{{ discountsText }}元</span>
+					
+				</view>
 				<view class="close_wrapper"><view class="close_text" @click="closePopup">X</view></view>
 			</view>
 
@@ -13,7 +19,7 @@
 				<image class="pay_logo" :src="item.logo" mode="aspectFit"></image>
 				<view class="pay_name">{{ item.name }}</view>
 				<image
-					:class="selecIndex == index ? 'select_image' : 'select_image select_image_none'"
+					:class="selectIndex == index ? 'select_image' : 'select_image select_image_none'"
 					src="../../../../../static/images/select_bank@2x.png"
 					mode="aspectFit"
 				></image>
@@ -38,7 +44,7 @@ export default {
 					name: '微信支付'
 				}
 			],
-			selecIndex: -1
+			selectIndex: -1
 		};
 	},
 	methods: {
@@ -49,13 +55,22 @@ export default {
 		emptyAction() {},
 		selectItemAction(res) {
 			let index = res.currentTarget.dataset.index;
-			this.selecIndex = index;
+			this.selectIndex = index;
 		},
 		confirmPopup() {
+			
+			if(this.selectIndex == -1) {
+				uni.showToast({
+					icon: 'none',
+					title: '请选择支付方式',
+				})
+				return
+			}
+			
 			let me = this;
 			setTimeout(function() {
 				// 回调结果给父组件
-				let name = me.payList[me.selecIndex].name;
+				let name = me.payList[me.selectIndex].name;
 				me.itemTapAction(name);
 			}, 100);
 			this.closePopup();
@@ -69,6 +84,11 @@ export default {
 		},
 		money: {
 			// 支付金额
+			type: String,
+			value: ''
+		},
+		discountsText: {
+			// 优惠金额
 			type: String,
 			value: ''
 		},
@@ -182,12 +202,12 @@ export default {
 
 .selectPay_ok {
 	margin: 40rpx 32rpx 40rpx 32rpx;
-	height:96rpx;
-	font-size:32rpx;
+	height: 96rpx;
+	font-size: 32rpx;
 	line-height: 86rpx;
 	text-align: center;
-	color: #FFFFFF;
-	background:rgba(235,102,91,1);
-	border-radius:8px;
+	color: #ffffff;
+	background: rgba(235, 102, 91, 1);
+	border-radius: 8px;
 }
 </style>

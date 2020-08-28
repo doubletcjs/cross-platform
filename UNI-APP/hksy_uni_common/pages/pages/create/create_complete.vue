@@ -40,7 +40,7 @@
 			// 返回首页
 			backHomeAction() {
 				uni.switchTab({
-					url: "../../tabs/home/home_tab",
+					url: "/pages/tabs/home/home_tab",
 				});
 			},
 		},

@@ -87,6 +87,11 @@
 				"navigationBarTitleText": "常见问题"
 			}
 		}, {
+			"path": "pages/pages/mine/contact/staffService",
+			"style": {
+				"navigationBarTitleText": "客服"
+			}
+		}, {
 			"path": "pages/pages/mine/contact/questionDetail",
 			"style": {
 				"navigationBarTitleText": "常见问题"
@@ -187,6 +192,33 @@
 			"path": "pages/pages/mine/wallet/wallet_recharge_detail",
 			"style": {
 				"navigationBarTitleText": "充值提现明细"
+			}
+		}, {
+			"path": "pages/pages/store/order_list",
+			"style": {
+				"navigationBarTitleText": "订单"
+			}
+		}, {
+			"path": "pages/pages/store/address/address_list",
+			"style": {
+				"navigationBarTitleText": "地址管理",
+				"navigationStyle": "custom"
+			}
+		}, {
+			"path": "pages/pages/store/address/address_editor",
+			"style": {
+				"navigationBarTitleText": "地址管理",
+				"navigationStyle": "custom"
+			}
+		}, {
+			"path": "pages/pages/store/shopping_cart/shopping_cart",
+			"style": {
+				"navigationBarTitleText": "购物车"
+			}
+		}, {
+			"path": "pages/pages/store/coupons/store_coupons",
+			"style": {
+				"navigationBarTitleText": "我的优惠券"
 			}
 		}
 	],

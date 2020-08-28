@@ -1,5 +1,3 @@
-import 'dart:ffi';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
@@ -151,10 +149,15 @@ class _BlockListPageState extends State<BlockListPage> {
               ),
               actionPane: SlidableBehindActionPane(),
               secondaryActions: [
-                IconSlideAction(
-                  caption: "删除",
+                SlideAction(
+                  child: Text(
+                    "删除",
+                    style: TextStyle(
+                      fontSize: 14,
+                      color: rgba(255, 255, 255, 1),
+                    ),
+                  ),
                   color: Colors.red,
-                  icon: Icons.delete,
                   onTap: () {
                     this._deleteAlert(index);
                   },

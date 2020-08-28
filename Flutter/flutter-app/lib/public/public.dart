@@ -8,6 +8,9 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:toast/toast.dart';
 import 'gif_refresh_header.dart';
 
+// 设备型号
+String kDeviceModel = "";
+
 // 用户登录状态变化 type 0 登录 1 请求账号信息刷新 2 登出 3 请求账号信息结束，刷新本地记录用户信息
 final String kAccountHandleNotification = "AccountHandleNotification";
 // 用户资料完善情况
@@ -46,7 +49,7 @@ final Map<String, String> AMAP_CONFIG = {
 // ignore: non_constant_identifier_names
 final TENCENTIM_APPID = (kDebug() == true) ? "1400398568" : "1400409186";
 // ignore: non_constant_identifier_names
-final TENCENTIM_BUSSID = (kDebug() == true) ? 21528 : 21455; //开发 //正式
+final TENCENTIM_BUSSID = (kDebug() == true) ? 21455 : 21528; //开发 //正式
 // ignore: non_constant_identifier_names
 // final TENCENTIM_SECRETKEY =
 //     "f5e763808b3bad873c79809d319208fcc9950b9c1842b4a01946fbd5e7ebe648";

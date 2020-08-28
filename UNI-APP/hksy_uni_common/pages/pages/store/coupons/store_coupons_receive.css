@@ -1,0 +1,149 @@
+.i-modal-mask {
+	position: fixed;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	z-index: 10000;
+	transition: all 0.2s ease-in-out;
+	opacity: 0;
+	visibility: hidden;
+	width: 100%;
+	height: 100%;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+
+	background-color: rgba(0, 0, 0, 0.4);
+}
+
+.i-modal-mask-show {
+	opacity: 1;
+	visibility: visible;
+}
+
+.coupons-content {
+	position: fixed;
+	bottom: 0;
+	left: 0;
+	right: 0;
+
+	display: flex;
+	flex-direction: column;
+	border-top-left-radius: 12rpx;
+	border-top-right-radius: 12rpx;
+
+	background-color: rgba(255, 255, 255, 1);
+}
+
+.coupons-title {
+	padding-left: 32rpx;
+	padding-right: 32rpx;
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	align-items: center;
+
+	height: 128rpx;
+	font-size: 34rp;
+	color: rgba(50, 50, 50, 1);
+}
+
+.coupons-close {
+	width: 48rpx;
+	height: 48rpx;
+}
+
+.coupons-cell-content {
+	padding-left: 32rpx;
+	padding-right: 32rpx;
+
+	background-color: rgba(255, 255, 255, 1);
+	max-height: 800rpx;
+	overflow: scroll;
+}
+
+.coupons-cell {
+	height: 160rpx;
+	background-color: rgba(253, 231, 207, 1);
+	border-radius: 16rpx; 
+
+	margin-bottom: 16rpx;
+	padding-left: 24rpx;
+
+	position: relative;
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	align-items: center;
+}
+
+.coupons-cell-row {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+}
+
+.coupons-cell-unit {
+	font-size: 24rpx;
+	color: rgba(235, 102, 91, 1);
+}
+
+.coupons-cell-price {
+	font-size: 56rpx;
+	color: rgba(235, 102, 91, 1);
+	margin-left: 8rpx;
+	font-weight: bolder;
+}
+
+.coupons-cell-receive {
+	width: 209rpx;
+	height: 133rpx;
+
+	border-left: solid 1rpx rgba(235, 102, 91, 1);
+	border-left-style: dotted;
+
+	font-size: 28rpx;
+
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: center;
+}
+
+.coupons-cell-didreceive {
+	width: 64rpx;
+	height: 64rpx;
+
+	position: absolute;
+	bottom: 0;
+	right: 0;
+}
+
+.coupons-cell-column {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	margin-left: 74rpx;
+	
+	width: 240rpx; 
+}
+
+.coupons-cell-name {
+	font-size: 26rpx;
+	color: rgba(235, 102, 91, 1);
+	
+	display: -webkit-box;
+	-webkit-line-clamp: 2;
+	-webkit-box-orient: vertical;
+	white-space: normal !important;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+
+.coupons-cell-date {
+	font-size: 20rpx;
+	color: rgba(235, 102, 91, 1);
+	margin-top: 4rpx;
+}

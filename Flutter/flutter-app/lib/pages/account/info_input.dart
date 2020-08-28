@@ -47,7 +47,7 @@ class _InfoInputPageState extends State<InfoInputPage> {
   //出生日期
   void _birthdaySelection() {
     FocusScope.of(context).requestFocus(FocusNode());
-    DateTime _date = DateTime.now();
+    DateTime _date = DateTime(1995, 1, 1);
     if (ObjectUtil.isEmptyString(_infoPackage["birthday"]) == false) {
       _date = DateTime.parse(_infoPackage["birthday"]);
     } else {
@@ -58,11 +58,16 @@ class _InfoInputPageState extends State<InfoInputPage> {
       });
     }
 
+    if (DateTime(2010, 12, 31).isBefore(_date)) {
+      _date = DateTime(1995, 1, 1);
+    }
+
     final picker = CupertinoDatePicker(
       onDateTimeChanged: (date) {
         _date = date;
       },
       initialDateTime: _date,
+      maximumDate: DateTime(2010, 12, 31),
       mode: CupertinoDatePickerMode.date,
     );
 
