@@ -43,7 +43,7 @@ class _CoverGridViewState extends State<CoverGridView> {
       setState(() {
         this.widget.coverList = [];
       });
-    } else {}
+    }
 
     super.initState();
 
@@ -98,69 +98,11 @@ class _CoverGridViewState extends State<CoverGridView> {
     _coverList.forEach((element) {
       _list.add(
         this._draggableItem(element),
-        /*
-        this._coverFrame(
-          child: Stack(
-            children: <Widget>[
-              ClipRRect(
-                child: (element is String)
-                    ? CachedNetworkImage(
-                        placeholder: (context, url) {
-                          return Image.asset(
-                            "images/placeholder_mini@3x.png",
-                            width: _itemWH,
-                            height: _itemWH,
-                            fit: BoxFit.cover,
-                          );
-                        },
-                        imageUrl: element != null ? "$element" : "",
-                        width: _itemWH,
-                        height: _itemWH,
-                        fit: BoxFit.cover,
-                      )
-                    : Image.memory(
-                        element,
-                        width: _itemWH,
-                        height: _itemWH,
-                        fit: BoxFit.cover,
-                      ),
-                borderRadius: BorderRadius.circular(3),
-              ),
-              Positioned(
-                right: 0,
-                top: 0,
-                child: Container(
-                  width: 17,
-                  height: 17,
-                  child: FlatButton(
-                    padding: EdgeInsets.zero,
-                    child: Image.asset(
-                      "images/certification_close@3x.png",
-                      width: 17,
-                      height: 17,
-                    ),
-                    onPressed: () {
-                      setState(() {
-                        _coverList.remove(element);
-                        if (this.widget.updateHandle != null) {
-                          this.widget.updateHandle(_coverList);
-                        }
-                      });
-                    },
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(17 / 2),
-                    ),
-                  ),
-                ),
-              ),
-            ],
-          ),
-        ),
-      */
       );
     });
 
-    if (_coverList.length < this.widget.imageCount) {
+    if (_coverList.length < this.widget.imageCount &&
+        this.widget.coverAddition == true) {
       _list.add(this._coverAdditionButton());
     }
 
@@ -200,33 +142,35 @@ class _CoverGridViewState extends State<CoverGridView> {
                   ),
             borderRadius: BorderRadius.circular(3),
           ),
-          Positioned(
-            right: 0,
-            top: 0,
-            child: Container(
-              width: 17,
-              height: 17,
-              child: FlatButton(
-                padding: EdgeInsets.zero,
-                child: Image.asset(
-                  "images/certification_close@3x.png",
-                  width: 17,
-                  height: 17,
-                ),
-                onPressed: () {
-                  setState(() {
-                    _coverList.remove(element);
-                    if (this.widget.updateHandle != null) {
-                      this.widget.updateHandle(_coverList);
-                    }
-                  });
-                },
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(17 / 2),
-                ),
-              ),
-            ),
-          ),
+          this.widget.coverAddition == true
+              ? Positioned(
+                  right: 0,
+                  top: 0,
+                  child: Container(
+                    width: 17,
+                    height: 17,
+                    child: FlatButton(
+                      padding: EdgeInsets.zero,
+                      child: Image.asset(
+                        "images/certification_close@3x.png",
+                        width: 17,
+                        height: 17,
+                      ),
+                      onPressed: () {
+                        setState(() {
+                          _coverList.remove(element);
+                          if (this.widget.updateHandle != null) {
+                            this.widget.updateHandle(_coverList);
+                          }
+                        });
+                      },
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(17 / 2),
+                      ),
+                    ),
+                  ),
+                )
+              : Container(),
         ],
       ),
     );
@@ -252,40 +196,44 @@ class _CoverGridViewState extends State<CoverGridView> {
 
   // 生成可拖动的item
   Widget _draggableItem(element) {
-    return Draggable(
-      data: element,
-      child: DragTarget(
-        builder: (context, candidateData, rejectedData) {
-          return this._baseMoveItem(element);
-        },
-        onWillAccept: (moveData) {
-          print('=== onWillAccept ===');
+    if (this.widget.coverAddition == true) {
+      return Draggable(
+        data: element,
+        child: DragTarget(
+          builder: (context, candidateData, rejectedData) {
+            return this._baseMoveItem(element);
+          },
+          onWillAccept: (moveData) {
+            print('=== onWillAccept ===');
 
-          var accept = moveData != null;
-          if (accept) {
-            this._exchangeMoveItem(moveData, element, false);
-          }
-          return accept;
+            var accept = moveData != null;
+            if (accept) {
+              this._exchangeMoveItem(moveData, element, false);
+            }
+            return accept;
+          },
+          onAccept: (moveData) {
+            print('=== onAccept: ===');
+            this._exchangeMoveItem(moveData, element, true);
+          },
+          onLeave: (moveData) {
+            print('=== onLeave ===');
+          },
+        ),
+        feedback: this._baseMoveItem(element),
+        onDraggableCanceled: (Velocity velocity, Offset offset) {
+          print('=== onDraggableCanceled ===');
+          setState(() {
+            _movingValue = null; //清空标记进行重绘
+          });
         },
-        onAccept: (moveData) {
-          print('=== onAccept: ===');
-          this._exchangeMoveItem(moveData, element, true);
+        onDragCompleted: () {
+          print('=== onDragCompleted ===');
         },
-        onLeave: (moveData) {
-          print('=== onLeave ===');
-        },
-      ),
-      feedback: this._baseMoveItem(element),
-      onDraggableCanceled: (Velocity velocity, Offset offset) {
-        print('=== onDraggableCanceled ===');
-        setState(() {
-          _movingValue = null; //清空标记进行重绘
-        });
-      },
-      onDragCompleted: () {
-        print('=== onDragCompleted ===');
-      },
-    );
+      );
+    } else {
+      return this._baseMoveItem(element);
+    }
   }
 
   //添加图片
@@ -356,9 +304,7 @@ class _CoverGridViewState extends State<CoverGridView> {
             child: Wrap(
               spacing: this.widget.itemSpace,
               runSpacing: this.widget.itemSpace,
-              children: this.widget.coverList.map((cover) {
-                return this._coverFrame();
-              }).toList(),
+              children: this._loadCoverList(),
             ),
           )
         : Container(

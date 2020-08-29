@@ -1,7 +1,12 @@
 import 'package:flutter/material.dart';
 
+// ignore: must_be_immutable
 class StoreDiscussPage extends StatefulWidget {
-  StoreDiscussPage({Key key}) : super(key: key);
+  int tab = 0;
+  StoreDiscussPage({
+    Key key,
+    this.tab = 0,
+  }) : super(key: key);
 
   @override
   _StoreDiscussPageState createState() => _StoreDiscussPageState();
@@ -13,8 +18,8 @@ class _StoreDiscussPageState extends State<StoreDiscussPage>
   bool get wantKeepAlive => true;
 
   @override
-  // ignore: must_call_super
   Widget build(BuildContext context) {
+    super.build(context);
     return Container();
   }
 }

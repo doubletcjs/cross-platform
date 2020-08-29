@@ -1,0 +1,90 @@
+.i-modal-mask {
+	position: fixed;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	z-index: 10000;
+	transition: all 0.2s ease-in-out;
+	opacity: 0;
+	visibility: hidden;
+	width: 100%;
+	height: 100%;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+
+	background-color: rgba(0, 0, 0, 0.4);
+}
+
+.i-modal-mask-show {
+	opacity: 1;
+	visibility: visible;
+}
+
+.alertview-mask {
+	display: flex;
+	flex-direction: column;
+
+	background-color: rgba(255, 255, 255, 1);
+	border-radius: 16rpx; 
+	width: 640rpx;
+}
+
+.alertview-content {
+	padding: 69rpx 52rpx 68rpx 52rpx;
+	font-size: 32rpx;
+	color: rgba(50, 50, 50, 1);
+	text-align: center;
+}
+
+.alertview-content-input {
+	padding-bottom: 35rpx;
+}
+
+.alertview-cancel {
+	width: 50%;
+	height: 119rpx;
+	
+	font-size: 36rpx; 
+	
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: center;
+	
+	border-top: solid 1rpx rgba(0, 0, 0, 0.1); 
+	border-right: solid 0.5rpx rgba(0, 0, 0, 0.1);
+}
+
+.alertview-confirm {
+	width: 50%;
+	height: 119rpx;
+	
+	font-size: 36rpx; 
+	
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: center;
+	
+	border-top: solid 1rpx rgba(0, 0, 0, 0.1);  
+}
+
+.alertview-input-content { 
+	padding: 0rpx 52rpx 70rpx 52rpx; 
+}
+
+.alertview-input {
+	height: 88rpx;
+	
+	font-size: 32rpx;
+	color: rgba(50, 50, 50, 1);
+	border-bottom: solid 1rpx rgba(0, 0, 0, 0.3); 
+}
+
+.alertview-input-placeholder {
+	font-size: 32rpx;
+	color: rgba(153, 153, 153, 1);
+}

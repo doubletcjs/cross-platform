@@ -1,6 +1,11 @@
+import 'package:corner_app/pages/function/scale_tabbar.dart';
+import 'package:corner_app/pages/store/store_discuss.dart';
+import 'package:corner_app/pages/store/store_dynamic.dart';
+import 'package:corner_app/pages/store/store_product.dart';
 import 'package:corner_app/pages/store/home/views/store_banner.dart';
 import 'package:corner_app/pages/store/home/views/store_header.dart';
 import 'package:corner_app/pages/store/home/views/store_live.dart';
+import 'package:corner_app/pages/store/home/views/store_tabbar.dart';
 import 'package:corner_app/public/public.dart';
 import 'package:flutter/material.dart';
 
@@ -18,8 +23,16 @@ class _StorePageState extends State<StorePage>
   GlobalKey _globalKey = GlobalKey();
   double _expandedHeight = 0;
   double _stickyOpacity = 0;
-  double _stickyHeight = 0;
   Widget _header;
+  double _headerHeight = 0;
+
+  double _stickyBarHeight = 0;
+  double _stickyBottomBarHeight = 44.0;
+  int _tabIndex = 0;
+
+  StoreDynamicPage _dynamicPage = StoreDynamicPage();
+  StoreProductPage _productPage = StoreProductPage();
+  StoreDiscussPage _discussPage = StoreDiscussPage();
 
   // 头部内容
   void _flexibleHeader() {
@@ -35,7 +48,10 @@ class _StorePageState extends State<StorePage>
 
     Future.delayed(Duration(milliseconds: 200), () {
       setState(() {
-        _expandedHeight = _globalKey.currentContext.size.height + 44;
+        _headerHeight = _globalKey.currentContext.size.height;
+        _expandedHeight = _headerHeight + 44 + _stickyBottomBarHeight;
+        _stickyBarHeight =
+            AppBar().preferredSize.height + MediaQuery.of(context).padding.top;
       });
     });
   }
@@ -60,10 +76,8 @@ class _StorePageState extends State<StorePage>
         _opacity = 0;
       }
 
-      // _opacity/1 = x/(MediaQuery.of(context).padding.top + 44)
       setState(() {
         _stickyOpacity = _opacity;
-        _stickyHeight = _opacity * (MediaQuery.of(context).padding.top + 44);
       });
     });
   }
@@ -75,209 +89,269 @@ class _StorePageState extends State<StorePage>
     _tabController.dispose();
   }
 
-  Widget _buildListView(String s) {
-    return ListView.separated(
-        itemCount: 20,
-        separatorBuilder: (BuildContext context, int index) => Divider(
-              color: Colors.grey,
-              height: 1,
-            ),
-        itemBuilder: (BuildContext context, int index) {
-          return Container(
-              color: Colors.white,
-              child: ListTile(title: Text("$s第$index 个条目")));
-        });
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: _expandedHeight == 0
-          ? _header
-          : NestedScrollView(
-              controller: _scrollViewController,
-              headerSliverBuilder:
-                  (BuildContext context, bool innerBoxIsScrolled) {
-                return <Widget>[
-                  SliverAppBar(
-                    pinned: true,
-                    floating: true,
-                    primary: false,
-                    stretchTriggerOffset:
-                        MediaQuery.of(context).padding.top + 44 + 44,
-                    expandedHeight: _expandedHeight,
-                    elevation: 0,
-                    automaticallyImplyLeading: false,
-                    titleSpacing: 0,
-                    brightness: Brightness.light,
-                    //头部
-                    flexibleSpace: FlexibleSpaceBar(
-                      collapseMode: CollapseMode.parallax,
-                      background: _header,
-                    ),
-                    bottom: PreferredSize(
-                      child: Container(
-                        height: 44 + _stickyHeight,
-                        child: Stack(
-                          children: [
-                            Opacity(
-                              opacity: _stickyOpacity,
-                              child: Stack(
-                                children: [
-                                  Positioned(
-                                    top: 0,
-                                    width: MediaQuery.of(context).size.width,
-                                    height: 217 +
-                                        MediaQuery.of(context).padding.top -
-                                        20,
-                                    child: Image.asset(
-                                      "images/homepages_default_bg.png",
-                                      fit: BoxFit.cover,
-                                    ),
-                                  ),
-                                  Positioned(
-                                    child: Container(
-                                      color: rgba(0, 0, 0, 0.4),
-                                      padding: EdgeInsets.only(
-                                        top: MediaQuery.of(context).padding.top,
-                                      ),
-                                      child: // 顶部栏
-                                          Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
-                                        children: [
-                                          Row(
-                                            children: [
-                                              // 返回
-                                              Container(
-                                                width: 44,
-                                                height: 44,
-                                                decoration: BoxDecoration(
-                                                  borderRadius:
-                                                      BorderRadius.circular(
-                                                          44 / 2),
-                                                ),
-                                                child: FlatButton(
-                                                  padding: EdgeInsets.zero,
-                                                  shape: RoundedRectangleBorder(
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            44 / 2),
-                                                  ),
-                                                  child: Image.asset(
-                                                    "images/base_back_white@3x.png",
-                                                    width: 11,
-                                                    height: 20,
-                                                  ),
-                                                  onPressed: () {
-                                                    Navigator.of(context).pop();
-                                                  },
-                                                ),
-                                              ),
-                                              InkWell(
-                                                onTap: () {
-                                                  Navigator.of(context).pop();
-                                                },
-                                                child: Text(
-                                                  "每日一食记",
-                                                  style: TextStyle(
-                                                    fontSize: 20,
-                                                    color:
-                                                        rgba(255, 255, 255, 1),
-                                                  ),
-                                                ),
-                                              ),
-                                            ],
-                                          ),
-                                          Row(
-                                            children: [
-                                              // 搜索
-                                              Container(
-                                                width: 28,
-                                                height: 28,
-                                                decoration: BoxDecoration(
-                                                  borderRadius:
-                                                      BorderRadius.circular(
-                                                          28 / 2),
-                                                ),
-                                                child: FlatButton(
-                                                  padding: EdgeInsets.zero,
-                                                  shape: RoundedRectangleBorder(
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            28 / 2),
-                                                  ),
-                                                  child: Image.asset(
-                                                    "images/homepage_search@3x.png",
-                                                    width: 28,
-                                                    height: 28,
-                                                  ),
-                                                  onPressed: () {},
-                                                ),
-                                              ),
-                                              SizedBox(
-                                                width: 16,
-                                              ),
-                                              // 详情
-                                              Container(
-                                                width: 28,
-                                                height: 28,
-                                                child: FlatButton(
-                                                  padding: EdgeInsets.zero,
-                                                  child: Image.asset(
-                                                    "images/homepage_menu@3x.png",
-                                                    width: 28,
-                                                    height: 28,
-                                                  ),
-                                                  onPressed: () {},
-                                                ),
-                                              ),
-                                              SizedBox(
-                                                width: 16,
-                                              ),
-                                            ],
-                                          ),
-                                        ],
+      body: Stack(
+        children: [
+          transparentAppBar(
+            brightness: Brightness.light,
+          ),
+          _expandedHeight == 0
+              ? _header
+              : NestedScrollView(
+                  controller: _scrollViewController,
+                  headerSliverBuilder:
+                      (BuildContext context, bool innerBoxIsScrolled) {
+                    return <Widget>[
+                      SliverAppBar(
+                        pinned: true,
+                        floating: true,
+                        primary: false,
+                        expandedHeight: _expandedHeight,
+                        elevation: 0,
+                        automaticallyImplyLeading: false,
+                        titleSpacing: 0,
+                        backgroundColor: Colors.transparent,
+                        //头部
+                        flexibleSpace: FlexibleSpaceBar(
+                          collapseMode: CollapseMode.parallax,
+                          background: _header,
+                        ),
+                        bottom: PreferredSize(
+                          child: Container(
+                            height: 44 + _stickyBottomBarHeight,
+                            color: rgba(255, 255, 255, 1),
+                            child: Column(
+                              children: [
+                                Container(
+                                  height: 44,
+                                  width: MediaQuery.of(context).size.width,
+                                  child: ScaleTabBar(
+                                    controller: _tabController,
+                                    indicator: RoundUnderlineTabIndicator(
+                                      borderSide: BorderSide(
+                                        width: 4,
+                                        color: rgba(235, 102, 91, 1),
                                       ),
                                     ),
+                                    tabs: [
+                                      Tab(text: "动态"),
+                                      Tab(text: "商店"),
+                                      Tab(text: "讨论区"),
+                                    ],
+                                    onTap: (index) {
+                                      setState(() {
+                                        _tabIndex = index;
+                                        if (_tabIndex == 1) {
+                                          _stickyBottomBarHeight =
+                                              64 + 44 + 8.0;
+                                        } else {
+                                          _stickyBottomBarHeight = 44;
+                                        }
+                                        _expandedHeight = _headerHeight +
+                                            44 +
+                                            _stickyBottomBarHeight;
+                                      });
+                                    },
+                                    labelColor: rgba(50, 50, 50, 1),
+                                    unselectedLabelColor:
+                                        rgba(153, 153, 153, 1),
+                                    labelStyle: TextStyle(
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                    unselectedLabelStyle: TextStyle(
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.normal,
+                                    ),
                                   ),
-                                ],
-                              ),
-                            ),
-                            Positioned(
-                              left: 0,
-                              bottom: 0,
-                              right: 0,
-                              height: 44,
-                              child: Container(
-                                color: Colors.green,
-                                child: TabBar(
-                                  controller: _tabController,
-                                  tabs: [
-                                    Tab(text: "aaa"),
-                                    Tab(text: "bbb"),
-                                    Tab(text: "ccc"),
-                                  ],
                                 ),
-                              ),
+                                _tabIndex == 0
+                                    ? StoreTabBar(
+                                        tabList: [
+                                          "最新",
+                                          "热门",
+                                          "精华",
+                                        ],
+                                        tabIndex: _dynamicPage.tab,
+                                        height: _stickyBottomBarHeight,
+                                        tabSwitchHandle: (tab) {
+                                          setState(() {
+                                            _dynamicPage.tab = tab;
+                                          });
+                                        },
+                                      )
+                                    : _tabIndex == 2
+                                        ? StoreTabBar(
+                                            tabList: [
+                                              "最新",
+                                              "热门",
+                                            ],
+                                            tabIndex: _productPage.tab,
+                                            height: _stickyBottomBarHeight,
+                                            tabSwitchHandle: (tab) {
+                                              setState(() {
+                                                _productPage.tab = tab;
+                                              });
+                                            },
+                                          )
+                                        : _tabIndex == 1
+                                            ? StoreProductHeader(
+                                                tabIndex: _discussPage.tab,
+                                                tabSwitchHandle: (tab) {
+                                                  setState(() {
+                                                    _discussPage.tab = tab;
+                                                  });
+                                                },
+                                              )
+                                            : Container(),
+                              ],
                             ),
-                          ],
+                          ),
+                          preferredSize: Size.fromHeight(
+                              44 + _stickyBarHeight + _stickyBottomBarHeight),
                         ),
                       ),
-                      preferredSize: Size.fromHeight(44 + _stickyHeight),
+                    ];
+                  },
+                  body: TabBarView(
+                    controller: _tabController,
+                    physics: NeverScrollableScrollPhysics(),
+                    children: [
+                      _dynamicPage,
+                      _productPage,
+                      _discussPage,
+                    ],
+                  ),
+                ),
+          Container(
+            height: _stickyBarHeight,
+            child: Stack(
+              children: [
+                Positioned(
+                  left: 0,
+                  right: 0,
+                  child: Opacity(
+                    opacity: _stickyOpacity,
+                    child: Stack(
+                      children: [
+                        Image.asset(
+                          "images/homepages_default_bg.png",
+                          height: 217 + MediaQuery.of(context).padding.top,
+                          width: MediaQuery.of(context).size.width,
+                          fit: BoxFit.cover,
+                        ),
+                        Container(
+                          color: rgba(0, 0, 0, 0.4),
+                          padding: EdgeInsets.only(
+                            top: MediaQuery.of(context).padding.top,
+                          ),
+                          height: 217 + MediaQuery.of(context).padding.top,
+                        ),
+                      ],
                     ),
                   ),
-                ];
-              },
-              body: TabBarView(
-                controller: _tabController,
-                children: [
-                  _buildListView("aaa:"),
-                  _buildListView("bbb:"),
-                  _buildListView("ccc:"),
-                ],
-              ),
+                ),
+                // 顶部栏
+                Positioned(
+                  top: MediaQuery.of(context).padding.top,
+                  left: 0,
+                  right: 0,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      // 返回
+                      Row(
+                        children: [
+                          Container(
+                            width: AppBar().preferredSize.height,
+                            height: AppBar().preferredSize.height,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(
+                                  AppBar().preferredSize.height / 2),
+                            ),
+                            child: FlatButton(
+                              padding: EdgeInsets.zero,
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(
+                                    AppBar().preferredSize.height / 2),
+                              ),
+                              child: Image.asset(
+                                "images/base_back_white@3x.png",
+                                width: 11,
+                                height: 20,
+                              ),
+                              onPressed: () {
+                                Navigator.of(context).pop();
+                              },
+                            ),
+                          ),
+                          Opacity(
+                            opacity: _stickyOpacity,
+                            child: Text(
+                              "每日一食记",
+                              overflow: TextOverflow.ellipsis,
+                              style: TextStyle(
+                                fontSize: 20,
+                                color: rgba(255, 255, 255, 1),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                      Row(
+                        children: [
+                          // 搜索
+                          Container(
+                            width: 28,
+                            height: 28,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(28 / 2),
+                            ),
+                            child: FlatButton(
+                              padding: EdgeInsets.zero,
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(28 / 2),
+                              ),
+                              child: Image.asset(
+                                "images/homepage_search@3x.png",
+                                width: 28,
+                                height: 28,
+                              ),
+                              onPressed: () {},
+                            ),
+                          ),
+                          SizedBox(
+                            width: 16,
+                          ),
+                          // 详情
+                          Container(
+                            width: 28,
+                            height: 28,
+                            child: FlatButton(
+                              padding: EdgeInsets.zero,
+                              child: Image.asset(
+                                "images/homepage_menu@3x.png",
+                                width: 28,
+                                height: 28,
+                              ),
+                              onPressed: () {},
+                            ),
+                          ),
+                          SizedBox(
+                            width: 16,
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                ),
+              ],
             ),
+          ),
+        ],
+      ),
     );
   }
 }

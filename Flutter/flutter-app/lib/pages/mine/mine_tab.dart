@@ -1,17 +1,16 @@
+import 'package:common_utils/common_utils.dart';
 import 'package:dart_notification_center/dart_notification_center.dart';
 import 'package:flutter/material.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
-import '../mine/contact_list.dart';
-import '../mine/mine_info_page.dart';
+import '../setting/feedback.dart';
 import 'views/mine_cell.dart';
 import 'views/mine_header.dart';
 import '../../public/public.dart';
-import 'certification.dart';
-import '../wallet/wallet_page.dart';
-import '../setting/setting_page.dart';
-import 'views/homepage/upgrade_alert.dart';
-import '../gift/gift_page.dart';
+import '../../public/networking.dart';
 import '../account/api/account_api.dart';
+import '../function/base_webview.dart';
+import '../mine/views/homepage/cover_grid_view.dart';
+import '../mine/mine_info_page.dart';
 
 class MinePage extends StatefulWidget {
   MinePage({Key key}) : super(key: key);
@@ -23,7 +22,7 @@ class MinePage extends StatefulWidget {
 class _MinePageState extends State<MinePage> {
   RefreshController _refreshController =
       RefreshController(initialRefresh: false);
-  Map _account = {};
+  Map _account;
   //刷新用户信息
   void _refreshAccount() {
     AccountApi.profile((data, msg) {
@@ -49,6 +48,15 @@ class _MinePageState extends State<MinePage> {
     setState(() {
       _account = currentAccount;
     });
+  }
+
+  //个人资料
+  void _personalInfo() {
+    Navigator.of(context).push(
+      MaterialPageRoute(builder: (context) {
+        return MineInfoPage();
+      }),
+    );
   }
 
   @override
@@ -90,144 +98,158 @@ class _MinePageState extends State<MinePage> {
           functionRefresher(
             _refreshController,
             ListView(
-              padding: EdgeInsets.zero,
+              padding: EdgeInsets.fromLTRB(0, 0, 0, 10),
               children: [
+                // 头
                 MineHeader(),
-                Container(
-                  margin: EdgeInsets.fromLTRB(14, 10, 14, 0),
-                  child: ClipRRect(
-                    child: Column(
-                      mainAxisSize: MainAxisSize.min,
-                      children: <Widget>[
-                        MineCell(
-                          icon: "images/personal_info@3x.png",
-                          text: "个人资料",
-                          tapHandle: () {
-                            Navigator.of(context).push(
-                              MaterialPageRoute(builder: (context) {
-                                return MineInfoPage();
-                              }),
-                            );
-                          },
+                (_account == null || ObjectUtil.isEmpty(_account["photo"]))
+                    ? Container()
+                    : Container(
+                        margin: EdgeInsets.fromLTRB(10, 0, 10, 10),
+                        padding: EdgeInsets.fromLTRB(10.5, 12, 10.5, 16.5),
+                        decoration: BoxDecoration(
+                          color: rgba(255, 255, 255, 1),
+                          borderRadius: BorderRadius.circular(8),
                         ),
-                        MineCell(
-                          icon: "images/contact_list@3x.png",
-                          text: "联系方式",
-                          tapHandle: () {
-                            Navigator.of(context).push(
-                              MaterialPageRoute(builder: (context) {
-                                return ContactListPage(
-                                  account: _account,
-                                );
-                              }),
-                            );
+                        child: InkWell(
+                          onTap: () {
+                            this._personalInfo();
                           },
-                        ),
-                        MineCell(
-                          icon: "images/vip@3x.png",
-                          text: "会员",
-                          valueWidget: (_account["vip_type"] != null &&
-                                  _account["vip_type"] == 1)
-                              ? Container(
-                                  padding: EdgeInsets.fromLTRB(0, 0, 13, 0),
-                                  child: Text(
-                                    "${_account['vip_validity']} 到期",
+                          child: Column(
+                            children: [
+                              Row(
+                                children: [
+                                  Text(
+                                    "我的相册",
                                     style: TextStyle(
                                       fontSize: 14,
-                                      color: rgba(166, 166, 166, 1),
+                                      color: rgba(38, 38, 38, 1),
+                                      fontWeight: FontWeight.bold,
                                     ),
                                   ),
-                                )
-                              : Container(), //vip类型 0非会员 1普通会员 2暗瘾会员
-                          tapHandle: () {
-                            UpgradeAlert().show(context);
-                          },
-                        ),
-                        MineCell(
-                          icon: "images/jinbi@3x.png",
-                          text: "钱包",
-                          tapHandle: () {
-                            Navigator.of(context).push(
-                              MaterialPageRoute(builder: (context) {
-                                return WalletPage();
-                              }),
-                            );
-                          },
-                        ),
-                        MineCell(
-                          icon: "images/renzheng@3x.png",
-                          text: "认证",
-                          valueWidget: (_account["audit_status"] != null &&
-                                  _account["audit_status"] != 0)
-                              ? Container(
-                                  padding: EdgeInsets.fromLTRB(0, 0, 13, 0),
-                                  child: Text(
-                                    "${_account['audit_status'] == 1 ? '审核中' : _account['audit_status'] == 3 ? '已认证' : '认证失败'}",
+                                  SizedBox(
+                                    width: 10,
+                                  ),
+                                  Text(
+                                    "添加相册快速增加曝光度",
                                     style: TextStyle(
-                                      fontSize: 14,
-                                      color: _account["audit_status"] == 2
-                                          ? rgba(254, 53, 92, 1)
-                                          : rgba(166, 166, 166, 1),
+                                      fontSize: 12,
+                                      color: rgba(254, 52, 90, 1),
                                     ),
                                   ),
-                                )
-                              : Container(), //audit_status	0:未认证 1：审核中 2：认证失败 3：认证成功
-                          tapHandle: () {
-                            Navigator.of(context).push(
-                              MaterialPageRoute(builder: (context) {
-                                return CertificationPage();
-                              }),
-                            );
-                          },
-                        ),
-                        MineCell(
-                          icon: "images/setting_gift.png",
-                          text: "礼物",
-                          tapHandle: () {
-                            Navigator.of(context).push(
-                              MaterialPageRoute(builder: (context) {
-                                return GiftPage();
-                              }),
-                            );
-                          },
-                        ),
-                        MineCell(
-                          icon: "images/shezhi@3x.png",
-                          text: "设置",
-                          tapHandle: () {
-                            Navigator.of(context).push(
-                              MaterialPageRoute(builder: (context) {
-                                return SettingPage();
-                              }),
-                            );
-                          },
-                        ),
-                        // MineCell(
-                        //   icon: "images/shezhi@3x.png",
-                        //   text: "匹配",
-                        //   showLine: false,
-                        //   tapHandle: () {
-                        //     Navigator.of(context).push(
-                        //       MaterialPageRoute(builder: (context) {
-                        //         return NearMatchingPage();
-                        //       }),
-                        //     );
-                        //   },
-                        // ),
-                      ],
-                    ),
-                    borderRadius: BorderRadius.circular(8),
-                  ),
-                  decoration: BoxDecoration(
-                    boxShadow: [
-                      BoxShadow(
-                          color: rgba(0, 0, 0, 0.06),
-                          offset: Offset(0, 5), //阴影xy轴偏移量
-                          blurRadius: 20.0, //阴影模糊程度
-                          spreadRadius: 1 //阴影扩散程度
+                                ],
+                              ),
+                              SizedBox(
+                                height: 9.5,
+                              ),
+                              CoverGridView(
+                                coverList: List.from(_account["photo"]),
+                                bottomSpace: 0,
+                                gridWidth: MediaQuery.of(context).size.width -
+                                    10.5 * 2 -
+                                    10 * 2,
+                              ),
+                            ],
                           ),
-                    ],
-                  ),
+                        ),
+                      ),
+                Column(
+                  children: [
+                    Container(
+                      margin: EdgeInsets.fromLTRB(10, 0, 10, 10),
+                      child: ClipRRect(
+                        child: MineCell(
+                          icon: "images/icon_mine_helpcenter@3x.png",
+                          text: "帮助中心",
+                          showLine: false,
+                          tapHandle: () {
+                            Navigator.of(context).push(
+                              MaterialPageRoute(
+                                builder: (context) {
+                                  return BaseWebView(
+                                    url: "${kServerURL + "/page/" + "8"}",
+                                    title: "帮助中心",
+                                  );
+                                },
+                              ),
+                            );
+                          },
+                        ),
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(8),
+                        boxShadow: [
+                          BoxShadow(
+                            color: rgba(0, 0, 0, 0.06),
+                            offset: Offset(0, 2),
+                            blurRadius: 8,
+                          ),
+                        ],
+                      ),
+                    ),
+                    Container(
+                      margin: EdgeInsets.fromLTRB(10, 0, 10, 10),
+                      child: ClipRRect(
+                        child: MineCell(
+                          icon: "images/icon_mine_feedback@3x.png",
+                          text: "意见反馈",
+                          showLine: false,
+                          tapHandle: () {
+                            Navigator.of(context).push(
+                              MaterialPageRoute(builder: (context) {
+                                return FeedBackPage();
+                              }),
+                            );
+                          },
+                        ),
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(8),
+                        boxShadow: [
+                          BoxShadow(
+                            color: rgba(0, 0, 0, 0.06),
+                            offset: Offset(0, 2),
+                            blurRadius: 8,
+                          ),
+                        ],
+                      ),
+                    ),
+                    Container(
+                      margin: EdgeInsets.fromLTRB(10, 0, 10, 0),
+                      child: ClipRRect(
+                        child: MineCell(
+                          icon: "images/icon_mine_cooperation@3x.png",
+                          text: "商务合作",
+                          showLine: false,
+                          tapHandle: () {
+                            Navigator.of(context).push(
+                              MaterialPageRoute(
+                                builder: (context) {
+                                  return BaseWebView(
+                                    url: "${kServerURL + "/page/" + "9"}",
+                                    title: "商务合作",
+                                  );
+                                },
+                              ),
+                            );
+                          },
+                        ),
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(8),
+                        boxShadow: [
+                          BoxShadow(
+                            color: rgba(0, 0, 0, 0.06),
+                            offset: Offset(0, 2),
+                            blurRadius: 8,
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
                 ),
               ],
             ),

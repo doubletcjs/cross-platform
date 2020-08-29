@@ -13,9 +13,9 @@
 							</view>
 						</view>
 						<view class="coupons-full" :style="coupon['status'] == 1 ? 'color: rgba(153, 153, 153, 1);' : ''">
-								{{coupon['full']}}
+							{{coupon['full']}}
 						</view>
-					</view> 
+					</view>
 					<view class="coupons-cell-column">
 						<view class="coupons-cell-name" style="color: rgba(27, 27, 27, 1);">
 							{{coupon['name']}}
@@ -34,16 +34,21 @@
 			</view>
 		</view>
 		<!-- 兑换 -->
-		<view class="coupons-exchange">
+		<view class="coupons-exchange" @click="exchangeAction">
 			兑换券
 		</view>
+		<!-- 兑换弹框 -->
+		<exchange :visible="exchangevisible" :cancelColor="'rgba(153, 153, 153, 1)'" :confirmColor="'rgba(235, 102, 91, 1)'"  :confirmText="'兑换'" :contentText="'兑换码'" :input="true" :closeAction="exchangeAction" :confirmAction="exchangeConfirm"></exchange>
 	</view>
 </template>
 
 <script>
+	import exchange from "../../../../components/alertview/alertview.vue"
+
 	export default {
 		data() {
 			return {
+				exchangevisible: false, 
 				coupons: [{
 						price: 50,
 						name: "苹果旗舰店使用",
@@ -72,7 +77,16 @@
 			}
 		},
 		methods: {
-
+			// 兑换弹框
+			exchangeAction() {
+				this.exchangevisible = !this.exchangevisible
+			},
+			exchangeConfirm(res) {
+				console.log(res)
+			}
+		},
+		components: {
+			exchange
 		}
 	}
 </script>

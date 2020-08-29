@@ -2,7 +2,6 @@ import 'package:common_utils/common_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:xs_progress_hud/xs_progress_hud.dart';
 import '../../public/public.dart';
-import 'views/setting_section_cell.dart';
 import 'api/setting_api.dart';
 
 class FeedBackPage extends StatefulWidget {
@@ -62,13 +61,17 @@ class _FeedBackPageState extends State<FeedBackPage> {
         },
         child: ListView(
           children: <Widget>[
-            SettingBaseSection(),
             //反馈内容
             Container(
-              color: Colors.white,
-              padding: EdgeInsets.fromLTRB(16, 0, 16, 0),
+              margin: EdgeInsets.fromLTRB(14, 10, 14, 0),
+              padding: EdgeInsets.fromLTRB(19, 0, 19, 10),
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(10),
+              ),
               child: TextField(
-                maxLines: 6,
+                maxLines: 8,
+                maxLength: 300,
                 style: TextStyle(
                   color: rgba(51, 51, 51, 1),
                   fontSize: 14,
@@ -78,26 +81,26 @@ class _FeedBackPageState extends State<FeedBackPage> {
                 decoration: InputDecoration(
                   enabledBorder: InputBorder.none,
                   focusedBorder: InputBorder.none,
-                  hintText: "请留下您宝贵的意见，我们会及时回复您",
+                  hintText: "感谢您使用尓蒙APP，请详细说明，以便我们为您解决问题。",
                   hintStyle: TextStyle(
-                    color: rgba(171, 171, 171, 1),
-                    fontSize: 14,
+                    color: rgba(153, 153, 153, 1),
+                    fontSize: 13,
+                  ),
+                  helperStyle: TextStyle(
+                    color: rgba(153, 153, 153, 1),
+                    fontSize: 13,
                   ),
                 ),
               ),
             ),
-            //分割线
-            Container(
-              color: Colors.white,
-              child: Container(
-                height: 0.5,
-                color: rgba(233, 233, 233, 1),
-              ),
-            ),
             //联系方式
             Container(
-              color: Colors.white,
+              margin: EdgeInsets.fromLTRB(14, 12, 14, 0),
               padding: EdgeInsets.fromLTRB(16, 0, 16, 0),
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(8),
+              ),
               child: TextField(
                 style: TextStyle(
                   color: rgba(51, 51, 51, 1),
@@ -117,7 +120,7 @@ class _FeedBackPageState extends State<FeedBackPage> {
               ),
             ),
             SizedBox(
-              height: 20,
+              height: 40.5,
             ),
             //提交
             Container(

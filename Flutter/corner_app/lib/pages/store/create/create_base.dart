@@ -1,7 +1,6 @@
 import 'package:corner_app/pages/store/create/create_detail.dart';
 import 'package:corner_app/public/public.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 
 class CreateBase extends StatefulWidget {
   CreateBase({Key key}) : super(key: key);

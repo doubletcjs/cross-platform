@@ -130,23 +130,10 @@ class StoreLive extends StatelessWidget {
                           padding: EdgeInsets.zero,
                           scrollDirection: Axis.horizontal,
                           itemBuilder: (context, index) {
-                            return ClipRRect(
-                              child: CachedNetworkImage(
-                                placeholder: (context, url) {
-                                  return Image.asset(
-                                    "images/placeholder@3x.png",
-                                    width: 50.5,
-                                    height: 50.5,
-                                    fit: BoxFit.cover,
-                                  );
-                                },
-                                imageUrl:
-                                    "https://avatars1.githubusercontent.com/u/17046133?v=4",
-                                width: 50.5,
-                                height: 50.5,
-                                fit: BoxFit.cover,
-                              ),
-                              borderRadius: BorderRadius.circular(4),
+                            return networkImage(
+                              "https://avatars1.githubusercontent.com/u/17046133?v=4",
+                              Size(50.5, 50.5),
+                              BorderRadius.circular(4),
                             );
                           },
                           separatorBuilder: (context, index) {
