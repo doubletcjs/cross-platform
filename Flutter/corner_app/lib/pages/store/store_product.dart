@@ -1,4 +1,3 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:corner_app/pages/store/home/views/store_tabbar.dart';
 import 'package:corner_app/pages/store/store_classify.dart';
 import 'package:corner_app/public/public.dart';

@@ -47,7 +47,7 @@ class _StorePageState extends State<StorePage>
       ],
     );
 
-    Future.delayed(Duration(milliseconds: 200), () {
+    Future.delayed(Duration(milliseconds: 400), () {
       setState(() {
         _headerHeight = _globalKey.currentContext.size.height;
         _expandedHeight = _headerHeight + 44 + _stickyBottomBarHeight;
