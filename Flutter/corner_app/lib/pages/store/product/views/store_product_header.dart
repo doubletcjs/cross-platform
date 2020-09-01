@@ -1,31 +1,7 @@
+import 'package:corner_app/pages/store/classify/store_classify.dart';
 import 'package:corner_app/pages/store/home/views/store_tabbar.dart';
-import 'package:corner_app/pages/store/store_classify.dart';
 import 'package:corner_app/public/public.dart';
 import 'package:flutter/material.dart';
-
-// ignore: must_be_immutable
-class StoreProductPage extends StatefulWidget {
-  int tab = 0;
-  StoreProductPage({
-    Key key,
-    this.tab = 0,
-  }) : super(key: key);
-
-  @override
-  _StoreProductPageState createState() => _StoreProductPageState();
-}
-
-class _StoreProductPageState extends State<StoreProductPage>
-    with AutomaticKeepAliveClientMixin {
-  @override
-  bool get wantKeepAlive => true;
-
-  @override
-  Widget build(BuildContext context) {
-    super.build(context);
-    return Container();
-  }
-}
 
 // ignore: must_be_immutable
 class StoreProductHeader extends StatefulWidget {

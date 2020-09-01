@@ -1,12 +1,13 @@
 import 'package:corner_app/pages/function/scale_tabbar.dart';
-import 'package:corner_app/pages/store/store_detail.dart';
-import 'package:corner_app/pages/store/store_discuss.dart';
-import 'package:corner_app/pages/store/store_dynamic.dart';
-import 'package:corner_app/pages/store/store_product.dart';
+import 'package:corner_app/pages/store/detail/store_detail.dart';
+import 'package:corner_app/pages/store/discuss/store_discuss.dart';
+import 'package:corner_app/pages/store/dynamic/store_dynamic.dart';
+import 'package:corner_app/pages/store/product/store_product.dart';
 import 'package:corner_app/pages/store/home/views/store_banner.dart';
 import 'package:corner_app/pages/store/home/views/store_header.dart';
 import 'package:corner_app/pages/store/home/views/store_live.dart';
 import 'package:corner_app/pages/store/home/views/store_tabbar.dart';
+import 'package:corner_app/pages/store/product/views/store_product_header.dart';
 import 'package:corner_app/public/public.dart';
 import 'package:flutter/material.dart';
 
