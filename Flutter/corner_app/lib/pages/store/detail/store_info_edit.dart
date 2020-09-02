@@ -1,3 +1,4 @@
+import 'package:corner_app/pages/store/detail/store_info_input.dart';
 import 'package:corner_app/pages/store/detail/views/store_detail_cell.dart';
 import 'package:corner_app/public/public.dart';
 import 'package:flutter/material.dart';
@@ -21,6 +22,33 @@ class _StoreInfoEditState extends State<StoreInfoEdit> {
     "摄影",
   ];
   int _classifyIndex = -1;
+
+  // 角落名称
+  void _inputName() {
+    Navigator.of(context).push(
+      MaterialPageRoute(builder: (context) {
+        return StoreInfoInput(
+          inputHandle: () {
+            showToast("修改成功", context);
+          },
+        );
+      }),
+    );
+  }
+
+  // 角落简介
+  void _inputIntroduction() {
+    Navigator.of(context).push(
+      MaterialPageRoute(builder: (context) {
+        return StoreInfoInput(
+          inputType: 1,
+          inputHandle: () {
+            showToast("修改成功", context);
+          },
+        );
+      }),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -111,6 +139,9 @@ class _StoreInfoEditState extends State<StoreInfoEdit> {
                       ),
                     ),
                   ),
+                  onTap: () {
+                    this._inputName();
+                  },
                 ),
                 StordeDetailCell(
                   text: "角落简介",
@@ -127,6 +158,9 @@ class _StoreInfoEditState extends State<StoreInfoEdit> {
                       ),
                     ),
                   ),
+                  onTap: () {
+                    this._inputIntroduction();
+                  },
                 ),
               ],
             ),

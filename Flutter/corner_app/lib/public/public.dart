@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:toast/toast.dart';
 
 //无值返回block回调
 typedef kVoidFunctionBlock = void Function();
@@ -22,6 +23,17 @@ bool kDebug() {
 ///rgb颜色
 Color rgba(int r, int g, int b, double opacity) {
   return Color.fromRGBO(r, g, b, opacity);
+}
+
+///toast
+void showToast(String message, BuildContext context,
+    {int gravity = 1, int duration = 2}) {
+  Future.delayed(
+    Duration(milliseconds: 300),
+    () {
+      Toast.show(message, context, gravity: gravity, duration: duration);
+    },
+  );
 }
 
 ///自定义AppBar

@@ -1,3 +1,5 @@
+import 'package:corner_app/pages/store/detail/store_apply.dart';
+import 'package:corner_app/pages/store/detail/store_detail_member.dart';
 import 'package:corner_app/pages/store/detail/store_info_edit.dart';
 import 'package:corner_app/pages/store/detail/views/store_detail_blogger.dart';
 import 'package:corner_app/pages/store/detail/views/store_detail_cell.dart';
@@ -25,6 +27,24 @@ class _StoreDetailPageState extends State<StoreDetailPage> {
     Navigator.of(context).push(
       MaterialPageRoute(builder: (context) {
         return StoreInfoEdit();
+      }),
+    );
+  }
+
+  // 成员
+  void _members() {
+    Navigator.of(context).push(
+      MaterialPageRoute(builder: (context) {
+        return StoreDetailMember();
+      }),
+    );
+  }
+
+  // 申请
+  void _applies() {
+    Navigator.of(context).push(
+      MaterialPageRoute(builder: (context) {
+        return StoreDetailApply();
       }),
     );
   }
@@ -107,6 +127,9 @@ class _StoreDetailPageState extends State<StoreDetailPage> {
                       ),
                     ],
                   ),
+                  onTap: () {
+                    this._members();
+                  },
                 ),
                 StordeDetailCell(
                   text: "新的申请",
@@ -132,6 +155,9 @@ class _StoreDetailPageState extends State<StoreDetailPage> {
                       ),
                     ),
                   ),
+                  onTap: () {
+                    this._applies();
+                  },
                 ),
               ],
             ),
