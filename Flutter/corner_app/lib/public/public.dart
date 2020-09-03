@@ -66,7 +66,11 @@ AppBar customAppBar({
       title: title != null
           ? Text(
               title,
-              style: TextStyle(fontSize: fontSize, color: color),
+              style: TextStyle(
+                fontSize: fontSize,
+                color: color,
+                fontWeight: FontWeight.normal,
+              ),
             )
           : titleView != null ? titleView : Container(),
       actions: rightItems,
@@ -95,7 +99,11 @@ AppBar customAppBar({
             child: title != null
                 ? Text(
                     title,
-                    style: TextStyle(fontSize: fontSize, color: color),
+                    style: TextStyle(
+                      fontSize: fontSize,
+                      color: color,
+                      fontWeight: FontWeight.normal,
+                    ),
                   )
                 : titleView != null ? titleView : Container(),
           ),
