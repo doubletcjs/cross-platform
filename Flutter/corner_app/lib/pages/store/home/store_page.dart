@@ -109,7 +109,10 @@ class _StorePageState extends State<StorePage>
             brightness: Brightness.light,
           ),
           _expandedHeight == 0
-              ? _header
+              ? ListView(
+                  padding: EdgeInsets.zero,
+                  children: [_header],
+                )
               : NestedScrollView(
                   controller: _scrollViewController,
                   headerSliverBuilder:

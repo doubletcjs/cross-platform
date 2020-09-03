@@ -1,5 +1,6 @@
+import 'package:corner_app/pages/function/general_share.dart';
 import 'package:corner_app/pages/store/detail/store_apply.dart';
-import 'package:corner_app/pages/store/detail/store_detail_member.dart';
+import 'package:corner_app/pages/store/detail/store_member.dart';
 import 'package:corner_app/pages/store/detail/store_info_edit.dart';
 import 'package:corner_app/pages/store/detail/views/store_detail_blogger.dart';
 import 'package:corner_app/pages/store/detail/views/store_detail_cell.dart';
@@ -49,6 +50,15 @@ class _StoreDetailPageState extends State<StoreDetailPage> {
     );
   }
 
+  // 分享
+  void shareAction() {
+    GeneralShare(
+      shareHandle: (item) {
+        kLog("$item");
+      },
+    ).show(context);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -66,7 +76,9 @@ class _StoreDetailPageState extends State<StoreDetailPage> {
                   width: 20,
                   height: 20,
                 ),
-                onPressed: () {},
+                onPressed: () {
+                  this.shareAction();
+                },
               ),
             ),
           ),
