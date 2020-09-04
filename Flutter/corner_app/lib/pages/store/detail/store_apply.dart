@@ -116,15 +116,11 @@ class _StoreDetailApplyState extends State<StoreDetailApply> {
                   ),
                 ),
               ),
-              Container(
-                padding: EdgeInsets.only(
-                  top: 10,
-                  bottom: 10,
-                ),
-                child: Column(
-                  children: _accountList.map((account) {
-                    var row = _accountList.indexOf(account);
-                    return Container(
+              Column(
+                children: _accountList.map((account) {
+                  return InkWell(
+                    onTap: () {},
+                    child: Container(
                       padding: EdgeInsets.fromLTRB(16, 14, 16, 14),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -148,14 +144,58 @@ class _StoreDetailApplyState extends State<StoreDetailApply> {
                               ],
                             ),
                           ),
-                          Row(
-                            children: [],
-                          ),
+                          account["status"] == 0
+                              ? Row(
+                                  children: [
+                                    InkWell(
+                                      onTap: () {},
+                                      child: Text(
+                                        "忽略",
+                                        style: TextStyle(
+                                          fontSize: 14,
+                                          color: rgba(153, 153, 153, 1),
+                                        ),
+                                      ),
+                                    ),
+                                    SizedBox(
+                                      width: 21,
+                                    ),
+                                    Container(
+                                      width: 60,
+                                      height: 28,
+                                      decoration: BoxDecoration(
+                                        color: rgba(235, 102, 91, 1),
+                                        borderRadius: BorderRadius.circular(4),
+                                      ),
+                                      child: FlatButton(
+                                        onPressed: () {},
+                                        shape: RoundedRectangleBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(4),
+                                        ),
+                                        child: Text(
+                                          "同意",
+                                          style: TextStyle(
+                                            fontSize: 14,
+                                            color: rgba(241, 241, 241, 1),
+                                          ),
+                                        ),
+                                      ),
+                                    )
+                                  ],
+                                )
+                              : Text(
+                                  account["status"] == 1 ? "已忽略" : "已同意",
+                                  style: TextStyle(
+                                    fontSize: 14,
+                                    color: rgba(153, 153, 153, 1),
+                                  ),
+                                ),
                         ],
                       ),
-                    );
-                  }).toList(),
-                ),
+                    ),
+                  );
+                }).toList(),
               ),
             ],
           );

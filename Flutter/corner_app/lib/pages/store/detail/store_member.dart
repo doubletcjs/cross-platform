@@ -313,93 +313,123 @@ class _StoreDetailMemberState extends State<StoreDetailMember> {
                     Column(
                       children: _list.map((data) {
                         var row = _list.indexOf(data);
-                        return GestureDetector(
-                          onTapDown: (details) {
-                            if (_edittingList == false && data["member"] != 2) {
-                              showMenu(
-                                context: context,
-                                position: RelativeRect.fromLTRB(
-                                  details.globalPosition.dx,
-                                  details.globalPosition.dy,
-                                  MediaQuery.of(context).size.width -
-                                      details.globalPosition.dx,
-                                  MediaQuery.of(context).size.height -
-                                      details.globalPosition.dy,
-                                ),
-                                items: this._menuItems(
-                                  _sectionDataList[section]["section"],
-                                  section,
-                                  row,
-                                ),
-                              );
-                            }
-                          },
-                          child: Container(
-                            color: rgba(255, 255, 255, 1),
-                            padding: EdgeInsets.only(
-                                left: 16, right: 16, top: 14, bottom: 14),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Expanded(
-                                  child: Row(
-                                    children: [
-                                      networkImage(
-                                        data["cover"],
-                                        Size(40, 40),
-                                        BorderRadius.circular(40 / 2),
-                                      ),
-                                      SizedBox(
-                                        width: 18.5,
-                                      ),
-                                      Expanded(
-                                        child: Text(
-                                          data["name"],
-                                          overflow: TextOverflow.ellipsis,
-                                          style: TextStyle(
-                                            fontSize: 16,
-                                            color: rgba(50, 50, 50, 1),
+                        return Material(
+                          color: rgba(255, 255, 255, 1),
+                          child: InkWell(
+                            onTap: () {},
+                            onTapDown: (details) {
+                              if (_edittingList == false &&
+                                  data["member"] != 2) {
+                                showMenu(
+                                  context: context,
+                                  position: RelativeRect.fromLTRB(
+                                    details.globalPosition.dx,
+                                    details.globalPosition.dy,
+                                    MediaQuery.of(context).size.width -
+                                        details.globalPosition.dx,
+                                    MediaQuery.of(context).size.height -
+                                        details.globalPosition.dy,
+                                  ),
+                                  items: this._menuItems(
+                                    _sectionDataList[section]["section"],
+                                    section,
+                                    row,
+                                  ),
+                                );
+                              }
+                            },
+                            child: Container(
+                              padding: EdgeInsets.only(
+                                  left: 16, right: 16, top: 14, bottom: 14),
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Expanded(
+                                    child: Row(
+                                      children: [
+                                        networkImage(
+                                          data["cover"],
+                                          Size(40, 40),
+                                          BorderRadius.circular(40 / 2),
+                                        ),
+                                        SizedBox(
+                                          width: 18.5,
+                                        ),
+                                        Expanded(
+                                          child: Text(
+                                            data["name"],
+                                            overflow: TextOverflow.ellipsis,
+                                            style: TextStyle(
+                                              fontSize: 16,
+                                              color: rgba(50, 50, 50, 1),
+                                            ),
                                           ),
                                         ),
-                                      ),
-                                    ],
+                                      ],
+                                    ),
                                   ),
-                                ),
-                                data["member"] > 0
-                                    ? Row(
-                                        children: [
-                                          Container(
-                                            width: 50.5,
-                                            height: 20,
-                                            decoration: BoxDecoration(
-                                              color: data["member"] == 2
-                                                  ? rgba(235, 102, 91, 1)
-                                                  : rgba(255, 255, 255, 1),
-                                              borderRadius:
-                                                  BorderRadius.circular(20 / 2),
-                                            ),
-                                            alignment: Alignment.center,
-                                            child: Text(
-                                              data["member"] == 2
-                                                  ? "落主"
-                                                  : "管理员",
-                                              overflow: TextOverflow.ellipsis,
-                                              style: TextStyle(
-                                                fontSize: 14,
+                                  data["member"] > 0
+                                      ? Row(
+                                          children: [
+                                            Container(
+                                              width: 50.5,
+                                              height: 20,
+                                              decoration: BoxDecoration(
                                                 color: data["member"] == 2
-                                                    ? rgba(255, 255, 255, 1)
-                                                    : rgba(153, 153, 153, 1),
+                                                    ? rgba(235, 102, 91, 1)
+                                                    : rgba(255, 255, 255, 1),
+                                                borderRadius:
+                                                    BorderRadius.circular(
+                                                        20 / 2),
+                                              ),
+                                              alignment: Alignment.center,
+                                              child: Text(
+                                                data["member"] == 2
+                                                    ? "落主"
+                                                    : "管理员",
+                                                overflow: TextOverflow.ellipsis,
+                                                style: TextStyle(
+                                                  fontSize: 14,
+                                                  color: data["member"] == 2
+                                                      ? rgba(255, 255, 255, 1)
+                                                      : rgba(153, 153, 153, 1),
+                                                ),
                                               ),
                                             ),
-                                          ),
-                                          SizedBox(
-                                            width: (_edittingList == true &&
+                                            SizedBox(
+                                              width: (_edittingList == true &&
+                                                      data["member"] != 2)
+                                                  ? 38.5
+                                                  : 0,
+                                            ),
+                                            (_edittingList == true &&
                                                     data["member"] != 2)
-                                                ? 38.5
-                                                : 0,
-                                          ),
-                                          (_edittingList == true &&
-                                                  data["member"] != 2)
+                                                ? Material(
+                                                    child: InkWell(
+                                                      onTap: () {
+                                                        this._memberSelection(
+                                                          section,
+                                                          row,
+                                                        );
+                                                      },
+                                                      child: Image.asset(
+                                                        data["select"] == true
+                                                            ? "images/detail_member_chose_sel@3x.png"
+                                                            : "images/detail_member_chose@3x.png",
+                                                        width: 20,
+                                                        height: 20,
+                                                      ),
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              20 / 2),
+                                                    ),
+                                                  )
+                                                : Container()
+                                          ],
+                                        )
+                                      : Container(
+                                          child: _edittingList == true
                                               ? Material(
                                                   child: InkWell(
                                                     onTap: () {
@@ -420,34 +450,10 @@ class _StoreDetailMemberState extends State<StoreDetailMember> {
                                                             20 / 2),
                                                   ),
                                                 )
-                                              : Container()
-                                        ],
-                                      )
-                                    : Container(
-                                        child: _edittingList == true
-                                            ? Material(
-                                                child: InkWell(
-                                                  onTap: () {
-                                                    this._memberSelection(
-                                                      section,
-                                                      row,
-                                                    );
-                                                  },
-                                                  child: Image.asset(
-                                                    data["select"] == true
-                                                        ? "images/detail_member_chose_sel@3x.png"
-                                                        : "images/detail_member_chose@3x.png",
-                                                    width: 20,
-                                                    height: 20,
-                                                  ),
-                                                  borderRadius:
-                                                      BorderRadius.circular(
-                                                          20 / 2),
-                                                ),
-                                              )
-                                            : Container(),
-                                      ),
-                              ],
+                                              : Container(),
+                                        ),
+                                ],
+                              ),
                             ),
                           ),
                         );
