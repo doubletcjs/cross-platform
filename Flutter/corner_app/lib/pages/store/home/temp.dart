@@ -1,8 +1,8 @@
 import 'package:corner_app/pages/function/scale_tabbar.dart';
 import 'package:corner_app/pages/store/detail/store_detail.dart';
-import 'package:corner_app/pages/store/discuss/store_discuss.dart';
-import 'package:corner_app/pages/store/dynamic/store_dynamic.dart';
-import 'package:corner_app/pages/store/product/store_product.dart';
+import 'package:corner_app/pages/store/discuss/store_discuss_page.dart';
+import 'package:corner_app/pages/store/dynamic/store_dynamic_page.dart';
+import 'package:corner_app/pages/store/product/store_product_page.dart';
 import 'package:corner_app/pages/store/home/views/store_banner.dart';
 import 'package:corner_app/pages/store/home/views/store_header.dart';
 import 'package:corner_app/pages/store/home/views/store_live.dart';
