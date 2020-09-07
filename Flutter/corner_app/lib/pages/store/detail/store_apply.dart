@@ -1,14 +1,15 @@
+import 'package:corner_app/pages/store/detail/store_apply_detail.dart';
 import 'package:corner_app/public/public.dart';
 import 'package:flutter/material.dart';
 
-class StoreDetailApply extends StatefulWidget {
-  StoreDetailApply({Key key}) : super(key: key);
+class StoreApply extends StatefulWidget {
+  StoreApply({Key key}) : super(key: key);
 
   @override
-  _StoreDetailApplyState createState() => _StoreDetailApplyState();
+  _StoreApplyState createState() => _StoreApplyState();
 }
 
-class _StoreDetailApplyState extends State<StoreDetailApply> {
+class _StoreApplyState extends State<StoreApply> {
   List _dataList = [
     {
       "date": "2020.07.11",
@@ -85,6 +86,17 @@ class _StoreDetailApplyState extends State<StoreDetailApply> {
     }
   ];
 
+  // 申请详情
+  void _applyDetail(account, row) {
+    Navigator.of(context).push(
+      MaterialPageRoute(builder: (context) {
+        return StoreApplyDetail(
+          account: account,
+        );
+      }),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -118,8 +130,11 @@ class _StoreDetailApplyState extends State<StoreDetailApply> {
               ),
               Column(
                 children: _accountList.map((account) {
+                  var row = _accountList.indexOf(account);
                   return InkWell(
-                    onTap: () {},
+                    onTap: () {
+                      this._applyDetail(account, row);
+                    },
                     child: Container(
                       padding: EdgeInsets.fromLTRB(16, 14, 16, 14),
                       child: Row(
@@ -138,7 +153,29 @@ class _StoreDetailApplyState extends State<StoreDetailApply> {
                                 ),
                                 Expanded(
                                   child: Column(
-                                    children: [],
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        account["name"],
+                                        overflow: TextOverflow.ellipsis,
+                                        style: TextStyle(
+                                          fontSize: 16,
+                                          color: rgba(50, 50, 50, 1),
+                                          fontWeight: FontWeight.w500,
+                                        ),
+                                      ),
+                                      SizedBox(
+                                        height: 2,
+                                      ),
+                                      Text(
+                                        account["content"],
+                                        style: TextStyle(
+                                          fontSize: 12,
+                                          color: rgba(153, 153, 153, 1),
+                                        ),
+                                      ),
+                                    ],
                                   ),
                                 ),
                               ],

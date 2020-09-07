@@ -1,4 +1,5 @@
 import 'package:corner_app/pages/store/home/store_page.dart';
+import 'package:corner_app/pages/store/home/store_tourist_page.dart';
 import 'package:corner_app/public/public.dart';
 import 'package:flutter/material.dart';
 
@@ -12,6 +13,12 @@ class HomeCell extends StatelessWidget {
         return StorePage();
       }),
     );
+
+    // Navigator.of(context).push(
+    //   MaterialPageRoute(builder: (context) {
+    //     return StoreTouristPage();
+    //   }),
+    // );
   }
 
   @override

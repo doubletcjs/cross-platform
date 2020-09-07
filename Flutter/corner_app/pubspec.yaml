@@ -31,6 +31,7 @@ dependencies:
   cached_network_image: any  
   flutter_swiper: any
   toast: any
+  sticky_headers: any
 
 dev_dependencies:
   flutter_test:

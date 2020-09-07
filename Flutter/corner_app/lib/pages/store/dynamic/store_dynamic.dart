@@ -20,6 +20,6 @@ class _StoreDynamicPageState extends State<StoreDynamicPage>
   @override
   Widget build(BuildContext context) {
     super.build(context);
-    return ListView();
+    return Container();
   }
 }

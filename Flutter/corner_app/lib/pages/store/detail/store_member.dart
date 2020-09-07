@@ -316,7 +316,7 @@ class _StoreDetailMemberState extends State<StoreDetailMember> {
                         return Material(
                           color: rgba(255, 255, 255, 1),
                           child: InkWell(
-                            onTap: () {},
+                            onTap: data["member"] == 2 ? null : () {},
                             onTapDown: (details) {
                               if (_edittingList == false &&
                                   data["member"] != 2) {

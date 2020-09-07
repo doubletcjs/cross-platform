@@ -1,3 +1,4 @@
+import 'package:corner_app/pages/function/general_complaint.dart';
 import 'package:corner_app/pages/function/general_share.dart';
 import 'package:corner_app/pages/store/detail/store_apply.dart';
 import 'package:corner_app/pages/store/detail/store_member.dart';
@@ -45,16 +46,19 @@ class _StoreDetailPageState extends State<StoreDetailPage> {
   void _applies() {
     Navigator.of(context).push(
       MaterialPageRoute(builder: (context) {
-        return StoreDetailApply();
+        return StoreApply();
       }),
     );
   }
 
   // 分享
-  void shareAction() {
+  void _shareAction() {
     GeneralShare(
       shareHandle: (item) {
         kLog("$item");
+        if (item == "report") {
+          GeneralComplaint().show(context);
+        }
       },
     ).show(context);
   }
@@ -77,7 +81,7 @@ class _StoreDetailPageState extends State<StoreDetailPage> {
                   height: 20,
                 ),
                 onPressed: () {
-                  this.shareAction();
+                  this._shareAction();
                 },
               ),
             ),

@@ -1,42 +1,21 @@
 import 'package:corner_app/public/public.dart';
 import 'package:flutter/material.dart';
 
-class CreateComplete extends StatelessWidget {
-  const CreateComplete({Key key}) : super(key: key);
+class StoreJoinComplete extends StatefulWidget {
+  StoreJoinComplete({Key key}) : super(key: key);
 
+  @override
+  _StoreJoinCompleteState createState() => _StoreJoinCompleteState();
+}
+
+class _StoreJoinCompleteState extends State<StoreJoinComplete> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: rgba(255, 255, 255, 1),
       appBar: customAppBar(
-        leftItems: [
-          Container(
-            child: InkWell(
-              onTap: () {
-                Navigator.of(context).pop();
-              },
-              child: Row(
-                children: [
-                  Image.asset(
-                    "images/base_back@3x.png",
-                    width: 11,
-                    height: 20,
-                  ),
-                  SizedBox(
-                    width: 8,
-                  ),
-                  Text(
-                    "返回",
-                    style: TextStyle(
-                      fontSize: 18,
-                      color: rgba(51, 51, 51, 1),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ),
-        ],
+        title: "申请成功",
+        defaultBack: true,
       ),
       body: Center(
         child: Column(
@@ -61,7 +40,7 @@ class CreateComplete extends StatelessWidget {
                 maxWidth: 226,
               ),
               child: Text(
-                "创建成功！等待审核，届时会有专人联系，请留意接听电话!",
+                "申请成功！等待审核通过",
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   fontSize: 16,
@@ -70,7 +49,7 @@ class CreateComplete extends StatelessWidget {
               ),
             ),
             SizedBox(
-              height: 16,
+              height: 36,
             ),
             Container(
               decoration: BoxDecoration(

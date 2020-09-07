@@ -1,4 +1,5 @@
 import 'package:corner_app/pages/function/scale_tabbar.dart';
+import 'package:corner_app/pages/store/detail/store_detail.dart';
 import 'package:corner_app/pages/store/discuss/store_discuss.dart';
 import 'package:corner_app/pages/store/dynamic/store_dynamic.dart';
 import 'package:corner_app/pages/store/product/store_product.dart';
@@ -47,7 +48,7 @@ class _StorePageState extends State<StorePage>
       ],
     );
 
-    Future.delayed(Duration(milliseconds: 200), () {
+    Future.delayed(Duration(milliseconds: 400), () {
       setState(() {
         _headerHeight = _globalKey.currentContext.size.height;
         _expandedHeight = _headerHeight + 44 + _stickyBottomBarHeight;
@@ -55,6 +56,15 @@ class _StorePageState extends State<StorePage>
             AppBar().preferredSize.height + MediaQuery.of(context).padding.top;
       });
     });
+  }
+
+  // 详情
+  void _showDetail() {
+    Navigator.of(context).push(
+      MaterialPageRoute(builder: (context) {
+        return StoreDetailPage();
+      }),
+    );
   }
 
   @override
@@ -99,7 +109,10 @@ class _StorePageState extends State<StorePage>
             brightness: Brightness.light,
           ),
           _expandedHeight == 0
-              ? _header
+              ? ListView(
+                  padding: EdgeInsets.zero,
+                  children: [_header],
+                )
               : NestedScrollView(
                   controller: _scrollViewController,
                   headerSliverBuilder:
@@ -337,7 +350,9 @@ class _StorePageState extends State<StorePage>
                                 width: 28,
                                 height: 28,
                               ),
-                              onPressed: () {},
+                              onPressed: () {
+                                this._showDetail();
+                              },
                             ),
                           ),
                           SizedBox(
