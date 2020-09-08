@@ -29,12 +29,12 @@ class _StorePageState extends State<StorePage>
   double _stickyBottomBarHeight = 44.0;
   int _tabIndex = 0;
 
-  StoreDynamicPage _dynamicPage = StoreDynamicPage();
-  StoreProductPage _productPage = StoreProductPage();
-  StoreDiscussPage _discussPage = StoreDiscussPage();
+  StoreDynamicPage _dynamicPage;
+  StoreProductPage _productPage;
+  StoreDiscussPage _discussPage;
 
   TabController _tabController;
-  ScrollController _scrollViewController;
+  ScrollController _scrollController;
   double _stickyHeaderOpacity = 0;
 
   // 详情
@@ -51,7 +51,13 @@ class _StorePageState extends State<StorePage>
     super.initState();
 
     _tabController = TabController(vsync: this, length: 3);
-    _scrollViewController = ScrollController(initialScrollOffset: 0.0);
+    _scrollController = ScrollController(initialScrollOffset: 0.0);
+
+    _dynamicPage = StoreDynamicPage(
+      scrollController: _scrollController,
+    );
+    _productPage = StoreProductPage();
+    _discussPage = StoreDiscussPage();
 
     Future.delayed(Duration(milliseconds: 200), () {
       setState(() {
@@ -61,10 +67,10 @@ class _StorePageState extends State<StorePage>
       });
     });
 
-    _scrollViewController.addListener(() {
+    _scrollController.addListener(() {
       double _opacityHeight =
           (_headerHeight - _stickyBarHeight) - AppBar().preferredSize.height;
-      double _offSet = _scrollViewController.offset - _opacityHeight;
+      double _offSet = _scrollController.offset - _opacityHeight;
       double _opacity = _offSet / AppBar().preferredSize.height;
       if (_opacity > 1) {
         _opacity = 1;
@@ -107,20 +113,21 @@ class _StorePageState extends State<StorePage>
   @override
   void dispose() {
     super.dispose();
-    _scrollViewController.dispose();
+    _scrollController.dispose();
     _tabController.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: rgba(247, 246, 245, 1),
       body: Stack(
         children: [
           transparentAppBar(
             brightness: Brightness.dark,
           ),
           ListView(
-            controller: _scrollViewController,
+            controller: _scrollController,
             padding: EdgeInsets.only(
               top: 0,
               bottom: MediaQuery.of(context).padding.bottom,

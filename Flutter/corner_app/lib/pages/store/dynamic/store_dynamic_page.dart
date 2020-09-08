@@ -5,10 +5,12 @@ import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 // ignore: must_be_immutable
 class StoreDynamicPage extends StatefulWidget {
+  ScrollController scrollController;
   int tab = 0;
   StoreDynamicPage({
     Key key,
     this.tab = 0,
+    this.scrollController,
   }) : super(key: key);
 
   @override
@@ -49,6 +51,7 @@ class _StoreDynamicPageState extends State<StoreDynamicPage>
 
   GlobalKey _globalKey = GlobalKey();
   double _tableHeight = 0;
+  bool _canLoadMore = false;
   RefreshController _refreshController =
       RefreshController(initialRefresh: false);
 
@@ -77,12 +80,26 @@ class _StoreDynamicPageState extends State<StoreDynamicPage>
         _tableHeight = _globalKey.currentContext.size.height;
       });
     });
+
+    this.widget.scrollController.addListener(() {
+      kLog("aaaa:${this.widget.scrollController.offset - _tableHeight}");
+      if (this.widget.scrollController.offset - _tableHeight > 0) {
+        setState(() {
+          _canLoadMore = true;
+        });
+      } else {
+        setState(() {
+          _canLoadMore = false;
+        });
+      }
+    });
   }
 
   @override
   void dispose() {
     super.dispose();
     _refreshController.dispose();
+    this.widget.scrollController.removeListener(() {});
   }
 
   @override
@@ -107,8 +124,12 @@ class _StoreDynamicPageState extends State<StoreDynamicPage>
             child: functionRefresher(
               _refreshController,
               ListView.builder(
+                shrinkWrap: true,
+                controller: this.widget.scrollController,
                 padding: EdgeInsets.zero,
-                physics: NeverScrollableScrollPhysics(),
+                physics: _canLoadMore == true
+                    ? AlwaysScrollableScrollPhysics()
+                    : NeverScrollableScrollPhysics(),
                 itemBuilder: (context, index) {
                   return StoreDynamicCell(
                     row: index,

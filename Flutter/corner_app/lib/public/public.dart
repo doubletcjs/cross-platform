@@ -233,6 +233,7 @@ Widget functionRefresher(
   bool enableRefresh = true,
   bool enableLoadMore = false,
   List<Widget> slivers,
+  void Function(bool up, double offset) onOffsetChange,
 }) {
   return slivers == null
       ? SmartRefresher(
@@ -243,6 +244,7 @@ Widget functionRefresher(
           footer: functionFooter(enable: enableLoadMore),
           onRefresh: onRefresh,
           onLoading: onLoadMore,
+          onOffsetChange: onOffsetChange,
           child: child,
         )
       : SmartRefresher.builder(
@@ -251,6 +253,7 @@ Widget functionRefresher(
           enablePullUp: enableLoadMore,
           onRefresh: onRefresh,
           onLoading: onLoadMore,
+          onOffsetChange: onOffsetChange,
           builder: (context, physics) {
             return CustomScrollView(
               physics: physics,
