@@ -1,4 +1,6 @@
 import 'package:corner_app/pages/function/scale_tabbar.dart';
+import 'package:corner_app/pages/function/sticky/sticky_navigator_bar.dart';
+import 'package:corner_app/pages/function/sticky/sticky_scrollview.dart';
 import 'package:corner_app/pages/store/detail/store_detail.dart';
 import 'package:corner_app/pages/store/discuss/store_discuss_page.dart';
 import 'package:corner_app/pages/store/dynamic/store_dynamic_page.dart';
@@ -10,7 +12,6 @@ import 'package:corner_app/pages/store/product/store_product_page.dart';
 import 'package:corner_app/pages/store/product/views/store_product_header.dart';
 import 'package:corner_app/public/public.dart';
 import 'package:flutter/material.dart';
-import 'package:sticky_headers/sticky_headers.dart';
 
 class StorePage extends StatefulWidget {
   StorePage({Key key}) : super(key: key);
@@ -21,23 +22,22 @@ class StorePage extends StatefulWidget {
 
 class _StorePageState extends State<StorePage>
     with SingleTickerProviderStateMixin {
-  GlobalKey _globalKey = GlobalKey();
-  double _stickyBarHeight = 0;
-  double _stickyOpacity = 0;
+  GlobalKey _headerGlobalKey = GlobalKey();
+  GlobalKey _liveGlobalKey = GlobalKey();
+  GlobalKey _bannerGlobalKey = GlobalKey();
+
   double _headerHeight = 0;
-
-  double _stickyBottomBarHeight = 44.0;
-  int _tabIndex = 0;
-
-  StoreDynamicPage _dynamicPage;
-  StoreProductPage _productPage;
-  StoreDiscussPage _discussPage;
+  double _stickyOpacity = 0;
+  double _stickyBarHeight = 88;
+  Widget _header;
 
   TabController _tabController;
-  ScrollController _scrollController;
-  double _stickyHeaderOpacity = 0;
+  int _tabIndex = 0;
+  StoreDynamicPage _dynamicPage = StoreDynamicPage();
+  StoreProductPage _productPage = StoreProductPage();
+  StoreDiscussPage _discussPage = StoreDiscussPage();
 
-  // 详情
+  // 商铺详情
   void _showDetail() {
     Navigator.of(context).push(
       MaterialPageRoute(builder: (context) {
@@ -51,325 +51,357 @@ class _StorePageState extends State<StorePage>
     super.initState();
 
     _tabController = TabController(vsync: this, length: 3);
-    _scrollController = ScrollController(initialScrollOffset: 0.0);
 
-    _dynamicPage = StoreDynamicPage(
-      scrollController: _scrollController,
+    _header = ListView(
+      padding: EdgeInsets.zero,
+      physics: NeverScrollableScrollPhysics(),
+      children: [
+        StoreHeader(
+          globalKey: _headerGlobalKey,
+        ),
+        StoreLive(
+          globalKey: _liveGlobalKey,
+        ),
+        StoreBanner(
+          globalKey: _bannerGlobalKey,
+        ),
+      ],
     );
-    _productPage = StoreProductPage();
-    _discussPage = StoreDiscussPage();
 
     Future.delayed(Duration(milliseconds: 200), () {
       setState(() {
-        _stickyBarHeight =
-            AppBar().preferredSize.height + MediaQuery.of(context).padding.top;
-        _headerHeight = _globalKey.currentContext.size.height;
+        _headerHeight = _headerGlobalKey.currentContext.size.height;
+        _headerHeight += _liveGlobalKey.currentContext.size.height;
+        _headerHeight += _bannerGlobalKey.currentContext.size.height;
+        _headerHeight = _headerHeight - MediaQuery.of(context).padding.top;
       });
-    });
-
-    _scrollController.addListener(() {
-      double _opacityHeight =
-          (_headerHeight - _stickyBarHeight) - AppBar().preferredSize.height;
-      double _offSet = _scrollController.offset - _opacityHeight;
-      double _opacity = _offSet / AppBar().preferredSize.height;
-      if (_opacity > 1) {
-        _opacity = 1;
-      }
-
-      if (_opacity < 0) {
-        _opacity = 0;
-      }
-
-      if (_stickyOpacity != _opacity) {
-        setState(() {
-          _stickyOpacity = _opacity;
-        });
-      }
-
-      if (_opacity == 1) {
-        double _headerOpacity =
-            (_offSet - AppBar().preferredSize.height) / _stickyBarHeight;
-        if (_headerOpacity > 1) {
-          _headerOpacity = 1;
-        }
-
-        if (_headerOpacity < 0) {
-          _headerOpacity = 0;
-        }
-
-        if (_stickyHeaderOpacity != _headerOpacity) {
-          setState(() {
-            _stickyHeaderOpacity = _headerOpacity;
-          });
-        }
-      } else {
-        setState(() {
-          _stickyHeaderOpacity = 0;
-        });
-      }
     });
   }
 
   @override
   void dispose() {
     super.dispose();
-    _scrollController.dispose();
     _tabController.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: rgba(247, 246, 245, 1),
       body: Stack(
         children: [
-          transparentAppBar(
-            brightness: Brightness.dark,
-          ),
-          ListView(
-            controller: _scrollController,
-            padding: EdgeInsets.only(
-              top: 0,
-              bottom: MediaQuery.of(context).padding.bottom,
-            ),
-            children: [
-              Column(
-                key: _globalKey,
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  StoreHeader(),
-                  StoreLive(),
-                  StoreBanner(),
-                ],
-              ),
-              StickyHeader(
-                header: Container(
-                  padding: EdgeInsets.only(
-                    top: _stickyBarHeight * _stickyHeaderOpacity,
-                  ),
-                  height: 44 +
-                      _stickyBottomBarHeight +
-                      _stickyBarHeight * _stickyHeaderOpacity,
-                  color: rgba(255, 255, 255, 1),
-                  child: Column(
-                    children: [
-                      Container(
-                        height: 44,
-                        width: MediaQuery.of(context).size.width,
-                        child: ScaleTabBar(
-                          controller: _tabController,
-                          indicator: RoundUnderlineTabIndicator(
-                            borderSide: BorderSide(
-                              width: 4,
-                              color: rgba(235, 102, 91, 1),
+          _headerHeight == 0
+              ? _header
+              : StickyScrollView(
+                  expandedHeight: _headerHeight,
+                  expandedChild: _header,
+                  stickyBarHeight: _stickyBarHeight,
+                  stickyBar: Container(
+                    height: _stickyBarHeight,
+                    color: rgba(255, 255, 255, 1),
+                    child: Column(
+                      children: [
+                        // tab bar
+                        Container(
+                          height: 44,
+                          child: ScaleTabBar(
+                            controller: _tabController,
+                            indicator: RoundUnderlineTabIndicator(
+                              borderSide: BorderSide(
+                                width: 4,
+                                color: rgba(235, 102, 91, 1),
+                              ),
+                            ),
+                            tabs: [
+                              Tab(text: "动态"),
+                              Tab(text: "商店"),
+                              Tab(text: "讨论区"),
+                            ],
+                            onTap: (index) {
+                              setState(() {
+                                if (index == 1) {
+                                  _stickyBarHeight = 44 + 64 + 44 + 8.0;
+                                } else {
+                                  _stickyBarHeight = 88;
+                                }
+
+                                _tabIndex = index;
+                              });
+                            },
+                            labelColor: rgba(50, 50, 50, 1),
+                            unselectedLabelColor: rgba(153, 153, 153, 1),
+                            labelStyle: TextStyle(
+                              fontSize: 16,
+                              fontWeight: FontWeight.bold,
+                            ),
+                            unselectedLabelStyle: TextStyle(
+                              fontSize: 14,
+                              fontWeight: FontWeight.normal,
                             ),
                           ),
-                          tabs: [
-                            Tab(text: "动态"),
-                            Tab(text: "商店"),
-                            Tab(text: "讨论区"),
-                          ],
-                          onTap: (index) {
-                            setState(() {
-                              _tabIndex = index;
-                              if (_tabIndex == 1) {
-                                _stickyBottomBarHeight = 64 + 44 + 8.0;
-                              } else {
-                                _stickyBottomBarHeight = 44;
-                              }
-                            });
-                          },
-                          labelColor: rgba(50, 50, 50, 1),
-                          unselectedLabelColor: rgba(153, 153, 153, 1),
-                          labelStyle: TextStyle(
-                            fontSize: 16,
-                            fontWeight: FontWeight.bold,
-                          ),
-                          unselectedLabelStyle: TextStyle(
-                            fontSize: 14,
-                            fontWeight: FontWeight.normal,
-                          ),
                         ),
-                      ),
-                      _tabIndex == 0
-                          ? StoreTabBar(
-                              tabList: [
-                                "最新",
-                                "热门",
-                                "精华",
-                              ],
-                              tabIndex: _dynamicPage.tab,
-                              height: _stickyBottomBarHeight,
-                              tabSwitchHandle: (tab) {
-                                setState(() {
-                                  _dynamicPage.tab = tab;
-                                });
-                              },
-                            )
-                          : _tabIndex == 2
-                              ? StoreTabBar(
-                                  tabList: [
-                                    "最新",
-                                    "热门",
-                                  ],
-                                  tabIndex: _productPage.tab,
-                                  height: _stickyBottomBarHeight,
-                                  tabSwitchHandle: (tab) {
-                                    setState(() {
-                                      _productPage.tab = tab;
-                                    });
-                                  },
-                                )
-                              : _tabIndex == 1
-                                  ? StoreProductHeader(
-                                      tabIndex: _discussPage.tab,
-                                      tabSwitchHandle: (tab) {
-                                        setState(() {
-                                          _discussPage.tab = tab;
-                                        });
-                                      },
-                                    )
-                                  : Container(),
-                    ],
-                  ),
-                ),
-                content: _tabIndex == 0
-                    ? _dynamicPage
-                    : _tabIndex == 1
-                        ? _productPage
-                        : _tabIndex == 2 ? _discussPage : Container(),
-              ),
-            ],
-          ),
-          Container(
-            height: _stickyBarHeight,
-            child: Stack(
-              children: [
-                Positioned(
-                  left: 0,
-                  right: 0,
-                  child: Opacity(
-                    opacity: _stickyOpacity,
-                    child: Stack(
-                      children: [
-                        Image.asset(
-                          "images/homepages_default_bg.png",
-                          height: 217 + MediaQuery.of(context).padding.top,
-                          width: MediaQuery.of(context).size.width,
-                          fit: BoxFit.cover,
-                        ),
-                        Container(
-                          color: rgba(0, 0, 0, 0.4),
-                          padding: EdgeInsets.only(
-                            top: MediaQuery.of(context).padding.top,
-                          ),
-                          height: 217 + MediaQuery.of(context).padding.top,
-                        ),
+                        // sub tab bar
+                        _tabIndex == 0
+                            ? StoreTabBar(
+                                tabList: [
+                                  "最新",
+                                  "热门",
+                                  "精华",
+                                ],
+                                tabIndex: _dynamicPage.tab,
+                                height: _stickyBarHeight - 44,
+                                tabSwitchHandle: (tab) {
+                                  setState(() {
+                                    _dynamicPage.tab = tab;
+                                  });
+                                },
+                              )
+                            : _tabIndex == 2
+                                ? StoreTabBar(
+                                    tabList: [
+                                      "最新",
+                                      "热门",
+                                    ],
+                                    tabIndex: _productPage.tab,
+                                    height: _stickyBarHeight - 44,
+                                    tabSwitchHandle: (tab) {
+                                      setState(() {
+                                        _productPage.tab = tab;
+                                      });
+                                    },
+                                  )
+                                : _tabIndex == 1
+                                    ? StoreProductHeader(
+                                        tabIndex: _discussPage.tab,
+                                        tabSwitchHandle: (tab) {
+                                          setState(() {
+                                            _discussPage.tab = tab;
+                                          });
+                                        },
+                                      )
+                                    : Container(),
                       ],
                     ),
                   ),
-                ),
-                // 顶部栏
-                Positioned(
-                  top: MediaQuery.of(context).padding.top,
-                  left: 0,
-                  right: 0,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  contentView: TabBarView(
+                    physics: NeverScrollableScrollPhysics(),
+                    controller: _tabController,
                     children: [
-                      // 返回
-                      Row(
-                        children: [
-                          Container(
-                            width: AppBar().preferredSize.height,
-                            height: AppBar().preferredSize.height,
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(
-                                  AppBar().preferredSize.height / 2),
-                            ),
-                            child: FlatButton(
-                              padding: EdgeInsets.zero,
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(
-                                    AppBar().preferredSize.height / 2),
-                              ),
-                              child: Image.asset(
-                                "images/base_back_white@3x.png",
-                                width: 11,
-                                height: 20,
-                              ),
-                              onPressed: () {
-                                Navigator.of(context).pop();
-                              },
-                            ),
-                          ),
-                          Opacity(
-                            opacity: _stickyOpacity,
-                            child: Text(
-                              "每日一食记",
-                              overflow: TextOverflow.ellipsis,
-                              style: TextStyle(
-                                fontSize: 20,
-                                color: rgba(255, 255, 255, 1),
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                      Row(
-                        children: [
-                          // 搜索
-                          Container(
-                            width: 28,
-                            height: 28,
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(28 / 2),
-                            ),
-                            child: FlatButton(
-                              padding: EdgeInsets.zero,
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(28 / 2),
-                              ),
-                              child: Image.asset(
-                                "images/homepage_search@3x.png",
-                                width: 28,
-                                height: 28,
-                              ),
-                              onPressed: () {},
-                            ),
-                          ),
-                          SizedBox(
-                            width: 16,
-                          ),
-                          // 详情
-                          Container(
-                            width: 28,
-                            height: 28,
-                            child: FlatButton(
-                              padding: EdgeInsets.zero,
-                              child: Image.asset(
-                                "images/homepage_menu@3x.png",
-                                width: 28,
-                                height: 28,
-                              ),
-                              onPressed: () {
-                                this._showDetail();
-                              },
-                            ),
-                          ),
-                          SizedBox(
-                            width: 16,
-                          ),
-                        ],
-                      ),
+                      _dynamicPage,
+                      _productPage,
+                      _discussPage,
                     ],
                   ),
+                  offsetChange: (offset) {
+                    double _opacity = offset / _headerHeight;
+                    if (_opacity > 1) {
+                      _opacity = 1;
+                    }
+
+                    if (_opacity < 0) {
+                      _opacity = 0;
+                    }
+
+                    if (_stickyOpacity != _opacity) {
+                      setState(() {
+                        _stickyOpacity = _opacity;
+                      });
+                    }
+                  },
+                ),
+          // 导航栏
+          StickyNavigatorBar(
+            backgroudOpacity: _stickyOpacity,
+            lefts: Row(
+              children: [
+                // 返回
+                Container(
+                  width: AppBar().preferredSize.height,
+                  height: AppBar().preferredSize.height,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(
+                        AppBar().preferredSize.height / 2),
+                  ),
+                  child: FlatButton(
+                    padding: EdgeInsets.zero,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(
+                          AppBar().preferredSize.height / 2),
+                    ),
+                    child: Image.asset(
+                      "images/base_back_white@3x.png",
+                      width: 11,
+                      height: 20,
+                    ),
+                    onPressed: () {
+                      Navigator.of(context).pop();
+                    },
+                  ),
+                ),
+                // 标题
+                Opacity(
+                  opacity: _stickyOpacity,
+                  child: Text(
+                    "每日一食记",
+                    overflow: TextOverflow.ellipsis,
+                    style: TextStyle(
+                      fontSize: 20,
+                      color: rgba(255, 255, 255, 1),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+            rights: Row(
+              children: [
+                // 搜索
+                Container(
+                  width: 28,
+                  height: 28,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(28 / 2),
+                  ),
+                  child: FlatButton(
+                    padding: EdgeInsets.zero,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(28 / 2),
+                    ),
+                    child: Image.asset(
+                      "images/homepage_search@3x.png",
+                      width: 28,
+                      height: 28,
+                    ),
+                    onPressed: () {},
+                  ),
+                ),
+                SizedBox(
+                  width: 16,
+                ),
+                // 详情
+                Container(
+                  width: 28,
+                  height: 28,
+                  child: FlatButton(
+                    padding: EdgeInsets.zero,
+                    child: Image.asset(
+                      "images/homepage_menu@3x.png",
+                      width: 28,
+                      height: 28,
+                    ),
+                    onPressed: () {
+                      this._showDetail();
+                    },
+                  ),
+                ),
+                SizedBox(
+                  width: 16,
                 ),
               ],
             ),
           ),
         ],
       ),
+      floatingActionButton: (_tabIndex == 0 || _tabIndex == 1)
+          ? (_stickyOpacity == 1
+              ? Container(
+                  width: 84,
+                  height: 84,
+                  child: Stack(
+                    children: [
+                      FlatButton(
+                        padding: EdgeInsets.zero,
+                        onPressed: () {},
+                        child: Image.asset(
+                          _tabIndex == 1
+                              ? "images/store_shopping_cart@3x.png"
+                              : "images/dynamic_post@3x.png",
+                          width: 84,
+                          height: 84,
+                        ),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(84 / 2),
+                        ),
+                      ),
+                      _tabIndex == 1
+                          ? Positioned(
+                              top: 6,
+                              right: 12,
+                              child: Container(
+                                height: 20,
+                                alignment: Alignment.center,
+                                padding: EdgeInsets.only(
+                                  left: 6.5,
+                                  right: 6.5,
+                                ),
+                                constraints: BoxConstraints(
+                                  minWidth: 20,
+                                ),
+                                decoration: BoxDecoration(
+                                  color: rgba(235, 102, 91, 1),
+                                  borderRadius: BorderRadius.circular(20 / 2),
+                                ),
+                                child: Text(
+                                  "1",
+                                  style: TextStyle(
+                                    fontSize: 12,
+                                    color: rgba(255, 255, 255, 1),
+                                  ),
+                                ),
+                              ),
+                            )
+                          : Container(),
+                    ],
+                  ),
+                )
+              : Container())
+          : _tabIndex == 2
+              ? Container(
+                  width: MediaQuery.of(context).size.width,
+                  margin: EdgeInsets.only(
+                    left: 16,
+                    right: 16,
+                  ),
+                  height: 48,
+                  decoration: BoxDecoration(
+                    color: rgba(255, 255, 255, 1),
+                    borderRadius: BorderRadius.circular(8),
+                    boxShadow: [
+                      BoxShadow(
+                        color: rgba(0, 0, 0, 0.16),
+                        blurRadius: 8,
+                        offset: Offset.zero,
+                      ),
+                    ],
+                  ),
+                  child: FlatButton(
+                    padding: EdgeInsets.fromLTRB(23.5, 0, 22.5, 0),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                    onPressed: () {},
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          "留下你的精彩讨论吧",
+                          style: TextStyle(
+                            fontSize: 16,
+                            color: rgba(153, 153, 153, 1),
+                          ),
+                        ),
+                        Image.asset(
+                          "images/input_bar_icon@3x.png",
+                          width: 28,
+                          height: 28,
+                        ),
+                      ],
+                    ),
+                  ),
+                )
+              : Container(),
+      floatingActionButtonLocation: _tabIndex == 2
+          ? FloatingActionButtonLocation.centerFloat
+          : FloatingActionButtonLocation.endFloat,
+      floatingActionButtonAnimator: FloatingActionButtonAnimator.scaling,
     );
   }
 }

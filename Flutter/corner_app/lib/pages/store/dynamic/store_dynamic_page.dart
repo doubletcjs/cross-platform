@@ -5,12 +5,10 @@ import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 // ignore: must_be_immutable
 class StoreDynamicPage extends StatefulWidget {
-  ScrollController scrollController;
   int tab = 0;
   StoreDynamicPage({
     Key key,
     this.tab = 0,
-    this.scrollController,
   }) : super(key: key);
 
   @override
@@ -49,15 +47,12 @@ class _StoreDynamicPageState extends State<StoreDynamicPage>
     "44444",
   ];
 
-  GlobalKey _globalKey = GlobalKey();
-  double _tableHeight = 0;
-  bool _canLoadMore = false;
   RefreshController _refreshController =
       RefreshController(initialRefresh: false);
 
   // 加载更多
   void _onLoadMore() {
-    Future.delayed(Duration(milliseconds: 4200), () {
+    Future.delayed(Duration(seconds: 4), () {
       setState(() {
         _dataList.add("5555");
         _dataList.add("555345");
@@ -65,41 +60,21 @@ class _StoreDynamicPageState extends State<StoreDynamicPage>
         _dataList.add("5555222");
         _dataList.add("5555333");
         _dataList.add("5555444");
-
-        _refreshController.loadComplete();
       });
+
+      _refreshController.loadNoData();
     });
   }
 
   @override
   void initState() {
     super.initState();
-
-    Future.delayed(Duration(milliseconds: 200), () {
-      setState(() {
-        _tableHeight = _globalKey.currentContext.size.height;
-      });
-    });
-
-    this.widget.scrollController.addListener(() {
-      kLog("aaaa:${this.widget.scrollController.offset - _tableHeight}");
-      if (this.widget.scrollController.offset - _tableHeight > 0) {
-        setState(() {
-          _canLoadMore = true;
-        });
-      } else {
-        setState(() {
-          _canLoadMore = false;
-        });
-      }
-    });
   }
 
   @override
   void dispose() {
     super.dispose();
     _refreshController.dispose();
-    this.widget.scrollController.removeListener(() {});
   }
 
   @override
@@ -108,41 +83,26 @@ class _StoreDynamicPageState extends State<StoreDynamicPage>
   @override
   Widget build(BuildContext context) {
     super.build(context);
-    return _tableHeight == 0
-        ? Column(
-            key: _globalKey,
-            children: _dataList.map((data) {
-              var index = _dataList.indexOf(data);
-              return StoreDynamicCell(
-                row: index,
-              );
-            }).toList(),
-          )
-        : Container(
-            color: rgba(247, 246, 245, 1),
-            height: _tableHeight,
-            child: functionRefresher(
-              _refreshController,
-              ListView.builder(
-                shrinkWrap: true,
-                controller: this.widget.scrollController,
-                padding: EdgeInsets.zero,
-                physics: _canLoadMore == true
-                    ? AlwaysScrollableScrollPhysics()
-                    : NeverScrollableScrollPhysics(),
-                itemBuilder: (context, index) {
-                  return StoreDynamicCell(
-                    row: index,
-                  );
-                },
-                itemCount: _dataList.length,
-              ),
-              enableRefresh: false,
-              enableLoadMore: true,
-              onLoadMore: () {
-                this._onLoadMore();
-              },
-            ),
-          );
+    return Container(
+      color: rgba(247, 246, 245, 1),
+      child: functionRefresher(
+        _refreshController,
+        ListView.builder(
+          shrinkWrap: true,
+          padding: EdgeInsets.zero,
+          itemBuilder: (context, index) {
+            return StoreDynamicCell(
+              row: index,
+            );
+          },
+          itemCount: _dataList.length,
+        ),
+        enableRefresh: false,
+        enableLoadMore: true,
+        onLoadMore: () {
+          this._onLoadMore();
+        },
+      ),
+    );
   }
 }

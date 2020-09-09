@@ -1,4 +1,5 @@
 import 'package:corner_app/pages/store/classify/store_classify.dart';
+import 'package:corner_app/pages/store/detail/store_detail.dart';
 import 'package:corner_app/pages/store/home/views/store_tabbar.dart';
 import 'package:corner_app/public/public.dart';
 import 'package:flutter/material.dart';
@@ -28,6 +29,15 @@ class _StoreProductHeaderState extends State<StoreProductHeader>
     );
   }
 
+  // 商铺详情
+  void _showDetail() {
+    Navigator.of(context).push(
+      MaterialPageRoute(builder: (context) {
+        return StoreDetailPage();
+      }),
+    );
+  }
+
   @override
   bool get wantKeepAlive => true;
 
@@ -53,41 +63,46 @@ class _StoreProductHeaderState extends State<StoreProductHeader>
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Row(
-                  children: [
-                    // 封面
-                    networkImage(
-                      "https://avatars1.githubusercontent.com/u/17046133?v=4",
-                      Size(40, 40),
-                      BorderRadius.circular(40 / 2),
-                    ),
-                    SizedBox(
-                      width: 13,
-                    ),
-                    // 店名
-                    Container(
-                      constraints: BoxConstraints(
-                        maxWidth: 220,
+                InkWell(
+                  onTap: () {
+                    this._showDetail();
+                  },
+                  child: Row(
+                    children: [
+                      // 封面
+                      networkImage(
+                        "https://avatars1.githubusercontent.com/u/17046133?v=4",
+                        Size(40, 40),
+                        BorderRadius.circular(40 / 2),
                       ),
-                      child: Text(
-                        "每日一食记的小铺",
-                        overflow: TextOverflow.ellipsis,
-                        style: TextStyle(
-                          fontSize: 18,
-                          color: rgba(50, 50, 50, 1),
-                          fontWeight: FontWeight.bold,
+                      SizedBox(
+                        width: 13,
+                      ),
+                      // 店名
+                      Container(
+                        constraints: BoxConstraints(
+                          maxWidth: 220,
+                        ),
+                        child: Text(
+                          "每日一食记的小铺",
+                          overflow: TextOverflow.ellipsis,
+                          style: TextStyle(
+                            fontSize: 18,
+                            color: rgba(50, 50, 50, 1),
+                            fontWeight: FontWeight.bold,
+                          ),
                         ),
                       ),
-                    ),
-                    SizedBox(
-                      width: 12,
-                    ),
-                    Image.asset(
-                      "images/detail_arrow@3x.png",
-                      height: 10,
-                      width: 6,
-                    ),
-                  ],
+                      SizedBox(
+                        width: 12,
+                      ),
+                      Image.asset(
+                        "images/detail_arrow@3x.png",
+                        height: 10,
+                        width: 6,
+                      ),
+                    ],
+                  ),
                 ),
                 // 客服
                 Row(

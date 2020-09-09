@@ -4,10 +4,12 @@ import 'package:flutter/material.dart';
 
 // ignore: must_be_immutable
 class StoreHeader extends StatefulWidget {
+  GlobalKey globalKey;
   bool isTourist = false;
   StoreHeader({
     Key key,
     this.isTourist = false,
+    @required this.globalKey,
   }) : super(key: key);
 
   @override
@@ -32,6 +34,7 @@ class _StoreHeaderState extends State<StoreHeader> {
   @override
   Widget build(BuildContext context) {
     return Stack(
+      key: this.widget.globalKey,
       children: [
         Image.asset(
           "images/homepages_default_bg.png",
@@ -264,8 +267,9 @@ class _StoreHeaderState extends State<StoreHeader> {
                 ),
                 Image.asset(
                   "images/introduction_header@3x.png",
-                  fit: BoxFit.contain,
+                  fit: BoxFit.fitWidth,
                   width: MediaQuery.of(context).size.width,
+                  height: 48,
                 ),
                 // 简介
                 Container(

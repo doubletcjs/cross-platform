@@ -2,12 +2,18 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:corner_app/public/public.dart';
 import 'package:flutter/material.dart';
 
+// ignore: must_be_immutable
 class StoreLive extends StatelessWidget {
-  const StoreLive({Key key}) : super(key: key);
+  GlobalKey globalKey;
+  StoreLive({
+    Key key,
+    @required this.globalKey,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Container(
+      key: globalKey,
       color: rgba(247, 246, 245, 1),
       padding: EdgeInsets.only(top: 12),
       child: Container(

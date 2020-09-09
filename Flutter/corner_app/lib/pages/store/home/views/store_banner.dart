@@ -2,12 +2,18 @@ import 'package:corner_app/public/public.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
 
+// ignore: must_be_immutable
 class StoreBanner extends StatelessWidget {
-  const StoreBanner({Key key}) : super(key: key);
+  GlobalKey globalKey;
+  StoreBanner({
+    Key key,
+    @required this.globalKey,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Container(
+      key: globalKey,
       padding: EdgeInsets.fromLTRB(16, 12, 16, 12),
       color: rgba(247, 246, 245, 1),
       height: 120.0 + 12 * 2,

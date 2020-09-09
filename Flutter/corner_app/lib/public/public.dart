@@ -185,7 +185,6 @@ CustomFooter functionFooter({bool enable = true}) {
           "上拉加载",
           style: TextStyle(
             fontSize: 15,
-            color: Colors.white,
           ),
         );
       } else if (mode == LoadStatus.loading) {
@@ -195,7 +194,6 @@ CustomFooter functionFooter({bool enable = true}) {
           "加载失败！点击重试！",
           style: TextStyle(
             fontSize: 15,
-            color: Colors.white,
           ),
         );
       } else if (mode == LoadStatus.canLoading) {
@@ -203,7 +201,6 @@ CustomFooter functionFooter({bool enable = true}) {
           "松手,加载更多!",
           style: TextStyle(
             fontSize: 15,
-            color: Colors.white,
           ),
         );
       } else {
@@ -211,15 +208,20 @@ CustomFooter functionFooter({bool enable = true}) {
           "没有更多了!",
           style: TextStyle(
             fontSize: 15,
-            color: Colors.white,
           ),
         );
       }
+
       return enable == false
           ? Container()
           : Container(
-              height: 44.0,
-              child: Center(child: body),
+              height: 44.0 + MediaQuery.of(context).padding.bottom,
+              padding: EdgeInsets.only(
+                bottom: MediaQuery.of(context).padding.bottom,
+              ),
+              child: Container(
+                child: Center(child: body),
+              ),
             );
     },
   );
@@ -235,30 +237,34 @@ Widget functionRefresher(
   List<Widget> slivers,
   void Function(bool up, double offset) onOffsetChange,
 }) {
-  return slivers == null
-      ? SmartRefresher(
-          controller: controller,
-          enablePullDown: enableRefresh,
-          enablePullUp: enableLoadMore,
-          header: WaterDropMaterialHeader(),
-          footer: functionFooter(enable: enableLoadMore),
-          onRefresh: onRefresh,
-          onLoading: onLoadMore,
-          onOffsetChange: onOffsetChange,
-          child: child,
-        )
-      : SmartRefresher.builder(
-          controller: controller,
-          enablePullDown: enableRefresh,
-          enablePullUp: enableLoadMore,
-          onRefresh: onRefresh,
-          onLoading: onLoadMore,
-          onOffsetChange: onOffsetChange,
-          builder: (context, physics) {
-            return CustomScrollView(
-              physics: physics,
-              slivers: slivers,
-            );
-          },
-        );
+  return RefreshConfiguration(
+    hideFooterWhenNotFull: true,
+    enableBallisticLoad: false,
+    child: slivers == null
+        ? SmartRefresher(
+            controller: controller,
+            enablePullDown: enableRefresh,
+            enablePullUp: enableLoadMore,
+            header: WaterDropMaterialHeader(),
+            footer: functionFooter(enable: enableLoadMore),
+            onRefresh: onRefresh,
+            onLoading: onLoadMore,
+            onOffsetChange: onOffsetChange,
+            child: child,
+          )
+        : SmartRefresher.builder(
+            controller: controller,
+            enablePullDown: enableRefresh,
+            enablePullUp: enableLoadMore,
+            onRefresh: onRefresh,
+            onLoading: onLoadMore,
+            onOffsetChange: onOffsetChange,
+            builder: (context, physics) {
+              return CustomScrollView(
+                physics: physics,
+                slivers: slivers,
+              );
+            },
+          ),
+  );
 }
