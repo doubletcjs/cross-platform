@@ -30,9 +30,8 @@ dependencies:
   cupertino_icons: ^0.1.3
   cached_network_image: any  
   flutter_swiper: any
-  toast: any
-  sticky_headers: any
-  pull_to_refresh: any 
+  toast: any 
+  pull_to_refresh: any  
 
 dev_dependencies:
   flutter_test:

@@ -91,9 +91,7 @@ class _StoreDynamicPageState extends State<StoreDynamicPage>
           shrinkWrap: true,
           padding: EdgeInsets.zero,
           itemBuilder: (context, index) {
-            return StoreDynamicCell(
-              row: index,
-            );
+            return StoreDynamicCell();
           },
           itemCount: _dataList.length,
         ),

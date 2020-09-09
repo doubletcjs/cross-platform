@@ -300,9 +300,49 @@ class _StorePageState extends State<StorePage>
           ),
         ],
       ),
-      floatingActionButton: (_tabIndex == 0 || _tabIndex == 1)
-          ? (_stickyOpacity == 1
+      floatingActionButton: _stickyOpacity == 1
+          ? (_tabIndex == 2
               ? Container(
+                  width: MediaQuery.of(context).size.width - 32,
+                  height: 48,
+                  decoration: BoxDecoration(
+                    color: rgba(255, 255, 255, 1),
+                    borderRadius: BorderRadius.circular(8),
+                    boxShadow: [
+                      BoxShadow(
+                        color: rgba(0, 0, 0, 0.16),
+                        blurRadius: 8,
+                        offset: Offset.zero,
+                      ),
+                    ],
+                  ),
+                  child: FlatButton(
+                    padding: EdgeInsets.fromLTRB(23.5, 0, 22.5, 0),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                    onPressed: () {},
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          "留下你的精彩讨论吧",
+                          style: TextStyle(
+                            fontSize: 16,
+                            color: rgba(153, 153, 153, 1),
+                            fontWeight: FontWeight.normal,
+                          ),
+                        ),
+                        Image.asset(
+                          "images/input_bar_icon@3x.png",
+                          width: 28,
+                          height: 28,
+                        ),
+                      ],
+                    ),
+                  ),
+                )
+              : Container(
                   width: 84,
                   height: 84,
                   child: Stack(
@@ -351,57 +391,8 @@ class _StorePageState extends State<StorePage>
                           : Container(),
                     ],
                   ),
-                )
-              : Container())
-          : _tabIndex == 2
-              ? Container(
-                  width: MediaQuery.of(context).size.width,
-                  margin: EdgeInsets.only(
-                    left: 16,
-                    right: 16,
-                  ),
-                  height: 48,
-                  decoration: BoxDecoration(
-                    color: rgba(255, 255, 255, 1),
-                    borderRadius: BorderRadius.circular(8),
-                    boxShadow: [
-                      BoxShadow(
-                        color: rgba(0, 0, 0, 0.16),
-                        blurRadius: 8,
-                        offset: Offset.zero,
-                      ),
-                    ],
-                  ),
-                  child: FlatButton(
-                    padding: EdgeInsets.fromLTRB(23.5, 0, 22.5, 0),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(8),
-                    ),
-                    onPressed: () {},
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(
-                          "留下你的精彩讨论吧",
-                          style: TextStyle(
-                            fontSize: 16,
-                            color: rgba(153, 153, 153, 1),
-                          ),
-                        ),
-                        Image.asset(
-                          "images/input_bar_icon@3x.png",
-                          width: 28,
-                          height: 28,
-                        ),
-                      ],
-                    ),
-                  ),
-                )
-              : Container(),
-      floatingActionButtonLocation: _tabIndex == 2
-          ? FloatingActionButtonLocation.centerFloat
-          : FloatingActionButtonLocation.endFloat,
-      floatingActionButtonAnimator: FloatingActionButtonAnimator.scaling,
+                ))
+          : Container(),
     );
   }
 }
