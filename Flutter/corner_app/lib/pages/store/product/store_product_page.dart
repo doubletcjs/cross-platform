@@ -1,3 +1,4 @@
+import 'package:corner_app/pages/store/product/views/store_coupons_banner.dart';
 import 'package:flutter/material.dart';
 
 // ignore: must_be_immutable
@@ -20,6 +21,18 @@ class _StoreProductPageState extends State<StoreProductPage>
   @override
   Widget build(BuildContext context) {
     super.build(context);
-    return Container();
+    return Column(
+      children: [
+        StoreCouponsBanner(
+          banners: [
+            "",
+            "",
+            "",
+            "",
+          ],
+        ),
+        Expanded(child: null),
+      ],
+    );
   }
 }

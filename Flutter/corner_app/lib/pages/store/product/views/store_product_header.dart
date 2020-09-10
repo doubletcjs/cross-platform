@@ -1,6 +1,6 @@
 import 'package:corner_app/pages/store/classify/store_classify.dart';
-import 'package:corner_app/pages/store/detail/store_detail.dart';
 import 'package:corner_app/pages/store/home/views/store_tabbar.dart';
+import 'package:corner_app/pages/store/product/store_product_detail.dart';
 import 'package:corner_app/public/public.dart';
 import 'package:flutter/material.dart';
 
@@ -33,7 +33,7 @@ class _StoreProductHeaderState extends State<StoreProductHeader>
   void _showDetail() {
     Navigator.of(context).push(
       MaterialPageRoute(builder: (context) {
-        return StoreDetailPage();
+        return StoreProductDetail();
       }),
     );
   }

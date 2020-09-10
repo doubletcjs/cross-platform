@@ -4,6 +4,8 @@ import 'package:corner_app/pages/function/sticky/sticky_scrollview.dart';
 import 'package:corner_app/pages/store/detail/store_detail.dart';
 import 'package:corner_app/pages/store/discuss/store_discuss_page.dart';
 import 'package:corner_app/pages/store/dynamic/store_dynamic_page.dart';
+import 'package:corner_app/pages/store/dynamic/store_dynamic_post.dart';
+import 'package:corner_app/pages/store/home/store_search_page.dart';
 import 'package:corner_app/pages/store/home/views/store_banner.dart';
 import 'package:corner_app/pages/store/home/views/store_header.dart';
 import 'package:corner_app/pages/store/home/views/store_live.dart';
@@ -44,6 +46,22 @@ class _StorePageState extends State<StorePage>
         return StoreDetailPage();
       }),
     );
+  }
+
+  // 搜索
+  void _searchAction() {
+    Navigator.of(context).push(
+      MaterialPageRoute(builder: (context) {
+        return StoreSearchPage();
+      }),
+    );
+  }
+
+  // 发布
+  void _dynamicPost() {
+    StoreDynamicPost(
+      tapHandle: (mark) {},
+    ).show(context);
   }
 
   @override
@@ -270,7 +288,9 @@ class _StorePageState extends State<StorePage>
                       width: 28,
                       height: 28,
                     ),
-                    onPressed: () {},
+                    onPressed: () {
+                      this._searchAction();
+                    },
                   ),
                 ),
                 SizedBox(
@@ -349,7 +369,11 @@ class _StorePageState extends State<StorePage>
                     children: [
                       FlatButton(
                         padding: EdgeInsets.zero,
-                        onPressed: () {},
+                        onPressed: () {
+                          if (_tabIndex == 0) {
+                            this._dynamicPost();
+                          }
+                        },
                         child: Image.asset(
                           _tabIndex == 1
                               ? "images/store_shopping_cart@3x.png"

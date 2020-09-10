@@ -59,6 +59,7 @@ class _StickyScrollViewState extends State<StickyScrollView> {
             pinned: true,
             elevation: 0,
             backgroundColor: Colors.white,
+            leading: Container(),
             flexibleSpace: FlexibleSpaceBar(
               collapseMode: CollapseMode.pin,
               background: this.widget.expandedChild,

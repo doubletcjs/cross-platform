@@ -13,7 +13,8 @@ class StoreDetailStack extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       constraints: BoxConstraints(
-        maxWidth: 180,
+        maxWidth:
+            (180 * MediaQuery.of(context).size.width) / 500, // 750/180 = w/x
       ),
       height: 28,
       child: ListView(

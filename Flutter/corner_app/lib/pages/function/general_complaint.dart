@@ -2,10 +2,9 @@ import 'package:corner_app/pages/function/general_dialog.dart';
 import 'package:corner_app/public/public.dart';
 import 'package:flutter/material.dart';
 
-// ignore: must_be_immutable
 class GeneralComplaint extends StatelessWidget {
   GeneralComplaint({Key key}) : super(key: key);
-  List<String> _complaintList = [
+  final List<String> _complaintList = [
     "敏感时政",
     "垃圾广告",
     "人身攻击",

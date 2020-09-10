@@ -265,11 +265,24 @@ class _StoreHeaderState extends State<StoreHeader> {
                 SizedBox(
                   height: this.widget.isTourist == true ? 51.5 : 19.5,
                 ),
-                Image.asset(
-                  "images/introduction_header@3x.png",
-                  fit: BoxFit.fitWidth,
-                  width: MediaQuery.of(context).size.width,
-                  height: 48,
+                Stack(
+                  children: [
+                    Image.asset(
+                      "images/introduction_header@3x.png",
+                      fit: BoxFit.fill,
+                      width: MediaQuery.of(context).size.width,
+                      height: 48,
+                    ),
+                    Positioned(
+                      left: 0,
+                      bottom: 0,
+                      right: 0,
+                      child: Container(
+                        height: 4,
+                        color: rgba(255, 255, 255, 1),
+                      ),
+                    ),
+                  ],
                 ),
                 // 简介
                 Container(

@@ -46,6 +46,8 @@ class GeneralShare extends StatelessWidget {
     },
   ];
 
+  double _itemWidth = 65.0;
+
   show(
     BuildContext context, {
     List baseList,
@@ -110,8 +112,9 @@ class GeneralShare extends StatelessWidget {
               top: 28,
               bottom: 23,
             ),
-            height: 154,
+            height: 157,
             child: ListView.separated(
+              shrinkWrap: true,
               padding: EdgeInsets.only(
                 left: 16,
                 right: 16,
@@ -122,33 +125,39 @@ class GeneralShare extends StatelessWidget {
                   onTap: () {
                     this._shareItemTap(_baseList[index]["mark"], context);
                   },
-                  child: Column(
-                    children: [
-                      Image.asset(
-                        _baseList[index]["icon"],
-                        width: 50.5,
-                        height: 50.5,
-                      ),
-                      SizedBox(
-                        height: 8,
-                      ),
-                      Text(
-                        _baseList[index]["title"],
-                        maxLines: 2,
-                        textAlign: TextAlign.center,
-                        overflow: TextOverflow.ellipsis,
-                        style: TextStyle(
-                          fontSize: 16,
-                          color: rgba(50, 50, 50, 1),
+                  child: Container(
+                    width: _itemWidth,
+                    child: Column(
+                      children: [
+                        Image.asset(
+                          _baseList[index]["icon"],
+                          width: 50.5,
+                          height: 50.5,
                         ),
-                      ),
-                    ],
+                        SizedBox(
+                          height: 8,
+                        ),
+                        Text(
+                          _baseList[index]["title"],
+                          maxLines: 2,
+                          textAlign: TextAlign.center,
+                          overflow: TextOverflow.ellipsis,
+                          style: TextStyle(
+                            fontSize: 16,
+                            color: rgba(50, 50, 50, 1),
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
                 );
               },
               separatorBuilder: (context, index) {
                 return Container(
-                  width: 13,
+                  width: (MediaQuery.of(context).size.width -
+                          16 * 2 -
+                          _itemWidth * 5) /
+                      4,
                 );
               },
               itemCount: _baseList.length,
@@ -183,39 +192,46 @@ class GeneralShare extends StatelessWidget {
                           this._shareItemTap(
                               _otherList[index]["mark"], context);
                         },
-                        child: Column(
-                          children: [
-                            Image.asset(
-                              _otherList[index]["icon"],
-                              width: 50.5,
-                              height: 50.5,
-                            ),
-                            SizedBox(
-                              height: 8,
-                            ),
-                            Text(
-                              _otherList[index]["title"],
-                              maxLines: 2,
-                              textAlign: TextAlign.center,
-                              overflow: TextOverflow.ellipsis,
-                              style: TextStyle(
-                                fontSize: 16,
-                                color: rgba(50, 50, 50, 1),
+                        child: Container(
+                          width: _itemWidth,
+                          child: Column(
+                            children: [
+                              Image.asset(
+                                _otherList[index]["icon"],
+                                width: 50.5,
+                                height: 50.5,
                               ),
-                            ),
-                          ],
+                              SizedBox(
+                                height: 8,
+                              ),
+                              Text(
+                                _otherList[index]["title"],
+                                maxLines: 2,
+                                textAlign: TextAlign.center,
+                                overflow: TextOverflow.ellipsis,
+                                style: TextStyle(
+                                  fontSize: 16,
+                                  color: rgba(50, 50, 50, 1),
+                                ),
+                              ),
+                            ],
+                          ),
                         ),
                       );
                     },
                     separatorBuilder: (context, index) {
                       return Container(
-                        width: 13,
+                        width: (MediaQuery.of(context).size.width -
+                                16 * 2 -
+                                _itemWidth * 5) /
+                            4,
                       );
                     },
                     itemCount: _otherList.length,
                   ),
                 )
-              : Container(), // 取消
+              : Container(),
+          // 取消
           Container(
             height: 48,
             color: rgba(247, 246, 245, 0.96),
@@ -234,7 +250,7 @@ class GeneralShare extends StatelessWidget {
                 ),
               ),
             ),
-          )
+          ),
         ],
       ),
     );

@@ -1,7 +1,10 @@
+import 'package:corner_app/pages/function/general_complaint.dart';
+import 'package:corner_app/pages/function/general_share.dart';
 import 'package:corner_app/public/public.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
+import 'package:video_player/video_player.dart';
 
 // ignore: must_be_immutable
 class StoreDynamicCell extends StatefulWidget {
@@ -15,7 +18,14 @@ class StoreDynamicCell extends StatefulWidget {
 
 class _StoreDynamicCellState extends State<StoreDynamicCell>
     with AutomaticKeepAliveClientMixin {
+  // 视频
+  VideoPlayerController _controller;
+  int _loadingStatus = 0; // 0 加载中 1 成功 2 失败
+  bool _isMute = false;
+  double _initVolume = 0.0;
+  // 已打开全文
   bool _didExpansion = false;
+  // 图片 index
   int _imageIndex = 0;
 
   // 收藏、评论、点赞
@@ -251,10 +261,163 @@ class _StoreDynamicCellState extends State<StoreDynamicCell>
 
   // 视频
   Widget _videoWidget() {
+    double _width = MediaQuery.of(context).size.width - 16 * 2;
+    double _height = (_width * 171.5) / 343.0; // 343/411.5 = _width/x
+
+    var _time = "";
+    if (_loadingStatus == 1 &&
+        _controller != null &&
+        _controller.value.initialized) {
+      // 竖屏
+      if (_controller.value.size.width < _controller.value.size.height) {
+        _width = 226.0;
+        _height = 301.5;
+      }
+
+      Duration duration = _controller.value.duration;
+      _time = duration.toString().split(".").first;
+
+      if (_controller.value.position.inMilliseconds > 100) {
+        _time =
+            (duration - _controller.value.position).toString().split(".").first;
+      }
+    }
+
     return Container(
       margin: EdgeInsets.only(
         top: 28,
       ),
+      child: _loadingStatus == 0
+          ? CircularProgressIndicator()
+          : _loadingStatus == 2
+              ? Text("视频加载失败！")
+              : Stack(
+                  children: [
+                    InkWell(
+                      onTap: () {
+                        if (_loadingStatus == 1 &&
+                            _controller != null &&
+                            _controller.value.initialized) {
+                          if (_controller.value.isPlaying) {
+                            _controller.pause();
+                          } else {
+                            if (_controller.value.duration ==
+                                _controller.value.position) {
+                              _controller.seekTo(Duration(milliseconds: 0));
+                            }
+                            _controller.play();
+                          }
+                        }
+                      },
+                      child: Container(
+                        width: _width,
+                        height: _height,
+                        color: Colors.black,
+                        child: AspectRatio(
+                          aspectRatio: _controller.value.aspectRatio,
+                          child: VideoPlayer(_controller),
+                        ),
+                      ),
+                    ),
+                    Positioned(
+                      top: 12,
+                      right: 12,
+                      child: Text(
+                        "$_time",
+                        style: TextStyle(
+                          color: rgba(255, 255, 255, 1),
+                          fontSize: 12,
+                        ),
+                      ),
+                    ),
+                    Positioned(
+                      bottom: 12,
+                      right: 12,
+                      width: 28,
+                      height: 28,
+                      child: InkWell(
+                        onTap: () {
+                          if (_loadingStatus == 1 &&
+                              _controller != null &&
+                              _controller.value.initialized) {
+                            if (_isMute == false) {
+                              setState(() {
+                                _initVolume = _controller.value.volume;
+                                _isMute = true;
+                                _controller.setVolume(0);
+                              });
+                            } else {
+                              setState(() {
+                                _isMute = false;
+                                _controller.setVolume(_initVolume);
+                              });
+                            }
+                          }
+                        },
+                        child: Image.asset(
+                          _isMute == true
+                              ? "images/dynamic_muted@3x.png"
+                              : "images/dynamic_muted_sel@3x.png",
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+    );
+  }
+
+  //初始化播放器
+  void _initPlayerController(path) {
+    if (_controller != null) {
+      _controller.removeListener(() {});
+      _controller.dispose();
+      _controller = null;
+
+      setState(() {
+        _loadingStatus = 0;
+      });
+    }
+
+    _controller = VideoPlayerController.network(path)
+      ..initialize().then((_) {
+        setState(() {
+          _loadingStatus = 1;
+        });
+      }).catchError((error) {
+        showToast("$error", context);
+        setState(() {
+          _loadingStatus = 2;
+        });
+      });
+
+    _controller.addListener(() {
+      setState(() {});
+    });
+  }
+
+  // 分享
+  void _shareAction() {
+    GeneralShare(
+      shareHandle: (item) {
+        kLog("$item");
+        if (item == "report") {
+          GeneralComplaint().show(context);
+        }
+      },
+    ).show(
+      context,
+      otherList: [
+        {
+          "icon": "images/report_icon@3x.png",
+          "title": "投诉",
+          "mark": "report",
+        },
+        {
+          "icon": "images/delete_icon@3x.png",
+          "title": "删除",
+          "mark": "delete",
+        },
+      ],
     );
   }
 
@@ -262,7 +425,26 @@ class _StoreDynamicCellState extends State<StoreDynamicCell>
   bool get wantKeepAlive => true;
 
   @override
+  void initState() {
+    super.initState();
+
+    this._initPlayerController(
+        "https://www.runoob.com/try/demo_source/mov_bbb.mp4");
+  }
+
+  @override
+  void dispose() {
+    _controller.removeListener(() {});
+    _controller.dispose();
+    _controller = null;
+
+    super.dispose();
+    kLog("dispose");
+  }
+
+  @override
   Widget build(BuildContext context) {
+    super.build(context);
     return Container(
       width: MediaQuery.of(context).size.width,
       padding: EdgeInsets.fromLTRB(16, 20, 16, 12),
@@ -347,13 +529,15 @@ class _StoreDynamicCellState extends State<StoreDynamicCell>
                   ],
                 ),
               ),
-              // 更多
+              // 分享
               Container(
                 width: 20,
                 height: 20,
                 child: FlatButton(
                   padding: EdgeInsets.zero,
-                  onPressed: () {},
+                  onPressed: () {
+                    this._shareAction();
+                  },
                   child: Image.asset(
                     "images/dynamic_more@3x.png",
                   ),
@@ -361,14 +545,16 @@ class _StoreDynamicCellState extends State<StoreDynamicCell>
               ),
             ],
           ),
-          this._imageWidget(
-            [
-              "",
-              "",
-              "",
-              "",
-            ],
-          ),
+          // 图片
+          // this._imageWidget(
+          //   [
+          //     "",
+          //     "",
+          //     "",
+          //     "",
+          //   ],
+          // ),
+          this._videoWidget(),
           // 内容
           Container(
             margin: EdgeInsets.only(

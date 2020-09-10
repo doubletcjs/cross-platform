@@ -22,6 +22,16 @@ class _StoreDetailPageState extends State<StoreDetailPage> {
     "a",
     "b",
     "c",
+    "c1",
+    "c2",
+    "c4",
+    "c12",
+    "c11",
+    "c33",
+    "c4556",
+    "c1231",
+    "c14556",
+    "c31231",
   ];
 
   // 编辑资料
