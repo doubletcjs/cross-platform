@@ -35,6 +35,98 @@ class _StoreCouponsBannerState extends State<StoreCouponsBanner> {
                     color: rgba(253, 231, 207, 1),
                     borderRadius: BorderRadius.circular(8),
                   ),
+                  padding: EdgeInsets.only(
+                    left: 12,
+                  ),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Expanded(
+                        child: Row(
+                          children: [
+                            Text(
+                              "¥",
+                              style: TextStyle(
+                                color: rgba(235, 102, 91, 1),
+                                fontSize: 12,
+                              ),
+                            ),
+                            SizedBox(
+                              width: 4,
+                            ),
+                            Text(
+                              "50",
+                              style: TextStyle(
+                                color: rgba(235, 102, 91, 1),
+                                fontSize: 28,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                            SizedBox(
+                              width: 12,
+                            ),
+                            Expanded(
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    "全场满199可用",
+                                    maxLines: 2,
+                                    overflow: TextOverflow.ellipsis,
+                                    style: TextStyle(
+                                      color: rgba(235, 102, 91, 1),
+                                      fontSize: 13,
+                                    ),
+                                  ),
+                                  SizedBox(
+                                    height: 2,
+                                  ),
+                                  Text(
+                                    "2020.05.20-2020.06.20",
+                                    overflow: TextOverflow.ellipsis,
+                                    style: TextStyle(
+                                      color: rgba(235, 102, 91, 1),
+                                      fontSize: 10,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            SizedBox(
+                              width: 12,
+                            ),
+                          ],
+                        ),
+                      ),
+                      Container(
+                        margin: EdgeInsets.only(
+                          top: 7,
+                          bottom: 7,
+                        ),
+                        padding: EdgeInsets.only(
+                          left: 15,
+                          right: 15,
+                        ),
+                        child: Text(
+                          "立即领取",
+                          style: TextStyle(
+                            color: rgba(235, 102, 91, 1),
+                            fontSize: 14,
+                          ),
+                        ),
+                        alignment: Alignment.center,
+                        decoration: BoxDecoration(
+                          border: Border(
+                            left: BorderSide(
+                              width: 0.5,
+                              color: rgba(235, 102, 91, 1),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
                 );
               },
               separatorBuilder: (context, index) {

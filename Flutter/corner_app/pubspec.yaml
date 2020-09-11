@@ -33,6 +33,7 @@ dependencies:
   toast: any 
   pull_to_refresh: any  
   video_player: any
+  flutter_staggered_grid_view: any
 
 dev_dependencies:
   flutter_test:
