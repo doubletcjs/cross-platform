@@ -35,6 +35,7 @@ dependencies:
   video_player: any
   flutter_staggered_grid_view: any
   dart_notification_center: any
+  extended_nested_scroll_view: any
 
 dev_dependencies:
   flutter_test:
