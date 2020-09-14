@@ -88,7 +88,9 @@ class _StickyScrollViewState extends State<StickyScrollView> {
           children: [
             this.widget.stickyBar,
             Container(
-              height: MediaQuery.of(context).size.height,
+              constraints: BoxConstraints(
+                maxHeight: MediaQuery.of(context).size.height,
+              ),
               child: this.widget.contentView,
             ),
           ],
