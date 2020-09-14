@@ -1,4 +1,5 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/material.dart' hide NestedScrollView;
+import 'package:extended_nested_scroll_view/extended_nested_scroll_view.dart';
 
 typedef StickyScrollOffsetBlock = void Function(double offset);
 
@@ -6,9 +7,10 @@ typedef StickyScrollOffsetBlock = void Function(double offset);
 class StickyScrollView extends StatefulWidget {
   double expandedHeight;
   Widget expandedChild;
-
+  //MediaQuery.of(context).padding.top + AppBar().preferredSize.height
   double stickyBarHeight;
   Widget stickyBar;
+  int tabIndex;
 
   Widget contentView;
   StickyScrollOffsetBlock offsetChange;
@@ -21,6 +23,7 @@ class StickyScrollView extends StatefulWidget {
     @required this.stickyBar,
     @required this.contentView,
     @required this.offsetChange,
+    @required this.tabIndex,
   }) : super(key: key);
 
   @override
@@ -65,16 +68,32 @@ class _StickyScrollViewState extends State<StickyScrollView> {
               background: this.widget.expandedChild,
             ),
           ),
-          SliverPersistentHeader(
-            pinned: true,
-            delegate: StickyBarDelegate(
-              barHeight: this.widget.stickyBarHeight,
-              child: this.widget.stickyBar,
-            ),
-          ),
         ];
       },
-      body: this.widget.contentView,
+      pinnedHeaderSliverHeightBuilder: () {
+        return MediaQuery.of(context).padding.top +
+            AppBar().preferredSize.height;
+      },
+      innerScrollPositionKeyBuilder: () {
+        String index = 'kStorePagePositionKey';
+        index += this.widget.tabIndex.toString();
+        return Key(index);
+      },
+      body: SingleChildScrollView(
+        primary: false,
+        physics: NeverScrollableScrollPhysics(),
+        padding: EdgeInsets.zero,
+        child: Column(
+          mainAxisSize: MainAxisSize.max,
+          children: [
+            this.widget.stickyBar,
+            Container(
+              height: MediaQuery.of(context).size.height,
+              child: this.widget.contentView,
+            ),
+          ],
+        ),
+      ),
     );
   }
 }
