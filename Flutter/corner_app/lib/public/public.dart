@@ -215,12 +215,9 @@ CustomFooter functionFooter({bool enable = true}) {
       return enable == false
           ? Container()
           : Container(
-              height: 44.0 + MediaQuery.of(context).padding.bottom,
-              padding: EdgeInsets.only(
-                bottom: MediaQuery.of(context).padding.bottom,
-              ),
-              child: Container(
-                child: Center(child: body),
+              height: 64,
+              child: Center(
+                child: body,
               ),
             );
     },

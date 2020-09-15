@@ -6,11 +6,13 @@ class StickyNavigatorBar extends StatefulWidget {
   Widget lefts;
   Widget rights;
   double backgroudOpacity = 0.0;
+  double barHeight;
 
   StickyNavigatorBar({
     Key key,
     @required this.lefts,
     @required this.rights,
+    @required this.barHeight,
     this.backgroudOpacity = 0.0,
   }) : super(key: key);
 
@@ -21,21 +23,25 @@ class StickyNavigatorBar extends StatefulWidget {
 class _StickyNavigatorBarState extends State<StickyNavigatorBar> {
   @override
   void initState() {
+    if (this.widget.barHeight == null || this.widget.barHeight == 0.0) {
+      setState(() {
+        this.widget.barHeight = AppBar().preferredSize.height;
+      });
+    }
+
     super.initState();
 
     if (this.widget.lefts == null) {
       this.widget.lefts = Container(
-        width: AppBar().preferredSize.height,
-        height: AppBar().preferredSize.height,
+        width: this.widget.barHeight,
+        height: this.widget.barHeight,
         decoration: BoxDecoration(
-          borderRadius:
-              BorderRadius.circular(AppBar().preferredSize.height / 2),
+          borderRadius: BorderRadius.circular(this.widget.barHeight / 2),
         ),
         child: FlatButton(
           padding: EdgeInsets.zero,
           shape: RoundedRectangleBorder(
-            borderRadius:
-                BorderRadius.circular(AppBar().preferredSize.height / 2),
+            borderRadius: BorderRadius.circular(this.widget.barHeight / 2),
           ),
           child: Image.asset(
             "images/base_back_white@3x.png",
@@ -57,8 +63,7 @@ class _StickyNavigatorBarState extends State<StickyNavigatorBar> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height:
-          AppBar().preferredSize.height + MediaQuery.of(context).padding.top,
+      height: this.widget.barHeight + MediaQuery.of(context).padding.top,
       child: Stack(
         children: [
           Positioned(

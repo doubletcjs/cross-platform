@@ -20,7 +20,11 @@ class _StoreTouristPageState extends State<StoreTouristPage>
   double _headerHeight = 0;
   double _stickyOpacity = 0;
   double _stickyBarHeight = 44 + 18.5;
+  double _mixTopBarHeight;
+
   Widget _header;
+
+  TabController _tabController;
   int _tabIndex = 0;
 
   // 分享
@@ -39,6 +43,7 @@ class _StoreTouristPageState extends State<StoreTouristPage>
   void initState() {
     super.initState();
 
+    _tabController = TabController(vsync: this, length: 2);
     _header = ListView(
       padding: EdgeInsets.zero,
       physics: NeverScrollableScrollPhysics(),
@@ -54,6 +59,11 @@ class _StoreTouristPageState extends State<StoreTouristPage>
       setState(() {
         _headerHeight = _headerGlobalKey.currentContext.size.height;
         _headerHeight = _headerHeight - MediaQuery.of(context).padding.top;
+
+        _mixTopBarHeight = _stickyBarHeight +
+            MediaQuery.of(context).padding.top +
+            AppBar().preferredSize.height +
+            MediaQuery.of(context).padding.bottom;
       });
     });
   }
@@ -61,6 +71,7 @@ class _StoreTouristPageState extends State<StoreTouristPage>
   @override
   void dispose() {
     super.dispose();
+    _tabController.dispose();
   }
 
   @override
@@ -71,14 +82,17 @@ class _StoreTouristPageState extends State<StoreTouristPage>
           _headerHeight == 0
               ? _header
               : StickyScrollView(
+                  topBarHeight: _mixTopBarHeight,
                   expandedHeight: _headerHeight,
                   expandedChild: _header,
-                  stickyBarHeight: _stickyBarHeight,
+                  stickyBarHeight: MediaQuery.of(context).padding.top +
+                      AppBar().preferredSize.height,
                   stickyBar: Container(
                     height: _stickyBarHeight,
                     color: rgba(255, 255, 255, 1),
                     child: Column(
                       children: [
+                        // tab bar
                         Container(
                           height: 44,
                           child: Row(
@@ -96,6 +110,7 @@ class _StoreTouristPageState extends State<StoreTouristPage>
                                     onPressed: () {
                                       setState(() {
                                         _tabIndex = index;
+                                        _tabController.index = index;
                                       });
                                     },
                                     child: Text(
@@ -138,7 +153,20 @@ class _StoreTouristPageState extends State<StoreTouristPage>
                       ],
                     ),
                   ),
-                  contentView: Container(),
+                  contentView: TabBarView(
+                    controller: _tabController,
+                    physics: NeverScrollableScrollPhysics(),
+                    children: [
+                      TabViewItem(
+                        tabKey: Key(kBaseStorePagePositionKey + "0"),
+                        child: Container(),
+                      ),
+                      TabViewItem(
+                        tabKey: Key(kBaseStorePagePositionKey + "1"),
+                        child: Container(),
+                      ),
+                    ],
+                  ),
                   offsetChange: (offset) {
                     double _opacity = offset / _headerHeight;
                     if (_opacity > 1) {
@@ -155,9 +183,11 @@ class _StoreTouristPageState extends State<StoreTouristPage>
                       });
                     }
                   },
+                  tabIndex: _tabController.index,
                 ), // 导航栏
           StickyNavigatorBar(
             backgroudOpacity: _stickyOpacity,
+            barHeight: AppBar().preferredSize.height,
             lefts: Row(
               children: [
                 // 返回

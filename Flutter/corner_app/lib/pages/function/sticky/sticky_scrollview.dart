@@ -2,6 +2,7 @@ import 'package:flutter/material.dart' hide NestedScrollView;
 import 'package:extended_nested_scroll_view/extended_nested_scroll_view.dart';
 
 typedef StickyScrollOffsetBlock = void Function(double offset);
+final String kBaseStorePagePositionKey = "kStorePagePositionKey";
 
 // ignore: must_be_immutable
 class StickyScrollView extends StatefulWidget {
@@ -11,6 +12,7 @@ class StickyScrollView extends StatefulWidget {
   double stickyBarHeight;
   Widget stickyBar;
   int tabIndex;
+  double topBarHeight;
 
   Widget contentView;
   StickyScrollOffsetBlock offsetChange;
@@ -24,6 +26,7 @@ class StickyScrollView extends StatefulWidget {
     @required this.contentView,
     @required this.offsetChange,
     @required this.tabIndex,
+    @required this.topBarHeight,
   }) : super(key: key);
 
   @override
@@ -75,7 +78,7 @@ class _StickyScrollViewState extends State<StickyScrollView> {
             AppBar().preferredSize.height;
       },
       innerScrollPositionKeyBuilder: () {
-        String index = 'kStorePagePositionKey';
+        String index = kBaseStorePagePositionKey;
         index += this.widget.tabIndex.toString();
         return Key(index);
       },
@@ -84,13 +87,13 @@ class _StickyScrollViewState extends State<StickyScrollView> {
         physics: NeverScrollableScrollPhysics(),
         padding: EdgeInsets.zero,
         child: Column(
-          mainAxisSize: MainAxisSize.max,
           children: [
             this.widget.stickyBar,
             Container(
-              constraints: BoxConstraints(
-                maxHeight: MediaQuery.of(context).size.height,
-              ),
+              height: MediaQuery.of(context).size.height -
+                  (this.widget.topBarHeight == null
+                      ? 0.0
+                      : this.widget.topBarHeight),
               child: this.widget.contentView,
             ),
           ],
@@ -121,5 +124,35 @@ class StickyBarDelegate extends SliverPersistentHeaderDelegate {
   @override
   bool shouldRebuild(SliverPersistentHeaderDelegate oldDelegate) {
     return true;
+  }
+}
+
+// ignore: must_be_immutable
+class TabViewItem extends StatefulWidget {
+  Key tabKey;
+  Widget child;
+
+  TabViewItem({
+    Key key,
+    @required this.tabKey,
+    @required this.child,
+  });
+
+  @override
+  _TabViewItemState createState() => _TabViewItemState();
+}
+
+class _TabViewItemState extends State<TabViewItem>
+    with AutomaticKeepAliveClientMixin {
+  @override
+  bool get wantKeepAlive => true;
+
+  @override
+  Widget build(BuildContext context) {
+    super.build(context);
+    return NestedScrollViewInnerScrollPositionKeyWidget(
+      this.widget.tabKey,
+      this.widget.child,
+    );
   }
 }

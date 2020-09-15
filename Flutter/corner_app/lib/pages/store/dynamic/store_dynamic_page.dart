@@ -31,20 +31,20 @@ class _StoreDynamicPageState extends State<StoreDynamicPage>
     "fasdfasdfwefwef2",
     "aw45324142",
     "q3rb q3455",
-    "qey43vasd4wt",
-    "54wbe5ber",
-    "qet34eavw34qtwx",
-    "aw436tqsagv34wgaqw43g",
-    "q34qt34g",
-    "jd83mcjw,fmw",
-    "03of,w9ew,mwiv,s;",
-    "s0wskwckske,c",
-    "202k,v,wk2",
-    "223",
-    "111111",
-    "222222",
-    "33333",
-    "44444",
+    // "qey43vasd4wt",
+    // "54wbe5ber",
+    // "qet34eavw34qtwx",
+    // "aw436tqsagv34wgaqw43g",
+    // "q34qt34g",
+    // "jd83mcjw,fmw",
+    // "03of,w9ew,mwiv,s;",
+    // "s0wskwckske,c",
+    // "202k,v,wk2",
+    // "223",
+    // "111111",
+    // "222222",
+    // "33333",
+    // "44444",
   ];
 
   RefreshController _refreshController =
@@ -83,24 +83,22 @@ class _StoreDynamicPageState extends State<StoreDynamicPage>
   @override
   Widget build(BuildContext context) {
     super.build(context);
-    return Container(
-      color: rgba(247, 246, 245, 1),
-      child: functionRefresher(
-        _refreshController,
-        ListView.builder(
-          shrinkWrap: true,
-          padding: EdgeInsets.zero,
-          itemBuilder: (context, index) {
-            return StoreDynamicCell();
-          },
-          itemCount: _dataList.length,
-        ),
-        enableRefresh: false,
-        enableLoadMore: true,
-        onLoadMore: () {
-          this._onLoadMore();
+    return functionRefresher(
+      _refreshController,
+      ListView.builder(
+        shrinkWrap: true,
+        // primary: false,
+        padding: EdgeInsets.zero,
+        itemBuilder: (context, index) {
+          return StoreDynamicCell();
         },
+        itemCount: _dataList.length,
       ),
+      enableRefresh: false,
+      enableLoadMore: false,
+      onLoadMore: () {
+        // this._onLoadMore();
+      },
     );
   }
 }

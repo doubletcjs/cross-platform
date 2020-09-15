@@ -4,6 +4,7 @@ import 'package:corner_app/pages/function/sticky/sticky_scrollview.dart';
 import 'package:corner_app/pages/store/detail/store_detail.dart';
 import 'package:corner_app/pages/store/discuss/store_discuss_page.dart';
 import 'package:corner_app/pages/store/dynamic/store_dynamic_page.dart';
+import 'package:corner_app/pages/store/dynamic/store_dynamic_post.dart';
 import 'package:corner_app/pages/store/home/store_search_page.dart';
 import 'package:corner_app/pages/store/home/views/store_banner.dart';
 import 'package:corner_app/pages/store/home/views/store_header.dart';
@@ -13,8 +14,6 @@ import 'package:corner_app/pages/store/product/store_product_page.dart';
 import 'package:corner_app/pages/store/product/views/store_product_header.dart';
 import 'package:corner_app/public/public.dart';
 import 'package:flutter/material.dart' hide NestedScrollView;
-
-import 'package:extended_nested_scroll_view/extended_nested_scroll_view.dart';
 
 class StorePage extends StatefulWidget {
   StorePage({Key key}) : super(key: key);
@@ -39,6 +38,7 @@ class _StorePageState extends State<StorePage>
   StoreDynamicPage _dynamicPage = StoreDynamicPage();
   StoreProductPage _productPage = StoreProductPage();
   StoreDiscussPage _discussPage = StoreDiscussPage();
+  double _mixTopBarHeight;
 
   // 商铺详情
   void _showDetail() {
@@ -58,14 +58,19 @@ class _StorePageState extends State<StorePage>
     );
   }
 
+  // 发布
+  void _dynamicPost() {
+    StoreDynamicPost(
+      tapHandle: (mark) {},
+    ).show(context);
+  }
+
   @override
   void initState() {
     super.initState();
 
     _tabController = TabController(vsync: this, length: 3);
     _header = Column(
-      // padding: EdgeInsets.zero,
-      // physics: NeverScrollableScrollPhysics(),
       children: [
         StoreHeader(
           globalKey: _headerGlobalKey,
@@ -79,12 +84,17 @@ class _StorePageState extends State<StorePage>
       ],
     );
 
-    Future.delayed(Duration(milliseconds: 300), () {
+    Future.delayed(Duration(milliseconds: 200), () {
       setState(() {
         _headerHeight = _headerGlobalKey.currentContext.size.height;
         _headerHeight += _liveGlobalKey.currentContext.size.height;
         _headerHeight += _bannerGlobalKey.currentContext.size.height;
         _headerHeight = _headerHeight - MediaQuery.of(context).padding.top;
+
+        _mixTopBarHeight = _stickyBarHeight +
+            MediaQuery.of(context).padding.top +
+            AppBar().preferredSize.height +
+            MediaQuery.of(context).padding.bottom;
       });
     });
   }
@@ -103,6 +113,7 @@ class _StorePageState extends State<StorePage>
           _headerHeight == 0
               ? _header
               : StickyScrollView(
+                  topBarHeight: _mixTopBarHeight,
                   expandedHeight: _headerHeight,
                   expandedChild: _header,
                   stickyBarHeight: MediaQuery.of(context).padding.top +
@@ -137,6 +148,10 @@ class _StorePageState extends State<StorePage>
                                 }
 
                                 _tabIndex = index;
+                                _mixTopBarHeight = _stickyBarHeight +
+                                    MediaQuery.of(context).padding.top +
+                                    AppBar().preferredSize.height +
+                                    MediaQuery.of(context).padding.bottom;
                               });
                             },
                             labelColor: rgba(50, 50, 50, 1),
@@ -196,27 +211,19 @@ class _StorePageState extends State<StorePage>
                   ),
                   contentView: TabBarView(
                     controller: _tabController,
+                    physics: NeverScrollableScrollPhysics(),
                     children: [
                       TabViewItem(
-                        Key("kStorePagePositionKey" + "0"),
-                        _stickyBarHeight +
-                            MediaQuery.of(context).padding.top +
-                            AppBar().preferredSize.height +
-                            MediaQuery.of(context).padding.bottom,
+                        tabKey: Key(kBaseStorePagePositionKey + "0"),
+                        child: _dynamicPage,
                       ),
                       TabViewItem(
-                        Key("kStorePagePositionKey" + "1"),
-                        _stickyBarHeight +
-                            MediaQuery.of(context).padding.top +
-                            AppBar().preferredSize.height +
-                            MediaQuery.of(context).padding.bottom,
+                        tabKey: Key(kBaseStorePagePositionKey + "1"),
+                        child: _productPage,
                       ),
                       TabViewItem(
-                        Key("kStorePagePositionKey" + "2"),
-                        _stickyBarHeight +
-                            MediaQuery.of(context).padding.top +
-                            AppBar().preferredSize.height +
-                            MediaQuery.of(context).padding.bottom,
+                        tabKey: Key(kBaseStorePagePositionKey + "2"),
+                        child: _discussPage,
                       ),
                     ],
                   ),
@@ -241,6 +248,7 @@ class _StorePageState extends State<StorePage>
           // 导航栏
           StickyNavigatorBar(
             backgroudOpacity: _stickyOpacity,
+            barHeight: AppBar().preferredSize.height,
             lefts: Row(
               children: [
                 // 返回
@@ -332,56 +340,103 @@ class _StorePageState extends State<StorePage>
           ),
         ],
       ),
-    );
-  }
-}
-
-class TabViewItem extends StatefulWidget {
-  const TabViewItem(
-    this.tabKey,
-    this.bottomSpace,
-  );
-  final Key tabKey;
-  final double bottomSpace;
-
-  @override
-  _TabViewItemState createState() => _TabViewItemState();
-}
-
-class _TabViewItemState extends State<TabViewItem>
-    with AutomaticKeepAliveClientMixin {
-  @override
-  bool get wantKeepAlive => true;
-
-  @override
-  Widget build(BuildContext context) {
-    super.build(context);
-    return NestedScrollViewInnerScrollPositionKeyWidget(
-      this.widget.tabKey,
-      ListView.builder(
-        itemBuilder: (BuildContext c, int i) {
-          return Container(
-            //decoration: BoxDecoration(border: Border.all(color: Colors.orange,width: 1.0)),
-            alignment: Alignment.center,
-            height: 60.0,
-            width: double.infinity,
-            //color: Colors.blue,
-            child: Text(widget.tabKey.toString() + ': List$i'),
-            decoration: BoxDecoration(
-                border: Border(
-              bottom: BorderSide(
-                width: 1,
-                color: Colors.red,
-              ),
-            )),
-          );
-        },
-        itemCount: 50,
-        // padding: EdgeInsets.zero,
-        padding: EdgeInsets.only(
-          bottom: this.widget.bottomSpace,
-        ),
-      ),
+      floatingActionButton: _stickyOpacity >= 0.9
+          ? (_tabIndex == 2
+              ? Container(
+                  width: MediaQuery.of(context).size.width - 32,
+                  height: 48,
+                  decoration: BoxDecoration(
+                    color: rgba(255, 255, 255, 1),
+                    borderRadius: BorderRadius.circular(8),
+                    boxShadow: [
+                      BoxShadow(
+                        color: rgba(0, 0, 0, 0.16),
+                        blurRadius: 8,
+                        offset: Offset.zero,
+                      ),
+                    ],
+                  ),
+                  child: FlatButton(
+                    padding: EdgeInsets.fromLTRB(23.5, 0, 22.5, 0),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                    onPressed: () {},
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          "留下你的精彩讨论吧",
+                          style: TextStyle(
+                            fontSize: 16,
+                            color: rgba(153, 153, 153, 1),
+                            fontWeight: FontWeight.normal,
+                          ),
+                        ),
+                        Image.asset(
+                          "images/input_bar_icon@3x.png",
+                          width: 28,
+                          height: 28,
+                        ),
+                      ],
+                    ),
+                  ),
+                )
+              : Container(
+                  width: 84,
+                  height: 84,
+                  child: Stack(
+                    children: [
+                      FlatButton(
+                        padding: EdgeInsets.zero,
+                        onPressed: () {
+                          if (_tabIndex == 0) {
+                            this._dynamicPost();
+                          }
+                        },
+                        child: Image.asset(
+                          _tabIndex == 1
+                              ? "images/store_shopping_cart@3x.png"
+                              : "images/dynamic_post@3x.png",
+                          width: 84,
+                          height: 84,
+                        ),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(84 / 2),
+                        ),
+                      ),
+                      _tabIndex == 1
+                          ? Positioned(
+                              top: 6,
+                              right: 12,
+                              child: Container(
+                                height: 20,
+                                alignment: Alignment.center,
+                                padding: EdgeInsets.only(
+                                  left: 6.5,
+                                  right: 6.5,
+                                ),
+                                constraints: BoxConstraints(
+                                  minWidth: 20,
+                                ),
+                                decoration: BoxDecoration(
+                                  color: rgba(235, 102, 91, 1),
+                                  borderRadius: BorderRadius.circular(20 / 2),
+                                ),
+                                child: Text(
+                                  "1",
+                                  style: TextStyle(
+                                    fontSize: 12,
+                                    color: rgba(255, 255, 255, 1),
+                                  ),
+                                ),
+                              ),
+                            )
+                          : Container(),
+                    ],
+                  ),
+                ))
+          : Container(),
     );
   }
 }
