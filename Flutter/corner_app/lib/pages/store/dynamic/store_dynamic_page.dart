@@ -83,22 +83,25 @@ class _StoreDynamicPageState extends State<StoreDynamicPage>
   @override
   Widget build(BuildContext context) {
     super.build(context);
-    return functionRefresher(
-      _refreshController,
-      ListView.builder(
-        shrinkWrap: true,
-        // primary: false,
-        padding: EdgeInsets.zero,
-        itemBuilder: (context, index) {
-          return StoreDynamicCell();
+    return Container(
+      color: rgba(247, 246, 245, 1),
+      child: functionRefresher(
+        _refreshController,
+        ListView.builder(
+          shrinkWrap: true,
+          // primary: false,
+          padding: EdgeInsets.fromLTRB(0, 0, 0, 84),
+          itemBuilder: (context, index) {
+            return StoreDynamicCell();
+          },
+          itemCount: _dataList.length,
+        ),
+        enableRefresh: false,
+        enableLoadMore: false,
+        onLoadMore: () {
+          // this._onLoadMore();
         },
-        itemCount: _dataList.length,
       ),
-      enableRefresh: false,
-      enableLoadMore: false,
-      onLoadMore: () {
-        // this._onLoadMore();
-      },
     );
   }
 }

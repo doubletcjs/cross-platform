@@ -1,3 +1,5 @@
+import 'package:corner_app/pages/store/discuss/views/store_discuss_cell.dart';
+import 'package:corner_app/public/public.dart';
 import 'package:flutter/material.dart';
 
 // ignore: must_be_immutable
@@ -20,28 +22,20 @@ class _StoreDiscussPageState extends State<StoreDiscussPage>
   @override
   Widget build(BuildContext context) {
     super.build(context);
-    return ListView.builder(
-      shrinkWrap: true,
-      // primary: false,
-      itemBuilder: (BuildContext c, int i) {
-        return Container(
-          //decoration: BoxDecoration(border: Border.all(color: Colors.orange,width: 1.0)),
-          alignment: Alignment.center,
-          height: 60.0,
-          width: double.infinity,
-          //color: Colors.blue,
-          child: Text("讨论区" + ': List$i'),
-          decoration: BoxDecoration(
-              border: Border(
-            bottom: BorderSide(
-              width: 1,
-              color: Colors.red,
-            ),
-          )),
-        );
-      },
-      itemCount: 30,
-      padding: EdgeInsets.zero,
+    return Container(
+      color: rgba(247, 246, 245, 1),
+      child: ListView.builder(
+        shrinkWrap: true,
+        // primary: false,
+        itemBuilder: (context, index) {
+          return StoreDiscussCell(
+            showBorder: index == 0,
+            hideLine: index == 29,
+          );
+        },
+        itemCount: 30,
+        padding: EdgeInsets.fromLTRB(0, 0, 0, 60),
+      ),
     );
   }
 }

@@ -475,59 +475,64 @@ class _StoreDynamicCellState extends State<StoreDynamicCell>
                     SizedBox(
                       width: 8,
                     ),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Row(
-                          children: [
-                            // 用户名
-                            Container(
-                              constraints: BoxConstraints(
-                                maxWidth: 250,
-                              ),
-                              child: Text(
-                                "红鱼",
-                                overflow: TextOverflow.ellipsis,
-                                style: TextStyle(
-                                  fontSize: 16,
-                                  color: rgba(50, 50, 50, 1),
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Row(
+                            children: [
+                              // 用户名
+                              Container(
+                                constraints: BoxConstraints(
+                                  maxWidth: 200,
+                                ),
+                                child: Text(
+                                  "红鱼",
+                                  overflow: TextOverflow.ellipsis,
+                                  style: TextStyle(
+                                    fontSize: 16,
+                                    color: rgba(50, 50, 50, 1),
+                                  ),
                                 ),
                               ),
-                            ),
-                            SizedBox(
-                              width: 6,
-                            ),
-                            // 博主
-                            Container(
-                              width: 39.5,
-                              height: 16,
-                              decoration: BoxDecoration(
-                                color: rgba(235, 102, 91, 1),
-                                borderRadius: BorderRadius.circular(16 / 2),
+                              SizedBox(
+                                width: 6,
                               ),
-                              alignment: Alignment.center,
-                              child: Text(
-                                "落主",
-                                style: TextStyle(
-                                  fontSize: 12,
-                                  color: rgba(255, 255, 255, 1),
+                              // 博主
+                              Container(
+                                width: 39.5,
+                                height: 16,
+                                decoration: BoxDecoration(
+                                  color: rgba(235, 102, 91, 1),
+                                  borderRadius: BorderRadius.circular(16 / 2),
+                                ),
+                                alignment: Alignment.center,
+                                child: Text(
+                                  "落主",
+                                  style: TextStyle(
+                                    fontSize: 12,
+                                    color: rgba(255, 255, 255, 1),
+                                  ),
                                 ),
                               ),
-                            ),
-                          ],
-                        ),
-                        // 发布时间
-                        Text(
-                          "30分钟前",
-                          style: TextStyle(
-                            fontSize: 10,
-                            color: rgba(153, 153, 153, 1),
+                            ],
                           ),
-                        ),
-                      ],
+                          // 发布时间
+                          Text(
+                            "30分钟前",
+                            style: TextStyle(
+                              fontSize: 10,
+                              color: rgba(153, 153, 153, 1),
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
                   ],
                 ),
+              ),
+              SizedBox(
+                width: 12,
               ),
               // 分享
               Container(

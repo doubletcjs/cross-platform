@@ -2,6 +2,7 @@ import 'package:corner_app/pages/function/scale_tabbar.dart';
 import 'package:corner_app/pages/function/sticky/sticky_navigator_bar.dart';
 import 'package:corner_app/pages/function/sticky/sticky_scrollview.dart';
 import 'package:corner_app/pages/store/detail/store_detail.dart';
+import 'package:corner_app/pages/store/discuss/store_discuss_input.dart';
 import 'package:corner_app/pages/store/discuss/store_discuss_page.dart';
 import 'package:corner_app/pages/store/dynamic/store_dynamic_page.dart';
 import 'package:corner_app/pages/store/dynamic/store_dynamic_post.dart';
@@ -63,6 +64,11 @@ class _StorePageState extends State<StorePage>
     StoreDynamicPost(
       tapHandle: (mark) {},
     ).show(context);
+  }
+
+  // 评论
+  void _discussPost() {
+    StoreDiscussInput().show(context);
   }
 
   @override
@@ -361,7 +367,9 @@ class _StorePageState extends State<StorePage>
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(8),
                     ),
-                    onPressed: () {},
+                    onPressed: () {
+                      this._discussPost();
+                    },
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
@@ -437,6 +445,7 @@ class _StorePageState extends State<StorePage>
                   ),
                 ))
           : Container(),
+      resizeToAvoidBottomInset: false,
     );
   }
 }
