@@ -237,6 +237,7 @@ class _StoreDiscussReplyState extends State<StoreDiscussReply> {
                   padding: EdgeInsets.fromLTRB(16, 0, 31, 0),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Expanded(
                         child: Column(

@@ -1,4 +1,5 @@
 import 'package:corner_app/pages/function/general_dialog.dart';
+import 'package:corner_app/public/public.dart';
 import 'package:flutter/material.dart';
 
 class StoreDiscussInput extends StatefulWidget {
@@ -24,42 +25,54 @@ class StoreDiscussInput extends StatefulWidget {
 }
 
 class _StoreDiscussInputState extends State<StoreDiscussInput> {
+  TextEditingController _editingController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return Container(
       padding: EdgeInsets.fromLTRB(
-          16, 21, 16, 15.5 + MediaQuery.of(context).padding.bottom),
+          16,
+          21,
+          16,
+          15.5 +
+              MediaQuery.of(context).padding.bottom +
+              MediaQuery.of(context).viewInsets.bottom),
       child: Column(
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Container(
-            color: Colors.green,
-            child: Row(
-              children: [
-                Expanded(
-                  child: Container(
-                    color: Colors.red,
-                    child: TextField(
-                      decoration: InputDecoration(
-                        hintText: "留下你的精彩讨论吧",
-                      ),
+          Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Expanded(
+                child: Container(
+                  constraints: BoxConstraints(
+                    maxHeight: 120,
+                  ),
+                  child: TextField(
+                    autofocus: true,
+                    maxLines: null,
+                    controller: _editingController,
+                    decoration: InputDecoration(
+                      hintText: "留下你的精彩讨论吧",
+                      focusedBorder: InputBorder.none,
+                      enabledBorder: InputBorder.none,
                     ),
                   ),
                 ),
-                SizedBox(
-                  width: 12,
+              ),
+              SizedBox(
+                width: 12,
+              ),
+              InkWell(
+                onTap: () {},
+                child: Image.asset(
+                  "images/input_bar_send@3x.png",
+                  width: 30,
+                  height: 30,
                 ),
-                InkWell(
-                  onTap: () {},
-                  child: Image.asset(
-                    "images/input_bar_send@3x.png",
-                    width: 30,
-                    height: 30,
-                  ),
-                ),
-              ],
-            ),
+              ),
+            ],
           ),
           SizedBox(
             height: 36,
