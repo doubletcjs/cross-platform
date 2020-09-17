@@ -1,6 +1,6 @@
-import 'package:corner_app/pages/store/create/create_base.dart';
-import 'package:corner_app/pages/home/views/home_cell.dart';
-import 'package:corner_app/pages/home/views/home_wrap.dart';
+import 'package:corner_app/pages/module/space/module/create/space_create_base.dart';
+import 'package:corner_app/pages/module/home/views/home_cell.dart';
+import 'package:corner_app/pages/module/home/views/home_wrap.dart';
 import 'package:flutter/material.dart';
 import 'package:corner_app/public/public.dart';
 

@@ -11,7 +11,7 @@ class StickyScrollView extends StatefulWidget {
   //MediaQuery.of(context).padding.top + AppBar().preferredSize.height
   double stickyBarHeight;
   Widget stickyBar;
-  int tabIndex;
+  int keyIndex;
   double topBarHeight;
 
   Widget contentView;
@@ -25,7 +25,7 @@ class StickyScrollView extends StatefulWidget {
     @required this.stickyBar,
     @required this.contentView,
     @required this.offsetChange,
-    @required this.tabIndex,
+    @required this.keyIndex,
     @required this.topBarHeight,
   }) : super(key: key);
 
@@ -79,7 +79,7 @@ class _StickyScrollViewState extends State<StickyScrollView> {
       },
       innerScrollPositionKeyBuilder: () {
         String index = kBaseStorePagePositionKey;
-        index += this.widget.tabIndex.toString();
+        index += this.widget.keyIndex.toString();
         return Key(index);
       },
       body: SingleChildScrollView(
