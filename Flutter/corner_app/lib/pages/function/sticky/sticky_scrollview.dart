@@ -17,6 +17,8 @@ class StickyScrollView extends StatefulWidget {
   Widget contentView;
   StickyScrollOffsetBlock offsetChange;
 
+  Brightness brightness;
+
   StickyScrollView({
     Key key,
     @required this.expandedHeight,
@@ -27,6 +29,7 @@ class StickyScrollView extends StatefulWidget {
     @required this.offsetChange,
     @required this.keyIndex,
     @required this.topBarHeight,
+    this.brightness,
   }) : super(key: key);
 
   @override
@@ -66,6 +69,9 @@ class _StickyScrollViewState extends State<StickyScrollView> {
             elevation: 0,
             backgroundColor: Colors.white,
             leading: Container(),
+            brightness: this.widget.brightness == null
+                ? Theme.of(context).brightness
+                : this.widget.brightness,
             flexibleSpace: FlexibleSpaceBar(
               collapseMode: CollapseMode.pin,
               background: this.widget.expandedChild,

@@ -34,6 +34,7 @@ class _StoreProductCellState extends State<StoreProductCell> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
+                // 封面
                 networkImage(
                   "",
                   Size(_itemWH, _itemWH),
@@ -42,6 +43,7 @@ class _StoreProductCellState extends State<StoreProductCell> {
                     topRight: Radius.circular(8),
                   ),
                 ),
+                // 名称
                 Container(
                   padding: EdgeInsets.fromLTRB(7.5, 12, 7.5, 4),
                   child: Text(
@@ -52,8 +54,9 @@ class _StoreProductCellState extends State<StoreProductCell> {
                     ),
                   ),
                 ),
+                // 价格
                 Container(
-                  padding: EdgeInsets.fromLTRB(7.5, 0, 7.5, 10.5),
+                  padding: EdgeInsets.fromLTRB(7.5, 0, 7.5, 0),
                   child: Row(
                     children: [
                       Text(
@@ -76,6 +79,9 @@ class _StoreProductCellState extends State<StoreProductCell> {
                       ),
                     ],
                   ),
+                ),
+                SizedBox(
+                  height: 10.5,
                 ),
               ],
             ),

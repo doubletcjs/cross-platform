@@ -7,13 +7,15 @@ class StickyNavigatorBar extends StatefulWidget {
   Widget rights;
   double backgroudOpacity = 0.0;
   double barHeight;
+  Widget background;
 
   StickyNavigatorBar({
     Key key,
     @required this.lefts,
     @required this.rights,
     @required this.barHeight,
-    this.backgroudOpacity = 0.0,
+    @required this.backgroudOpacity,
+    this.background,
   }) : super(key: key);
 
   @override
@@ -71,23 +73,25 @@ class _StickyNavigatorBarState extends State<StickyNavigatorBar> {
             right: 0,
             child: Opacity(
               opacity: this.widget.backgroudOpacity,
-              child: Stack(
-                children: [
-                  Image.asset(
-                    "images/homepages_default_bg.png",
-                    height: 217 + MediaQuery.of(context).padding.top,
-                    width: MediaQuery.of(context).size.width,
-                    fit: BoxFit.cover,
-                  ),
-                  Container(
-                    color: rgba(0, 0, 0, 0.4),
-                    padding: EdgeInsets.only(
-                      top: MediaQuery.of(context).padding.top,
-                    ),
-                    height: 217 + MediaQuery.of(context).padding.top,
-                  ),
-                ],
-              ),
+              child: this.widget.background == null
+                  ? Stack(
+                      children: [
+                        Image.asset(
+                          "images/homepages_default_bg.png",
+                          height: 217 + MediaQuery.of(context).padding.top,
+                          width: MediaQuery.of(context).size.width,
+                          fit: BoxFit.cover,
+                        ),
+                        Container(
+                          color: rgba(0, 0, 0, 0.4),
+                          padding: EdgeInsets.only(
+                            top: MediaQuery.of(context).padding.top,
+                          ),
+                          height: 217 + MediaQuery.of(context).padding.top,
+                        ),
+                      ],
+                    )
+                  : this.widget.background,
             ),
           ),
           Positioned(

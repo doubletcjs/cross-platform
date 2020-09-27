@@ -47,11 +47,13 @@ class GeneralShare extends StatelessWidget {
   ];
 
   double _itemWidth = 65.0;
+  int _maxRow = 5;
 
   show(
     BuildContext context, {
     List baseList,
     List otherList,
+    int maxRow,
   }) {
     if (baseList != null) {
       _baseList = baseList;
@@ -61,6 +63,10 @@ class GeneralShare extends StatelessWidget {
       _otherList = otherList;
     }
 
+    if (maxRow != null) {
+      _maxRow = maxRow;
+    }
+
     GeneralDialog().show(
       context,
       backgroundPadding: EdgeInsets.zero,
@@ -68,6 +74,10 @@ class GeneralShare extends StatelessWidget {
       containerContent: this,
       barrierDismissible: true,
       backgroundColor: Color.fromRGBO(0, 0, 0, 0.4),
+      borderRadius: BorderRadius.only(
+        topLeft: Radius.circular(6),
+        topRight: Radius.circular(6),
+      ),
     );
   }
 
@@ -156,8 +166,8 @@ class GeneralShare extends StatelessWidget {
                 return Container(
                   width: (MediaQuery.of(context).size.width -
                           16 * 2 -
-                          _itemWidth * 5) /
-                      4,
+                          _itemWidth * _maxRow) /
+                      (_maxRow - 1),
                 );
               },
               itemCount: _baseList.length,
@@ -223,8 +233,8 @@ class GeneralShare extends StatelessWidget {
                       return Container(
                         width: (MediaQuery.of(context).size.width -
                                 16 * 2 -
-                                _itemWidth * 5) /
-                            4,
+                                _itemWidth * _maxRow) /
+                            (_maxRow - 1),
                       );
                     },
                     itemCount: _otherList.length,

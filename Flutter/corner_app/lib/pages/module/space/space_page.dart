@@ -237,8 +237,8 @@ class _SpacePageState extends State<SpacePage>
                       ),
                     ],
                   ),
-                  offsetChange: (offset) {
-                    double _opacity = offset / _headerHeight;
+                  offsetChange: (offSet) {
+                    double _opacity = offSet / _headerHeight;
                     if (_opacity > 1) {
                       _opacity = 1;
                     }

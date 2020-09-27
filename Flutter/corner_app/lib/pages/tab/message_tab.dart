@@ -1,3 +1,4 @@
+import 'package:corner_app/public/public.dart';
 import 'package:flutter/material.dart';
 
 class MessageTabPage extends StatefulWidget {
@@ -10,6 +11,11 @@ class MessageTabPage extends StatefulWidget {
 class _MessageTabPageState extends State<MessageTabPage> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold();
+    return Scaffold(
+      appBar: customAppBar(
+        title: "消息",
+        defaultBack: true,
+      ),
+    );
   }
 }
