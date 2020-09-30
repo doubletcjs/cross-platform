@@ -12,8 +12,12 @@ class SpaceStorePage extends StatefulWidget {
     this.tab = 0,
   }) : super(key: key);
 
+  _SpaceStorePageState state = _SpaceStorePageState();
+
   @override
-  _SpaceStorePageState createState() => _SpaceStorePageState();
+  _SpaceStorePageState createState() {
+    return state;
+  }
 }
 
 class _SpaceStorePageState extends State<SpaceStorePage>

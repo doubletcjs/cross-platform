@@ -1,4 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:common_utils/common_utils.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -142,34 +143,40 @@ Widget transparentAppBar({Brightness brightness = Brightness.dark}) {
 
 ///带占位图网络图片
 Widget networkImage(
-  String imageUrl,
+  String path,
   Size size,
   BorderRadius borderRadius, {
   String placeholder,
+  BoxFit fit: BoxFit.cover,
 }) {
   return ClipRRect(
-    child: (imageUrl != null &&
-            imageUrl.length > 0 &&
-            imageUrl.contains("http"))
+    child: (path != null && path.length > 0 && path.contains("http"))
         ? CachedNetworkImage(
+            fadeInDuration: Duration(seconds: 0),
+            fadeOutDuration: Duration(seconds: 0),
+            placeholderFadeInDuration: Duration(seconds: 0),
             placeholder: (context, url) {
               return Image.asset(
-                placeholder != null ? placeholder : "images/placeholder@3x.png",
+                placeholder != null
+                    ? placeholder
+                    : "images/placeholder_mini@3x.png",
                 width: size.width,
                 height: size.height,
-                fit: BoxFit.cover,
+                fit: fit,
               );
             },
-            imageUrl: imageUrl,
+            imageUrl: ObjectUtil.isEmpty(path) == false ? "$path" : "",
             width: size.width,
             height: size.height,
             fit: BoxFit.cover,
           )
         : Image.asset(
-            placeholder != null ? placeholder : "images/placeholder@3x.png",
+            ObjectUtil.isEmpty(path) == true
+                ? "images/placeholder_mini@3x.png"
+                : path,
             width: size.width,
             height: size.height,
-            fit: BoxFit.cover,
+            fit: fit,
           ),
     borderRadius: borderRadius,
   );

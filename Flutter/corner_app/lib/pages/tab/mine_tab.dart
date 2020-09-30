@@ -2,8 +2,8 @@ import 'package:corner_app/pages/function/general_share.dart';
 import 'package:corner_app/pages/function/scale_tabbar.dart';
 import 'package:corner_app/pages/function/sticky/sticky_navigator_bar.dart';
 import 'package:corner_app/pages/function/sticky/sticky_scrollview.dart';
-import 'package:corner_app/pages/module/mine/minedynamic.dart';
-import 'package:corner_app/pages/module/mine/views/mineheader.dart';
+import 'package:corner_app/pages/module/mine/mine_dynamic.dart';
+import 'package:corner_app/pages/module/mine/views/mine_header.dart';
 import 'package:corner_app/pages/module/space/views/space_tabbar.dart';
 import 'package:corner_app/public/public.dart';
 import 'package:flutter/material.dart';
@@ -139,6 +139,7 @@ class _MineTabPageState extends State<MineTabPage>
                                 tabSwitchHandle: (tab) {
                                   setState(() {
                                     _dynamicPage.tab = tab;
+                                    _dynamicPage.state.setState(() {});
                                   });
                                 },
                               )

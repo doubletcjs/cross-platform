@@ -11,8 +11,12 @@ class MineDynamic extends StatefulWidget {
     this.tab = 0,
   }) : super(key: key);
 
+  _MineDynamicState state = _MineDynamicState();
+
   @override
-  _MineDynamicState createState() => _MineDynamicState();
+  _MineDynamicState createState() {
+    return state;
+  }
 }
 
 class _MineDynamicState extends State<MineDynamic>
@@ -89,37 +93,66 @@ class _MineDynamicState extends State<MineDynamic>
   @override
   Widget build(BuildContext context) {
     super.build(context);
-    return Container(
-      color: rgba(247, 246, 245, 1),
+    return ListView.separated(
       padding: EdgeInsets.only(
-        left: 16,
-        right: 16,
-        bottom: 0,
-        top: 0,
+        bottom: 48 + 44.0,
       ),
-      child: CustomScrollView(
-        shrinkWrap: true,
-        // primary: false,
-        physics: NeverScrollableScrollPhysics(),
-        slivers: [
-          SliverStaggeredGrid.countBuilder(
-            crossAxisCount: 2,
-            mainAxisSpacing: 8,
-            crossAxisSpacing: 8,
-            staggeredTileBuilder: (index) {
-              return StaggeredTile.fit(1);
-            },
-            itemBuilder: (context, index) {
-              var dynamic = _dynamicList[index];
-              return MineDynamicCell(
-                dynamic: dynamic,
-                isDraft: this.widget.tab == 1 ? true : false,
-              );
-            },
-            itemCount: _dynamicList.length,
+      itemBuilder: (context, index) {
+        return Container(
+          height: 55,
+          child: InkWell(
+            onTap: () {},
+            child: Text("$index"),
           ),
-        ],
-      ),
+        );
+      },
+      separatorBuilder: (context, index) {
+        return Container(
+          height: 1,
+          color: Colors.red,
+        );
+      },
+      itemCount: 20,
     );
+    // return ListView(
+    //   shrinkWrap: true,
+    //   physics: NeverScrollableScrollPhysics(),
+    //   padding: EdgeInsets.zero,
+    //   children: [
+    //     Container(
+    //       color: rgba(247, 246, 245, 1),
+    //       padding: EdgeInsets.only(
+    //         left: 16,
+    //         right: 16,
+    //         bottom: 0,
+    //         top: 0,
+    //       ),
+    //       child: CustomScrollView(
+    //         shrinkWrap: true,
+    //         // primary: false,
+    //         physics: NeverScrollableScrollPhysics(),
+    //         slivers: [
+    //           SliverStaggeredGrid.countBuilder(
+    //             crossAxisCount: 2,
+    //             mainAxisSpacing: 8,
+    //             crossAxisSpacing: 8,
+    //             staggeredTileBuilder: (index) {
+    //               return StaggeredTile.fit(1);
+    //             },
+    //             itemBuilder: (context, index) {
+    //               kLog("TAB:${this.widget.tab}");
+    //               var dynamic = _dynamicList[index];
+    //               return MineDynamicCell(
+    //                 dynamic: dynamic,
+    //                 isDraft: this.widget.tab == 1 ? true : false,
+    //               );
+    //             },
+    //             itemCount: _dynamicList.length,
+    //           ),
+    //         ],
+    //       ),
+    //     ),
+    //   ],
+    // );
   }
 }

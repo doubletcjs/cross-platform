@@ -10,8 +10,12 @@ class DiscussPage extends StatefulWidget {
     this.tab = 0,
   }) : super(key: key);
 
+  _DiscussPageState state = _DiscussPageState();
+
   @override
-  _DiscussPageState createState() => _DiscussPageState();
+  _DiscussPageState createState() {
+    return state;
+  }
 }
 
 class _DiscussPageState extends State<DiscussPage>

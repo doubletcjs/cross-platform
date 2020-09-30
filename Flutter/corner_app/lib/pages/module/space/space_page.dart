@@ -189,6 +189,7 @@ class _SpacePageState extends State<SpacePage>
                                 tabSwitchHandle: (tab) {
                                   setState(() {
                                     _dynamicPage.tab = tab;
+                                    _dynamicPage.state.setState(() {});
                                   });
                                 },
                               )
@@ -203,6 +204,7 @@ class _SpacePageState extends State<SpacePage>
                                     tabSwitchHandle: (tab) {
                                       setState(() {
                                         _productPage.tab = tab;
+                                        _productPage.state.setState(() {});
                                       });
                                     },
                                   )
@@ -212,6 +214,7 @@ class _SpacePageState extends State<SpacePage>
                                         tabSwitchHandle: (tab) {
                                           setState(() {
                                             _discussPage.tab = tab;
+                                            _discussPage.state.setState(() {});
                                           });
                                         },
                                       )

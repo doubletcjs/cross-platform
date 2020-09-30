@@ -11,8 +11,12 @@ class DynamicPage extends StatefulWidget {
     this.tab = 0,
   }) : super(key: key);
 
+  _DynamicPageState state = _DynamicPageState();
+
   @override
-  _DynamicPageState createState() => _DynamicPageState();
+  _DynamicPageState createState() {
+    return state;
+  }
 }
 
 class _DynamicPageState extends State<DynamicPage>
