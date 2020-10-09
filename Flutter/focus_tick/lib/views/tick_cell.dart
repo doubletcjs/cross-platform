@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:focus_tick/pages/temp_page.dart';
 import 'package:focus_tick/pages/tick_page.dart';
 
 // ignore: must_be_immutable
@@ -55,7 +56,7 @@ class _TickCellState extends State<TickCell> {
                   Navigator.of(context).push(
                     MaterialPageRoute(
                       builder: (context) {
-                        return TickPage();
+                        return TempPage();
                       },
                       fullscreenDialog: true,
                     ),
