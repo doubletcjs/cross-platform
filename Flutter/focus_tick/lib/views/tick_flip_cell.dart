@@ -157,6 +157,7 @@ class _TickFlipCellState extends State<TickFlipCell>
     super.didUpdateWidget(oldWidget);
 
     print("didUpdateWidget");
+    setState(() {});
   }
 
   @override
