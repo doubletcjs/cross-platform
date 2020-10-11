@@ -56,7 +56,7 @@ class _TickCellState extends State<TickCell> {
                   Navigator.of(context).push(
                     MaterialPageRoute(
                       builder: (context) {
-                        return TempPage();
+                        return TickPage();
                       },
                       fullscreenDialog: true,
                     ),

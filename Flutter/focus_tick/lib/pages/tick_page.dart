@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:focus_tick/views/tick_flip_cell.dart';
+import 'package:wakelock/wakelock.dart';
 
 class TickPage extends StatefulWidget {
   TickPage({Key key}) : super(key: key);
@@ -7,9 +9,63 @@ class TickPage extends StatefulWidget {
   _TickPageState createState() => _TickPageState();
 }
 
-class _TickPageState extends State<TickPage> {
+class _TickPageState extends State<TickPage>
+    with AutomaticKeepAliveClientMixin, WidgetsBindingObserver {
+  DateTime _dateTime;
+
+  void _updateDateTime() {
+    setState(() {
+      _dateTime = DateTime.now();
+    });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+
+    this._updateDateTime();
+    WidgetsBinding.instance.addObserver(this);
+    Wakelock.enable();
+  }
+
+  @override
+  void dispose() {
+    WidgetsBinding.instance.removeObserver(this);
+    Wakelock.disable();
+    super.dispose();
+  }
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    print("--" + state.toString());
+    switch (state) {
+      case AppLifecycleState.inactive: // 处于这种状态的应用程序应该假设它们可能在任何时候暂停。
+        break;
+      case AppLifecycleState.resumed: // 应用程序可见，前台
+        break;
+      case AppLifecycleState.paused: // 应用程序不可见，后台
+        break;
+      case AppLifecycleState.detached:
+        break;
+    }
+
+    this._updateDateTime();
+  }
+
+  @override
+  void didChangeMetrics() {
+    super.didChangeMetrics();
+
+    print("didChangeMetrics");
+    this._updateDateTime();
+  }
+
+  @override
+  bool get wantKeepAlive => true;
+
   @override
   Widget build(BuildContext context) {
+    super.build(context);
     return Scaffold(
       backgroundColor: Colors.black,
       appBar: AppBar(
@@ -26,79 +82,37 @@ class _TickPageState extends State<TickPage> {
           },
         ),
       ),
-      body: Center(
-        child: OrientationBuilder(
-          builder: (context, orientation) {
-            double itemSpace = 90;
-            var itemWH = (orientation == Orientation.landscape
-                    ? MediaQuery.of(context).size.height
-                    : MediaQuery.of(context).size.width) -
-                itemSpace * 2 -
-                AppBar().preferredSize.height;
-            return Container(
-              alignment: Alignment.center,
-              margin: EdgeInsets.only(
-                bottom: AppBar().preferredSize.height,
-                left: itemSpace,
-                right: itemSpace,
-              ),
-              child: Wrap(
-                runSpacing: 25,
-                spacing: 25,
-                children: [
-                  Card(
-                    elevation: 10.0,
-                    color: Color.fromRGBO(21, 21, 21, 1),
-                    shadowColor: Color.fromRGBO(0, 0, 0, 0.2),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                    child: Container(
-                      width: itemWH,
-                      height: itemWH,
-                      child: Center(
-                        child: Text(
-                          "10",
-                          style: TextStyle(
-                            fontSize: 120,
-                            color: Colors.white,
-                          ),
-                        ),
-                      ),
-                    ),
-                    margin: EdgeInsets.zero,
-                  ),
-                  Card(
-                    elevation: 10.0,
-                    color: Color.fromRGBO(21, 21, 21, 1),
-                    shadowColor: Color.fromRGBO(0, 0, 0, 0.2),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                    child: Container(
-                      width: itemWH,
-                      height: itemWH,
-                    ),
-                    margin: EdgeInsets.zero,
-                  ),
-                  Card(
-                    elevation: 10.0,
-                    color: Color.fromRGBO(21, 21, 21, 1),
-                    shadowColor: Color.fromRGBO(0, 0, 0, 0.2),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                    child: Container(
-                      width: itemWH,
-                      height: itemWH,
-                    ),
-                    margin: EdgeInsets.zero,
-                  ),
-                ],
-              ),
-            );
-          },
-        ),
+      body: OrientationBuilder(
+        builder: (context, orientation) {
+          double itemSpace = 70;
+
+          return Container(
+            alignment: Alignment.center,
+            margin: EdgeInsets.only(
+              bottom: AppBar().preferredSize.height,
+              left: itemSpace,
+              right: itemSpace,
+            ),
+            child: Wrap(
+              runSpacing: 26,
+              spacing: 26,
+              children: [
+                TickFlipCell(
+                  dateTime: _dateTime,
+                  tickType: 2,
+                ),
+                TickFlipCell(
+                  dateTime: _dateTime,
+                  tickType: 1,
+                ),
+                TickFlipCell(
+                  dateTime: _dateTime,
+                  tickType: 0,
+                ),
+              ],
+            ),
+          );
+        },
       ),
     );
   }
