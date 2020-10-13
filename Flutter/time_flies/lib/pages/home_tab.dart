@@ -11,7 +11,10 @@ class HomeTabPage extends StatefulWidget {
   _HomeTabPageState createState() => _HomeTabPageState();
 }
 
-class _HomeTabPageState extends State<HomeTabPage> {
+class _HomeTabPageState extends State<HomeTabPage>
+    with SingleTickerProviderStateMixin {
+  TabController _tabController;
+
   // 个人主页
   void _homePage() {
     Navigator.of(context).push(
@@ -28,6 +31,13 @@ class _HomeTabPageState extends State<HomeTabPage> {
         return TopicListPage();
       }),
     );
+  }
+
+  @override
+  void initState() {
+    super.initState();
+
+    _tabController = TabController(length: 2, vsync: this);
   }
 
   @override
@@ -50,9 +60,37 @@ class _HomeTabPageState extends State<HomeTabPage> {
             },
           ),
         ],
+        titleView: TabBar(
+          controller: _tabController,
+          labelColor: Colors.black,
+          labelStyle: TextStyle(
+            fontWeight: FontWeight.bold,
+            fontSize: 17,
+          ),
+          unselectedLabelStyle: TextStyle(
+            fontWeight: FontWeight.normal,
+            fontSize: 17,
+          ),
+          indicator: BoxDecoration(),
+          tabs: [
+            Tab(
+              text: "主页",
+            ),
+            Tab(
+              text: "关注",
+            ),
+          ],
+        ),
       ),
       drawer: Drawer(
         child: MenuPage(),
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {},
+        child: Icon(
+          Icons.add,
+          size: 32,
+        ),
       ),
     );
   }

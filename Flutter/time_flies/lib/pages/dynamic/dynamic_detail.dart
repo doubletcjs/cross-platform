@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 
-class AccountListPage extends StatefulWidget {
-  AccountListPage({Key key}) : super(key: key);
+class DynamicDetailPage extends StatefulWidget {
+  DynamicDetailPage({Key key}) : super(key: key);
 
   @override
-  _AccountListPageState createState() => _AccountListPageState();
+  _DynamicDetailPageState createState() => _DynamicDetailPageState();
 }
 
-class _AccountListPageState extends State<AccountListPage> {
+class _DynamicDetailPageState extends State<DynamicDetailPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold();
