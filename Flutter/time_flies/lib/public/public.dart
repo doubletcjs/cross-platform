@@ -7,7 +7,6 @@ import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:toast/toast.dart';
 
 //无值返回block回调
-
 typedef kVoidFunctionBlock = void Function();
 //带值返回block回调
 typedef kObjectFunctionBlock = void Function(Object object);
