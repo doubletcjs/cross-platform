@@ -75,7 +75,9 @@ AppBar customAppBar({
                 fontWeight: FontWeight.normal,
               ),
             )
-          : titleView != null ? titleView : Container(),
+          : titleView != null
+              ? titleView
+              : Container(),
       actions: rightItems,
       brightness: brightness,
       backgroundColor: backgroundColor,
@@ -108,7 +110,9 @@ AppBar customAppBar({
                       fontWeight: FontWeight.normal,
                     ),
                   )
-                : titleView != null ? titleView : Container(),
+                : titleView != null
+                    ? titleView
+                    : Container(),
           ),
           Positioned(
             child: Row(
@@ -157,9 +161,7 @@ Widget networkImage(
             placeholderFadeInDuration: Duration(seconds: 0),
             placeholder: (context, url) {
               return Image.asset(
-                placeholder != null
-                    ? placeholder
-                    : "images/placeholder_mini@3x.png",
+                placeholder != null ? placeholder : "images/placeholder@3x.png",
                 width: size.width,
                 height: size.height,
                 fit: fit,
@@ -172,7 +174,7 @@ Widget networkImage(
           )
         : Image.asset(
             ObjectUtil.isEmpty(path) == true
-                ? "images/placeholder_mini@3x.png"
+                ? "images/placeholder@3x.png"
                 : path,
             width: size.width,
             height: size.height,

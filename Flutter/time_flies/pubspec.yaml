@@ -31,6 +31,13 @@ dependencies:
   cached_network_image: any
   pull_to_refresh: any
   toast: any
+  extended_nested_scroll_view: any
+  flutter_staggered_grid_view: any
+  image_cropper: any
+  flutter_slidable: any
+  multi_image_picker: any
+  xs_progress_hud: any
+  flutter_chips_input: any
 
 dev_dependencies:
   flutter_test:

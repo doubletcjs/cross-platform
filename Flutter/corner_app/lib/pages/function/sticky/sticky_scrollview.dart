@@ -80,8 +80,7 @@ class _StickyScrollViewState extends State<StickyScrollView> {
         ];
       },
       pinnedHeaderSliverHeightBuilder: () {
-        return MediaQuery.of(context).padding.top +
-            AppBar().preferredSize.height;
+        return this.widget.stickyBarHeight;
       },
       innerScrollPositionKeyBuilder: () {
         String index = kBaseStorePagePositionKey;

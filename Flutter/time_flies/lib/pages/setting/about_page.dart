@@ -73,6 +73,9 @@ class _AboutPageState extends State<AboutPage> {
               ),
             ),
           ),
+          SizedBox(
+            height: 44,
+          ),
         ],
       ),
     );

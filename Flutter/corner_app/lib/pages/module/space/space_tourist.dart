@@ -83,8 +83,7 @@ class _SpaceTouristPageState extends State<SpaceTouristPage>
                   topBarHeight: _mixTopBarHeight,
                   expandedHeight: _headerHeight,
                   expandedChild: _header,
-                  stickyBarHeight: MediaQuery.of(context).padding.top +
-                      AppBar().preferredSize.height,
+                  stickyBarHeight: _stickyBarHeight,
                   stickyBar: Container(
                     height: _stickyBarHeight,
                     color: rgba(255, 255, 255, 1),

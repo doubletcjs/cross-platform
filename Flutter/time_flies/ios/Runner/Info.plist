@@ -22,6 +22,21 @@
 	<string>$(FLUTTER_BUILD_NUMBER)</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
+	<key>NSAppTransportSecurity</key>
+	<dict>
+		<key>NSAllowsArbitraryLoads</key>
+		<true/>
+	</dict>
+	<key>NSAppleMusicUsageDescription</key>
+	<string>App需要您的同意，才能访问媒体资料库</string>
+	<key>NSCameraUsageDescription</key>
+	<string>App需要您的同意，才能访问本地摄像头进行拍摄照片上传、发布动态，如禁止将无法上传选择照片上传、发布动态等</string>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>App需要您的同意，才能访问本地麦克风进行视频拍摄，如禁止将无法进行视频拍摄</string>
+	<key>NSPhotoLibraryAddUsageDescription</key>
+	<string>App需要您的同意，才能访问相册进行选择照片上传、发布动态，如禁止将无法上传选择照片上传、发布动态</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>App需要您的同意，才能访问相册进行选择照片上传、发布动态，如禁止将无法上传选择照片上传、发布动态</string>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
 	<key>UIMainStoryboardFile</key>
@@ -29,8 +44,6 @@
 	<key>UISupportedInterfaceOrientations</key>
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>
-		<string>UIInterfaceOrientationLandscapeLeft</string>
-		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
 	<key>UISupportedInterfaceOrientations~ipad</key>
 	<array>

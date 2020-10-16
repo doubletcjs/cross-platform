@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:time_flies/pages/setting/about_page.dart';
+import 'package:time_flies/pages/setting/cancel_account.dart';
+import 'package:time_flies/pages/setting/feedback_page.dart';
 import 'package:time_flies/public/public.dart';
 
 class SettingPage extends StatefulWidget {
@@ -124,6 +126,46 @@ class _SettingPageState extends State<SettingPage> {
               },
               title: Text(
                 "关于",
+              ),
+              trailing: Icon(
+                Icons.arrow_forward_ios,
+                size: 14,
+                color: Colors.grey,
+              ),
+            ),
+          ),
+          Material(
+            color: Colors.white,
+            child: ListTile(
+              onTap: () {
+                Navigator.of(context).push(
+                  MaterialPageRoute(builder: (context) {
+                    return FeedBackPage();
+                  }),
+                );
+              },
+              title: Text(
+                "意见反馈",
+              ),
+              trailing: Icon(
+                Icons.arrow_forward_ios,
+                size: 14,
+                color: Colors.grey,
+              ),
+            ),
+          ),
+          Material(
+            color: Colors.white,
+            child: ListTile(
+              onTap: () {
+                Navigator.of(context).push(
+                  MaterialPageRoute(builder: (context) {
+                    return CancelAccount();
+                  }),
+                );
+              },
+              title: Text(
+                "注销账号",
               ),
               trailing: Icon(
                 Icons.arrow_forward_ios,

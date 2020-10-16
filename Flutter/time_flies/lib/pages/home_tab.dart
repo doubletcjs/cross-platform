@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:time_flies/pages/dynamic/dynamic_post.dart';
 import 'package:time_flies/pages/home/home_page.dart';
 import 'package:time_flies/pages/home/menu_page.dart';
 import 'package:time_flies/pages/topic/topic_list.dart';
@@ -30,6 +31,17 @@ class _HomeTabPageState extends State<HomeTabPage>
       MaterialPageRoute(builder: (context) {
         return TopicListPage();
       }),
+    );
+  }
+
+  // 发布
+  void _postDynamic() {
+    Navigator.of(context).push(
+      MaterialPageRoute(
+          builder: (context) {
+            return DynamicPostPage();
+          },
+          fullscreenDialog: true),
     );
   }
 
@@ -86,12 +98,15 @@ class _HomeTabPageState extends State<HomeTabPage>
         child: MenuPage(),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () {},
+        onPressed: () {
+          this._postDynamic();
+        },
         child: Icon(
           Icons.add,
           size: 32,
         ),
       ),
+      resizeToAvoidBottomInset: false,
     );
   }
 }

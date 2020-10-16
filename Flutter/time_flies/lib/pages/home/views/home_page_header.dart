@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:time_flies/pages/home/account_list.dart';
 import 'package:time_flies/public/public.dart';
 
 // ignore: must_be_immutable
@@ -22,14 +23,29 @@ class _HomePageHeaderState extends State<HomePageHeader> {
     "粉丝",
   ];
 
+  // 粉丝列表
+  void _fanList() {
+    Navigator.of(context).push(
+      MaterialPageRoute(builder: (context) {
+        return AccountListPage();
+      }),
+    );
+  }
+
+  // 关注列表
+  void _attentionList() {
+    Navigator.of(context).push(
+      MaterialPageRoute(builder: (context) {
+        return AccountListPage();
+      }),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
       key: this.widget.globalKey,
-      padding: EdgeInsets.only(
-        top: MediaQuery.of(context).padding.top + 20,
-        bottom: 18,
-      ),
+      padding: EdgeInsets.only(bottom: 16),
       decoration: BoxDecoration(
         gradient: LinearGradient(
           colors: [
@@ -44,12 +60,27 @@ class _HomePageHeaderState extends State<HomePageHeader> {
       ),
       child: Column(
         mainAxisSize: MainAxisSize.min,
+        mainAxisAlignment: MainAxisAlignment.center,
         children: [
+          SizedBox(
+            height: MediaQuery.of(context).padding.top + 20,
+          ),
           // 头像
-          networkImage(
-            "",
-            Size(98, 98),
-            BorderRadius.circular(98 / 2),
+          Stack(
+            children: [
+              networkImage(
+                "",
+                Size(98, 98),
+                BorderRadius.circular(98 / 2),
+              ),
+              Positioned(
+                right: 0,
+                bottom: 0,
+                child: Icon(
+                  Icons.check_circle,
+                ),
+              ),
+            ],
           ),
           SizedBox(
             height: 18,
@@ -92,10 +123,66 @@ class _HomePageHeaderState extends State<HomePageHeader> {
             height: 8,
           ),
           Row(
+            mainAxisAlignment: MainAxisAlignment.center,
             children: _itemList.map((item) {
               if (item == "·") {
-              } else {}
+                return Container(
+                  margin: EdgeInsets.only(left: 12, right: 12),
+                  width: 4,
+                  height: 4,
+                  decoration: BoxDecoration(
+                    color: Colors.grey,
+                    borderRadius: BorderRadius.circular(4 / 2),
+                  ),
+                );
+              } else {
+                return InkWell(
+                  onTap: () {
+                    if (item == "关注") {
+                      this._attentionList();
+                    } else if (item == "粉丝") {
+                      this._fanList();
+                    }
+                  },
+                  child: RichText(
+                    text: TextSpan(
+                      text: "0" + " ",
+                      style: TextStyle(
+                        color: Colors.black,
+                      ),
+                      children: [
+                        TextSpan(
+                          text: "$item",
+                          style: TextStyle(
+                            color: Colors.grey,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                );
+              }
             }).toList(),
+          ),
+          SizedBox(
+            height: 20,
+          ),
+          //编辑、关注、已关注
+          FlatButton.icon(
+            padding: EdgeInsets.zero,
+            color: Colors.white,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(44 / 2),
+            ),
+            onPressed: () {},
+            icon: Icon(
+              Icons.edit,
+              size: 18,
+              color: Colors.grey,
+            ),
+            label: Text(
+              "编辑",
+            ),
           ),
         ],
       ),

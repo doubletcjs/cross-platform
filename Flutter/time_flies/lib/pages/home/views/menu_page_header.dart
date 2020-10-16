@@ -76,10 +76,21 @@ class _MenuPageHeaderState extends State<MenuPageHeader> {
                 width: 20 + 14.0,
               ),
               // 头像
-              networkImage(
-                "",
-                Size(68, 68),
-                BorderRadius.circular(68 / 2),
+              Stack(
+                children: [
+                  networkImage(
+                    "",
+                    Size(68, 68),
+                    BorderRadius.circular(68 / 2),
+                  ),
+                  Positioned(
+                    right: 0,
+                    bottom: 0,
+                    child: Icon(
+                      Icons.check_circle,
+                    ),
+                  ),
+                ],
               ),
               SizedBox(
                 width: 20,
