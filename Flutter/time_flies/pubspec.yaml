@@ -38,6 +38,7 @@ dependencies:
   multi_image_picker: any
   xs_progress_hud: any
   flutter_chips_input: any
+  photo_view: any
 
 dev_dependencies:
   flutter_test:

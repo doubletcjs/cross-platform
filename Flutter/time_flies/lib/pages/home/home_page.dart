@@ -1,10 +1,16 @@
 import 'package:extended_nested_scroll_view/extended_nested_scroll_view.dart';
 import 'package:flutter/material.dart' hide NestedScrollView;
+import 'package:time_flies/function/report_alert.dart';
 import 'package:time_flies/pages/dynamic/home_dynamic_list.dart';
 import 'package:time_flies/pages/home/views/home_page_header.dart';
 
+// ignore: must_be_immutable
 class HomePage extends StatefulWidget {
-  HomePage({Key key}) : super(key: key);
+  String accountId = "";
+  HomePage({
+    Key key,
+    this.accountId = "",
+  }) : super(key: key);
 
   @override
   _HomePageState createState() => _HomePageState();
@@ -19,6 +25,18 @@ class _HomePageState extends State<HomePage>
   Widget _header;
   double _headerHeight = 0;
   double _stickyOpacity = 0;
+
+  //更多
+  void _moreAction(BuildContext context) {
+    ReportAlert(
+      itemHandle: (item) {
+        Future.delayed(Duration(milliseconds: 300), () {
+          if (item == "举报") {
+          } else if (item == "拉黑") {}
+        });
+      },
+    ).show(context);
+  }
 
   @override
   void initState() {
@@ -83,8 +101,32 @@ class _HomePageState extends State<HomePage>
                     iconTheme: IconThemeData(color: Colors.black),
                     brightness: Theme.of(context).brightness,
                     titleSpacing: 0,
+                    leading: IconButton(
+                      padding: EdgeInsets.zero,
+                      icon: Image.asset(
+                        "images/home_page_back@3x.png",
+                        width: 29,
+                        height: 29,
+                      ),
+                      onPressed: () {
+                        Navigator.of(context).pop();
+                      },
+                    ),
+                    actions: [
+                      IconButton(
+                        padding: EdgeInsets.zero,
+                        icon: Image.asset(
+                          "images/home_page_more@3x.png",
+                          width: 29,
+                          height: 29,
+                        ),
+                        onPressed: () {
+                          this._moreAction(context);
+                        },
+                      )
+                    ],
                     title: Opacity(
-                      opacity: _stickyOpacity,
+                      opacity: _stickyOpacity < 0.5 ? 0 : _stickyOpacity,
                       child: Text(
                         "用户名",
                         style: TextStyle(

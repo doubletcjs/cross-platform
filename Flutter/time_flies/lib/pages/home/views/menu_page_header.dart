@@ -83,6 +83,7 @@ class _MenuPageHeaderState extends State<MenuPageHeader> {
                     Size(68, 68),
                     BorderRadius.circular(68 / 2),
                   ),
+                  // 性别
                   Positioned(
                     right: 0,
                     bottom: 0,

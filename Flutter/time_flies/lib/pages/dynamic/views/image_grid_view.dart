@@ -146,6 +146,7 @@ class _ImageGridViewState extends State<ImageGridView> {
           },
           onWillAccept: (moveData) {
             print('=== onWillAccept ===');
+            FocusScope.of(context).requestFocus(FocusNode());
 
             var accept = moveData != null;
             if (accept) {

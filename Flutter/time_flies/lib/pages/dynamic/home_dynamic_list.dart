@@ -18,21 +18,16 @@ class HomeDynamicList extends StatefulWidget {
 class _HomeDynamicListState extends State<HomeDynamicList> {
   @override
   Widget build(BuildContext context) {
-    return StaggeredGridView.countBuilder(
-      padding: EdgeInsets.only(
-        top: 0,
-        bottom: MediaQuery.of(context).padding.bottom,
-        left: 16,
-        right: 16,
-      ),
-      crossAxisCount: 2,
-      mainAxisSpacing: 16.0,
-      crossAxisSpacing: 16.0,
+    return ListView.separated(
+      padding: EdgeInsets.zero,
       itemBuilder: (context, index) {
-        return HomeDynamicCell();
+        return Container(
+          height: 120,
+          color: Colors.red,
+        );
       },
-      staggeredTileBuilder: (index) {
-        return StaggeredTile.fit(1);
+      separatorBuilder: (context, index) {
+        return Divider();
       },
       itemCount: this.widget.dynamicType == 0 ? 20 : 30,
     );

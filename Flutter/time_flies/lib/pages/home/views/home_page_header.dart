@@ -73,6 +73,7 @@ class _HomePageHeaderState extends State<HomePageHeader> {
                 Size(98, 98),
                 BorderRadius.circular(98 / 2),
               ),
+              // 性别
               Positioned(
                 right: 0,
                 bottom: 0,
@@ -99,13 +100,13 @@ class _HomePageHeaderState extends State<HomePageHeader> {
           Container(
             padding: EdgeInsets.fromLTRB(3, 2, 3, 0),
             decoration: BoxDecoration(
-              color: Colors.limeAccent,
+              color: rgba(255, 44, 96, 1),
               borderRadius: BorderRadius.circular(3),
             ),
             child: Text(
               "ID: 12345",
               style: TextStyle(
-                color: Colors.grey,
+                color: Colors.white,
               ),
             ),
           ),
