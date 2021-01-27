@@ -2,6 +2,7 @@ import 'package:diary_mood/pages/diary/diary_tab.dart';
 import 'package:diary_mood/pages/mine/mine_tab.dart';
 import 'package:diary_mood/pages/mood/mood_tab.dart';
 import 'package:flutter/material.dart';
+import 'package:one_context/one_context.dart';
 
 void main() {
   runApp(MyApp());
@@ -13,6 +14,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: '心情日记',
+      builder: OneContext().builder,
       home: MainTabPage(),
     );
   }

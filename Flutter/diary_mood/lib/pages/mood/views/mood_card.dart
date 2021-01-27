@@ -1,8 +1,17 @@
 import 'package:diary_mood/public/public.dart';
 import 'package:flutter/material.dart';
 
+// ignore: must_be_immutable
 class MoodBaseCard extends StatelessWidget {
-  const MoodBaseCard({Key key}) : super(key: key);
+  kVoidFunctionBlock dianzanHandle;
+  kObjectFunctionBlock topicHandle;
+  kVoidFunctionBlock accountHandle;
+  MoodBaseCard({
+    Key key,
+    this.dianzanHandle,
+    this.topicHandle,
+    this.accountHandle,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -12,7 +21,10 @@ class MoodBaseCard extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           // 用户信息
-          _MoodCardAccount(),
+          _MoodCardAccount(
+            dianzanHandle: dianzanHandle,
+            accountHandle: accountHandle,
+          ),
           // 内容
           Padding(
             padding: EdgeInsets.only(top: 18, right: 15),
@@ -29,8 +41,16 @@ class MoodBaseCard extends StatelessWidget {
           Padding(
             padding: EdgeInsets.only(top: 18, right: 15),
             child: FlatButton(
-              onPressed: () {},
-              onLongPress: () {},
+              onPressed: () {
+                if (topicHandle != null) {
+                  topicHandle(false);
+                }
+              },
+              onLongPress: () {
+                if (topicHandle != null) {
+                  topicHandle(true);
+                }
+              },
               minWidth: 0,
               height: 26,
               materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
@@ -55,8 +75,15 @@ class MoodBaseCard extends StatelessWidget {
   }
 }
 
+// ignore: must_be_immutable
 class _MoodCardAccount extends StatelessWidget {
-  const _MoodCardAccount({Key key}) : super(key: key);
+  kVoidFunctionBlock dianzanHandle;
+  kVoidFunctionBlock accountHandle;
+  _MoodCardAccount({
+    Key key,
+    this.dianzanHandle,
+    this.accountHandle,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -67,41 +94,55 @@ class _MoodCardAccount extends StatelessWidget {
           child: Row(
             children: [
               // 头像
-              extendedNetworkImage(
-                "",
-                Size(44, 44),
-                BorderRadius.circular(44 / 2),
+              InkWell(
+                onTap: () {
+                  if (accountHandle != null) {
+                    accountHandle();
+                  }
+                },
+                child: extendedNetworkImage(
+                  "",
+                  Size(44, 44),
+                  BorderRadius.circular(44 / 2),
+                ),
               ),
               SizedBox(
                 width: 12,
               ),
               // 用户名、发布日期
               Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    // 用户名
-                    Text(
-                      "用户名",
-                      maxLines: 1,
-                      overflow: TextOverflow.ellipsis,
-                      style: TextStyle(
-                        fontSize: 16,
-                        color: rgba(18, 18, 18, 1),
+                child: InkWell(
+                  onTap: () {
+                    if (accountHandle != null) {
+                      accountHandle();
+                    }
+                  },
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      // 用户名
+                      Text(
+                        "用户名",
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                        style: TextStyle(
+                          fontSize: 16,
+                          color: rgba(18, 18, 18, 1),
+                        ),
                       ),
-                    ),
-                    SizedBox(
-                      height: 4,
-                    ),
-                    // 发布日期
-                    Text(
-                      "05-13 16:40",
-                      style: TextStyle(
-                        fontSize: 12,
-                        color: rgba(170, 170, 170, 1),
+                      SizedBox(
+                        height: 4,
                       ),
-                    ),
-                  ],
+                      // 发布日期
+                      Text(
+                        "05-13 16:40",
+                        style: TextStyle(
+                          fontSize: 12,
+                          color: rgba(170, 170, 170, 1),
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
               ),
             ],
@@ -112,7 +153,11 @@ class _MoodCardAccount extends StatelessWidget {
         ),
         // 点赞
         FlatButton(
-          onPressed: () {},
+          onPressed: () {
+            if (dianzanHandle != null) {
+              dianzanHandle();
+            }
+          },
           minWidth: 0,
           height: 26,
           materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,

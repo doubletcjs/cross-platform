@@ -30,6 +30,9 @@ dependencies:
 
   extended_image: any
   common_utils: any
+  xs_progress_hud: any
+  toast: any
+  one_context: any
 
 dev_dependencies:
   flutter_test:

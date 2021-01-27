@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 
 import 'package:extended_image/extended_image.dart';
 import 'package:common_utils/common_utils.dart';
+import 'package:one_context/one_context.dart';
+import 'package:toast/toast.dart';
 
 Color kMainColor = rgba(255, 45, 85, 1);
 
@@ -26,6 +28,18 @@ bool kDebug() {
 ///rgb颜色
 Color rgba(int r, int g, int b, double opacity) {
   return Color.fromRGBO(r, g, b, opacity);
+}
+
+///toast
+void showToast(String message,
+    {int gravity = 1, int duration = 2, BuildContext context}) {
+  Future.delayed(
+    Duration(milliseconds: 300),
+    () {
+      Toast.show(message, context == null ? OneContext().context : context,
+          gravity: gravity, duration: duration);
+    },
+  );
 }
 
 ///透明导航栏
