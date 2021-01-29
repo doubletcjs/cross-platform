@@ -5,10 +5,12 @@ import 'package:flutter/material.dart';
 class CommentCard extends StatelessWidget {
   kVoidFunctionBlock replyHandle;
   kVoidFunctionBlock deleteHandle;
+  kObjectFunctionBlock accountHandle;
   CommentCard({
     Key key,
     this.replyHandle,
     this.deleteHandle,
+    this.accountHandle,
   }) : super(key: key);
 
   @override
@@ -27,7 +29,11 @@ class CommentCard extends StatelessWidget {
                 Padding(
                   padding: EdgeInsets.only(top: 4),
                   child: InkWell(
-                    onTap: () {},
+                    onTap: () {
+                      if (accountHandle != null) {
+                        accountHandle("用户id");
+                      }
+                    },
                     child: extendedNetworkImage(
                       "",
                       Size(28, 28),
@@ -43,13 +49,20 @@ class CommentCard extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       // 用户名
-                      Text(
-                        "用户名",
-                        maxLines: 1,
-                        overflow: TextOverflow.ellipsis,
-                        style: TextStyle(
-                          fontSize: 12,
-                          color: rgba(18, 18, 18, 1),
+                      InkWell(
+                        onTap: () {
+                          if (accountHandle != null) {
+                            accountHandle("用户id");
+                          }
+                        },
+                        child: Text(
+                          "用户名",
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                          style: TextStyle(
+                            fontSize: 12,
+                            color: rgba(18, 18, 18, 1),
+                          ),
                         ),
                       ),
                       SizedBox(

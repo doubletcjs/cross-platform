@@ -33,6 +33,9 @@ dependencies:
   xs_progress_hud: any
   toast: any
   one_context: any
+  country_list_pick: any
+  mobsms: any
+  mobcommonlib: any
 
 dev_dependencies:
   flutter_test:

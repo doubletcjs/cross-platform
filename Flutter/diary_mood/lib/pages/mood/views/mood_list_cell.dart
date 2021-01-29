@@ -2,8 +2,13 @@ import 'package:diary_mood/pages/mood/mood_detail.dart';
 import 'package:diary_mood/pages/mood/views/mood_card.dart';
 import 'package:flutter/material.dart';
 
+// ignore: must_be_immutable
 class MoodListCell extends StatelessWidget {
-  const MoodListCell({Key key}) : super(key: key);
+  bool showTopic = true;
+  MoodListCell({
+    Key key,
+    this.showTopic = true,
+  }) : super(key: key);
 
   // 详情
   void _moodDetail(BuildContext context) {
@@ -28,7 +33,12 @@ class MoodListCell extends StatelessWidget {
           this._moodDetail(context);
         },
         borderRadius: BorderRadius.circular(10),
-        child: MoodBaseCard(),
+        child: MoodBaseCard(
+          showTopic: showTopic,
+          dianzanHandle: () {},
+          topicHandle: () {},
+          accountHandle: () {},
+        ),
       ),
     );
   }

@@ -49,6 +49,7 @@ Widget transparentAppBar({Brightness brightness = Brightness.dark}) {
     elevation: 0,
     backgroundColor: Colors.transparent,
     brightness: brightness,
+    leading: Container(),
   );
 }
 

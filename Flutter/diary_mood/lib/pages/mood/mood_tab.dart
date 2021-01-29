@@ -1,4 +1,5 @@
 import 'package:diary_mood/pages/mood/mood_list.dart';
+import 'package:diary_mood/pages/mood/mood_publish.dart';
 import 'package:diary_mood/public/widget/scale_tabbar.dart';
 import 'package:flutter/material.dart';
 
@@ -17,6 +18,18 @@ class _MoodTabPageState extends State<MoodTabPage>
 
   // tab页面
   List<MoodListPage> _pageList = [];
+
+  // 发布
+  void _postMood() {
+    Navigator.of(context).push(
+      MaterialPageRoute(
+        builder: (context) {
+          return MoodPublish();
+        },
+        fullscreenDialog: true,
+      ),
+    );
+  }
 
   @override
   void initState() {
@@ -77,7 +90,9 @@ class _MoodTabPageState extends State<MoodTabPage>
           Icons.create,
           size: 24,
         ),
-        onPressed: () {},
+        onPressed: () {
+          this._postMood();
+        },
         materialTapTargetSize: MaterialTapTargetSize.padded,
       ),
       resizeToAvoidBottomInset: false,

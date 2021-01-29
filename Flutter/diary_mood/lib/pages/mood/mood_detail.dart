@@ -96,7 +96,7 @@ class _MoodDetailPageState extends State<MoodDetailPage> {
                           dianzanHandle: () {
                             _commentInput.closeCommentInput();
                           },
-                          topicHandle: (object) {
+                          topicHandle: () {
                             _commentInput.closeCommentInput();
                           },
                           accountHandle: () {
@@ -176,6 +176,10 @@ class _MoodDetailPageState extends State<MoodDetailPage> {
                                   title: "",
                                   content: "是否删除该评论？",
                                 ).show(context);
+                              },
+                              accountHandle: (object) {
+                                kLog("$object");
+                                _commentInput.closeCommentInput();
                               },
                             ),
                           );

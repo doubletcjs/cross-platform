@@ -29,52 +29,60 @@ class ActionSheet extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding:
-          EdgeInsets.only(bottom: 18 + MediaQuery.of(context).padding.bottom),
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: titles.map((title) {
-          int index = titles.indexOf(title);
-          return Container(
-            height: 50,
-            decoration: BoxDecoration(
-              border: index == titles.length - 1
-                  ? Border(bottom: BorderSide.none)
-                  : Border(
-                      bottom: BorderSide(
-                        color: rgba(237, 237, 237, 1),
-                        width: 0.3,
-                      ),
-                    ),
-            ),
-            child: InkWell(
-              borderRadius: index == 0
-                  ? BorderRadius.only(
-                      topLeft: Radius.circular(20),
-                      topRight: Radius.circular(20),
-                    )
-                  : BorderRadius.zero,
-              child: Center(
-                child: Text(
-                  "$title",
-                  style: TextStyle(color: rgba(51, 51, 51, 1), fontSize: 18),
+    return OrientationBuilder(
+      builder: (context, orientation) {
+        return Container(
+          width: orientation == Orientation.portrait
+              ? MediaQuery.of(context).size.width
+              : MediaQuery.of(context).size.height,
+          padding: EdgeInsets.only(
+              bottom: 18 + MediaQuery.of(context).padding.bottom),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: titles.map((title) {
+              int index = titles.indexOf(title);
+              return Container(
+                height: 50,
+                decoration: BoxDecoration(
+                  border: index == titles.length - 1
+                      ? Border(bottom: BorderSide.none)
+                      : Border(
+                          bottom: BorderSide(
+                            color: rgba(237, 237, 237, 1),
+                            width: 0.3,
+                          ),
+                        ),
                 ),
-              ),
-              onTap: () {
-                Navigator.of(context).pop();
+                child: InkWell(
+                  borderRadius: index == 0
+                      ? BorderRadius.only(
+                          topLeft: Radius.circular(20),
+                          topRight: Radius.circular(20),
+                        )
+                      : BorderRadius.zero,
+                  child: Center(
+                    child: Text(
+                      "$title",
+                      style:
+                          TextStyle(color: rgba(51, 51, 51, 1), fontSize: 18),
+                    ),
+                  ),
+                  onTap: () {
+                    Navigator.of(context).pop();
 
-                Future.delayed(Duration(milliseconds: 400), () {
-                  kVoidFunctionBlock action = actions[index];
-                  if (action != null) {
-                    action();
-                  }
-                });
-              },
-            ),
-          );
-        }).toList(),
-      ),
+                    Future.delayed(Duration(milliseconds: 400), () {
+                      kVoidFunctionBlock action = actions[index];
+                      if (action != null) {
+                        action();
+                      }
+                    });
+                  },
+                ),
+              );
+            }).toList(),
+          ),
+        );
+      },
     );
   }
 }

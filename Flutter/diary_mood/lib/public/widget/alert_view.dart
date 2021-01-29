@@ -45,113 +45,120 @@ class AlertView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: <Widget>[
-          Container(
-            margin: EdgeInsets.all(20),
-            child: Column(
-              children: [
-                //标题
-                "$title".length > 0
-                    ? Padding(
-                        padding: EdgeInsets.only(bottom: 12),
-                        child: Text(
-                          "$title",
-                          textAlign: TextAlign.center,
-                          style: titleStyle == null
-                              ? TextStyle(
-                                  fontSize: 18,
-                                  fontWeight: FontWeight.w500,
-                                )
-                              : titleStyle,
-                        ),
-                      )
-                    : Container(),
-                //内容
-                Text(
-                  "$content",
-                  textAlign: TextAlign.center,
-                  style: contentStyle == null
-                      ? TextStyle(
-                          fontSize: 18,
+    return OrientationBuilder(builder: (context, orientation) {
+      return SizedBox(
+        width: orientation == Orientation.portrait
+            ? MediaQuery.of(context).size.width
+            : MediaQuery.of(context).size.height -
+                MediaQuery.of(context).padding.left -
+                MediaQuery.of(context).padding.right,
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: <Widget>[
+            Container(
+              margin: EdgeInsets.all(20),
+              child: Column(
+                children: [
+                  //标题
+                  "$title".length > 0
+                      ? Padding(
+                          padding: EdgeInsets.only(bottom: 12),
+                          child: Text(
+                            "$title",
+                            textAlign: TextAlign.center,
+                            style: titleStyle == null
+                                ? TextStyle(
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.w500,
+                                  )
+                                : titleStyle,
+                          ),
                         )
-                      : contentStyle,
+                      : Container(),
+                  //内容
+                  Text(
+                    "$content",
+                    textAlign: TextAlign.center,
+                    style: contentStyle == null
+                        ? TextStyle(
+                            fontSize: 18,
+                          )
+                        : contentStyle,
+                  ),
+                ],
+              ),
+            ),
+            // 分割线
+            Divider(
+              height: 1,
+              color: rgba(240, 240, 240, 1),
+            ),
+            //功能按钮
+            Row(
+              children: <Widget>[
+                Expanded(
+                  child: FlatButton(
+                    height: 48,
+                    minWidth: 0,
+                    materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                    padding: EdgeInsets.zero,
+                    color: Color.fromRGBO(255, 255, 255, 1),
+                    onPressed: () {
+                      Navigator.of(context).pop();
+                    },
+                    child: Text(
+                      "$cancel",
+                      overflow: TextOverflow.ellipsis,
+                      style: cancelStyle == null
+                          ? TextStyle(
+                              fontSize: 17,
+                              fontWeight: FontWeight.normal,
+                            )
+                          : cancelStyle,
+                    ),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.only(
+                        bottomLeft: Radius.circular(8),
+                      ),
+                    ),
+                  ),
+                ),
+                Expanded(
+                  child: FlatButton(
+                    height: 48,
+                    minWidth: 0,
+                    materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                    padding: EdgeInsets.zero,
+                    color: Color.fromRGBO(255, 255, 255, 1),
+                    onPressed: () {
+                      Navigator.of(context).pop();
+                      if (confirmHandle != null) {
+                        confirmHandle();
+                      }
+                    },
+                    child: Text(
+                      "$confirm",
+                      overflow: TextOverflow.ellipsis,
+                      style: confirmStyle == null
+                          ? TextStyle(
+                              color: Theme.of(context).primaryColor,
+                              fontSize: 17,
+                              fontWeight: FontWeight.normal,
+                            )
+                          : confirmStyle,
+                    ),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.only(
+                        bottomRight: Radius.circular(8),
+                      ),
+                    ),
+                  ),
                 ),
               ],
             ),
-          ),
-          // 分割线
-          Divider(
-            height: 1,
-            color: rgba(240, 240, 240, 1),
-          ),
-          //功能按钮
-          Row(
-            children: <Widget>[
-              Expanded(
-                child: FlatButton(
-                  height: 48,
-                  minWidth: 0,
-                  materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                  padding: EdgeInsets.zero,
-                  color: Color.fromRGBO(255, 255, 255, 1),
-                  onPressed: () {
-                    Navigator.of(context).pop();
-                  },
-                  child: Text(
-                    "$cancel",
-                    overflow: TextOverflow.ellipsis,
-                    style: cancelStyle == null
-                        ? TextStyle(
-                            fontSize: 17,
-                            fontWeight: FontWeight.normal,
-                          )
-                        : cancelStyle,
-                  ),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.only(
-                      bottomLeft: Radius.circular(8),
-                    ),
-                  ),
-                ),
-              ),
-              Expanded(
-                child: FlatButton(
-                  height: 48,
-                  minWidth: 0,
-                  materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                  padding: EdgeInsets.zero,
-                  color: Color.fromRGBO(255, 255, 255, 1),
-                  onPressed: () {
-                    Navigator.of(context).pop();
-                    if (confirmHandle != null) {
-                      confirmHandle();
-                    }
-                  },
-                  child: Text(
-                    "$confirm",
-                    overflow: TextOverflow.ellipsis,
-                    style: confirmStyle == null
-                        ? TextStyle(
-                            color: Theme.of(context).primaryColor,
-                            fontSize: 17,
-                            fontWeight: FontWeight.normal,
-                          )
-                        : confirmStyle,
-                  ),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.only(
-                      bottomRight: Radius.circular(8),
-                    ),
-                  ),
-                ),
-              ),
-            ],
-          ),
-        ],
-      ),
-    );
+          ],
+        ),
+      );
+    });
   }
 }

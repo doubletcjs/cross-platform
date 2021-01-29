@@ -1,17 +1,58 @@
+import 'package:diary_mood/pages/mood/mood_publish.dart';
+import 'package:diary_mood/pages/topic/topic_mood.dart';
 import 'package:diary_mood/public/public.dart';
 import 'package:flutter/material.dart';
 
 // ignore: must_be_immutable
 class MoodBaseCard extends StatelessWidget {
+  bool showTopic = true;
   kVoidFunctionBlock dianzanHandle;
-  kObjectFunctionBlock topicHandle;
+  kVoidFunctionBlock topicHandle;
   kVoidFunctionBlock accountHandle;
   MoodBaseCard({
     Key key,
     this.dianzanHandle,
     this.topicHandle,
     this.accountHandle,
+    this.showTopic = true,
   }) : super(key: key);
+
+  // 用户主页
+  void _homePage(BuildContext context) {
+    kLog("用户主页");
+  }
+
+  // 点赞
+  void _likeMoode(BuildContext context) {
+    kLog("点赞");
+  }
+
+  // 发布指定话题心情
+  void _postTopicMood(BuildContext context) {
+    kLog("发布心情");
+    Navigator.of(context).push(
+      MaterialPageRoute(
+        builder: (context) {
+          return MoodPublish(
+            topic: {"": ""},
+          );
+        },
+        fullscreenDialog: true,
+      ),
+    );
+  }
+
+  // 话题相关心情列表
+  void _topicMoodList(BuildContext context) {
+    kLog("话题");
+    Navigator.of(context).push(
+      MaterialPageRoute(builder: (context) {
+        return TopicMood(
+          topic: {},
+        );
+      }),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -22,8 +63,20 @@ class MoodBaseCard extends StatelessWidget {
         children: [
           // 用户信息
           _MoodCardAccount(
-            dianzanHandle: dianzanHandle,
-            accountHandle: accountHandle,
+            dianzanHandle: () {
+              if (dianzanHandle != null) {
+                dianzanHandle();
+              }
+
+              this._likeMoode(context);
+            },
+            accountHandle: () {
+              if (accountHandle != null) {
+                accountHandle();
+              }
+
+              this._homePage(context);
+            },
           ),
           // 内容
           Padding(
@@ -38,37 +91,42 @@ class MoodBaseCard extends StatelessWidget {
           ),
           // 图片
           // 话题
-          Padding(
-            padding: EdgeInsets.only(top: 18, right: 15),
-            child: FlatButton(
-              onPressed: () {
-                if (topicHandle != null) {
-                  topicHandle(false);
-                }
-              },
-              onLongPress: () {
-                if (topicHandle != null) {
-                  topicHandle(true);
-                }
-              },
-              minWidth: 0,
-              height: 26,
-              materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
-              padding: EdgeInsets.only(left: 8, right: 8),
-              color: rgba(234, 236, 240, 1),
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(26 / 2),
-              ),
-              child: Text(
-                "#话题#",
-                maxLines: 1,
-                overflow: TextOverflow.ellipsis,
-                style: TextStyle(
-                  fontSize: 14,
-                ),
-              ),
-            ),
-          ),
+          showTopic == true
+              ? Padding(
+                  padding: EdgeInsets.only(top: 18, right: 15),
+                  child: FlatButton(
+                    onPressed: () {
+                      this._topicMoodList(context);
+                      if (topicHandle != null) {
+                        topicHandle();
+                      }
+                    },
+                    onLongPress: () {
+                      this._postTopicMood(context);
+                      if (topicHandle != null) {
+                        topicHandle();
+                      }
+                    },
+                    minWidth: 0,
+                    height: 26,
+                    materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                    padding: EdgeInsets.only(left: 8, right: 8),
+                    color: rgba(234, 236, 240, 1),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(26 / 2),
+                    ),
+                    child: Text(
+                      "#话题#",
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                      style: TextStyle(
+                        fontSize: 14,
+                        fontWeight: FontWeight.normal,
+                      ),
+                    ),
+                  ),
+                )
+              : Container(),
         ],
       ),
     );
@@ -95,6 +153,7 @@ class _MoodCardAccount extends StatelessWidget {
             children: [
               // 头像
               InkWell(
+                borderRadius: BorderRadius.circular(44 / 2),
                 onTap: () {
                   if (accountHandle != null) {
                     accountHandle();
@@ -111,17 +170,17 @@ class _MoodCardAccount extends StatelessWidget {
               ),
               // 用户名、发布日期
               Expanded(
-                child: InkWell(
-                  onTap: () {
-                    if (accountHandle != null) {
-                      accountHandle();
-                    }
-                  },
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      // 用户名
-                      Text(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    // 用户名
+                    InkWell(
+                      onTap: () {
+                        if (accountHandle != null) {
+                          accountHandle();
+                        }
+                      },
+                      child: Text(
                         "用户名",
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
@@ -130,19 +189,19 @@ class _MoodCardAccount extends StatelessWidget {
                           color: rgba(18, 18, 18, 1),
                         ),
                       ),
-                      SizedBox(
-                        height: 4,
+                    ),
+                    SizedBox(
+                      height: 4,
+                    ),
+                    // 发布日期
+                    Text(
+                      "05-13 16:40",
+                      style: TextStyle(
+                        fontSize: 12,
+                        color: rgba(170, 170, 170, 1),
                       ),
-                      // 发布日期
-                      Text(
-                        "05-13 16:40",
-                        style: TextStyle(
-                          fontSize: 12,
-                          color: rgba(170, 170, 170, 1),
-                        ),
-                      ),
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
               ),
             ],

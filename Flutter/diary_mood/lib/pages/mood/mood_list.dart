@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 
 // ignore: must_be_immutable
 class MoodListPage extends StatefulWidget {
-  int type = 0; // 0 最新 1 最热 2 我的
+  int type = 0; // 0 最新 1 最热 2 我的 3 话题
   MoodListPage({Key key, this.type = 0}) : super(key: key);
 
   @override
@@ -17,7 +17,9 @@ class _MoodListPageState extends State<MoodListPage> {
       key: PageStorageKey("kMoodListPage_${this.widget.type}"),
       padding: EdgeInsets.only(top: 15),
       itemBuilder: (context, index) {
-        return MoodListCell();
+        return MoodListCell(
+          showTopic: this.widget.type == 3 ? false : true,
+        );
       },
       itemCount: 30,
     );
