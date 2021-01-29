@@ -45,19 +45,19 @@ class _MainTabPageState extends State<MainTabPage> {
         icon: Icon(
           Icons.book,
         ),
-        label: "日记",
+        label: "", //日记
       ),
       BottomNavigationBarItem(
         icon: Icon(
           Icons.mood,
         ),
-        label: "心情",
+        label: "", //心情
       ),
       BottomNavigationBarItem(
         icon: Icon(
           Icons.person,
         ),
-        label: "我的",
+        label: "", //我的
       ),
     ];
   }

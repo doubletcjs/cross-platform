@@ -36,6 +36,7 @@ dependencies:
   country_list_pick: any
   mobsms: any
   mobcommonlib: any
+  package_info: any
 
 dev_dependencies:
   flutter_test:
