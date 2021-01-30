@@ -2,7 +2,6 @@ import 'package:diary_mood/pages/diary/diary_tab.dart';
 import 'package:diary_mood/pages/mine/mine_tab.dart';
 import 'package:diary_mood/pages/mood/mood_tab.dart';
 import 'package:flutter/material.dart';
-import 'package:mobcommonlib/mobcommonlib.dart';
 import 'package:one_context/one_context.dart';
 
 void main() {

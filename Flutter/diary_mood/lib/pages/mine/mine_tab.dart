@@ -1,5 +1,6 @@
 import 'dart:ui';
 
+import 'package:diary_mood/pages/mine/account_setting.dart';
 import 'package:diary_mood/pages/mine/feedback_page.dart';
 import 'package:diary_mood/pages/mine/login_register.dart';
 import 'package:diary_mood/public/public.dart';
@@ -14,9 +15,9 @@ class MineTabPage extends StatefulWidget {
 }
 
 class _MineTabPageState extends State<MineTabPage> {
-  List<String> _dataList = ["意见反馈", "用户协议", "隐私政策", ""];
+  List<String> _dataList = ["意见反馈", "用户协议", "隐私政策"];
 
-// 登录、注册
+  // 登录、注册
   void _loginRegister() {
     Navigator.of(context).push(
       MaterialPageRoute(builder: (context) {
@@ -34,12 +35,22 @@ class _MineTabPageState extends State<MineTabPage> {
     );
   }
 
+  // 账号设置
+  void _accountSeting() {
+    Navigator.of(context).push(
+      MaterialPageRoute(builder: (context) {
+        return AccountSetting();
+      }),
+    );
+  }
+
   @override
   void initState() {
     super.initState();
 
     PackageInfo.fromPlatform().then((PackageInfo info) {
-      _dataList[3] = "v" + info.version + " build " + info.buildNumber;
+      _dataList.add("账号设置");
+      _dataList.add("v" + info.version + " build " + info.buildNumber);
       setState(() {});
     });
   }
@@ -103,21 +114,28 @@ class _MineTabPageState extends State<MineTabPage> {
           itemExtent: 54,
           delegate: SliverChildBuilderDelegate(
             (BuildContext context, int index) {
-              return ListTile(
-                title: Text(
-                  _dataList[index],
-                  textAlign: index == _dataList.length - 1
-                      ? TextAlign.center
-                      : TextAlign.left,
-                ),
-                onTap: () {
-                  if (_dataList[index] == "意见反馈") {
-                    this._feedback();
-                  }
-                },
-                trailing: index == _dataList.length - 1
+              return Material(
+                color: index == _dataList.length - 1
                     ? null
-                    : Icon(Icons.chevron_right),
+                    : rgba(255, 255, 255, 1),
+                child: ListTile(
+                  title: Text(
+                    _dataList[index],
+                    textAlign: index == _dataList.length - 1
+                        ? TextAlign.center
+                        : TextAlign.left,
+                  ),
+                  onTap: () {
+                    if (_dataList[index] == "意见反馈") {
+                      this._feedback();
+                    } else if (_dataList[index] == "账号设置") {
+                      this._accountSeting();
+                    }
+                  },
+                  trailing: index == _dataList.length - 1
+                      ? null
+                      : Icon(Icons.chevron_right),
+                ),
               );
             },
             childCount: _dataList.length,

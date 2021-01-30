@@ -33,26 +33,24 @@ class _LoginRegisterPageState extends State<LoginRegisterPage> {
 
   //开启倒计时
   void _startCountDown() {
-    setState(() {
-      _countDownSecond = 60;
-      _verifyString = "$_countDownSecond" + "秒后重新获取";
+    _countDownSecond = 60;
+    _verifyString = "$_countDownSecond" + "秒后重新获取";
 
-      _countdownTimer = Timer.periodic(
-        Duration(seconds: 1),
-        (timer) {
-          setState(() {
-            if (_countDownSecond > 0) {
-              _countDownSecond -= 1;
-              _verifyString = "$_countDownSecond" + "秒后重新获取";
-            } else {
-              _verifyString = "获取验证码";
-              _countdownTimer.cancel();
-              _countdownTimer = null;
-            }
-          });
-        },
-      );
-    });
+    _countdownTimer = Timer.periodic(
+      Duration(seconds: 1),
+      (timer) {
+        if (_countDownSecond > 0) {
+          _countDownSecond -= 1;
+          _verifyString = "$_countDownSecond" + "秒后重新获取";
+        } else {
+          _verifyString = "获取验证码";
+          _countdownTimer.cancel();
+          _countdownTimer = null;
+        }
+        setState(() {});
+      },
+    );
+    setState(() {});
   }
 
   //获取验证码
@@ -208,9 +206,8 @@ class _LoginRegisterPageState extends State<LoginRegisterPage> {
                     isShowTitle: false,
                   ),
                   onChanged: (CountryCode code) {
-                    setState(() {
-                      _areaCode = code.dialCode.replaceAll("+", "");
-                    });
+                    _areaCode = code.dialCode.replaceAll("+", "");
+                    setState(() {});
                   },
                 )
               : Container(),
