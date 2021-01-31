@@ -82,96 +82,98 @@ class _CancelAccountPageState extends State<CancelAccountPage> {
         onTap: () {
           FocusScope.of(context).requestFocus(FocusNode());
         },
-        child: ListView(
-          children: <Widget>[
-            //账户注销提示
-            Container(
-              color: rgba(248, 248, 248, 1),
-              padding: EdgeInsets.fromLTRB(13.5, 8, 13.5, 8),
-              alignment: Alignment.centerLeft,
-              child: Text(
-                "账户注销后您的个人主页不会被看见",
-                style: TextStyle(
-                  fontSize: 11,
-                  color: rgba(188, 188, 188, 1),
+        child: SafeArea(
+          child: ListView(
+            children: <Widget>[
+              //账户注销提示
+              Container(
+                color: rgba(248, 248, 248, 1),
+                padding: EdgeInsets.fromLTRB(13.5, 8, 13.5, 8),
+                alignment: Alignment.centerLeft,
+                child: Text(
+                  "账户注销后您的个人主页不会被看见",
+                  style: TextStyle(
+                    fontSize: 11,
+                    color: rgba(188, 188, 188, 1),
+                  ),
                 ),
               ),
-            ),
-            //注销原因
-            _SettingBaseSection(
-              title: "注销原因",
-            ),
-            Column(
-              children: _reasonList.map((reason) {
-                return _reasonCell(_reasonList.indexOf(reason));
-              }).toList(),
-            ),
-            //反馈
-            _SettingBaseSection(
-              title: "反馈",
-            ),
-            Container(
-              color: Colors.white,
-              padding: EdgeInsets.fromLTRB(16, 0, 16, 0),
-              child: TextField(
-                maxLines: 4,
-                style: TextStyle(
-                  color: rgba(51, 51, 51, 1),
-                  fontSize: 14,
-                ),
-                textInputAction: TextInputAction.done,
-                decoration: InputDecoration(
-                  enabledBorder: InputBorder.none,
-                  focusedBorder: InputBorder.none,
-                  hintText: "给我们一些建议？",
-                  hintStyle: TextStyle(
-                    color: rgba(171, 171, 171, 1),
+              //注销原因
+              _SettingBaseSection(
+                title: "注销原因",
+              ),
+              Column(
+                children: _reasonList.map((reason) {
+                  return _reasonCell(_reasonList.indexOf(reason));
+                }).toList(),
+              ),
+              //反馈
+              _SettingBaseSection(
+                title: "反馈",
+              ),
+              Container(
+                color: Colors.white,
+                padding: EdgeInsets.fromLTRB(16, 0, 16, 0),
+                child: TextField(
+                  maxLines: 4,
+                  style: TextStyle(
+                    color: rgba(51, 51, 51, 1),
                     fontSize: 14,
                   ),
-                ),
-              ),
-            ),
-            SizedBox(
-              height: 20,
-            ),
-            //注销
-            Container(
-              height: 44,
-              width: MediaQuery.of(context).size.width,
-              margin: EdgeInsets.fromLTRB(22, 0, 22, 0),
-              decoration: BoxDecoration(
-                color: rgba(216, 216, 216, 1),
-                borderRadius: BorderRadius.circular(44 / 2),
-                gradient: LinearGradient(
-                  colors: [
-                    rgba(255, 44, 96, 1),
-                    rgba(255, 114, 81, 1),
-                  ],
-                  begin: Alignment.centerLeft,
-                  end: Alignment.centerRight,
-                ),
-              ),
-              child: FlatButton(
-                padding: EdgeInsets.zero,
-                onPressed: () {
-                  this._onCancelConfirm();
-                },
-                child: Text(
-                  "注销",
-                  style: TextStyle(
-                    fontSize: 16,
-                    color: rgba(255, 255, 255, 1),
+                  textInputAction: TextInputAction.done,
+                  decoration: InputDecoration(
+                    enabledBorder: InputBorder.none,
+                    focusedBorder: InputBorder.none,
+                    hintText: "给我们一些建议？",
+                    hintStyle: TextStyle(
+                      color: rgba(171, 171, 171, 1),
+                      fontSize: 14,
+                    ),
                   ),
                 ),
-                shape: RoundedRectangleBorder(
+              ),
+              SizedBox(
+                height: 20,
+              ),
+              //注销
+              Container(
+                height: 44,
+                width: MediaQuery.of(context).size.width,
+                margin: EdgeInsets.fromLTRB(22, 0, 22, 0),
+                decoration: BoxDecoration(
+                  color: rgba(216, 216, 216, 1),
                   borderRadius: BorderRadius.circular(44 / 2),
+                  gradient: LinearGradient(
+                    colors: [
+                      rgba(255, 44, 96, 1),
+                      rgba(255, 114, 81, 1),
+                    ],
+                    begin: Alignment.centerLeft,
+                    end: Alignment.centerRight,
+                  ),
+                ),
+                child: FlatButton(
+                  padding: EdgeInsets.zero,
+                  onPressed: () {
+                    this._onCancelConfirm();
+                  },
+                  child: Text(
+                    "注销",
+                    style: TextStyle(
+                      fontSize: 16,
+                      color: rgba(255, 255, 255, 1),
+                    ),
+                  ),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(44 / 2),
+                  ),
                 ),
               ),
-            ),
-            SizedBox(
-              height: 44,
-            ),
-          ],
+              SizedBox(
+                height: 44,
+              ),
+            ],
+          ),
         ),
       ),
     );

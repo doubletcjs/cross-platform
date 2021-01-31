@@ -51,77 +51,79 @@ class _AccountSettingState extends State<AccountSetting> {
       appBar: AppBar(
         title: Text("账号设置"),
       ),
-      body: Column(
-        children: [
-          ListView.builder(
-            shrinkWrap: true,
-            padding: EdgeInsets.zero,
-            itemBuilder: (context, index) {
-              return Material(
-                color: rgba(255, 255, 255, 1),
-                child: ListTile(
-                  title: Text(
-                    _dataList[index],
-                  ),
-                  onTap: () {
-                    if (_dataList[index] == "更改手机号") {
-                      Navigator.of(context).push(
-                        MaterialPageRoute(builder: (context) {
-                          return ResetPhonePage();
-                        }),
-                      );
-                    } else if (_dataList[index] == "注销账号") {
-                      Navigator.of(context).push(
-                        MaterialPageRoute(builder: (context) {
-                          return CancelAccountPage();
-                        }),
-                      );
-                    }
-                  },
-                  trailing: Icon(Icons.chevron_right),
-                ),
-              );
-            },
-            itemCount: _dataList.length,
-          ),
-          SizedBox(
-            height: 20,
-          ),
-          //退出
-          Container(
-            height: 44,
-            width: MediaQuery.of(context).size.width,
-            margin: EdgeInsets.fromLTRB(22, 0, 22, 0),
-            decoration: BoxDecoration(
-              color: rgba(216, 216, 216, 1),
-              borderRadius: BorderRadius.circular(44 / 2),
-              gradient: LinearGradient(
-                colors: [
-                  rgba(255, 44, 96, 1),
-                  rgba(255, 114, 81, 1),
-                ],
-                begin: Alignment.centerLeft,
-                end: Alignment.centerRight,
-              ),
-            ),
-            child: FlatButton(
+      body: SafeArea(
+        child: Column(
+          children: [
+            ListView.builder(
+              shrinkWrap: true,
               padding: EdgeInsets.zero,
-              onPressed: () {
-                this._logoutAction();
-              },
-              child: Text(
-                "退出",
-                style: TextStyle(
-                  fontSize: 16,
+              itemBuilder: (context, index) {
+                return Material(
                   color: rgba(255, 255, 255, 1),
+                  child: ListTile(
+                    title: Text(
+                      _dataList[index],
+                    ),
+                    onTap: () {
+                      if (_dataList[index] == "更改手机号") {
+                        Navigator.of(context).push(
+                          MaterialPageRoute(builder: (context) {
+                            return ResetPhonePage();
+                          }),
+                        );
+                      } else if (_dataList[index] == "注销账号") {
+                        Navigator.of(context).push(
+                          MaterialPageRoute(builder: (context) {
+                            return CancelAccountPage();
+                          }),
+                        );
+                      }
+                    },
+                    trailing: Icon(Icons.chevron_right),
+                  ),
+                );
+              },
+              itemCount: _dataList.length,
+            ),
+            SizedBox(
+              height: 20,
+            ),
+            //退出
+            Container(
+              height: 44,
+              width: MediaQuery.of(context).size.width,
+              margin: EdgeInsets.fromLTRB(22, 0, 22, 0),
+              decoration: BoxDecoration(
+                color: rgba(216, 216, 216, 1),
+                borderRadius: BorderRadius.circular(44 / 2),
+                gradient: LinearGradient(
+                  colors: [
+                    rgba(255, 44, 96, 1),
+                    rgba(255, 114, 81, 1),
+                  ],
+                  begin: Alignment.centerLeft,
+                  end: Alignment.centerRight,
                 ),
               ),
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(44 / 2),
+              child: FlatButton(
+                padding: EdgeInsets.zero,
+                onPressed: () {
+                  this._logoutAction();
+                },
+                child: Text(
+                  "退出",
+                  style: TextStyle(
+                    fontSize: 16,
+                    color: rgba(255, 255, 255, 1),
+                  ),
+                ),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(44 / 2),
+                ),
               ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

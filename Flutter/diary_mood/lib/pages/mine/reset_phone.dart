@@ -235,74 +235,76 @@ class _ResetPhonePageState extends State<ResetPhonePage> {
         onTap: () {
           FocusScope.of(context).requestFocus(FocusNode());
         },
-        child: ListView(
-          children: <Widget>[
-            //手机号
-            _functionTextField(
-              placeholder: "新手机号",
-              maxLength: 11,
-              suffix: _verifyString,
-              controller: _phoneEditingController,
-              prefix: _areaCode,
-              inputFormatters: [
-                FilteringTextInputFormatter.digitsOnly,
-              ],
-            ),
-            Container(
-              color: Colors.white,
-              child: Container(
-                margin: EdgeInsets.fromLTRB(16, 0, 0, 0),
-                height: 0.5,
-                color: rgba(233, 233, 233, 1),
+        child: SafeArea(
+          child: ListView(
+            children: <Widget>[
+              //手机号
+              _functionTextField(
+                placeholder: "新手机号",
+                maxLength: 11,
+                suffix: _verifyString,
+                controller: _phoneEditingController,
+                prefix: _areaCode,
+                inputFormatters: [
+                  FilteringTextInputFormatter.digitsOnly,
+                ],
               ),
-            ),
-            //验证码
-            _functionTextField(
-              placeholder: "验证码",
-              maxLength: 6,
-              controller: _verifycodeEditingController,
-            ),
-            SizedBox(
-              height: 20,
-            ),
-            //提交
-            Container(
-              height: 44,
-              width: MediaQuery.of(context).size.width,
-              margin: EdgeInsets.fromLTRB(22, 0, 22, 0),
-              decoration: BoxDecoration(
-                color: rgba(216, 216, 216, 1),
-                borderRadius: BorderRadius.circular(44 / 2),
-                gradient: LinearGradient(
-                  colors: [
-                    rgba(255, 44, 96, 1),
-                    rgba(255, 114, 81, 1),
-                  ],
-                  begin: Alignment.centerLeft,
-                  end: Alignment.centerRight,
+              Container(
+                color: Colors.white,
+                child: Container(
+                  margin: EdgeInsets.fromLTRB(16, 0, 0, 0),
+                  height: 0.5,
+                  color: rgba(233, 233, 233, 1),
                 ),
               ),
-              child: FlatButton(
-                padding: EdgeInsets.zero,
-                onPressed: () {
-                  this._onConfirm();
-                },
-                child: Text(
-                  "提交",
-                  style: TextStyle(
-                    fontSize: 16,
-                    color: rgba(255, 255, 255, 1),
+              //验证码
+              _functionTextField(
+                placeholder: "验证码",
+                maxLength: 6,
+                controller: _verifycodeEditingController,
+              ),
+              SizedBox(
+                height: 20,
+              ),
+              //提交
+              Container(
+                height: 44,
+                width: MediaQuery.of(context).size.width,
+                margin: EdgeInsets.fromLTRB(22, 0, 22, 0),
+                decoration: BoxDecoration(
+                  color: rgba(216, 216, 216, 1),
+                  borderRadius: BorderRadius.circular(44 / 2),
+                  gradient: LinearGradient(
+                    colors: [
+                      rgba(255, 44, 96, 1),
+                      rgba(255, 114, 81, 1),
+                    ],
+                    begin: Alignment.centerLeft,
+                    end: Alignment.centerRight,
                   ),
                 ),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(44 / 2),
+                child: FlatButton(
+                  padding: EdgeInsets.zero,
+                  onPressed: () {
+                    this._onConfirm();
+                  },
+                  child: Text(
+                    "提交",
+                    style: TextStyle(
+                      fontSize: 16,
+                      color: rgba(255, 255, 255, 1),
+                    ),
+                  ),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(44 / 2),
+                  ),
                 ),
               ),
-            ),
-            SizedBox(
-              height: 44,
-            ),
-          ],
+              SizedBox(
+                height: 44,
+              ),
+            ],
+          ),
         ),
       ),
     );
