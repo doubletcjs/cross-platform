@@ -1,7 +1,7 @@
 {
     "usingComponents": {
-        "keyboard": "../keyboard/billkeyboard",
-        "header": "../header/billcreationheader"
+        "keyboard": "./keyboard/billkeyboard",
+        "header": "./header/billcreationheader"
     },
     "backgroundTextStyle": "light",
     "navigationBarBackgroundColor": "#159FFB",

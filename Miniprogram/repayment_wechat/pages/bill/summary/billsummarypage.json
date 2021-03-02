@@ -1,6 +1,6 @@
 {
     "usingComponents": {
-        "chartheader": "../views/chart/billsummarychart"
+        "chartheader": "./views/chart/billsummarychart"
     },
     "navigationBarTitleText": "账单汇总",
     "backgroundTextStyle": "light",
