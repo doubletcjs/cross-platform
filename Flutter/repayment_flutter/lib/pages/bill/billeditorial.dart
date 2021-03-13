@@ -151,7 +151,9 @@ class _BillEditorialPageState extends State<BillEditorialPage> {
                                   ? _bill["limit"]
                                   : index == 3
                                       ? _bill["cycle"]
-                                      : index == 4 ? _bill["remark"] : "",
+                                      : index == 4
+                                          ? _bill["remark"]
+                                          : "",
                       editorialHandle: (value) {
                         if (index == 0) {
                           var nameIcon = "$value";
@@ -180,7 +182,7 @@ class _BillEditorialPageState extends State<BillEditorialPage> {
           ],
         ),
       ),
-      resizeToAvoidBottomPadding: false,
+      resizeToAvoidBottomInset: false,
     );
   }
 }

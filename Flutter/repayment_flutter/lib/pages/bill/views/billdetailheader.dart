@@ -133,7 +133,7 @@ class BillDetailHeader extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
                         Text(
-                          "${bill["name"]}",
+                          "招商银行",
                           style: TextStyle(
                             fontSize: 16,
                             color: Colors.white,
@@ -143,7 +143,7 @@ class BillDetailHeader extends StatelessWidget {
                           height: 8,
                         ),
                         Text(
-                          "${double.parse('${bill["eachamount"]}').toStringAsFixed(2)}",
+                          "1231",
                           style: TextStyle(
                             fontSize: 24,
                             color: Colors.white,
@@ -191,10 +191,10 @@ class BillDetailHeader extends StatelessWidget {
                     children: <Widget>[
                       Text(
                         index == 0
-                            ? "${double.parse('${double.parse('${bill["eachamount"]}') * (int.parse('${bill['repaymentterms']}') + 1)}').toStringAsFixed(2)}"
+                            ? "200"
                             : index == 1
-                                ? "${int.parse('${bill['repaymentterms']}') + 1}"
-                                : "每${int.parse('${bill['repaymentperiod']}'.split('|').first) + 1}${int.parse('${bill['repaymentperiod']}'.split('|').last) == 0 ? '个月' : '天'}",
+                                ? "2"
+                                : "每1天",
                         style: TextStyle(
                           fontSize: 19,
                           color: Colors.white,

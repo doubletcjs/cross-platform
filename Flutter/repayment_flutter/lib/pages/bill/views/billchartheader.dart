@@ -92,6 +92,13 @@ class _BillChartHeaderState extends State<BillChartHeader> {
       spots.add(spot);
     }
 
+    List<FlSpot> spots1 = [];
+    for (var i = 0; i < _monthlyAmounts.length; i++) {
+      var amount = _monthlyAmounts[i];
+      FlSpot spot = FlSpot(i * 2 + 4.0, amount / each);
+      spots1.add(spot);
+    }
+
     final LineChartBarData lineChartBarData = LineChartBarData(
       spots: spots,
       isCurved: true,
@@ -108,8 +115,25 @@ class _BillChartHeaderState extends State<BillChartHeader> {
       ),
       preventCurveOverShooting: true,
     );
+
+    final LineChartBarData lineChartBarData1 = LineChartBarData(
+      spots: spots,
+      isCurved: true,
+      colors: [
+        kMainColor,
+      ],
+      barWidth: 2.4,
+      isStrokeCapRound: true,
+      dotData: FlDotData(
+        show: true,
+      ),
+      belowBarData: BarAreaData(
+        show: false,
+      ),
+      preventCurveOverShooting: true,
+    );
     return [
-      lineChartBarData,
+      lineChartBarData1,
     ];
   }
 
