@@ -1,235 +1,242 @@
 {
-	"description": "项目配置文件",
-	"packOptions": {
-		"ignore": []
-	},
-	"setting": {
-		"urlCheck": false,
-		"es6": true,
-		"postcss": true,
-		"preloadBackgroundData": false,
-		"minified": true,
-		"newFeature": true,
-		"coverView": true,
-		"autoAudits": false,
-		"showShadowRootInWxmlPanel": true,
-		"scopeDataCheck": false,
-		"checkInvalidKey": true,
-		"checkSiteMap": true,
-		"uploadWithSourceMap": true,
-		"compileHotReLoad": false,
-		"babelSetting": {
-			"ignore": [],
-			"disablePlugins": [],
-			"outputPath": ""
-		},
-		"useIsolateContext": true,
-		"useCompilerModule": true,
-		"userConfirmedUseCompilerModuleSwitch": false
-	},
-	"compileType": "miniprogram",
-	"libVersion": "2.11.0",
-	"appid": "wx2c43c47ac4cb45f4",
-	"projectname": "live_miniProgram",
-	"debugOptions": {
-		"hidedInDevtools": []
-	},
-	"isGameTourist": false,
-	"simulatorType": "wechat",
-	"simulatorPluginLibVersion": {},
-	"condition": {
-		"search": {
-			"current": -1,
-			"list": []
-		},
-		"conversation": {
-			"current": -1,
-			"list": []
-		},
-		"plugin": {
-			"current": -1,
-			"list": []
-		},
-		"game": {
-			"currentL": -1,
-			"list": []
-		},
-		"gamePlugin": {
-			"current": -1,
-			"list": []
-		},
-		"miniprogram": {
-			"current": -1,
-			"list": [
-				{
-					"id": -1,
-					"name": "往期视频列表",
-					"pathName": "pages/liveRoom/livehost/index",
-					"query": "",
-					"scene": null
-				},
-				{
-					"id": -1,
-					"name": "查看视频回放",
-					"pathName": "pages/liveRoom/playback/index",
-					"query": "",
-					"scene": null
-				},
-				{
-					"id": -1,
-					"name": "直播首页",
-					"pathName": "pages/main/live/index",
-					"query": "",
-					"scene": null
-				},
-				{
-					"id": 3,
-					"name": "我要开播",
-					"pathName": "pages/livePrepare/index",
-					"query": "",
-					"scene": null
-				},
-				{
-					"id": 4,
-					"name": "直播间",
-					"pathName": "pages/liveRoom/index",
-					"query": "",
-					"scene": null
-				},
-				{
-					"id": 5,
-					"name": "首页",
-					"pathName": "pages/main/home/index",
-					"query": "",
-					"scene": null
-				},
-				{
-					"id": 6,
-					"name": "充值",
-					"pathName": "pages/recharge/index",
-					"query": "",
-					"scene": null
-				},
-				{
-					"id": 7,
-					"name": "主播简介编辑",
-					"pathName": "pages/livePrepare/introEdit/index",
-					"query": "",
-					"scene": null
-				},
-				{
-					"id": -1,
-					"name": "直播结束",
-					"pathName": "pages/liveRoom/liveEnd/index",
-					"query": "",
-					"scene": null
-				},
-				{
-					"id": -1,
-					"name": "往期视频",
-					"pathName": "pages/liveRoom/livehost/index",
-					"query": "",
-					"scene": null
-				},
-				{
-					"id": 10,
-					"name": "橫批直播",
-					"pathName": "pages/landscapeLive/index",
-					"query": "",
-					"scene": null
-				},
-				{
-					"id": 11,
-					"name": "写文章",
-					"pathName": "pages/main/community/writeArticle/index",
-					"query": "",
-					"scene": null
-				},
-				{
-					"id": -1,
-					"name": "资讯首页",
-					"pathName": "pages/main/community/index",
-					"query": "",
-					"scene": null
-				},
-				{
-					"id": -1,
-					"name": "私聊",
-					"pathName": "pages/main/community/messagecenter/privateChat/index",
-					"query": "",
-					"scene": null
-				},
-				{
-					"id": 14,
-					"name": "长文查看",
-					"pathName": "pages/main/community/longArticleDetails/index",
-					"query": "",
-					"scene": null
-				},
-				{
-					"id": 15,
-					"name": "长文缩略",
-					"pathName": "pages/main/community/lookArticle/thumbnail/index",
-					"query": "",
-					"scene": null
-				},
-				{
-					"id": -1,
-					"name": "查看打赏情况",
-					"pathName": "pages/main/community/lookGiveAuthor/index",
-					"query": "",
-					"scene": null
-				},
-				{
-					"id": -1,
-					"name": "转发页面",
-					"pathName": "pages/main/community/longArticleDetails/transmitArticle/index",
-					"query": "",
-					"scene": null
-				},
-				{
-					"id": -1,
-					"name": "快讯详情与评论",
-					"pathName": "pages/main/community/newsDetail/index",
-					"query": "",
-					"scene": null
-				},
-				{
-					"id": 19,
-					"name": "评论详情",
-					"pathName": "pages/main/community/commentDetail/index",
-					"query": "",
-					"scene": null
-				},
-				{
-					"id": -1,
-					"name": "草稿箱",
-					"pathName": "pages/main/community/drafts/index",
-					"query": "",
-					"scene": null
-				},
-				{
-					"id": -1,
-					"name": "账户设置",
-					"pathName": "pages/main/profile/info/index",
-					"query": "",
-					"scene": null
-				},
-				{
-					"id": -1,
-					"name": "优惠券",
-					"pathName": "pages/main/mall/coupons/index",
-					"query": "",
-					"scene": null
-				},
-				{
-					"id": -1,
-					"name": "订单列表",
-					"pathName": "pages/main/mall/order/index",
-					"query": "",
-					"scene": null
-				}
-			]
-		}
-	}
+  "description": "项目配置文件",
+  "packOptions": {
+    "ignore": []
+  },
+  "setting": {
+    "urlCheck": false,
+    "es6": true,
+    "enhance": false,
+    "postcss": true,
+    "preloadBackgroundData": false,
+    "minified": true,
+    "newFeature": true,
+    "coverView": true,
+    "nodeModules": false,
+    "autoAudits": false,
+    "showShadowRootInWxmlPanel": true,
+    "scopeDataCheck": false,
+    "uglifyFileName": false,
+    "checkInvalidKey": true,
+    "checkSiteMap": true,
+    "uploadWithSourceMap": true,
+    "compileHotReLoad": false,
+    "useMultiFrameRuntime": true,
+    "useApiHook": true,
+    "useApiHostProcess": false,
+    "babelSetting": {
+      "ignore": [],
+      "disablePlugins": [],
+      "outputPath": ""
+    },
+    "enableEngineNative": false,
+    "bundle": false,
+    "useIsolateContext": true,
+    "useCompilerModule": true,
+    "userConfirmedUseCompilerModuleSwitch": false,
+    "userConfirmedBundleSwitch": false,
+    "packNpmManually": false,
+    "packNpmRelationList": [],
+    "minifyWXSS": true
+  },
+  "compileType": "miniprogram",
+  "libVersion": "2.11.0",
+  "appid": "wx158e561eec1e0730",
+  "projectname": "live_miniProgram",
+  "debugOptions": {
+    "hidedInDevtools": []
+  },
+  "isGameTourist": false,
+  "simulatorType": "wechat",
+  "simulatorPluginLibVersion": {},
+  "condition": {
+    "search": {
+      "list": []
+    },
+    "conversation": {
+      "list": []
+    },
+    "plugin": {
+      "list": []
+    },
+    "game": {
+      "currentL": -1,
+      "list": []
+    },
+    "gamePlugin": {
+      "list": []
+    },
+    "miniprogram": {
+      "list": [
+        {
+          "id": -1,
+          "name": "往期视频列表",
+          "pathName": "pages/liveRoom/livehost/index",
+          "query": "",
+          "scene": null
+        },
+        {
+          "id": -1,
+          "name": "查看视频回放",
+          "pathName": "pages/liveRoom/playback/index",
+          "query": "",
+          "scene": null
+        },
+        {
+          "id": -1,
+          "name": "直播首页",
+          "pathName": "pages/main/live/index",
+          "query": "",
+          "scene": null
+        },
+        {
+          "id": 3,
+          "name": "我要开播",
+          "pathName": "pages/livePrepare/index",
+          "query": "",
+          "scene": null
+        },
+        {
+          "id": 4,
+          "name": "直播间",
+          "pathName": "pages/liveRoom/index",
+          "query": "",
+          "scene": null
+        },
+        {
+          "id": 5,
+          "name": "首页",
+          "pathName": "pages/main/home/index",
+          "query": "",
+          "scene": null
+        },
+        {
+          "id": 6,
+          "name": "充值",
+          "pathName": "pages/recharge/index",
+          "query": "",
+          "scene": null
+        },
+        {
+          "id": 7,
+          "name": "主播简介编辑",
+          "pathName": "pages/livePrepare/introEdit/index",
+          "query": "",
+          "scene": null
+        },
+        {
+          "id": -1,
+          "name": "直播结束",
+          "pathName": "pages/liveRoom/liveEnd/index",
+          "query": "",
+          "scene": null
+        },
+        {
+          "id": -1,
+          "name": "往期视频",
+          "pathName": "pages/liveRoom/livehost/index",
+          "query": "",
+          "scene": null
+        },
+        {
+          "id": 10,
+          "name": "橫批直播",
+          "pathName": "pages/landscapeLive/index",
+          "query": "",
+          "scene": null
+        },
+        {
+          "id": 11,
+          "name": "写文章",
+          "pathName": "pages/main/community/writeArticle/index",
+          "query": "",
+          "scene": null
+        },
+        {
+          "id": -1,
+          "name": "资讯首页",
+          "pathName": "pages/main/community/index",
+          "query": "",
+          "scene": null
+        },
+        {
+          "id": -1,
+          "name": "私聊",
+          "pathName": "pages/main/community/messagecenter/privateChat/index",
+          "query": "",
+          "scene": null
+        },
+        {
+          "id": 14,
+          "name": "长文查看",
+          "pathName": "pages/main/community/longArticleDetails/index",
+          "query": "",
+          "scene": null
+        },
+        {
+          "id": 15,
+          "name": "长文缩略",
+          "pathName": "pages/main/community/lookArticle/thumbnail/index",
+          "query": "",
+          "scene": null
+        },
+        {
+          "id": -1,
+          "name": "查看打赏情况",
+          "pathName": "pages/main/community/lookGiveAuthor/index",
+          "query": "",
+          "scene": null
+        },
+        {
+          "id": -1,
+          "name": "转发页面",
+          "pathName": "pages/main/community/longArticleDetails/transmitArticle/index",
+          "query": "",
+          "scene": null
+        },
+        {
+          "id": -1,
+          "name": "快讯详情与评论",
+          "pathName": "pages/main/community/newsDetail/index",
+          "query": "",
+          "scene": null
+        },
+        {
+          "id": 19,
+          "name": "评论详情",
+          "pathName": "pages/main/community/commentDetail/index",
+          "query": "",
+          "scene": null
+        },
+        {
+          "id": -1,
+          "name": "草稿箱",
+          "pathName": "pages/main/community/drafts/index",
+          "query": "",
+          "scene": null
+        },
+        {
+          "id": -1,
+          "name": "账户设置",
+          "pathName": "pages/main/profile/info/index",
+          "query": "",
+          "scene": null
+        },
+        {
+          "id": -1,
+          "name": "优惠券",
+          "pathName": "pages/main/mall/coupons/index",
+          "query": "",
+          "scene": null
+        },
+        {
+          "id": -1,
+          "name": "订单列表",
+          "pathName": "pages/main/mall/order/index",
+          "query": "",
+          "scene": null
+        }
+      ]
+    }
+  }
 }
